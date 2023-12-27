@@ -158,6 +158,7 @@
 </template>
 <script>
   import axios from "axios";
+  import baseRequest from '../../../core/baseRequest';
   import { createToaster } from "@meforma/vue-toaster";
   const toaster = createToaster({
     position: "top-right",
@@ -177,16 +178,16 @@
     },
     methods: {
       loaddataTheLoai() {
-        axios
-          .get("http://127.0.0.1:8000/api/admin/the-loai/lay-du-lieu")
+        baseRequest
+          .get("admin/the-loai/lay-du-lieu")
           .then((res) => {
             this.list_the_loai = res.data.the_loai;
           });
       },
       taoDataTheLoai() {
-        axios
+        baseRequest
           .post(
-            "http://127.0.0.1:8000/api/admin/the-loai/thong-tin-tao",
+            "admin/the-loai/thong-tin-tao",
             this.obj_add_the_loai
           )
           .then((res) => {
@@ -200,15 +201,15 @@
           });
       },
       searchTheLoai() {
-            axios
-                .post('http://127.0.0.1:8000/api/admin/the-loai/thong-tin-tim', this.key_tim)
+            baseRequest
+                .post('admin/the-loai/thong-tin-tim', this.key_tim)
                 .then((res) => {
                     this.list_the_loai = res.data.the_loai;
                 });
         },
         deleteTheLoai() {
-          axios
-                .delete('http://127.0.0.1:8000/api/admin/the-loai/thong-tin-xoa/' + this.obj_delete_the_loai.id)
+          baseRequest
+                .delete('admin/the-loai/thong-tin-xoa/' + this.obj_delete_the_loai.id)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
@@ -220,8 +221,8 @@
                 });
         },
         updateTheLoai() {
-            axios
-                .put('http://127.0.0.1:8000/api/admin/the-loai/thong-tin-cap-nhat', this.obj_update_the_loai)
+            baseRequest
+                .put('admin/the-loai/thong-tin-cap-nhat', this.obj_update_the_loai)
                 .then((res) =>  {
                     if(res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
@@ -233,8 +234,8 @@
         },
 
         doiTrangThai(xyz) {
-            axios
-                .put('http://127.0.0.1:8000/api/admin/the-loai/thong-tin-thay-doi-trang-thai', xyz)
+            baseRequest
+                .put('admin/the-loai/thong-tin-thay-doi-trang-thai', xyz)
                 .then((res) =>  {
                     if(res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
