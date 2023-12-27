@@ -48,9 +48,16 @@ const routes = [
         meta : {layout : 'new'}
 
     },
+    {
+        path : '/admin/tac-gia',
+        component: ()=>import('../components/Admin/TacGia/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'}
+
+    },
      {
         path : '/admin/anime',
-        component: ()=>import('../components/Admin/Anime/index.vue'),
+        component: ()=>import('../components/Admin/Phim/index.vue'),
         beforeEnter: checkLogin,
         meta : {layout : 'new'}
     },

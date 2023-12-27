@@ -46,6 +46,16 @@
                       </a>
                   </router-link>
               </li>
+              <li class="nav-item text-nowrap">
+                  <router-link to="/admin/tac-gia">
+                      <a href="/admin/tac-gia" class="nav-link">
+                          <div class="parent-icon">
+                              <i class="fa-solid fa-map"></i>
+                          </div>
+                          <div class="menu-title">Tác Giả</div>
+                      </a>
+                  </router-link>
+              </li>
             
              
             
