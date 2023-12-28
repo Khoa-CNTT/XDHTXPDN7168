@@ -8,7 +8,20 @@ const routes = [
 
     },
     {
-        path : '/index2',
+        path : '/login',
+        component: ()=>import('../components/Page/Login/index.vue'),
+        meta : {layout : 'loginanime'} ,
+
+    },
+    {
+        path : '/register',
+        component: ()=>import('../components/Page/Register/index.vue'),
+        meta : {layout : 'loginanime'} ,
+
+
+    },
+    {
+        path : '/index2/:id',
         component: ()=>import('../components/Page/PageDelist/index.vue'),
 
     },
@@ -37,6 +50,30 @@ const routes = [
     {
         path : '/admin/the-loai',
         component: ()=>import('../components/Admin/TheLoai/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'} ,
+    },
+    {
+        path : '/admin/tk-admin',
+        component: ()=>import('../components/Admin/AdminAnime/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'} ,
+    },
+    {
+        path : '/admin/khach-hang',
+        component: ()=>import('../components/Admin/KhachHang/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'} ,
+    },
+    {
+        path : '/admin/khach-hang',
+        component: ()=>import('../components/Admin/KhachHang/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'} ,
+    },
+    {
+        path : '/admin/bai-viet',
+        component: ()=>import('../components/Admin/BaiViet/index.vue'),
         beforeEnter: checkLogin,
         meta : {layout : 'new'} ,
     },
