@@ -20,16 +20,17 @@ const routes = [
 
 
     },
+    
+    {
+        path : '/index1/:id',
+        component: ()=>import('../components/Page/PageList/index.vue'),
+
+    }, 
     {
         path : '/index2/:id',
         component: ()=>import('../components/Page/PageDelist/index.vue'),
 
     },
-    {
-        path : '/index1',
-        component: ()=>import('../components/Page/PageList/index.vue'),
-
-    }, 
     {
         path : '/index3',
         component: ()=>import('../components/Page/PageWatch/index.vue'),
@@ -46,6 +47,11 @@ const routes = [
         component: ()=>import('../components/Page/BlogDelist/index.vue'),
 
     }, 
+    {
+        path : '/index6',
+        component: ()=>import('../components/Page/PageAllTheLoai/index.vue'),
+
+    },
     /// Admin
     {
         path : '/admin/the-loai',
