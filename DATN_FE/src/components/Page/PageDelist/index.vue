@@ -1,5 +1,7 @@
 <template>
-  <!-- Breadcrumb Begin -->
+ <template v-for="(v,k) in list_phim">
+    <template v-if="v.id == id">
+          <!-- Breadcrumb Begin -->
   <div class="breadcrumb-option" style="background-color: #0b0c2a">
         <div class="container">
             <div class="row">
@@ -7,7 +9,9 @@
                     <div class="breadcrumb__links">
                         <a href="./index.html"><i class="fa fa-home"></i> Home</a>
                         <a href="./categories.html">Thể Loại</a>
-                        <span>Romance</span>
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+
+                        <span>{{  v.ten_the_loai }}</span>
                     </div>
                 </div>
             </div>
@@ -21,16 +25,14 @@
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" data-setbg="../../../assets/assets_Anime/img/anime/details-pic.jpg">
-                            <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                        <div class="anime__details__pic set-bg" v-bind:style="{'background-image': 'url(' + v.hinh_anh + ')',}" data-setbg="../../../assets/assets_Anime/img/anime/details-pic.jpg">
                         </div>
                     </div>
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title">
-                                <h3>Fate Stay Night: Unlimited Blade</h3>
-                                <span>フェイト／ステイナイト, Feito／sutei naito</span>
+                                <h3>{{  v.ten_phim }}</h3>
+                                <span>{{  v.ten_tac_gia }}</span>
                             </div>
                             <div class="anime__details__rating">
                                 <div class="rating">
@@ -42,10 +44,7 @@
                                 </div>
                                 <span>1.029 Votes</span>
                             </div>
-                            <p>Every human inhabiting the world of Alcia is branded by a “Count” or a number written on
-                                their body. For Hina’s mother, her total drops to 0 and she’s pulled into the Abyss,
-                                never to be seen again. But her mother’s last words send Hina on a quest to find a
-                            legendary hero from the Waste War - the fabled Ace!</p>
+                            <p>{{  v.mo_ta }}</p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
@@ -180,40 +179,58 @@
         <!-- Anime Section End -->
 
         <!-- Footer Section Begin -->
+    </template>
+ </template>
        
 
 </template>
 <script>
     import axios from "axios"
+    import baseRequest from '../../../core/baseRequest';
+    import { createToaster } from "@meforma/vue-toaster";
+    const toaster = createToaster({
+        position: "top-right",
+    });
+
     export default {
         data() {
             return {
-                list_anh: [
-                    {
-                        'img': 'https://themewagon.github.io/anime/img/trending/trend-1.jpg',
-                    },
-                    {
-                        'img': 'https://themewagon.github.io/anime/img/trending/trend-2.jpg',
-                    },
-                    {
-                        'img': 'https://themewagon.github.io/anime/img/trending/trend-3.jpg',
-                    },
-
-                ],
-            };
+				id : this.$route.params.id,
+                        list_loai_phim : [],
+                obj_mo_ta      : {},
+                list_the_loai  : [],
+                list_tac_gia   : [],
+                list_phim      : [],
+                    };
         },
         mounted() {
-
+            this.laydataLoaiPhim();
+            this.loaddataTheLoai();
+            this.laydataPhim();
         },
         methods: {
-            laydataNhanVien() {
-                axios
-                    .get("http://127.0.0.1:8000/api/admin/nhan-vien/lay-du-lieu")
-                    .then((res) => {
-                        this.list_nhan_vien = res.data.nhan_vien;
-
-                    });
+            laydataPhim() {
+                baseRequest
+                .get("admin/phim/lay-du-lieu")
+                .then((res) => {
+                    this.list_phim = res.data.phim;
+                });
             },
+            laydataLoaiPhim() {
+                axios
+                .get("http://127.0.0.1:8000/api/admin/loai-phim/lay-du-lieu")
+                .then((res) => {
+                    this.list_loai_phim = res.data.loai_phim;
+                });
+            },
+            loaddataTheLoai() {
+                axios
+                .get("http://127.0.0.1:8000/api/admin/the-loai/lay-du-lieu")
+                .then((res) => {
+                    this.list_the_loai = res.data.the_loai;
+                });
+            },
+
         },
     };
 </script>

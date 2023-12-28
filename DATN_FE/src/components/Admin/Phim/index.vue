@@ -104,7 +104,7 @@
             <b>DANH SÁCH PHIM</b>
           </div>
           <div class="card-body">
-            <table class="table table-bordered">
+            <table class="table table-bordered table-responsive ">
               <thead>
                 <tr>
                   <th colspan="100%">
@@ -124,6 +124,7 @@
                   <th class="text-center align-middle text-nowrap">Hình Ảnh</th>
                   <th class="text-center align-middle text-nowrap">Loại Phim</th>
                   <th class="text-center align-middle text-nowrap">Thể Loại</th>
+                  <th class="text-center align-middle text-nowrap">Tác Giả</th>
                   <th class="text-center align-middle text-nowrap">Url Phim</th>
                   <th class="text-center align-middle text-nowrap">Tình Trạng</th>
                   <th class="text-center align-middle text-nowrap">Action</th>
@@ -133,13 +134,17 @@
                 <tr v-for="(v, k) in list_phim" class="text-center">
                   <td class="text-center align-middle text-nowrap">{{ k + 1 }}</td>
                   <td class="text-center align-middle text-nowrap">{{ v.ten_phim }}</td>
-                  <td class="text-center align-middle text-nowrap">{{ v.mo_ta }}</td>
+                  <td class="text-center align-middle text-nowrap">
+                    <button @click="Object.assign(obj_mo_ta,v)" type="button" class="btn text-info" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-info"></i>
+                    </button>
+                  </td>
                   <td class="text-center align-middle text-nowrap">
                     <img v-bind:src="v.hinh_anh" class="img-fluid" style="width: 70px; height: auto;" alt="">
                   </td>
                   <td class="text-center align-middle text-nowrap">{{ v.ten_loai_phim }}</td>
-                  <td class="text-center align-middle text-nowrap">{{ v.url }}</td>
                   <td class="text-center align-middle text-nowrap">{{ v.ten_the_loai }}</td>
+                  <td class="text-center align-middle text-nowrap">{{ v.ten_tac_gia }}</td>
+                  <td class="text-center align-middle text-nowrap">{{ v.url }}</td>
 
                   <td class="text-center align-middle text-nowrap">
                     <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1" class="btn btn-success">
@@ -163,6 +168,22 @@
                 </tr>
               </tbody>
             </table>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mô Tả</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {{ obj_mo_ta.mo_ta }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Đóng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="modal fade" id="Chinhsua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -261,8 +282,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Chức
-                      Năng
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"> Xoá Phim
                     </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
@@ -295,12 +315,13 @@
   export default {
     data() {
       return {
-        list_loai_phim: [],
-        list_the_loai: [],
-        list_tac_gia    : [],
-        list_phim: [],
-        obj_add_phim: {  },
-        key_tim: {},
+        list_loai_phim : [],
+        obj_mo_ta      : {},
+        list_the_loai  : [],
+        list_tac_gia   : [],
+        list_phim      : [],
+        obj_add_phim   : {},
+        key_tim        : {},
         obj_update_phim: {},
         obj_delete_phim: {},
       };

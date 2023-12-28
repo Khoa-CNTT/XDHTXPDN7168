@@ -652,7 +652,8 @@ ol {
 }
 
 .product__item__pic {
-	height: 325px;
+	height: 290px;
+	width: 210px;
 	position: relative;
 	border-radius: 5px;
 }
@@ -964,7 +965,8 @@ ol {
 }
 
 .anime__details__pic {
-	height: 440px;
+	height: 430px;
+	width: 100%;
 	border-radius: 5px;
 	position: relative;
 }
