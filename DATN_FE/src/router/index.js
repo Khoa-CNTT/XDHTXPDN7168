@@ -32,10 +32,15 @@ const routes = [
 
     },
     {
-        path : '/index3',
+        path : '/index3/:id',
         component: ()=>import('../components/Page/PageWatch/index.vue'),
 
     }, 
+    {
+        path : '/index6/:id',
+        component: ()=>import('../components/Page/PageLoaiPhim/index.vue'),
+
+    },
     //Page Blog
     {
         path : '/index4',
@@ -47,11 +52,7 @@ const routes = [
         component: ()=>import('../components/Page/BlogDelist/index.vue'),
 
     }, 
-    {
-        path : '/index6',
-        component: ()=>import('../components/Page/PageAllTheLoai/index.vue'),
-
-    },
+    
     /// Admin
     {
         path : '/admin/the-loai',

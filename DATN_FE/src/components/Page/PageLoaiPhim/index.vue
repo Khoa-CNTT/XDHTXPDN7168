@@ -1,5 +1,5 @@
 <template>
-    <template v-for="(v,k) in list_the_loai">
+    <template v-for="(v,k) in list_loai_phim">
         <template v-if="v.id == id">
             <!-- Breadcrumb Begin -->
             <div class="breadcrumb-option" style="background-color: #0b0c2a">
@@ -8,8 +8,8 @@
                         <div class="col-lg-12">
                             <div class="breadcrumb__links">
                                 <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-                                <router-link to="/"> Thể Loại</router-link>
-                                <a href=""> {{ v.ten_the_loai }}</a>
+                                <router-link to="/"> Loại Phim</router-link>
+                                <a href=""> {{ v.ten_loai_phim }}</a>
                                 <span>{{ v.ten_phim }}</span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-6">
                                             <div class="section-title">
-                                                <h4>{{ v.ten_the_loai }}</h4>
+                                                <h4>{{ v.ten_loai_phim }}</h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-6">
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="row">
                                     <template v-for="(v1,k1) in list_phim">
-                                        <div v-if="v1.id_the_loai == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                                        <div v-if="v1.id_loai_phim == v.id" class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg"
                                             v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">

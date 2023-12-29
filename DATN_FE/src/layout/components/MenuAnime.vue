@@ -18,24 +18,34 @@
                                         <a href="/">Trang Chủ</a>
                                       </li>
                                 </router-link>
-                                <router-link to="/index1">
-                                    <li><a href="/index1">Thể Loại <span class="arrow_carrot-down"></span></a>
+                                <!-- <router-link :to="`/index1/${1}`"> -->
+                                    <li><a v-bind:href="'/index1/' +  '1'">Thể Loại <span class="arrow_carrot-down"></span></a>
                                         <ul class="dropdown">
-                                        <template v-for="(v,k) in list_the_loai">
-                                        <li><a href="./categories.html">{{ v.ten_the_loai }}</a></li>
+                                        <template v-for="(v,k) in Showobject()">
+                                            <li >
+                                                <!-- <router-link :to="`/index1/${v.id}`">
+                                                        {{  v.ten_the_loai }}
+                                                </router-link> -->
+                                                <a  v-bind:href="'/index1/' + v.id"> {{ v.ten_the_loai }}</a>
+                                            </li>
                                         </template>
                                         </ul>
                                     </li>
-                                </router-link>
-                                <router-link to="/index2">
-                                    <li><a href="/index2">Loại Phim <span class="arrow_carrot-down"></span></a>
+                                <!-- </router-link> -->
+                                <!-- <router-link to="/index6"> -->
+                                    <li><a v-bind:href="'/index6/' +  '1'">Loại Phim <span class="arrow_carrot-down"></span></a>
                                         <ul class="dropdown">
                                         <template v-for="(v,k) in list_loai_phim">
-                                        <li><a href="/index2">{{ v.ten_loai_phim }}</a></li>
+                                            <li >
+                                                <!-- <router-link :to="`/index6/${v.id}`">
+                                                    {{  v.ten_loai_phim }}
+                                                </router-link> -->
+                                                <a  v-bind:href="'/index6/' + v.id">{{ v.ten_loai_phim }}</a>
+                                            </li>
                                         </template>
                                         </ul>
                                     </li>
-                                </router-link>
+                                <!-- </router-link> -->
                                 <router-link to="/index5">
                                 <li class="active"><a href="#"> Blog</a></li>
                                 </router-link>
@@ -47,7 +57,9 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <a href="#" class="search-switch"><span class="icon_search"></span></a>
-                        <a href="./login.html"><span class="icon_profile"></span></a>
+                        <router-link to="/login">
+                          <a ><span class="icon_profile"></span></a>
+                        </router-link>
 
                     </div>
                 </div>
@@ -120,6 +132,15 @@ export default {
 
   },
   methods: {
+    reloadPage() {
+      // Sử dụng location.reload() để tải lại trang
+      location.reload();
+    },
+    Showobject() {
+        const totalItems = this.list_the_loai.length;
+        // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
+        return this.list_the_loai.slice(0, totalItems);
+      },
     laydataLoaiPhim() {
       axios
         .get("http://127.0.0.1:8000/api/admin/loai-phim/lay-du-lieu")

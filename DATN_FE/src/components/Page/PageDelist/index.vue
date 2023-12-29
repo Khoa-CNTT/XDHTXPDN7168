@@ -68,7 +68,11 @@
                             </div>
                             <div class="anime__details__btn">
                                 <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                                <a href="#" class="watch-btn"><span>Watch Now</span> </a>
+                                
+                                    <router-link :to="`/index3/${v.id}`">
+                                        <a v-bind:href="'/index3/' + v.id" class="watch-btn"><span>Watch Now</span> </a>
+                                    </router-link>
+                                
                                 </div>
                             </div>
                         </div>
@@ -161,9 +165,8 @@
                                     <li>{{ v.ten_loai_phim }}</li>
                                     </ul>
                                     <h5>
-                                    <router-link :to="`/index2/${v.id}`">
-                                            <a v-bind:href="'/index2' + v.id">
-                                            {{ v.ten_phim }}</a></router-link>
+                                            <a  v-bind:href="'/index2/' + v.id">
+                                            {{ v.ten_phim }}</a>
                                     </h5>
                                     <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
                                 </div>
@@ -194,7 +197,7 @@
         data() {
             return {
 				id : this.$route.params.id,
-                        list_loai_phim : [],
+                list_loai_phim : [],
                 obj_mo_ta      : {},
                 list_the_loai  : [],
                 list_tac_gia   : [],
@@ -236,6 +239,10 @@
                     this.list_the_loai = res.data.the_loai;
                 });
             },
+                reloadPage() {
+                // Sử dụng location.reload() để tải lại trang
+                location.reload();
+                },
 
         },
     };

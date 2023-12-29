@@ -1,13 +1,8 @@
 <template>
-    
-
-    
-
-   
 
     <!-- Login Section Begin -->
-    <section class="login spad" style=" background-image: url(); background-color: #263238;">
-        <div class="container">
+    <section class="login spad" style="   background-image: url(https://wallpapers.com/images/hd/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.jpg);  ">
+        <div class="container" style="background-color: rgba(10, 9, 9, 0.8); padding: 50px; ; margin-bottom: 100px;">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
@@ -23,32 +18,24 @@
                             </div>
                             <button type="submit" class="site-btn">Đăng Nhập</button>
                         </form>
-                        <a href="#" class="forget_pass">Quên mật khẩu?</a>
+                                <router-link to="/register">
+                                    <a href="#" class="forget_pass">Đăng Ký?</a>
+                                </router-link>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="login__register">
-                        <h3>Bạn Không Có Tài Khoản?</h3>
-                        <a href="#" class="primary-btn">Đăng Ký</a>
-                    </div>
-                </div>
-            </div>
-            <div class="login__social">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="login__social__links">
-                            <span>or</span>
-                            <ul>
-                                <li><a href="#" class="facebook"><i class="fa-brands fa-facebook"></i> Đăng Nhập với
+                    <div class="login__social__links">
+                            <ul style="margin-top: 40px;">
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With
                                 Facebook</a></li>
-                                <li><a href="#" class="google"><i class="fa-brands fa-google"></i> Đăng Nhập Bằng Google</a></li>
-                                <li><a href="#" class="twitter"><i class="fa-brands fa-twitter"></i> Đăng Nhập Bằng Twitter</a>
+                                <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
+            </div>
                 </div>
             </div>
+            
         </div>
     </section>
   
@@ -111,7 +98,7 @@ export default {
                     if (res.status === 200) {
                         this.is_login = true;
                         this.list_token = res.data.list;
-                        this.$router.push('/admin/anime');
+                        // this.$router.push('/');
 
                     }
 

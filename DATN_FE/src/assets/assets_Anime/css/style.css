@@ -1719,8 +1719,9 @@ ol {
 -----------------------*/
 
 .login {
-	padding-top: 130px;
-	padding-bottom: 120px;
+	padding-top: 172px;
+	padding-bottom: 123px;
+	margin-top: -59px;
 }
 
 .login__form {
@@ -1893,8 +1894,9 @@ ol {
 -----------------------*/
 
 .signup {
-	padding-top: 130px;
-	padding-bottom: 150px;
+	padding-top: 172px;
+	padding-bottom: 21px;
+	margin-top: -59px;
 }
 
 .signup .login__form:after {
