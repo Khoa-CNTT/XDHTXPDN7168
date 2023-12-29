@@ -2,7 +2,7 @@
     <!-- Signup Section Begin -->
     <section class="signup spad"
       style="background-image: url(&quot;https://wallpapers.com/images/hd/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.jpg&quot;);">
-      <div class="container" style="background-color: rgba(10, 9, 9, 0.8); padding: 50px; margin-bottom: 100px;">
+      <div class="container" style="background-color: rgba(10, 9, 9, 0.7); padding: 50px; margin-bottom: 100px;">
         <div class="row">
           <div class="col-lg-6">
             <div class="login__form">

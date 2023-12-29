@@ -2,7 +2,7 @@
 
     <!-- Login Section Begin -->
     <section class="login spad" style="   background-image: url(https://wallpapers.com/images/hd/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.jpg);  ">
-        <div class="container" style="background-color: rgba(10, 9, 9, 0.8); padding: 50px; ; margin-bottom: 100px;">
+        <div class="container" style="background-color: rgba(10, 9, 9, 0.7); padding: 50px; ; margin-bottom: 100px;">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
@@ -24,15 +24,21 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                    <div class="login__register">
+                            <router-link to="/">
+                                <a href="#" class="btn btn-sm  text-info"><i class="fa-solid fa-left-long"></i>Trang Chủ </a>
+                            </router-link>
+                    </div>
                     <div class="login__social__links">
-                            <ul style="margin-top: 40px;">
+                            <ul style="margin-top: 30px;">
                                 <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With
                                 Facebook</a></li>
                                 <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a>
                                 </li>
                             </ul>
-            </div>
+                    </div>
+                    
                 </div>
             </div>
             
