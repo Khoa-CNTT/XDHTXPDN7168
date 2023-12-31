@@ -20,7 +20,7 @@
             </div>
             <div class="carousel-item" data-interval="2000">
               <img
-                src="https://s199.imacdn.com/vg/2023/10/15/864d8df1112ef262_371d215a8d1d0379_150454216973679299118684.jpg"
+                src="https://s199.imacdn.com/vg/2023/12/28/f4e15980a7b1abbf_fdd63a20e3d8d9cf_1945637170376963341.jpg"
                 class="d-block w-100" alt="..." />
             </div>
             <div class="carousel-item" data-interval="2000">

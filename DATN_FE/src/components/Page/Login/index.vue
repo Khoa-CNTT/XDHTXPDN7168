@@ -1,23 +1,23 @@
 <template>
 
     <!-- Login Section Begin -->
-    <section class="login spad" style="   background-image: url(https://wallpapers.com/images/hd/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.jpg);  ">
+    <section class="login spad" style="background-image: url(https://wallpapers.com/images/hd/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.jpg);  ">
         <div class="container" style="background-color: rgba(10, 9, 9, 0.7); padding: 50px; ; margin-bottom: 100px;">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
                         <h3>Đăng Nhập</h3>
-                        <form action="#">
+                        <div >
                             <div class="input__item">
-                                <input type="text" placeholder="Địa chỉ email">
+                                <input v-model="dang_nhap.email" type="text" placeholder="Địa chỉ email">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input type="text" placeholder="Mật khẩu">
+                                <input v-model="dang_nhap.password" type="text" placeholder="Mật khẩu">
                                 <span class="icon_lock"></span>
                             </div>
-                            <button type="submit" class="site-btn">Đăng Nhập</button>
-                        </form>
+                            <button @click="dangNhap()" class="site-btn">Đăng Nhập</button>
+                        </div>
                                 <router-link to="/register">
                                     <a href="#" class="forget_pass">Đăng Ký?</a>
                                 </router-link>
@@ -31,8 +31,7 @@
                     </div>
                     <div class="login__social__links">
                             <ul style="margin-top: 30px;">
-                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With
-                                Facebook</a></li>
+                                <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a></li>
                                 <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
                                 <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a>
                                 </li>
@@ -70,19 +69,19 @@ export default {
     methods: {
         dangKy() {
             axios
-                .post('http://127.0.0.1:8000/api/register', this.dang_ky)
+                .post('http://127.0.0.1:8000/api/khach-hang/register', this.dang_ky)
                 .then((res) => {
                     toaster.success('Thông báo<br>' + res.data.message);
                 });
         },
         dangNhap() {
             axios
-                .post('http://127.0.0.1:8000/api/login', this.dang_nhap)
+                .post('http://127.0.0.1:8000/api/khach-hang/login', this.dang_nhap)
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success('Thông báo<br>' + res.data.message);
                         var arr = res.data.token.split("|");
-                        localStorage.setItem('token', arr[1]);
+                        localStorage.setItem('token_user', arr[1]);
                         console.log(arr[1]);
                         this.checkToken();
                     } else {
@@ -92,19 +91,19 @@ export default {
         },
         checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/check', {}, {
+                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
                     headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                        Authorization: 'Bearer ' + localStorage.getItem('token_user')
                     }
                 })
                 .then((res) => {
                     console.log(res.data);
-                    localStorage.setItem('ho_ten', res.data.ho_ten);
-                    localStorage.setItem('hinh_anh', res.data.hinh_anh);
+                    localStorage.setItem('ho_ten_user', res.data.ho_ten_user);
+                    localStorage.setItem('hinh_anh_user', res.data.hinh_anh_user);
                     if (res.status === 200) {
                         this.is_login = true;
-                        this.list_token = res.data.list;
-                        // this.$router.push('/');
+                        // this.list_token = res.data.list;
+                        this.$router.push('/');
 
                     }
 
@@ -113,17 +112,17 @@ export default {
                     this.is_login = false;
                 });
         },
-        removeToken() {
-            axios
-                .delete('http://127.0.0.1:8000/api/thong-tin-xoa/'+ this.remove_token.id)
-                .then((res) => {
-                    if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
-                        this.list_token = [],
-                            this.checkToken();
-                    }
-                })
-        },
+        // removeToken() {
+        //     axios
+        //         .delete('http://127.0.0.1:8000/api/khach-hang/thong-tin-xoa/'+ this.remove_token.id)
+        //         .then((res) => {
+        //             if (res.data.status == true) {
+        //                 toaster.success('Thông báo<br>' + res.data.message);
+        //                 this.list_token = [],
+        //                     this.checkToken();
+        //             }
+        //         })
+        // },
         /// file base 64
       async imageToBase64(file) {
         return new Promise((resolve, reject) => {

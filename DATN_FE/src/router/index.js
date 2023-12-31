@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
-import checkLogin from "./checkLogin";
+import checkLogin from "./checkLoginAdmin";
+import checkLoginAnime from "./checkLoginAnime";
 const routes = [
     // Page Anime
     {
@@ -48,7 +49,7 @@ const routes = [
 
     }, 
     {
-        path : '/index5',
+        path : '/index5/:id',
         component: ()=>import('../components/Page/BlogDelist/index.vue'),
 
     }, 

@@ -11,7 +11,7 @@
         <div class="modal-dialog ">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Tài Khoan </h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Khách Hàng </h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -19,18 +19,18 @@
                 <div class="row">
                   <div class="col-12">
                     <label for="inputFirstName" class="form-label">Họ Và Tên</label>
-                    <input type="text" v-model="obj_add_admin.ho_va_ten" class="form-control" id="inputFirstName"
+                    <input type="text" v-model="obj_add_user.ho_va_ten" class="form-control" id="inputFirstName"
                       placeholder="Họ Và Tên">
                   </div>
   
                   <div class="col-12">
                     <label for="inputEmailAddress" class="form-label">Email</label>
-                    <input type="email" v-model="obj_add_admin.email" class="form-control" id="inputEmailAddress"
+                    <input type="email" v-model="obj_add_user.email" class="form-control" id="inputEmailAddress"
                       placeholder="example@user.com">
                   </div>
                   <div class="col-12">
                     <label for="inputChoosePassword" class="form-label">Password</label>
-                    <input type="Mật khẩu" v-model="obj_add_admin.password" class="form-control" id=""
+                    <input type="Mật khẩu" v-model="obj_add_user.password" class="form-control" id=""
                       placeholder="Password">
                   </div>
                   <div class="col-12">
@@ -56,7 +56,7 @@
         <div class="col-12">
           <div class="card border-5 border-primary border-top">
             <div class="card-header">
-              <b>DANH SÁCH TÀI KHOẢN </b>
+              <b>DANH SÁCH KHÁCH HÀNG </b>
             </div>
             <div class="card-body">
               <table class="table table-bordered  ">
@@ -81,7 +81,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(v, k) in list_admin" class="text-center">
+                  <tr v-for="(v, k) in list_khach_khach" class="text-center">
                     <td class="text-center align-middle text-nowrap">{{ k + 1 }}</td>
                     <td class="text-center align-middle text-nowrap">{{ v.ho_va_ten }}</td>
                     <td class="text-center align-middle text-nowrap">{{ v.email }}</td>
@@ -109,7 +109,7 @@
                 <div class="modal-dialog ">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh Sữa Tài Khoan Admin</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh Sữa Khách Hàng Admin</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -187,8 +187,8 @@
     export default {
       data() {
         return {
-          list_admin: [],
-          obj_add_admin: {},
+          list_khach_khach: [],
+          obj_add_user: {},
           key_tim: {},
           obj_update_admin: {},
           obj_delete_admin: {},
@@ -202,21 +202,21 @@
   
         laydataAdmin() {
           baseRequest
-            .get("admin/admin/lay-du-lieu")
+            .get("admin/khach-hang/lay-du-lieu")
             .then((res) => {
-              this.list_admin = res.data.admin;
+              this.list_khach_khach = res.data.khach_hang;
             });
         },
         taoDataAdmin() {
           baseRequest
             .post(
-              "admin/admin/thong-tin-tao",
-              this.obj_add_admin
+              "admin/khach-hang/thong-tin-tao",
+              this.obj_add_user
             )
             .then((res) => {
               if (res.data.status == true) {
                 toaster.success(res.data.message);
-                this.obj_add_admin = {};
+                this.obj_add_user = {};
                 this.laydataAdmin();
               } else {
                 toaster.error(res.data.message);
@@ -225,15 +225,15 @@
         },
         searchAdmin() {
           baseRequest
-            .post('admin/admin/thong-tin-tim', this.key_tim)
+            .post('admin/khach-hang/thong-tin-tim', this.key_tim)
             .then((res) => {
-                console.log(res.data.admin);
-                this.list_admin = res.data.admin;
+                console.log(res.data.khach_hang);
+                this.list_khach_khach = res.data.khach_hang;
             });
         },
         deleteAdmin() {
           baseRequest
-            .delete('admin/admin/thong-tin-xoa/' + this.obj_delete_admin.id)
+            .delete('admin/khach-hang/thong-tin-xoa/' + this.obj_delete_admin.id)
             .then((res) => {
               if (res.data.status == true) {
                 toaster.success('Thông báo<br>' + res.data.message);
@@ -246,7 +246,7 @@
         },
         updateAdmin() {
           baseRequest
-            .put('admin/admin/thong-tin-cap-nhat', this.obj_update_admin)
+            .put('admin/khach-hang/thong-tin-cap-nhat', this.obj_update_admin)
             .then((res) => {
               if (res.data.status == true) {
                 toaster.success('Thông báo<br>' + res.data.message);
@@ -259,7 +259,7 @@
   
         // doiTrangThai(xyz) {
         //   baseRequest
-        //     .put('admin/admin/thong-tin-thay-doi-trang-thai', xyz)
+        //     .put('admin/khach-hang/thong-tin-thay-doi-trang-thai', xyz)
         //     .then((res) => {
         //       if (res.data.status == true) {
         //         toaster.success('Thông báo<br>' + res.data.message);
@@ -287,7 +287,7 @@
             try {
               const base64Data = await this.imageToBase64(file);
               console.log('Base64 Data:', base64Data);
-              this.obj_add_admin.hinh_anh = base64Data;
+              this.obj_add_user.hinh_anh = base64Data;
               // Thực hiện các hành động khác với base64Data ở đây
             } catch (error) {
               console.error('Error converting image to base64:', error);
