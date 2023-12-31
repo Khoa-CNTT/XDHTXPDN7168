@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
-import checkLogin from "./checkLogin";
+import checkLogin from "./checkLoginAdmin";
+import checkLoginAnime from "./checkLoginAnime";
 const routes = [
     // Page Anime
     {
@@ -20,21 +21,27 @@ const routes = [
 
 
     },
+    
+    {
+        path : '/index1/:id',
+        component: ()=>import('../components/Page/PageList/index.vue'),
+
+    }, 
     {
         path : '/index2/:id',
         component: ()=>import('../components/Page/PageDelist/index.vue'),
 
     },
     {
-        path : '/index1',
-        component: ()=>import('../components/Page/PageList/index.vue'),
-
-    }, 
-    {
-        path : '/index3',
+        path : '/index3/:id',
         component: ()=>import('../components/Page/PageWatch/index.vue'),
 
     }, 
+    {
+        path : '/index6/:id',
+        component: ()=>import('../components/Page/PageLoaiPhim/index.vue'),
+
+    },
     //Page Blog
     {
         path : '/index4',
@@ -42,10 +49,11 @@ const routes = [
 
     }, 
     {
-        path : '/index5',
+        path : '/index5/:id',
         component: ()=>import('../components/Page/BlogDelist/index.vue'),
 
     }, 
+    
     /// Admin
     {
         path : '/admin/the-loai',

@@ -138,6 +138,7 @@ ol {
 	content: "";
 }
 
+
 .set-bg {
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -419,12 +420,12 @@ ol {
 
 .header__right {
 	text-align: right;
-	padding: 20px 0 15px;
+	padding: 7px 0 15px;
 }
 
 .header__right a {
 	display: inline-block;
-	font-size: 18px;
+	font-size: 15px;
 	color: #ffffff;
 	margin-right: 30px;
 }
@@ -691,7 +692,7 @@ ol {
 	border-radius: 4px;
 	position: absolute;
 	right: 10px;
-	bottom: 10px;
+	bottom: 255px;
 }
 
 .product__item__text {
@@ -1330,7 +1331,7 @@ ol {
 -----------------------*/
 
 .normal-breadcrumb {
-	height: 300px;
+	height: 160px;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -1361,7 +1362,7 @@ ol {
 -----------------------*/
 
 .blog {
-	padding-top: 70px;
+	padding-top: 10px;
 	padding-bottom: 90px;
 }
 
@@ -1719,8 +1720,9 @@ ol {
 -----------------------*/
 
 .login {
-	padding-top: 130px;
-	padding-bottom: 120px;
+	padding-top: 172px;
+	padding-bottom: 123px;
+	margin-top: -59px;
 }
 
 .login__form {
@@ -1745,13 +1747,13 @@ ol {
 	margin-bottom: 30px;
 }
 
-.login__form form .input__item {
+.login__form div .input__item {
 	position: relative;
 	width: 370px;
 	margin-bottom: 20px;
 }
 
-.login__form form .input__item:before {
+.login__form div .input__item:before {
 	position: absolute;
 	left: 50px;
 	top: 10px;
@@ -1761,7 +1763,7 @@ ol {
 	content: "";
 }
 
-.login__form form .input__item input {
+.login__form div .input__item input {
 	height: 50px;
 	width: 100%;
 	font-size: 15px;
@@ -1771,27 +1773,27 @@ ol {
 	padding-left: 76px;
 }
 
-.login__form form .input__item input::-webkit-input-placeholder {
+.login__form div .input__item input::-webkit-input-placeholder {
 	color: #b7b7b7;
 }
 
-.login__form form .input__item input::-moz-placeholder {
+.login__form div .input__item input::-moz-placeholder {
 	color: #b7b7b7;
 }
 
-.login__form form .input__item input:-ms-input-placeholder {
+.login__form div .input__item input:-ms-input-placeholder {
 	color: #b7b7b7;
 }
 
-.login__form form .input__item input::-ms-input-placeholder {
+.login__form div .input__item input::-ms-input-placeholder {
 	color: #b7b7b7;
 }
 
-.login__form form .input__item input::placeholder {
+.login__form div .input__item input::placeholder {
 	color: #b7b7b7;
 }
 
-.login__form form .input__item span {
+.login__form div .input__item span {
 	color: #b7b7b7;
 	font-size: 20px;
 	position: absolute;
@@ -1799,7 +1801,7 @@ ol {
 	top: 13px;
 }
 
-.login__form form button {
+.login__form div button {
 	border-radius: 0;
 	margin-top: 10px;
 }
@@ -1893,8 +1895,9 @@ ol {
 -----------------------*/
 
 .signup {
-	padding-top: 130px;
-	padding-bottom: 150px;
+	padding-top: 172px;
+	padding-bottom: 21px;
+	margin-top: -59px;
 }
 
 .signup .login__form:after {

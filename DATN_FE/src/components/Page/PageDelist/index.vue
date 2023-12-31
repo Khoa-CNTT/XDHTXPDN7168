@@ -7,11 +7,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <a href="./categories.html">Thể Loại</a>
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-
-                        <span>{{  v.ten_the_loai }}</span>
+                        <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
+                        <router-link :to="`/index1/${v.id_the_loai}`"> Thể Loại</router-link>
+                        <router-link :to="`/index1/${v.id_the_loai}`"> {{  v.ten_the_loai }}</router-link>
+                        <span>{{  v.ten_phim }}</span>
                     </div>
                 </div>
             </div>
@@ -69,7 +68,11 @@
                             </div>
                             <div class="anime__details__btn">
                                 <a href="#" class="follow-btn"><i class="fa fa-heart-o"></i> Follow</a>
-                                <a href="#" class="watch-btn"><span>Watch Now</span> </a>
+                                
+                                    <router-link :to="`/index3/${v.id}`">
+                                        <a v-bind:href="'/index3/' + v.id" class="watch-btn"><span>Watch Now</span> </a>
+                                    </router-link>
+                                
                                 </div>
                             </div>
                         </div>
@@ -149,28 +152,26 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="anime__details__sidebar">
                             <div class="section-title">
-                                <h5>you might like...</h5>
+                                <h5>hot phim</h5>
                             </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-1.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Boruto: Naruto next generations</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-2.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">The Seven Deadly Sins: Wrath of the Gods</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-3.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Sword art online alicization war of underworld</a></h5>
-                            </div>
-                            <div class="product__sidebar__view__item set-bg" data-setbg="img/sidebar/tv-4.jpg">
-                                <div class="ep">18 / ?</div>
-                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                <h5><a href="#">Fate/stay night: Heaven's Feel I. presage flower</a></h5>
-                            </div>
+                            <template v-for="(v,k) in Show5object ">
+                                <div class="product__sidebar__comment__item">
+                                <div class="product__sidebar__comment__item__pic">
+                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                </div>
+                                <div class="product__sidebar__comment__item__text">
+                                    <ul>
+                                    <li>{{ v.ten_the_loai }}</li>
+                                    <li>{{ v.ten_loai_phim }}</li>
+                                    </ul>
+                                    <h5>
+                                            <a  v-bind:href="'/index2/' + v.id">
+                                            {{ v.ten_phim }}</a>
+                                    </h5>
+                                    <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+                                </div>
+                                </div>
+                                </template>
                         </div>
                     </div>
                 </div>
@@ -196,7 +197,7 @@
         data() {
             return {
 				id : this.$route.params.id,
-                        list_loai_phim : [],
+                list_loai_phim : [],
                 obj_mo_ta      : {},
                 list_the_loai  : [],
                 list_tac_gia   : [],
@@ -208,6 +209,14 @@
             this.loaddataTheLoai();
             this.laydataPhim();
         },
+        computed: {
+            // Tính toán để lấy ba phần tử cuối cùng của mảng items
+            Show5object() {
+                const totalItems = this.list_phim.length;
+                // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
+                return this.list_phim.slice(totalItems - 5, totalItems);
+            },
+            },
         methods: {
             laydataPhim() {
                 baseRequest
@@ -230,6 +239,10 @@
                     this.list_the_loai = res.data.the_loai;
                 });
             },
+                reloadPage() {
+                // Sử dụng location.reload() để tải lại trang
+                location.reload();
+                },
 
         },
     };

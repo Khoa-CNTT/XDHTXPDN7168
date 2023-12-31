@@ -4288,7 +4288,7 @@ input::placeholder {
 
 	border: 0px solid #e5e5e5;
 
-	padding: 0px;
+	padding: 0px 0px;
 	
 	margin-left: 1rem;
 
@@ -4331,13 +4331,12 @@ input::placeholder {
 	align-items: center;
 
 
-	height: 60px;
+	height: auto;
 
 
 	border-left: 1px solid #f0f0f0;
 
 
-	margin-left: 1rem;
 
 
 }
