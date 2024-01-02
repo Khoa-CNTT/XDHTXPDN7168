@@ -13,7 +13,7 @@
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input v-model="dang_nhap.password" type="text" placeholder="Mật khẩu">
+                                <input v-model="dang_nhap.password" type="password" >
                                 <span class="icon_lock"></span>
                             </div>
                             <button @click="dangNhap()" class="site-btn">Đăng Nhập</button>
@@ -100,6 +100,7 @@ export default {
                     console.log(res.data);
                     localStorage.setItem('ho_ten_user', res.data.ho_ten_user);
                     localStorage.setItem('hinh_anh_user', res.data.hinh_anh_user);
+                    localStorage.setItem('id_user', res.data.id_user);
                     if (res.status === 200) {
                         this.is_login = true;
                         // this.list_token = res.data.list;

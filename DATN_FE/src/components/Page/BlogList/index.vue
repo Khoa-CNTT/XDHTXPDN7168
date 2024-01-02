@@ -25,75 +25,100 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="trending__product">
-            <div class="row">
-              <div class="col-lg-8 col-md-8 col-sm-8">
-                <div class="section-title">
-                  <h4>Xem Nhiều Nhất</h4>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="btn__all">
-                  <div class="section-title">
-                  <h4>Đăng Bài</h4>
-                </div>
-                  <!-- <router-link :to="`/index1/${2}`"> -->
-                    
-                  <!-- </router-link> -->
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="row">
-                <template v-for="(v, k) in list_blog">
-                  <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div
-                      class="blog__item small__item set-bg"
-                      v-bind:style="{
-                        'background-image': 'url(' + v.hinh_anh + ')',
-                      }"
-                    >
-                      <div style=" background-color: rgba(35, 33, 33, 0.7);top: 194px; bottom: 0;" class="blog__item__text">
-                        <p><span class="icon_calendar"></span> 01 March 2020</p>
-                        <h4>
-                          <router-link :to="`/index5/${v.id}`">
-                            <a v-bind:href="'/index5' + v.id">
-                              {{ v.tieu_de }}</a></router-link>
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                </template>
+            <div class="row " >
+              <div class="col-lg-12 col-md-12 col-sm-12 ">
+                <ul class="nav nav-tabs section-title" style=" border-bottom: 1px solid #fd3550; background-color: #0b0c2a; display: flex;justify-content: center;" id="myTab" role="tablist">
+									<template v-for="(v,k) in list_chuyen_muc">
+										<template v-if="k==0">
+											<li  class="nav-item" role="presentation">
+												<button style="background-color: rgba(35, 33, 33, 0.4); width: 180px;" class="nav-link active" id="home-tab" data-bs-toggle="tab"
+													v-bind:data-bs-target="'#home-tab-pane' + k" type="button"
+													role="tab"  aria-selected="true">
+                           <h5 >{{v.ten_chuyen_muc }}</h5>
+                        </button>
+											</li>
+										</template>
+										<template v-else>
+											<li class="nav-item " role="presentation">
+												<button style=" background-color: rgba(35, 33, 33, 0.4); width: 180px;" class="nav-link" id="profile-tab" data-bs-toggle="tab"
+													v-bind:data-bs-target="'#profile-tab-pane' + k" type="button"
+													role="tab"  aria-selected="false">
+													<h5>{{v.ten_chuyen_muc }}</h5></button>
+											</li>
+										</template>
+									</template>
+								</ul>
               </div>
             </div>
+            <div class="row">
+              <div id="myTabContent" class="tab-content p-t-35">
+								<template v-for="(v,k) in list_chuyen_muc">
+									<template v-if="k==0">
+										<div class="tab-pane fade show active" v-bind:id="'home-tab-pane' + k"
+											role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+											<div class="row">
+												<template v-for="(v1,k1) in list_blog">
+                          <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                            <div
+                              class="blog__item small__item set-bg"
+                              v-bind:style="{
+                                'background-image': 'url(' + v1.hinh_anh + ')',
+                              }"
+                            >
+                              <div style=" background-color: rgba(35, 33, 33, 0.7);top: 194px; bottom: 0;" class="blog__item__text">
+                                <p><span class="icon_calendar"></span> 21 March 2023</p>
+                                <h4>
+                                  <router-link :to="`/index5/${v1.id}`">
+                                    <a v-bind:href="'/index5' + v1.id">
+                                      {{ v1.tieu_de }}</a></router-link>
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+											</template>
+											</div>
+											
+										</div>
+									</template>
+									<template v-else>
+										<div class="tab-pane fade" v-bind:id="'profile-tab-pane' + k" role="tabpanel"
+											aria-labelledby="profile-tab" tabindex="0">
+											<div class="row">
+												<template v-for="(v1,k1) in list_blog">
+                          <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                            <div
+                              class="blog__item small__item set-bg"
+                              v-bind:style="{
+                                'background-image': 'url(' + v1.hinh_anh + ')',
+                              }"
+                            >
+                              <div style=" background-color: rgba(35, 33, 33, 0.7);top: 194px; bottom: 0;" class="blog__item__text">
+                                <p><span class="icon_calendar"></span> 21 March 2023</p>
+                                <h4>
+                                  <router-link :to="`/index5/${v1.id}`">
+                                    <a v-bind:href="'/index5' + v1.id">
+                                      {{ v1.tieu_de }}</a></router-link>
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+											  </template>
+											</div>
+											
+										</div>
+									</template>
+								</template>
+								
+								
+
+
+							</div>
+                
+              </div>
           </div>
         </div>
 
-        <!-- <div class="col-lg-4 col-md-6 col-sm-8">
-          <div class="product__sidebar">
-            <div class="product__sidebar__comment">
-              <div class="section-title">
-                <h5>Hot trong tuần</h5>
-              </div>
-              <template v-for="(v, k) in list_blog">
-                <div class="product__sidebar__comment__item">
-                  <div class="product__sidebar__comment__item__pic">
-                    <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
-                  </div>
-                  <div class="product__sidebar__comment__item__text">
-                    
-                    <h5>
-                         <router-link :to="`/index2/${v.id}`">
-                        <a v-bind:href="'/index2' + v.id">
-                          {{ v.tieu_de }}</a
-                        ></router-link
-                      >
-                    </h5>
-                  </div>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div> -->
+       
       </div>
     </div>
   </section>
@@ -109,11 +134,14 @@ export default {
   data() {
     return {
       list_blog: [],
+      list_chuyen_muc    : [],
       isLoading: true,
     };
   },
   mounted() {
     this.laydataLoaiBlog();
+    this.loaddataChuyenMuc();
+
   },
 
   methods: {
@@ -124,6 +152,13 @@ export default {
           this.list_blog = res.data.bai_viet;
         });
     },
+    loaddataChuyenMuc() {
+      axios
+        .get("http://127.0.0.1:8000/api/admin/chuyen-muc/lay-du-lieu")
+            .then((res) => {
+              this.list_chuyen_muc = res.data.chuyen_muc;
+            });
+        },
   },
 };
 </script>

@@ -85,6 +85,12 @@ const routes = [
         beforeEnter: checkLogin,
         meta : {layout : 'new'} ,
     },
+    {
+        path : '/admin/chuyen-muc',
+        component: ()=>import('../components/Admin/ChuyenMucBlog/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'} ,
+    },
    
     {
         path : '/admin/loai-phim',
