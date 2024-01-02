@@ -397,22 +397,8 @@
                         <li><a class="dropdown-item" href="javascript:;"><i
                                     class="bx bx-user"></i><span>Profile</span></a>
                         </li>
-                        <li><a class="dropdown-item" href="javascript:;"><i
-                                    class="bx bx-cog"></i><span>Settings</span></a>
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:;"><i
-                                    class='bx bx-home-circle'></i><span>Dashboard</span></a>
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:;"><i
-                                    class='bx bx-dollar-circle'></i><span>Earnings</span></a>
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:;"><i
-                                    class='bx bx-download'></i><span>Downloads</span></a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider mb-0"></div>
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:;"><i
+                       
+                        <li><a @click="removeToken()" class="dropdown-item" href="javascript:;"><i
                                     class='bx bx-log-out-circle'></i><span>Logout</span></a>
                         </li>
                     </ul>
@@ -422,7 +408,9 @@
     </header>
     </template>
     <script>
+    import axios from "axios";
     export default {
+        
         data() {
             return {
                 user : 'chưa dang nhap',
@@ -432,6 +420,35 @@
         mounted() {
             this.user = localStorage.getItem('ho_ten');
             this.img = localStorage.getItem('hinh_anh');
+        },
+        methods: {
+            removeToken() {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('hinh_anh');
+                    this.checkToken()
+              },
+            checkToken() {
+                    axios
+                        .post('http://127.0.0.1:8000/api/admin/check', {}, {
+                            headers: {
+                                Authorization: 'Bearer ' + localStorage.getItem('token')
+                            }
+                        })
+                        .then((res) => {
+                            console.log(res.data);
+                            // localStorage.setItem('ho_ten', res.data.ho_ten);
+                            // localStorage.setItem('hinh_anh', res.data.hinh_anh);
+                            if (res.status === 200) {
+                                // this.list_token = res.data.list;
+
+                            }
+
+                        })
+                        .catch(() => {
+                            this.$router.push('/admin/anime');
+                            
+                        });
+        },  
         },
         
     }

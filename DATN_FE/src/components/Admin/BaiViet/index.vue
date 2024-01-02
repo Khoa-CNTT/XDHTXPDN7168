@@ -50,6 +50,16 @@
                   </div>
                 </div>
                 <div class="row">
+                  <div class="col-6">
+                    <label for="" class="form-label mb-1 mt-1">
+                      <b>Chuyên Mục</b>
+                    </label>
+                    <select v-model="obj_add_bai_viet.id_chuyen_muc" class="form-control mb-3">
+                          <template v-for="(v,k) in list_chuyen_muc">
+                               <option v-bind:value="v.id">{{ v.ten_chuyen_muc }}</option>
+                          </template>
+                    </select>
+                  </div>
                     <div class="col-6">
                     <label for="" class="form-label mb-1 mt-1">
                       <b>Mô Tả Chi Tiết</b>
@@ -93,6 +103,7 @@
                   <tr class="text-center">
                     <th>#</th>
                     <th class="text-center align-middle text-nowrap">Tiều Đề</th>
+                    <th class="text-center align-middle text-nowrap">Chuyên Mục</th>
                     <th class="text-center align-middle text-nowrap">Mô Tả</th>
                     <th class="text-center align-middle text-nowrap">Mô Tả Chi Tiết</th>
                     <th class="text-center align-middle text-nowrap">Hình Ảnh</th>
@@ -104,6 +115,7 @@
                   <tr v-for="(v, k) in list_bai_viet" class="text-center">
                     <td class="text-center align-middle text-nowrap">{{ k + 1 }}</td>
                     <td class="text-center align-middle text-nowrap">{{ v.tieu_de }}</td>
+                    <td class="text-center align-middle text-nowrap">{{ v.ten_chuyen_muc }}</td>
                     <td class="text-center align-middle text-nowrap">{{ v.mo_ta }}</td>
                     <td class="text-center align-middle text-nowrap">
                       <button @click="Object.assign(obj_mo_ta,v)" type="button" class="btn text-info" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-info"></i>
@@ -257,6 +269,7 @@
         return {
           obj_mo_ta      : {},
           list_bai_viet      : [],
+          list_chuyen_muc      : [],
           obj_add_bai_viet   : {},
           key_tim        : {},
           obj_update_bai_viet: {},
@@ -265,6 +278,7 @@
       },
       mounted() {
         this.laydataBaiViet();
+        this.loaddataChuyenMuc();
   
       },
       methods: {
@@ -274,6 +288,13 @@
             .then((res) => {
               this.list_bai_viet = res.data.bai_viet;
               console.log(this.list_bai_viet);
+            });
+        },
+        loaddataChuyenMuc() {
+          baseRequest
+            .get("admin/chuyen-muc/lay-du-lieu")
+            .then((res) => {
+              this.list_chuyen_muc = res.data.chuyen_muc;
             });
         },
         taoDataBaiViet() {

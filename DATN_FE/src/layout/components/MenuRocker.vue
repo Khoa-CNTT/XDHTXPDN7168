@@ -78,6 +78,16 @@
                   </router-link>
               </li>
               <li class="nav-item text-nowrap">
+                  <router-link to="/admin/chuyen-muc">
+                      <a href="/admin/chuyen-muc" class="nav-link">
+                          <div class="parent-icon">
+                              <i class="fa-solid fa-map"></i>
+                          </div>
+                          <div class="menu-title">Chuyên Mục</div>
+                      </a>
+                  </router-link>
+              </li>
+              <li class="nav-item text-nowrap">
                   <router-link to="/admin/khach-hang">
                       <a href="/admin/bai-viet" class="nav-link">
                           <div class="parent-icon">

@@ -1,5 +1,5 @@
 <template>
-
+  
   <div>
     <!-- Hero Section Begin -->
     <section class="hero" style="background-color: #0b0c2a">
@@ -166,7 +166,7 @@
                 <div class="filter__gallery" id="MixItUpF5B6EA">
                   <template v-for="(v,k) in Show1object">
                     <div class="product__sidebar__view__item set-bg mix month week" data-setbg="img/sidebar/tv-2.jpg"
-                      v-bind:style="{'background-image': 'url(https://lh6.googleusercontent.com/cDPX0RMhR9r5WIz34hyHEVS4OGH7OEd5Tbbq-X30qNNSx37qRDzC5Up6afJLTCE0w2ZXY6_OSRfI96znna8fl3f9TSncQo-EmM1g7fQ7EopmHDPpszbHnCH74F4BdTvDMU8ZTG0=s0)',}">
+                      v-bind:style="{'background-image': 'url(https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2023/09/baki-hanma-season-two-cour-two-visual.png)',}">
                       <div class="ep">18 / ?</div>
                       <div class="view"><i class="fa fa-eye"></i> 567</div>
                       <h5>
@@ -178,7 +178,7 @@
                   </template>
                   <template v-for="(v,k) in Show2object">
                     <div class="product__sidebar__view__item set-bg mix month week" data-setbg="img/sidebar/tv-2.jpg"
-                      v-bind:style="{'background-image': 'url(https://i0.wp.com/www.animefeminist.com/wp-content/uploads/2022/01/Orient-1.jpg?fit=810%2C453&ssl=1)',}">
+                      v-bind:style="{'background-image': 'url(https://images.augustman.com/wp-content/uploads/sites/3/2023/07/10143044/Shangri-la-frontier.jpg)',}">
                       <div class="ep">18 / ?</div>
                       <div class="view"><i class="fa fa-eye"></i> 567</div>
                       <h5>
@@ -260,12 +260,12 @@
       Show1object() {
         const totalItems = this.list_phim.length;
         // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-        return this.list_phim.slice(totalItems - 1, totalItems);
+        return this.list_phim.slice(totalItems - 8, totalItems-7);
       },
       Show2object() {
         const totalItems = this.list_phim.length;
         // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-        return this.list_phim.slice(totalItems - 2, totalItems - 1);
+        return this.list_phim.slice(totalItems - 9, totalItems - 8);
       },
       Show9object() {
         const totalItems = this.list_phim.length;
