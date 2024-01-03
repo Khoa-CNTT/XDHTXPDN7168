@@ -286,7 +286,7 @@
           baseRequest
             .get("admin/bai-viet/lay-du-lieu")
             .then((res) => {
-              this.list_bai_viet = res.data.bai_viet;
+              this.list_bai_viet = res.data.bai_viet_admin;
               console.log(this.list_bai_viet);
             });
         },
@@ -294,7 +294,7 @@
           baseRequest
             .get("admin/chuyen-muc/lay-du-lieu")
             .then((res) => {
-              this.list_chuyen_muc = res.data.chuyen_muc;
+              this.list_chuyen_muc = res.data.chuyen_muc_admin;
             });
         },
         taoDataBaiViet() {

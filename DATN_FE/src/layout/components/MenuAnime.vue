@@ -26,7 +26,7 @@
                                             class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <template v-for="(v,k) in list_the_loai">
-                                            <li>
+                                            <li v-if="v.tinh_trang == 1">
                                                 <!-- <router-link :to="`/index1/${v.id}`">
                                                         {{  v.ten_the_loai }}
                                                 </router-link> -->
@@ -41,7 +41,7 @@
                                             class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <template v-for="(v,k) in list_loai_phim">
-                                            <li>
+                                            <li v-if="v.tinh_trang == 1">
                                                 <!-- <router-link :to="`/index6/${v.id}`">
                                                     {{  v.ten_loai_phim }}
                                                 </router-link> -->
@@ -91,8 +91,7 @@
                                     
                                     <li>
                                         <router-link to="/" v-show="is_login">
-                                            <a  @click="removeToken()" class="dropdown-item"><i
-                                                class="fa-solid fa-arrow-right-from-bracket me-1"></i><span>Đăng xuất</span></a>
+                                            <a  @click="removeToken()" class="dropdown-item"><i class='bx bx-log-out-circle me-1'></i><span>Đăng xuất</span></a>
                                         </router-link>
                                     </li>
                                 </ul>
@@ -197,7 +196,7 @@
 
 </template>
 <script>
-    import baseRequest from '../../core/baseRequest';
+    import baseRequest from '../../core/baseRequestUser';
     import axios from "axios";
     import { createToaster } from "@meforma/vue-toaster";
     const toaster = createToaster({
@@ -227,28 +226,28 @@
         methods: {
             laydataPhim() {
                 axios
-                    .get("http://127.0.0.1:8000/api/admin/phim/lay-du-lieu")
+                    .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_phim = res.data.phim;
                     });
             },
             laydataYeuThich() {
-                axios
-                    .get("http://127.0.0.1:8000/api/admin/yeu-thich/lay-du-lieu")
+                baseRequest
+                    .get("admin/yeu-thich/lay-du-lieu")
                     .then((res) => {
                         this.list_yeu_thich = res.data.yeu_thich;
                     });
             },
             laydataLoaiPhim() {
                 axios
-                    .get("http://127.0.0.1:8000/api/admin/loai-phim/lay-du-lieu")
+                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
             loaddataTheLoai() {
                 axios
-                    .get("http://127.0.0.1:8000/api/admin/the-loai/lay-du-lieu")
+                    .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
                     .then((res) => {
                         this.list_the_loai = res.data.the_loai;
                     });
@@ -269,7 +268,6 @@
                         }
                     })
                     .then((res) => {
-                        console.log(res.data);
                         // localStorage.setItem('ho_ten', res.data.ho_ten);
                         // localStorage.setItem('hinh_anh', res.data.hinh_anh);
                         if (res.status === 200) {

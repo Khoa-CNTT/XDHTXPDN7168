@@ -135,37 +135,35 @@
                 <div class="card-body">
                     <div class="border p-4 rounded">
                         <div class="text-center">
-                            <h3 class="">Sign in</h3>
-                            <p>Don't have an account yet?
+                            <h3 class="">Đăng Nhập</h3>
+                            <p>Bạn đã có tài khoản?
                                 <router-link to="register">
 
-                                    <a href="admin/registerl">Sign up here</a>
+                                    <a href="admin/registerl">Đăng ký?</a>
                                 </router-link>
                             </p>
                         </div>
-                        <div class="login-separater text-center mb-4"> <span>SIGN IN WITH EMAIL</span>
-                            <hr />
-                        </div>
+                       
                         <div class="form-body">
                             <form class="row g-3">
                                 <div class="col-12">
-                                    <label for="inputEmailAddress" class="form-label">Email Address</label>
+                                    <label for="inputEmailAddress" class="form-label">Địa Chỉ Email</label>
                                     <input type="email" v-model="dang_nhap.email" class="form-control"
-                                        id="inputEmailAddress" placeholder="Email Address">
+                                        id="inputEmailAddress" placeholder="Nhập Email">
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputChoosePassword" class="form-label">Enter Password</label>
+                                    <label for="inputChoosePassword" class="form-label">Mật Khẩu</label>
                                     <input type="password" v-model="dang_nhap.password" class="form-control"
-                                        id="inputEmailAddress" placeholder="Enter Password">
+                                        id="inputEmailAddress" placeholder="Nhập Mật Khẩu">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-6 text-end">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ Mật Khẩu</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-end">
-                                    <router-link to="/lost-password">
+                                    <router-link to="">
                                         <a href="authentication-forgot-password.html">Forgot
                                             Password ?
                                         </a>
@@ -173,8 +171,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="d-grid">
-                                        <button type="button" @:click="dangNhap()" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Sign
-                                            in</button>
+                                        <button type="button" @:click="dangNhap()" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Đăng Nhập</button>
                                     </div>
                                 </div>
                             </form>

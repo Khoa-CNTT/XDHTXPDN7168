@@ -30,8 +30,8 @@
                 <ul class="nav nav-tabs section-title" style=" border-bottom: 1px solid #fd3550; background-color: #0b0c2a; display: flex;justify-content: center;" id="myTab" role="tablist">
 									<template v-for="(v,k) in list_chuyen_muc">
 										<template v-if="k==0">
-											<li  class="nav-item" role="presentation">
-												<button style="background-color: rgba(35, 33, 33, 0.4); width: 180px;" class="nav-link active" id="home-tab" data-bs-toggle="tab"
+											<li class="nav-item" role="presentation">
+												<button style="background-color: rgba(35, 33, 33, 0.4); width: 180px;border-color: #fd3550 #fd3550 rgba(35, 33, 33, 0.4);" class="nav-link active" id="home-tab" data-bs-toggle="tab"
 													v-bind:data-bs-target="'#home-tab-pane' + k" type="button"
 													role="tab"  aria-selected="true">
                            <h5 >{{v.ten_chuyen_muc }}</h5>
@@ -39,7 +39,7 @@
 											</li>
 										</template>
 										<template v-else>
-											<li class="nav-item " role="presentation">
+											<li  class="nav-item " role="presentation">
 												<button style=" background-color: rgba(35, 33, 33, 0.4); width: 180px;" class="nav-link" id="profile-tab" data-bs-toggle="tab"
 													v-bind:data-bs-target="'#profile-tab-pane' + k" type="button"
 													role="tab"  aria-selected="false">
@@ -58,7 +58,7 @@
 											role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 											<div class="row">
 												<template v-for="(v1,k1) in list_blog">
-                          <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                            <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
                             <div
                               class="blog__item small__item set-bg"
                               v-bind:style="{
@@ -74,7 +74,7 @@
                                 </h4>
                               </div>
                             </div>
-                          </div>
+                          </div> 
 											</template>
 											</div>
 											
@@ -85,23 +85,23 @@
 											aria-labelledby="profile-tab" tabindex="0">
 											<div class="row">
 												<template v-for="(v1,k1) in list_blog">
-                          <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
-                            <div
-                              class="blog__item small__item set-bg"
-                              v-bind:style="{
-                                'background-image': 'url(' + v1.hinh_anh + ')',
-                              }"
-                            >
-                              <div style=" background-color: rgba(35, 33, 33, 0.7);top: 194px; bottom: 0;" class="blog__item__text">
-                                <p><span class="icon_calendar"></span> 21 March 2023</p>
-                                <h4>
-                                  <router-link :to="`/index5/${v1.id}`">
-                                    <a v-bind:href="'/index5' + v1.id">
-                                      {{ v1.tieu_de }}</a></router-link>
-                                </h4>
+                            <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                              <div 
+                                class="blog__item small__item set-bg"
+                                v-bind:style="{
+                                  'background-image': 'url(' + v1.hinh_anh + ')',
+                                }"
+                              >
+                                <div style=" background-color: rgba(35, 33, 33, 0.7);top: 194px; bottom: 0;" class="blog__item__text">
+                                  <p><span class="icon_calendar"></span> 21 March 2023</p>
+                                  <h4>
+                                    <router-link :to="`/index5/${v1.id}`">
+                                      <a v-bind:href="'/index5' + v1.id">
+                                        {{ v1.tieu_de }}</a></router-link>
+                                  </h4>
+                                </div>
                               </div>
-                            </div>
-                          </div>
+                           </div>
 											  </template>
 											</div>
 											
@@ -147,14 +147,14 @@ export default {
   methods: {
     laydataLoaiBlog() {
       axios
-        .get("http://127.0.0.1:8000/api/admin/bai-viet/lay-du-lieu")
+        .get("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-show")
         .then((res) => {
           this.list_blog = res.data.bai_viet;
         });
     },
     loaddataChuyenMuc() {
       axios
-        .get("http://127.0.0.1:8000/api/admin/chuyen-muc/lay-du-lieu")
+        .get("http://127.0.0.1:8000/api/chuyen-muc/lay-du-lieu-show")
             .then((res) => {
               this.list_chuyen_muc = res.data.chuyen_muc;
             });

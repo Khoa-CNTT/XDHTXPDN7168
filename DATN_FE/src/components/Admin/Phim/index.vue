@@ -338,29 +338,29 @@
           baseRequest
             .get("admin/tac-gia/lay-du-lieu")
             .then((res) => {
-              this.list_tac_gia = res.data.tac_gia;
+              this.list_tac_gia = res.data.tac_gia_admin;
             });
         },
       laydataLoaiPhim() {
         baseRequest
           .get("admin/loai-phim/lay-du-lieu")
           .then((res) => {
-            this.list_loai_phim = res.data.loai_phim;
+            this.list_loai_phim = res.data.loai_phim_admin;
           });
       },
       loaddataTheLoai() {
         baseRequest
           .get("admin/the-loai/lay-du-lieu")
           .then((res) => {
-            this.list_the_loai = res.data.the_loai;
+            this.list_the_loai = res.data.the_loai_admin;
           });
       },
       laydataPhim() {
         baseRequest
           .get("admin/phim/lay-du-lieu")
           .then((res) => {
-            this.list_phim = res.data.phim;
-            console.log(this.list_phim);
+            this.list_phim = res.data.phim_admin;
+            console.log(this.list_phim_admin);
           });
       },
       taoDataPhim() {

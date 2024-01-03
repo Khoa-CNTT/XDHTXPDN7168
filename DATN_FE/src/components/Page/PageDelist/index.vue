@@ -93,10 +93,6 @@
                                             <div class="col-11"><h6>Chris Curry - <span>1 giờ trước</span></h6>
                                                 <p>Phim đã hay mà admin còn đẹp trai nữa còn gì bằng !!!</p>
                                             </div>
-                                            <div class="col-1">
-                                        <a  type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: red;"><i class="fa-solid fa-trash fa-sm mt-4 "></i></a>
-
-                                            </div>
                                         </div>
                                         
                                     </div>
@@ -136,7 +132,7 @@
                             <div class="section-title">
                                 <h5>hot phim</h5>
                             </div>
-                            <template v-for="(v,k) in Show5object ">
+                            <template v-for="(v,k) in list_5_phim ">
                                 <div class="product__sidebar__comment__item">
                                 <div class="product__sidebar__comment__item__pic">
                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
@@ -200,6 +196,7 @@
                 list_loai_phim : [],
                 list_the_loai  : [],
                 list_tac_gia   : [],
+                list_5_phim: [],
                 list_phim      : [],
                 list_cmt       : [],
                 isFollow       : {},
@@ -212,39 +209,33 @@
             this.checkYeuThich();
             this.laydataCMT();
         },
-        computed: {
-            // Tính toán để lấy ba phần tử cuối cùng của mảng items
-            Show5object() {
-                const totalItems = this.list_phim.length;
-                // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-                return this.list_phim.slice(totalItems - 5, totalItems);
-            },
-            },
         methods: {
             laydataPhim() {
-                baseRequest
-                .get("admin/phim/lay-du-lieu")
+                axios
+                .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_phim = res.data.phim;
+                    this.list_5_phim = res.data.phim_5_obj;
+
                 });
             },
             laydataLoaiPhim() {
                 axios
-                .get("http://127.0.0.1:8000/api/admin/loai-phim/lay-du-lieu")
+                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_loai_phim = res.data.loai_phim;
                 });
             },
             loaddataTheLoai() {
                 axios
-                .get("http://127.0.0.1:8000/api/admin/the-loai/lay-du-lieu")
+                .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
                 .then((res) => {
                     this.list_the_loai = res.data.the_loai;
                 });
             },
             laydataCMT() {
                 axios
-                .get("http://127.0.0.1:8000/api/admin/binh-luan-phim/lay-du-lieu")
+                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_cmt = res.data.binh_luan_phim;
                 });
