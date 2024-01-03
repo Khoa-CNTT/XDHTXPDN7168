@@ -8,17 +8,15 @@
                 <div class="card-body">
                     <div class="border p-4 rounded">
                         <div class="text-center">
-                            <h3 class="">Sign Up</h3>
-                            <p>Already have an account? 
+                            <h3 class="">Đăng Ký</h3>
+                            <p>Bạn đã có tài khoản? 
                                 <router-link to="login">
-                                    <a href="admin/login">Sign in here</a>
+                                    <a href="admin/login">Đăng Nhập</a>
                                 </router-link>
                             </p>
                         </div>
                         
-                        <div class="login-separater text-center mb-4"> <span>OR SIGN UP WITH EMAIL</span>
-                            <hr />
-                        </div>
+                        
                         <div class="form-body">
                             <form class="row g-3">
                                 <div class="col-12">
@@ -32,7 +30,7 @@
                                         placeholder="example@user.com">
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputChoosePassword" class="form-label">Password</label>
+                                    <label for="inputChoosePassword" class="form-label">Mật Khẩu</label>
                                     <input type="password" v-model="dang_ky.password" class="form-control" id=""
                                         placeholder="Password">
                                 </div>
@@ -45,8 +43,7 @@
                                 
                                 <div class="col-12">
                                     <div class="d-grid">
-                                        <button type="button" @:click="dangKy()" class="btn btn-primary"><i class='bx bx-user'></i>Sign
-                                            up</button>
+                                        <button type="button" @:click="dangKy()" class="btn btn-primary"><i class='bx bx-user'></i> Đăng Ký</button>
                                     </div>
                                 </div>
                             </form>

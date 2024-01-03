@@ -74,14 +74,16 @@
                 </div>
               </div>
               <div class="row">
-                <template v-for="(v, k) in Show3object">
+                <template v-for="(v, k) in list_3_phim">
                   <div v-if="k < 3" class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="product__item">
+                    <div  class="product__item">
                       <img src="" alt="" />
                       <div class="product__item__pic" v-bind:style="{
                           'background-image': 'url(' + v.hinh_anh + ')',
                         }">
-                        <div v-if="v.ten_loai_phim === 'Phim Bộ'" class="ep">12 / 12</div>
+                            <div v-if="v.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
+                            <div v-else-if="v.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
+                            <div v-else class="ep">1/1</div>
                         <div class="comment">
                         </div>
                         <div class="view"><i class="fa fa-eye"></i> 13401</div>
@@ -125,13 +127,15 @@
                 </div>
                 <div class="row">
                   <template v-for="(v, k) in list_phim">
-                    <template v-if="v.id_the_loai == v1.id ">
+                    <template v-if="v.id_the_loai == v1.id  ">
                       <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
                           <img src="" alt="" />
                           <div class="product__item__pic" v-bind:style="{
                             'background-image': 'url(' + v.hinh_anh + ')',}">
                             <div v-if="v.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
+                            <div v-else-if="v.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
+                            <div v-else class="ep">1/1</div>
                             <div class="comment">
                             </div>
                             <div class="view"><i class="fa fa-eye"></i> 2106</div>
@@ -164,9 +168,10 @@
                 </div>
 
                 <div class="filter__gallery" id="MixItUpF5B6EA">
-                  <template v-for="(v,k) in Show1object">
+                  <template v-for="(v,k) in list_2_phim">
                     <div class="product__sidebar__view__item set-bg mix month week" data-setbg="img/sidebar/tv-2.jpg"
-                      v-bind:style="{'background-image': 'url(https://i0.wp.com/anitrendz.net/news/wp-content/uploads/2023/09/baki-hanma-season-two-cour-two-visual.png)',}">
+                    v-bind:style="{
+                            'background-image': 'url(' + v.hinh_anh + ')',}">
                       <div class="ep">18 / ?</div>
                       <div class="view"><i class="fa fa-eye"></i> 567</div>
                       <h5>
@@ -176,18 +181,7 @@
                       </h5>
                     </div>
                   </template>
-                  <template v-for="(v,k) in Show2object">
-                    <div class="product__sidebar__view__item set-bg mix month week" data-setbg="img/sidebar/tv-2.jpg"
-                      v-bind:style="{'background-image': 'url(https://images.augustman.com/wp-content/uploads/sites/3/2023/07/10143044/Shangri-la-frontier.jpg)',}">
-                      <div class="ep">18 / ?</div>
-                      <div class="view"><i class="fa fa-eye"></i> 567</div>
-                      <h5>
-                        <router-link :to="`/index2/${v.id}`">
-                          <a v-bind:href="'/index2' + v.id">
-                            {{ v.ten_phim }}</a></router-link>
-                      </h5>
-                    </div>
-                  </template>
+                  
 
 
 
@@ -197,8 +191,8 @@
                 <div class="section-title">
                   <h5>Hot trong tuần</h5>
                 </div>
-                <template v-for="(v,k) in Show9object ">
-                  <div class="product__sidebar__comment__item">
+                <template v-for="(v,k) in list_9_phim ">
+                  <div  class="product__sidebar__comment__item">
                     <div class="product__sidebar__comment__item__pic">
                       <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                     </div>
@@ -238,6 +232,9 @@
       return {
         list_loai_phim: [],
         list_the_loai: [],
+        list_9_phim: [],
+        list_2_phim: [],
+        list_3_phim: [],
         list_phim: [],
         test: 0,
         // list_phimHD     : [],
@@ -250,52 +247,31 @@
       this.loaddataTheLoai();
       this.laydataPhim();
     },
-    computed: {
-      // Tính toán để lấy ba phần tử cuối cùng của mảng items
-      Show3object() {
-        const totalItems = this.list_phim.length;
-        // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-        return this.list_phim.slice(totalItems - 3, totalItems);
-      },
-      Show1object() {
-        const totalItems = this.list_phim.length;
-        // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-        return this.list_phim.slice(totalItems - 8, totalItems-7);
-      },
-      Show2object() {
-        const totalItems = this.list_phim.length;
-        // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-        return this.list_phim.slice(totalItems - 9, totalItems - 8);
-      },
-      Show9object() {
-        const totalItems = this.list_phim.length;
-        // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-        return this.list_phim.slice(totalItems - 9, totalItems);
-      }
-
-    },
-
     methods: {
 
       laydataPhim() {
-        baseRequest
-          .get("admin/phim/lay-du-lieu")
+        axios
+          .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
           .then((res) => {
-            this.list_phim = res.data.phim;
+            this.list_9_phim = res.data.phim_9_obj;
+            this.list_2_phim = res.data.phim_2_obj;
+            this.list_3_phim = res.data.phim_3_obj;
           });
       },
       laydataLoaiPhim() {
         axios
-          .get("http://127.0.0.1:8000/api/admin/loai-phim/lay-du-lieu")
+          .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
           .then((res) => {
             this.list_loai_phim = res.data.loai_phim;
+
           });
       },
       loaddataTheLoai() {
         axios
-          .get("http://127.0.0.1:8000/api/admin/the-loai/lay-du-lieu")
+          .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
           .then((res) => {
             this.list_the_loai = res.data.the_loai;
+            this.list_phim = res.data.phim_theo_the_loai;
           });
       },
 

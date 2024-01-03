@@ -182,7 +182,7 @@
         baseRequest
           .get("admin/loai-phim/lay-du-lieu")
           .then((res) => {
-            this.list_loai_phim = res.data.loai_phim;
+            this.list_loai_phim = res.data.loai_phim_admin;
           });
       },
       taoDataLoaiPhim() {

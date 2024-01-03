@@ -181,7 +181,7 @@
           baseRequest
             .get("admin/chuyen-muc/lay-du-lieu")
             .then((res) => {
-              this.list_chuyen_muc = res.data.chuyen_muc;
+              this.list_chuyen_muc = res.data.chuyen_muc_admin;
             });
         },
         taoDataChuyenMuc() {

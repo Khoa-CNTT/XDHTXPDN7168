@@ -51,28 +51,29 @@
                                 </div>
                                 <div class="row">
                                     <template v-for="(v1,k1) in list_phim">
-                                        <div v-if="v1.id_the_loai == v.id" class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item">
-                                            <div class="product__item__pic set-bg"
-                                            v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">
-                                                <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
-                                                <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                            <div v-if="v1.id_the_loai == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                                                    <div  class="product__item">
+                                                        <div class="product__item__pic set-bg"
+                                                        v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">
+                                                        <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
+                                                        <div v-else-if="v1.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
+                                                        <div v-else class="ep">1/1</div>
+                                                            <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                                        </div>
+                                                        <div class="product__item__text">
+                                                            <ul>
+                                                                <li>{{ v1.ten_the_loai }}</li>
+                                                                <li>{{ v1.ten_loai_phim }}</li>
+                                                            </ul>
+                                                            <h5>
+                                                                        <router-link :to="`/index2/${v1.id}`">
+                                                                    <a v-bind:href="'/index2' + v1.id">
+                                                                    {{ v1.ten_phim }}</a></router-link>
+                                                                </h5>
+                                                        </div>
+                                                    </div> 
                                             </div>
-                                            <div class="product__item__text">
-                                                <ul>
-                                                    <li>{{ v1.ten_the_loai }}</li>
-                                                     <li>{{ v1.ten_loai_phim }}</li>
-                                                </ul>
-                                                <h5>
-                                                            <router-link :to="`/index2/${v1.id}`">
-                                                        <a v-bind:href="'/index2' + v1.id">
-                                                        {{ v1.ten_phim }}</a></router-link>
-                                                     </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     </template>
                                     
                                 </div>
@@ -93,7 +94,7 @@
                                     <div class="section-title">
                                         <h5>Hot Phim</h5>
                                     </div>
-                                    <template v-for="(v,k) in Show8object ">
+                                    <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
                                 <div class="product__sidebar__comment__item__pic">
                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
@@ -141,6 +142,7 @@
                 list_loai_phim: [],
                 list_the_loai: [],
                 list_tac_gia: [],
+                list_9_phim: [],
                 list_phim: [],
             };
         },
@@ -149,33 +151,26 @@
             this.loaddataTheLoai();
             this.laydataPhim();
         },
-        computed: {
-            // Tính toán để lấy ba phần tử cuối cùng của mảng items
-            Show8object() {
-                const totalItems = this.list_phim.length;
-                // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-                return this.list_phim.slice(totalItems - 8, totalItems);
-            },
-            
-        },
         methods: {
             laydataPhim() {
-                baseRequest
-                    .get("admin/phim/lay-du-lieu")
+                axios
+                    .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_phim = res.data.phim;
+                        this.list_9_phim = res.data.phim_9_obj;
+
                     });
             },
             laydataLoaiPhim() {
                 axios
-                    .get("http://127.0.0.1:8000/api/admin/loai-phim/lay-du-lieu")
+                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
             loaddataTheLoai() {
                 axios
-                    .get("http://127.0.0.1:8000/api/admin/the-loai/lay-du-lieu")
+                    .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
                     .then((res) => {
                         this.list_the_loai = res.data.the_loai;
                     });

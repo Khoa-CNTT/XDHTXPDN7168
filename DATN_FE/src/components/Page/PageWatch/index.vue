@@ -65,76 +65,56 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8 col-md-8">
-                            <div class="anime__details__review">
-                                <div class="section-title">
-                                    <h5>bình luận</h5>
-                                </div>
-                                <div class="anime__review__item">
-                                    <div class="anime__review__item__pic">
-                                        <img src="../../../assets/assets_Anime/img/anime/review-1.jpg" alt="">
-                                    </div>
-                                    <div class="anime__review__item__text">
-                                        <h6>Chris Curry - <span>1 giờ trước</span></h6>
-                                        <p>whachikan Mới để ý thấy có người xếp cái này vào thể loại "quỷ" LOL</p>
-                                    </div>
-                                </div>
-                                <div class="anime__review__item">
-                                    <div class="anime__review__item__pic">
-                                        <img src="../../../assets/assets_Anime/img/anime/review-2.jpg" alt="">
-                                    </div>
-                                    <div class="anime__review__item__text">
-                                        <h6>Lewis Mann - <span>5 giờ trước</span></h6>
-                                        <p>Cuối cùng nó đã xuất hiện từ lâu rồi</p>
-                                    </div>
-                                </div>
-                                <div class="anime__review__item">
-                                    <div class="anime__review__item__pic">
-                                        <img src="../../../assets/assets_Anime/img/anime/review-3.jpg" alt="">
-                                    </div>
-                                    <div class="anime__review__item__text">
-                                        <h6>Louis Tyler - <span>20 giờ trước</span></h6>
-                                        <p>Tập 15 ở đâu vậy Cập nhật chậm! Tch</p>
-                                    </div>
-                                </div>
-                                <div class="anime__review__item">
-                                    <div class="anime__review__item__pic">
-                                        <img src="../../../assets/assets_Anime/img/anime/review-4.jpg" alt="">
-                                    </div>
-                                    <div class="anime__review__item__text">
-                                        <h6>Chris Curry - <span>1 giờ trước</span></h6>
-                                        <p>whachikan Mới để ý thấy có người xếp cái này vào thể loại "quỷ" LOL</p>
-                                    </div>
-                                </div>
-                                <div class="anime__review__item">
-                                    <div class="anime__review__item__pic">
-                                        <img src="../../../assets/assets_Anime/img/anime/review-5.jpg" alt="">
-                                    </div>
-                                    <div class="anime__review__item__text">
-                                        <h6>Lewis Mann - <span>5 giờ trước</span></h6>
-                                        <p>Cuối cùng nó đã xuất hiện từ lâu rồi</p>
-                                    </div>
-                                </div>
-                                <div class="anime__review__item">
-                                    <div class="anime__review__item__pic">
-                                        <img src="../../../assets/assets_Anime/img/anime/review-6.jpg" alt="">
-                                    </div>
-                                    <div class="anime__review__item__text">
-                                        <h6>Louis Tyler - <span>20 giờ trước</span></h6>
-                                        <p>Tập 15 ở đâu vậy Cập nhật chậm! Tch</p>
-                                    </div>
-                                </div>
+                    <div class="col-lg-9 col-md-8">
+                        <div class="anime__details__review">
+                            <div class="section-title">
+                                <h5>Bình Luận</h5>
                             </div>
-                            <div class="anime__details__form">
-                                <div class="section-title">
-                                    <h5>Bình Luận của Bạn</h5>
-                                </div>
-                                <form action="#">
-                                    <textarea placeholder="Nhập bình luận"></textarea>
-                                    <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
-                                </form>
-                            </div>
+                            
+                            <template v-for="(v,k) in list_cmt">
+                                <div v-if="v.id_phim == id " class="anime__review__item">
+                                    <div class="anime__review__item__pic">
+                                        <img v-bind:src="v.hinh_anh" alt="">
+                                    </div>
+                                    <div class="anime__review__item__text">
+                                        <div class="row">
+                                            <div class="col-11"><h6>{{ v.ho_va_ten }} - <span>1 phút trước</span></h6>
+                                                <p>{{ v.noi_dung }} !!!</p>
+                                            </div>
+                                            <div class="col-1">
+                                        <a v-if="v.id_khach_hang == id_user " type="button" @click="Object.assign(obj_xoa_cmt,v)" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color: red;"><i class="fa-solid fa-trash fa-sm mt-4 "></i></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                            </template>
                         </div>
+                        <div class="anime__details__form">
+                            <div class="section-title">
+                                <h5>Bình Luận của Bạn</h5>
+                            </div>
+                            <form action="#">
+                                <textarea v-model="obj_cmt_phim.noi_dung"  placeholder="Nhập bình luận"></textarea>
+                                <button @click="themBinhLuan()" type="button"><i class="fa fa-location-arrow"></i> Gửi</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                     <!-- Modal xoa binh luan -->
+                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div style="background-color: rgba(35, 33, 33,  1.0);" class="modal-content">
+                                            <div class="modal-body text-white">
+                                                Bạn có chắc muốn xoá bình luận?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" @click="deleteBinhLuan()" class="btn btn-primary" data-bs-dismiss="modal"> Xoá</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -150,7 +130,7 @@
 
 <script>
   import axios from "axios";
-  import baseRequest from '../../../core/baseRequest';
+  import baseRequest from '../../../core/baseRequestUser';
   import { createToaster } from "@meforma/vue-toaster";
   import YoutubeVideo from '../../core/index.vue';
 
@@ -163,8 +143,12 @@
         },
     data() {
       return {
-        list_loai_phim: [],
-        list_the_loai: [],
+        list_loai_phim  : [],
+        id_user        : localStorage.getItem('id_user'), 
+        list_the_loai   : [],
+        list_cmt       : [],
+        obj_cmt_phim    : { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id,},
+        obj_xoa_cmt     : {},
         list_phim: [],
 		id : this.$route.params.id,
         // list_phimHD     : [],
@@ -175,32 +159,67 @@
       this.laydataLoaiPhim();
       this.loaddataTheLoai();
       this.laydataPhim();
+      this.laydataCMT();
     },
     
 
     methods: {
 
       laydataPhim() {
-        baseRequest
-          .get("admin/phim/lay-du-lieu")
+        axios
+          .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
           .then((res) => {
             this.list_phim = res.data.phim;
           });
       },
       laydataLoaiPhim() {
         axios
-          .get("http://127.0.0.1:8000/api/admin/loai-phim/lay-du-lieu")
+          .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
           .then((res) => {
             this.list_loai_phim = res.data.loai_phim;
           });
       },
       loaddataTheLoai() {
         axios
-          .get("http://127.0.0.1:8000/api/admin/the-loai/lay-du-lieu")
+          .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
           .then((res) => {
             this.list_the_loai = res.data.the_loai;
           });
       },
+      laydataCMT() {
+                axios
+                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show")
+                .then((res) => {
+                    this.list_cmt = res.data.binh_luan_phim;
+                });
+        },
+        themBinhLuan(){
+                baseRequest
+                .post("admin/binh-luan-phim/thong-tin-tao" , this.obj_cmt_phim
+                )
+                .then((res) => {
+                if (res.data.status == true) {
+                    toaster.success(res.data.message);
+                    this.obj_cmt_phim   = { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id, 'noi_dung' : ''};
+                    this.laydataCMT();
+                } else {
+                    toaster.error(res.data.message);
+                }
+                });
+            },
+            deleteBinhLuan() {
+                baseRequest
+                .delete('admin/binh-luan-phim/thong-tin-xoa/' + this.obj_xoa_cmt.id)
+                .then((res) => {
+                    if (res.data.status == true) {
+                    toaster.success(  res.data.message);
+                    this.laydataCMT();
+                    }
+                    else {
+                    toaster.danger(  res.data.message);
+                    }
+                });
+            },   
 
     },
 

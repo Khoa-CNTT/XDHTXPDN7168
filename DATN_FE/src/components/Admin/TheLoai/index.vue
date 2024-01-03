@@ -181,7 +181,7 @@
         baseRequest
           .get("admin/the-loai/lay-du-lieu")
           .then((res) => {
-            this.list_the_loai = res.data.the_loai;
+            this.list_the_loai = res.data.the_loai_admin;
           });
       },
       taoDataTheLoai() {

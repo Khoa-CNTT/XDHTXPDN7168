@@ -168,7 +168,7 @@
           baseRequest
             .get("admin/tac-gia/lay-du-lieu")
             .then((res) => {
-              this.list_tac_gia = res.data.tac_gia;
+              this.list_tac_gia = res.data.tac_gia_admin;
             });
         },
         taoDataTacGia() {
