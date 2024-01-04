@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
       <div class="row">
         <div class="col-3">
           <div class="card border-5 border-primary border-top">
@@ -141,7 +140,6 @@
           </div>
         </div>
       </div>
-    </div>
   </template>
   <script>
     import axios from "axios";

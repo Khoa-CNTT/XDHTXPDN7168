@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
       <div class="row mb-3">
         <div class="col-12 text-end">
           <button class="btn btn-outline-primary px-5 radius-30" data-bs-toggle="modal" data-bs-target="#themMoiModal">
@@ -175,7 +174,6 @@
           </div>
         </div>
       </div>
-    </div>
   </template>
   <script>
     import axios from "axios";
@@ -227,7 +225,7 @@
           baseRequest
             .post('admin/admin/thong-tin-tim', this.key_tim)
             .then((res) => {
-              this.list_admin = res.data.phim;
+              this.list_admin = res.data.admin;
             });
         },
         deleteAdmin() {
