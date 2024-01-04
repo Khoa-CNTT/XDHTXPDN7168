@@ -88,7 +88,7 @@
               <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-8">
                   <div class="section-title">
-                    <h4>Xem Nhiều Nhất</h4>
+                    <h4> Mới Cập Nhật</h4>
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -225,7 +225,7 @@
             <div class="product__sidebar">
               <div class="product__sidebar__view">
                 <div class="section-title">
-                  <h5>Mới Cập Nhật</h5>
+                  <h5> Xem Nhiều Nhất</h5>
                 </div>
 
                 <div class="filter__gallery" id="MixItUpF5B6EA">
