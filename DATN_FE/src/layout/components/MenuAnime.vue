@@ -89,8 +89,12 @@
                                             <a  @click="removeToken()" class="dropdown-item"><i class='bx bx-log-out-circle me-1'></i><span>Đăng xuất</span></a>
                                         </router-link>
                                     </li>
-                                        <!-- Modal Danh Sach yêu thích -->
-                                            <div class="modal fade" id="DanhSachYT" data-bs-keyboard="false"
+                                        
+                                </ul>
+                            </div>                           
+                    </div>
+                     <!-- Modal Danh Sach yêu thích -->
+                     <div class="modal fade" id="DanhSachYT" data-bs-keyboard="false"
                                                 tabindex="-1" aria-labelledby="DanhSachYTLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div style="background-color: rgba(35, 33, 33, 0.8);" class="modal-content">
@@ -135,13 +139,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                </ul>
-                            </div>
-
-
-                    </div>
-                    
+                            </div>    
 
                 </div>
             </div>
