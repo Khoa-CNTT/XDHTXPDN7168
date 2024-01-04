@@ -69,7 +69,7 @@ export default {
             axios
                 .post('http://127.0.0.1:8000/api/register', this.dang_ky)
                 .then((res) => {
-                    toaster.success('Thông báo<br>' + res.data.message);
+                    toaster.success(res.data.message);
                     this.dang_ky = {};
                 });
         },

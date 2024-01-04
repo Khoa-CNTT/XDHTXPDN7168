@@ -27,11 +27,11 @@
           <div class="trending__product">
             <div class="row " >
               <div class="col-lg-12 col-md-12 col-sm-12 ">
-                <ul class="nav nav-tabs section-title" style=" border-bottom: 1px solid #fd3550; background-color: #0b0c2a; display: flex;justify-content: center;" id="myTab" role="tablist">
+                <ul class="nav nav-tabs section-title" style=" border-bottom: 1px solid #f8f6f6; background-color: #0b0c2a; display: flex;justify-content: center;" id="myTab" role="tablist">
 									<template v-for="(v,k) in list_chuyen_muc">
 										<template v-if="k==0">
 											<li class="nav-item" role="presentation">
-												<button style="background-color: rgba(35, 33, 33, 0.4); width: 180px;border-color: #fd3550 #fd3550 rgba(35, 33, 33, 0.4);" class="nav-link active" id="home-tab" data-bs-toggle="tab"
+												<button style="background-color: rgba(35, 33, 33, 0.4); width: 180px;" class="nav-link active" id="home-tab" data-bs-toggle="tab"
 													v-bind:data-bs-target="'#home-tab-pane' + k" type="button"
 													role="tab"  aria-selected="true">
                            <h5 >{{v.ten_chuyen_muc }}</h5>
