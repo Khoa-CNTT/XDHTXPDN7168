@@ -134,9 +134,11 @@
                             </div>
                             <template v-for="(v,k) in list_5_phim ">
                                 <div class="product__sidebar__comment__item">
-                                <div class="product__sidebar__comment__item__pic">
-                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
-                                </div>
+                                <a v-bind:href="'/index2/' + v.id" > 
+                                    <div class="product__sidebar__comment__item__pic">
+                                        <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                    </div>
+                                </a>
                                 <div class="product__sidebar__comment__item__text">
                                     <ul>
                                     <li>{{ v.ten_the_loai }}</li>

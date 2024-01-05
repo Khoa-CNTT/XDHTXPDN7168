@@ -230,6 +230,7 @@
 
                 <div class="filter__gallery" id="MixItUpF5B6EA">
                   <template v-for="(v, k) in list_2_phim">
+                    <router-link :to="`/index2/${v.id}`">
                     <div
                       class="product__sidebar__view__item set-bg mix month week"
                       data-setbg="img/sidebar/tv-2.jpg"
@@ -238,15 +239,14 @@
                       }"
                     >
                       <div class="ep">18 / ?</div>
-                      <div class="view"><i class="fa fa-eye"></i> 567</div>
+                      <div class="view"><i class="fa fa-eye"></i> 210603</div>
                       <h5>
-                        <router-link :to="`/index2/${v.id}`">
                           <a v-bind:href="'/index2' + v.id">
                             {{ v.ten_phim }}</a
-                          ></router-link
-                        >
+                          >
                       </h5>
                     </div>
+                    </router-link>
                   </template>
                 </div>
               </div>

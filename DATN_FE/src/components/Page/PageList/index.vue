@@ -98,9 +98,12 @@
                                     </div>
                                     <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
-                                <div class="product__sidebar__comment__item__pic">
-                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
-                                </div>
+                                    <router-link :to="`/index2/${v.id}`" >
+                                        <div class="product__sidebar__comment__item__pic">
+                                            <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                        </div>
+                                    </router-link>
+                                
                                 <div class="product__sidebar__comment__item__text">
                                     <ul>
                                     <li>{{ v.ten_the_loai }}</li>
