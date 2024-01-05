@@ -53,14 +53,16 @@
                                     <template v-for="(v1,k1) in list_phim">
                                         <div v-if="v1.id_loai_phim == v.id" class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                            <div class="product__item__pic set-bg"
-                                            v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">
-                                            <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
-                                            <div v-else-if="v1.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
-                                            <div v-else class="ep">1/1</div>
-                                                <div class="comment"><i class="fa fa-comments"></i> 11</div>
-                                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                            </div>
+                                           <router-link :to="`/index2/${v1.id}`"  >
+                                                <div class="product__item__pic set-bg"
+                                                v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">
+                                                <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
+                                                <div v-else-if="v1.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
+                                                <div v-else class="ep">1/1</div>
+                                                    <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                                </div>
+                                           </router-link>
                                             <div class="product__item__text">
                                                 <ul>
                                                     <li>{{ v1.ten_the_loai }}</li>
@@ -97,9 +99,12 @@
                                     </div>
                                     <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
-                                <div class="product__sidebar__comment__item__pic">
-                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
-                                </div>
+                                    
+                                    <router-link  :to="`/index2/${v.id}`" >
+                                        <div class="product__sidebar__comment__item__pic">
+                                            <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                        </div>
+                                    </router-link>
                                 <div class="product__sidebar__comment__item__text">
                                     <ul>
                                     <li>{{ v.ten_the_loai }}</li>
