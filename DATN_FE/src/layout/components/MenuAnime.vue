@@ -125,94 +125,96 @@
                                         <div class="section-title ">
                                             <h5>Danh Sách Phim Yêu Thích Của Bạn</h5>
                                         </div>
-                                        <template v-for="(v,k) in list_yeu_thich ">
-                                            <div v-if="v.id_khach_hang == id_user" class="row ">
-                                                <div class="col-10">
-                                                    <div class="product__sidebar__comment__item">
-                                                        <a v-bind:href="'/index2/' + v.id_phim">
-                                                            <div class="product__sidebar__comment__item__pic">
-                                                                <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                        <div class="row sctrollspy-example" data-bs-spy="sctroll">
+                                            <template v-for="(v,k) in list_yeu_thich ">
+                                                <div v-if="v.id_khach_hang == id_user" class="row ">
+                                                    <div class="col-10">
+                                                        <div class="product__sidebar__comment__item">
+                                                            <a v-bind:href="'/index2/' + v.id_phim">
+                                                                <div class="product__sidebar__comment__item__pic">
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                                                </div>
+                                                            </a>
+                                                            <div class="product__sidebar__comment__item__text">
+                                                                <ul>
+                                                                    <li>hành động</li>
+                                                                    <li>phim lẻ</li>
+                                                                </ul>
+                                                                <h5>
+                                                                    <!-- <router-link :to="`/index2/${v.id}`"> -->
+                                                                    <a v-bind:href="'/index2/' + v.id_phim">
+                                                                        {{ v.ten_phim }}</a>
+                                                                    <!-- </router-link> -->
+                                                                </h5>
+                                                                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
                                                             </div>
-                                                        </a>
-                                                        <div class="product__sidebar__comment__item__text">
-                                                            <ul>
-                                                                <li>hành động</li>
-                                                                <li>phim lẻ</li>
-                                                            </ul>
-                                                            <h5>
-                                                                <!-- <router-link :to="`/index2/${v.id}`"> -->
-                                                                <a v-bind:href="'/index2/' + v.id_phim">
-                                                                    {{ v.ten_phim }}</a>
-                                                                <!-- </router-link> -->
-                                                            </h5>
-                                                            <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
                                                         </div>
                                                     </div>
+                                                    <div class="col-2">
+                                                        <a @click="xoaYeuThich(v)" type="button" class="mt-5 text-danger">
+                                                            <h4 style="color: red;"><i class="fa-solid fa-trash"></i></h4>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <div class="col-2">
-                                                    <a @click="xoaYeuThich(v)" type="button" class="mt-5 text-danger">
-                                                        <h4 style="color: red;"><i class="fa-solid fa-trash"></i></h4>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </template>
+                                             </template>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
+                                <!-- <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Đóng</button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                     <!-- Modal Tìm Kiếm  -->
                     <div class="modal fade" id="TimKiem" data-bs-keyboard="false" tabindex="-1"
-                        aria-labelledby="DanhSachYTLabel" aria-hidden="true">
+                        aria-labelledby="DTimKiemLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div style="background-color: rgba(35, 33, 33, 0.9);" class="modal-content">
                                 <div class="modal-body ">
                                     <div class="product__sidebar__comment">
                                         <div class="section-title ">
                                             <div class="input-group mb-3">
-                                                <button @click="searchPhim() ; showTimKiem()" type="button"  class="input-group-text serch" ><i
-                                                        class="fa-solid fa-magnifying-glass"></i></button>
-                                                <input v-on:keyup.enter="searchPhim() ; showTimKiem()" v-model="key_tim.key" class="form-control" list="datalistOptions" id="exampleDataList"
+                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" @click="searchPhim()" type="button"  class="input-group-text serch" >
+                                                <i class="fa-solid fa-magnifying-glass"></i></a>
+                                                
+                                                <input v-on:keyup="searchPhim()" v-model="key_tim.key" class="form-control" list="datalistOptions" id="exampleDataList"
                                                     placeholder="Tìm kiếm phim..">
                                                 <datalist id="datalistOptions">
-                                                    <option value="VUA PHÁP THUẬT"> </option>
-                                                    <option value="Phong Ngữ Chú"> </option>
-                                                    <option value="POKEMON"></option>
                                                     <option value="chuyển sinh thành máy bán nước"></option>
                                                 </datalist>
                                             </div>
                                         </div>
-                                        <template v-for="(v,k) in list_phim ">
-                                            <div v-if="isShowTimKiem == true"  class="row ">
-                                                <div class="col-10">
-                                                    <div class="product__sidebar__comment__item">
-                                                        <a v-bind:href="'/index2/' + v.id">
-                                                            <div class="product__sidebar__comment__item__pic">
-                                                                <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                        <div class="row sctrollspy-example" data-bs-spy="sctroll">
+                                            <template v-for="(v,k) in list_phim ">
+                                                <div   class="row ">
+                                                    <div class="col-10">
+                                                        <div class="product__sidebar__comment__item">
+                                                            <a v-bind:href="'/index2/' + v.id">
+                                                                <div class="product__sidebar__comment__item__pic">
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                                                </div>
+                                                            </a>
+                                                        
+                                                            <div class="product__sidebar__comment__item__text">
+                                                                <ul>
+                                                                    <li>hành động</li>
+                                                                    <li>phim lẻ</li>
+                                                                </ul>
+                                                                <h5>
+                                                                    <!-- <router-link :to="`/index2/${v.id}`"> -->
+                                                                    <a v-bind:href="'/index2/' + v.id">
+                                                                        {{ v.ten_phim }}</a>
+                                                                    <!-- </router-link> -->
+                                                                </h5>
+                                                                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
                                                             </div>
-                                                        </a>
-                                                       
-                                                        <div class="product__sidebar__comment__item__text">
-                                                            <ul>
-                                                                <li>hành động</li>
-                                                                <li>phim lẻ</li>
-                                                            </ul>
-                                                            <h5>
-                                                                <!-- <router-link :to="`/index2/${v.id}`"> -->
-                                                                <a v-bind:href="'/index2/' + v.id">
-                                                                    {{ v.ten_phim }}</a>
-                                                                <!-- </router-link> -->
-                                                            </h5>
-                                                            <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </template>
+                                            </template>
+                                        </div>
 
 
                                     </div>
@@ -282,7 +284,6 @@
                 list_phim: [],
                 list_yeu_thich: [],
                 key_tim        : {},
-                isShowTimKiem: false,
                 is_login: false,
                 user_name: {},
                 id_user: {},
@@ -297,10 +298,6 @@
             this.laydataYeuThich();
         },
         methods: {
-            showTimKiem()
-            {
-                    this.isShowTimKiem = true;
-            },
             laydataPhim() {
                 axios
                     .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
@@ -381,7 +378,6 @@
                     .post("http://127.0.0.1:8000/api/phim/thong-tin-tim",this.key_tim)
                     .then((res) => {
                         this.list_phim = res.data.phim;
-                        this.key_tim = {};
                     });
             },
 
@@ -392,6 +388,10 @@
     };
 </script>
 <style>
+    .sctrollspy-example {
+        height: 400px;
+        overflow-y: auto;
+    }
     /* Mặc định */
     li {
         color: #000;

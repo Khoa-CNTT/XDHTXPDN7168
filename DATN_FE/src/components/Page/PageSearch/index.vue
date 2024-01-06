@@ -1,6 +1,5 @@
 <template>
-    <template v-for="(v,k) in list_loai_phim">
-        <template v-if="v.id == id">
+        <!-- <template v-if="v.id == id"> -->
             <!-- Breadcrumb Begin -->
             <div class="breadcrumb-option" style="background-color: #0b0c2a">
                 <div class="container">
@@ -8,9 +7,8 @@
                         <div class="col-lg-12">
                             <div class="breadcrumb__links">
                                 <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-                                <router-link to="/"> Loại Phim</router-link>
-                                <a href=""> {{ v.ten_loai_phim }}</a>
-                                <span>{{ v.ten_phim }}</span>
+                                <router-link to="/"> Tìm Kiếm</router-link>
+                                <span>{{ key_tim.key}}</span>
                             </div>
                         </div>
                     </div>
@@ -25,39 +23,23 @@
                             <div class="product__page__content">
                                 <div class="product__page__title">
                                     <div class="row">
-                                        <div class="col-lg-8 col-md-8 col-sm-6">
+                                        <div class="col-lg-12 col-md-12 col-sm-6">
                                             <div class="section-title">
-                                                <h4>{{ v.ten_loai_phim }}</h4>
+                                                <h4>Từ khoá Tìm: {{ key_tim.key }}</h4>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
-                                            <div class="product__page__filter">
-                                                <p>Sắp xếp theo:</p>
-                                                <select v-model="bien" @change="Sapxep(v.id)" >
-                                                    <option value="az">A-Z</option>
-                                                    <option value="za">Z-A</option>
-                                                    <option value="1to10">1-9</option>
-                                                </select>
-                                                <!-- <div class="nice-select" tabindex="0"><span class="current">A-Z</span>
-                                                    <ul class="list">
-                                                    <li data-value="" class="option selected">A-Z</li>
-                                                    <li data-value="" class="option">1-10</li>
-                                                    <li data-value="" class="option">10-50</li>
-                                                    </ul>
-                                                </div> -->
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <template v-for="(v1,k1) in list_phim">
-                                        <div v-if="v1.id_loai_phim == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                                    <template v-for="(v,k) in list_phim">
+                                        <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                           <router-link :to="`/index2/${v1.id}`"  >
+                                           <router-link :to="`/index2/${v.id}`"  >
                                                 <div class="product__item__pic set-bg"
-                                                v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">
-                                                <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
-                                                <div v-else-if="v1.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
+                                                v-bind:style="{'background-image': 'url(' + v.hinh_anh + ')',}">
+                                                <div v-if="v.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
+                                                <div v-else-if="v.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
                                                 <div v-else class="ep">1/1</div>
                                                     <div class="comment"><i class="fa fa-comments"></i> 11</div>
                                                     <div class="view"><i class="fa fa-eye"></i> 9141</div>
@@ -65,13 +47,13 @@
                                            </router-link>
                                             <div class="product__item__text">
                                                 <ul>
-                                                    <li>{{ v1.ten_the_loai }}</li>
-                                                     <li>{{ v1.ten_loai_phim }}</li>
+                                                    <li>{{ v.ten_the_loai }}</li>
+                                                     <li>{{ v.ten_loai_phim }}</li>
                                                 </ul>
                                                 <h5>
-                                                            <router-link :to="`/index2/${v1.id}`">
-                                                        <a v-bind:href="'/index2' + v1.id">
-                                                        {{ v1.ten_phim }}</a></router-link>
+                                                            <router-link :to="`/index2/${v.id}`">
+                                                        <a v-bind:href="'/index2' + v.id">
+                                                        {{ v.ten_phim }}</a></router-link>
                                                      </h5>
                                             </div>
                                         </div>
@@ -127,9 +109,7 @@
             </section>
 
 
-        </template>
-        
-    </template>
+    <!-- </template> -->
 
 
 </template>
@@ -144,13 +124,13 @@
     export default {
         data() {
             return {
-                id: this.$route.params.id,
-                list_loai_phim: [],
-                list_the_loai: [],
-                list_tac_gia: [],
-                list_phim: [],
-                list_9_phim: [],
-                bien: '',
+                key_tim         : {key : this.$route.params.id},
+                list_loai_phim  : [],
+                list_the_loai   : [],
+                list_tac_gia    : [],
+                list_phim       : [],
+                list_9_phim     : [],
+                bien            : '',
 
             };
         },
@@ -158,6 +138,7 @@
             this.laydataLoaiPhim();
             this.loaddataTheLoai();
             this.laydataPhim();
+            this.searchPhim();
         },
         methods: {
             Sapxep(id_loai_phim) {
@@ -193,6 +174,13 @@
                     .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
                     .then((res) => {
                         this.list_the_loai = res.data.the_loai;
+                    });
+            },
+            searchPhim() {
+                axios
+                    .post("http://127.0.0.1:8000/api/phim/thong-tin-tim",this.key_tim)
+                    .then((res) => {
+                        this.list_phim = res.data.phim;
                     });
             },
 

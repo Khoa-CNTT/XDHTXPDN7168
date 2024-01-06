@@ -19,7 +19,6 @@ const routes = [
         component: ()=>import('../components/Page/Register/index.vue'),
         meta : {layout : 'loginanime'} ,
 
-
     },
     
     {
@@ -40,6 +39,11 @@ const routes = [
     {
         path : '/index6/:id',
         component: ()=>import('../components/Page/PageLoaiPhim/index.vue'),
+
+    },
+    {
+        path : '/tim-kiem/:id',
+        component: ()=>import('../components/Page/PageSearch/index.vue'),
 
     },
     //Page Blog
