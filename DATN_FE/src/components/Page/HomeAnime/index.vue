@@ -123,9 +123,7 @@
                           </div>
                           <div v-else class="ep">1/1</div>
                           <div class="comment"></div>
-                          <div class="view">
-                            <i class="fa fa-eye"></i> 13401
-                          </div>
+                          
                         </div>
                       </router-link>
 
