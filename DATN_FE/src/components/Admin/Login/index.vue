@@ -234,6 +234,7 @@ export default {
                 .then((res) => {
                     console.log(res.data);
                     localStorage.setItem('ho_ten', res.data.ho_ten);
+                    localStorage.setItem('id_admin', res.data.id_admin);
                     localStorage.setItem('hinh_anh', res.data.hinh_anh);
                     if (res.status === 200) {
                         this.is_login = true;

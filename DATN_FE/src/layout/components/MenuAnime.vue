@@ -79,27 +79,30 @@
                                     </router-link>
                                 </li>
                                 <li class="user-avatar">
-                                    <a v-show="is_login" class="dropdown-item text-center  "
-                                        type="button">
-                                        <div class="d-flex align-items-center">
-                                            <div class="chat-user-online">
-                                                <img v-bind:src="img" width="45" height="45" class="rounded-circle" alt="">
-                                            </div>
-                                            <div class="flex-grow-1 ms-2">
-                                                <b class="mb-0">{{  user_name }}</b>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="row">
-                                            <div class="col">
-                                                <img style="width: 40px; height: 40px; margin: 0;" v-bind:src="img"
-                                                    class="user-img " alt="user avatar">
-                                            </div>
-                                            <div class="col">
-                                                <span> </span>
-                                            </div>
-                                        </div> -->
+                                    <router-link to="/profile">
+                                            <a v-show="is_login" class="dropdown-item text-center  "
+                                                type="button">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="chat-user-online">
+                                                        <img v-bind:src="img" width="45" height="45" class="rounded-circle" alt="">
+                                                    </div>
+                                                    <div class="flex-grow-1 ms-2">
+                                                        <b class="mb-0">{{  user_name }}</b>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row">
+                                                    <div class="col">
+                                                        <img style="width: 40px; height: 40px; margin: 0;" v-bind:src="img"
+                                                            class="user-img " alt="user avatar">
+                                                    </div>
+                                                    <div class="col">
+                                                        <span> </span>
+                                                    </div>
+                                                </div> -->
 
-                                    </a>
+                                            </a>
+                                    </router-link>
+                                   
                                 </li>
                                 <li class="user-avatar mt-2">
                                     <a v-show="is_login" class="dropdown-item" data-bs-toggle="modal" type="button"
@@ -187,7 +190,7 @@
                                             </div>
                                         </div>
                                         <div class="row sctrollspy-example" data-bs-spy="sctroll">
-                                            <template v-for="(v,k) in list_phim ">
+                                            <template v-for="(v,k) in list_phim_search ">
                                                 <div   class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
@@ -283,6 +286,7 @@
                 list_loai_phim: [],
                 list_phim: [],
                 list_yeu_thich: [],
+                list_phim_search : [],
                 key_tim        : {},
                 is_login: false,
                 user_name: {},
@@ -377,7 +381,7 @@
                 axios
                     .post("http://127.0.0.1:8000/api/phim/thong-tin-tim",this.key_tim)
                     .then((res) => {
-                        this.list_phim = res.data.phim;
+                        this.list_phim_search = res.data.phim;
                     });
             },
 
