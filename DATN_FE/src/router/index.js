@@ -46,6 +46,11 @@ const routes = [
         component: ()=>import('../components/Page/PageSearch/index.vue'),
 
     },
+    {
+        path : '/profile',
+        component: ()=>import('../components/Page/PageProfile/index.vue'),
+
+    },
     //Page Blog
     {
         path : '/index4',
@@ -59,6 +64,12 @@ const routes = [
     }, 
     
     /// Admin
+    {
+        path : '/admin/profile',
+        component: ()=>import('../components/Admin/ProfileAdmin/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'} ,
+    },
     {
         path : '/admin/the-loai',
         component: ()=>import('../components/Admin/TheLoai/index.vue'),

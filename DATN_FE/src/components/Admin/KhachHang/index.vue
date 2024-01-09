@@ -292,6 +292,20 @@
             }
           }
         },
+        async handleFileChangeUpdate(event) {
+          const file = event.target.files[0];
+  
+          if (file) {
+            try {
+              const base64Data = await this.imageToBase64(file);
+              console.log('Base64 Data:', base64Data);
+              this.obj_add_user.hinh_anh = base64Data;
+              // Thực hiện các hành động khác với base64Data ở đây
+            } catch (error) {
+              console.error('Error converting image to base64:', error);
+            }
+          }
+        },
       },
   
     };
