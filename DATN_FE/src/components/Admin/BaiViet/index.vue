@@ -202,7 +202,7 @@
                                     <label for="" class="form-label mb-1 mt-1">
                                     <b>Hình Ảnh</b>
                                     </label>
-                                    <input type="file" @change="handleFileChange" class="form-control" />
+                                    <input type="file" @change="handleFileChangeUpdate" class="form-control" />
                                 </div>
                                 </div>
                                 <div class="row">
@@ -375,6 +375,18 @@
               const base64Data = await this.imageToBase64(file);
               console.log('Base64 Data:', base64Data);
               this.obj_add_bai_viet.hinh_anh = base64Data;
+              // Thực hiện các hành động khác với base64Data ở đây
+            } catch (error) {
+              console.error('Error converting image to base64:', error);
+            }
+          }
+        },
+        async handleFileChangeUpdate(event) {
+          const file = event.target.files[0];
+          if (file) {
+            try {
+              const base64Data = await this.imageToBase64(file);
+              this.obj_update_bai_viet.hinh_anh = base64Data;
               // Thực hiện các hành động khác với base64Data ở đây
             } catch (error) {
               console.error('Error converting image to base64:', error);

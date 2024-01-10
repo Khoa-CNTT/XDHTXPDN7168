@@ -22,11 +22,24 @@
 								<div class="card ">
 									<div class="card-body " style="background-color: #0b0c2adb">
 										<div class="d-flex flex-column align-items-center text-white text-center">
-											<img v-bind:src="obj_doi_pass.hinh_anh" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+											<img v-bind:src="hinh_anh_user" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
 											<div class="mt-3">
 												<h4>{{ ho_ten_user }}</h4>
+												<div class="dropdown">
+													<div class="cursor-pointer font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded"></i>
+													</div>
+													<div class="dropdown-menu dropdown-menu-end" style=" background-color: rgba(35, 33, 33);"> 
+												
+														<!-- <a  class="dropdown-item">Đổi ảnh </a> -->
+														
+											  			<a data-bs-toggle="collapse"  href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-sm text-white px-4" value="Mật Khẩu	">Đổi mật khẩu</a>
+
+													</div>
+												</div>
+												
 												<p class="text-secondary mb-1">Thành viên của WAnime</p>
-										<a   data-bs-toggle="collapse" type="button" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-sm text-white px-4" value="Mật Khẩu	">Đổi mật khẩu</a>
+
+												<input type="file" @change="handleFileChangeUpdate" class="form-control-sm" style="width: 100px;" />
 
 											</div>
 										</div>
@@ -93,7 +106,7 @@
 											<div class="col-sm-3"></div>
 											<div class="col-sm-9 text-secondary">
 												<input @click="DoiThongTin()"  type="button" class="btn btn-success px-4 me-5" value="Cập Nhât">
-												<input @click="DoiPass()"  type="button" class="btn btn-danger px-4 me-5" value="Đổi Mật Khẩu">
+												<input @click="DoiPass()"  type="button" class="btn btn-danger px-4 me-5 collapse multi-collapse " id="multiCollapseExample1" value="Đổi Mật Khẩu">
 											</div>
 										</div>
 									</div>
@@ -115,12 +128,12 @@
     export default {
         data() {
             return {
-                // id: this.$route.params.id,
-       		    list_khach_khach: [],
-				obj_doi_pass : {},
-				obj_update_tt : {},
-				ho_ten_user : localStorage.getItem('ho_ten_user'),
-				id_user : localStorage.getItem('id_user'),
+       		    // list_khach_khach: [],
+              obj_doi_pass : {},
+              obj_update_tt : {},
+              ho_ten_user : localStorage.getItem('ho_ten_user'),
+              hinh_anh_user : localStorage.getItem('hinh_anh_user'),
+              id_user : localStorage.getItem('id_user'),
 
 
 
@@ -166,12 +179,54 @@
             .then((res) => {
               if (res.data.status == true) {
                 toaster.success( res.data.message);
-				this.ho_ten_user = res.data.ho_ten_user;
+			          this.ho_ten_user = res.data.ho_ten_user;
+                localStorage.setItem('ho_ten_user', res.data.ho_ten_user);
                 this.laydataAdmin();
               } else {
                 toaster.error( res.data.message);
               }
             });
+        },
+		/// file base 64
+        async imageToBase64(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+  
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+          });
+        },
+  
+        // async handleFileChange(event) {
+        //   const file = event.target.files[0];
+  
+        //   if (file) {
+        //     try {
+        //       const base64Data = await this.imageToBase64(file);
+        //       console.log('Base64 Data:', base64Data);
+        //       this.obj_add_admin.hinh_anh = base64Data;
+        //       // Thực hiện các hành động khác với base64Data ở đây
+        //     } catch (error) {
+        //       console.error('Error converting image to base64:', error);
+        //     }
+        //   }
+        // },
+        async handleFileChangeUpdate(event) {
+          const file = event.target.files[0];
+  
+          if (file) {
+            try {
+              const base64Data = await this.imageToBase64(file);
+              console.log('Base64 Data:', base64Data);
+              this.hinh_anh_user = base64Data;
+			  localStorage.setItem('hinh_anh_user', this.hinh_anh_user);
+
+              // Thực hiện các hành động khác với base64Data ở đây
+            } catch (error) {
+              console.error('Error converting image to base64:', error);
+            }
+          }
         },
 
         },

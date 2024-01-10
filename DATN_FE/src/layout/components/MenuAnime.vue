@@ -284,9 +284,9 @@
             return {
                 list_the_loai: [],
                 list_loai_phim: [],
-                list_phim: [],
                 list_yeu_thich: [],
                 list_phim_search : [],
+                list_phim   :   [],
                 key_tim        : {},
                 is_login: false,
                 user_name: {},
@@ -297,18 +297,11 @@
         mounted() {
             this.laydataLoaiPhim();
             this.loaddataTheLoai();
-            this.laydataPhim();
             this.checkToken();
             this.laydataYeuThich();
         },
         methods: {
-            laydataPhim() {
-                axios
-                    .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
-                    .then((res) => {
-                        this.list_phim = res.data.phim;
-                    });
-            },
+           
             laydataYeuThich() {
                 baseRequest
                     .get("admin/yeu-thich/lay-du-lieu")
@@ -316,6 +309,17 @@
                         this.list_yeu_thich = res.data.yeu_thich;
                     });
             },
+            laydataTheoTheLoai(id_the_loai) {
+                    axios
+                        .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
+                            params : {
+                                id_tl : id_the_loai,
+                            }
+                        })
+                        .then((res)=>{
+                                this.list_phim = res.data.phim;
+                        });
+                },
             laydataLoaiPhim() {
                 axios
                     .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
