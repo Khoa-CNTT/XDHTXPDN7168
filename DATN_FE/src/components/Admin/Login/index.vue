@@ -135,13 +135,13 @@
                 <div class="card-body">
                     <div class="border p-4 rounded">
                         <div class="text-center">
-                            <h3 class="">Đăng Nhập</h3>
-                            <p>Bạn đã có tài khoản?
-                                <router-link to="register">
+                            <h3 class="mb-3">Đăng Nhập</h3>
+                            <!-- <p>Bạn đã có tài khoản? -->
+                                <!-- <router-link to="register">
 
                                     <a href="admin/registerl">Đăng ký?</a>
-                                </router-link>
-                            </p>
+                                </router-link> -->
+                            <!-- </p> -->
                         </div>
                        
                         <div class="form-body">
@@ -206,7 +206,7 @@ export default {
             axios
                 .post('http://127.0.0.1:8000/api/register', this.dang_ky)
                 .then((res) => {
-                    toaster.success('Thông báo<br>' + res.data.message);
+                    toaster.success(res.data.message);
                 });
         },
         dangNhap() {
@@ -214,13 +214,13 @@ export default {
                 .post('http://127.0.0.1:8000/api/login', this.dang_nhap)
                 .then((res) => {
                     if (res.data.status) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success(res.data.message);
                         var arr = res.data.token.split("|");
                         localStorage.setItem('token', arr[1]);
                         console.log(arr[1]);
                         this.checkToken();
                     } else {
-                        toaster.error('Thông báo<br>' + res.data.message);
+                        toaster.error(res.data.message);
                     }
                 });
         },
@@ -252,7 +252,7 @@ export default {
                 .delete('http://127.0.0.1:8000/api/thong-tin-xoa/'+ this.remove_token.id)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success(res.data.message);
                         this.list_token = [],
                             this.checkToken();
                     }

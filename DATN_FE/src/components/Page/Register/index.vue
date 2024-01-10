@@ -97,6 +97,7 @@ export default {
         .then((res) => {
           toaster.success("Thông báo<br>" + res.data.message);
           this.dang_ky = {};
+          this.$router.push('/login');
         });
     },
     checkToken() {
