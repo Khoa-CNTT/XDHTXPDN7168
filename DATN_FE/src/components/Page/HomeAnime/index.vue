@@ -63,11 +63,11 @@
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                  <div class="btn__all">
+                  <!-- <div class="btn__all">
                     <router-link :to="`/index1/${2}`">
                       <a class="primary-btn">View All <span class="arrow_right"></span></a>
                     </router-link>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="row">

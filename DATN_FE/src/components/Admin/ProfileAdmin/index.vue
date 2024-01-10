@@ -4,9 +4,20 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="d-flex flex-column align-items-center text-center ">
-											<img v-bind:src="obj_doi_pass.hinh_anh" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+											<img v-bind:src="hinh_anh" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
 											<div class="mt-3">
-												<h4>{{ obj_doi_pass.ho_va_ten }}</h4>
+												<h4>{{ ho_ten }}</h4>
+												<div class="dropdown">
+													<div class="cursor-pointer font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded"></i>
+													</div>
+													<div class="dropdown-menu dropdown-menu-end text-dark"> 
+												
+														<!-- <a  class="dropdown-item">Đổi ảnh </a> -->
+														
+											  			<a data-bs-toggle="collapse"  href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-sm px-4" value="Mật Khẩu">Đổi mật khẩu</a>
+
+													</div>
+												</div>
 												<p class="text-secondary mb-1">ADMIN WEB WANIME</p>
 											</div>
 										</div>
@@ -32,7 +43,7 @@
 												<h6 class="mb-0">Họ Và Tên</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input v-model="obj_doi_pass.ho_va_ten" type="text" class="form-control" >
+												<input v-model="obj_update_tt.ho_va_ten" type="text" class="form-control" >
 											</div>
 										</div>
 										<div class="row mb-3">
@@ -40,7 +51,7 @@
 												<h6 class="mb-0">Email</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input v-model="obj_doi_pass.email" type="text" class="form-control" >
+												<input v-model="obj_update_tt.email" type="text" class="form-control" >
 											</div>
 										</div>
 										<div class="row mb-3 collapse multi-collapse" id="multiCollapseExample1">
@@ -62,8 +73,8 @@
 										<div class="row">
 											<div class="col-sm-3"></div>
 											<div class="col-sm-9 text-secondary">
-												<input @click="DoiPass()"  type="button" class="btn btn-success px-4 me-5" value="Cập Nhật">
-												<input @click="Object.assign(obj_doi_pass,v);"  data-bs-toggle="collapse" type="button" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-danger px-4" value="Đổi Mật Khẩu">
+												<input  @click="DoiThongTin()" type="button" class="btn btn-success px-4 me-5" value="Cập Nhật">
+												<input @click="DoiPass()"  role="button"  class="btn btn-danger px-4 collapse multi-collapse" id="multiCollapseExample1" value="Đổi Mật Khẩu">
 											</div>
 										</div>
 									</div>
@@ -83,12 +94,11 @@ position: "top-right",
 export default {
 data() {
     return {
-        // id: this.$route.params.id,
-           list_khach_khach: [],
         obj_doi_pass : {},
         obj_update_tt : {},
-        // ho_ten_user : localStorage.getItem('ho_ten_user'),
         id_admin : localStorage.getItem('id_admin'),
+		ho_ten	 : localStorage.getItem('ho_ten'),
+		hinh_anh : localStorage.getItem('hinh_anh'),
 
 
 
@@ -96,38 +106,79 @@ data() {
 },
 mounted() {
     this.laydataAdmin();
-    // console.log(this.id_user);
+    // console.log(this.id);
 },
 methods: {
     laydataAdmin() {
         axios
-    .get("http://127.0.0.1:8000/api/admin/admin/lay-du-lieu-profile", {
-            params : {
-                id_admin : this.id_admin,
-            },
-            headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
+			.get("http://127.0.0.1:8000/api/admin/admin/lay-du-lieu-profile", {
+				params : {
+					id_admin : this.id_admin,
+				},
+				headers: {
+						Authorization: 'Bearer ' + localStorage.getItem('token')
+				}
+				})
+			.then((res) => {
+					// console.log(res.data);
+				this.obj_doi_pass = res.data.obj_admin;
+				this.obj_update_tt = res.data.obj_admin;
+				});
+		},
+		DoiPass() {
+			baseRequest
+				.put('admin/admin/doi-mat-khau', this.obj_doi_pass)
+				.then((res) => {
+					// console.log(res.data);
+				if (res.data.status == true) {
+					toaster.success( res.data.message);
+					this.laydataAdmin();
+				} else {
+					toaster.error( res.data.message);
+				}
+				});
+			},
+		DoiThongTin() {
+          baseRequest
+            .put('admin/admin/doi-thong-tin', this.obj_update_tt)
+            .then((res) => {
+              if (res.data.status == true) {
+                toaster.success( res.data.message);
+				this.ho_ten = res.data.ho_ten;
+                localStorage.setItem('ho_ten', res.data.ho_ten);
+
+                this.laydataAdmin();
+              } else {
+                toaster.error( res.data.message);
+              }
+            });
+        },
+		/// file base 64
+        async imageToBase64(file) {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+  
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+          });
+        },
+		async handleFileChangeUpdate(event) {
+          const file = event.target.files[0];
+  
+          if (file) {
+            try {
+              const base64Data = await this.imageToBase64(file);
+              console.log('Base64 Data:', base64Data);
+              this.hinh_anh = base64Data;
+			  localStorage.setItem('hinh_anh', this.hinh_anh);
+
+              // Thực hiện các hành động khác với base64Data ở đây
+            } catch (error) {
+              console.error('Error converting image to base64:', error);
             }
-        })
-    .then((res) => {
-        // console.log(res.data);
-      this.obj_doi_pass = res.data.obj_admin;
-      this.obj_update_tt = res.data.obj_admin;
-    });
-},
-DoiPass() {
-  baseRequest
-    .put('admin/admin/doi-mat-khau', this.obj_doi_pass)
-    .then((res) => {
-        // console.log(res.data);
-      if (res.data.status == true) {
-        toaster.success( res.data.message);
-        this.laydataAdmin();
-      } else {
-        toaster.error( res.data.message);
-      }
-    });
-},
+          }
+        },
 
 },
 };
