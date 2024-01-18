@@ -38,7 +38,7 @@
                 <input
                   class="form-control form-control-sm"
                   type="file"
-                  style="width: 369px" @change="handleFileChangevent"
+                  style="width: 369px" @change="handleFileUpload"
                 /><!-- <span class="icon_lock"></span> -->
               </div>
               <button @click="dangKy()" class="site-btn">Đăng Ký</button>
@@ -82,6 +82,7 @@ export default {
   data() {
     return {
       dang_ky: {},
+      imageUrl: {},
     };
   },
   mounted() {
@@ -123,32 +124,32 @@ export default {
                     this.is_login = false;
                 });
         },
-    /// file base 64
-    async imageToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
+      handleFileUpload(event) {
+            const file = event.target.files[0];
+            const cloudName = 'dltbjoii4';
+            const uploadPreset = 'yvvll2k0';
 
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-      });
-    },
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('upload_preset', uploadPreset);
 
-    async handleFileChangevent() {
-      const file = event.target.files[0];
-
-      if (file) {
-        try {
-          const base64Data = await this.imageToBase64(file);
-          console.log("Base64 Data:", base64Data);
-          this.dang_ky.hinh_anh = base64Data;
-          // Thực hiện các hành động khác với base64Data ở đây
-        } catch (error) {
-          console.error("Error converting image to base64:", error);
-        }
-      }
-    },
-  },
-};
+            fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+              method: 'POST',
+              body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+              // Set the imageUrl to the URL of the uploaded image.
+              this.imageUrl = data.secure_url;
+              // console.log(this.imageUrl);
+              this.dang_ky.hinh_anh = data.secure_url;
+            })
+            .catch((error) => {
+              console.error('Error uploading image:', error);
+            });
+        },   
+        
+      },
+    };
 </script>
 <style></style>

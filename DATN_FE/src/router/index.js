@@ -20,7 +20,11 @@ const routes = [
         meta : {layout : 'loginanime'} ,
 
     },
-    
+    {
+        path : '/list-phim',
+        component: ()=>import('../components/Page/ListPhim/index.vue'),
+
+    }, 
     {
         path : '/index1/:id',
         component: ()=>import('../components/Page/PageList/index.vue'),
@@ -124,6 +128,12 @@ const routes = [
      {
         path : '/admin/anime',
         component: ()=>import('../components/Admin/Phim/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'}
+    },
+    {
+        path : '/admin/tap-phim',
+        component: ()=>import('../components/Admin/TapPhim/index.vue'),
         beforeEnter: checkLogin,
         meta : {layout : 'new'}
     },

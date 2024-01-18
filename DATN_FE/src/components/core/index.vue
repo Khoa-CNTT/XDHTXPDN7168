@@ -30,4 +30,3 @@
   <style scoped>
     /* Style if needed */
   </style>
-  

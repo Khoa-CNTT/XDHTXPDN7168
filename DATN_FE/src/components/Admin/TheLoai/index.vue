@@ -10,13 +10,13 @@
               <label for="" class="form-label mb-1 mt-1">
                 <b>Tên Thể Loại</b>
               </label>
-              <input v-model="obj_add_the_loai.ten_the_loai" type="text" class="form-control" placeholder="nhập thể loại..." />
+              <input v-model="obj_add_the_loai.ten_the_loai" v-on:keyup="addSlug()" v-on:change="kiemTraSlug()"  type="text" class="form-control" placeholder="nhập thể loại..." />
             </div>
             <div class="mb-3 mt-1">
               <label for="" class="form-label mb-1 mt-1">
                 <b>Slug Thể Loại</b>
               </label>
-              <input v-model="obj_add_the_loai.slug_the_loai" type="text" class="form-control" placeholder="nhập slug thể loại..." />
+              <input v-model="obj_add_the_loai.slug_the_loai" type="text" disabled class="form-control" placeholder="slug the loai..">
             </div>
             <div class="mb-3">
               <label class="form-label mb-1 mt-1">
@@ -101,13 +101,13 @@
                       <label for="" class="form-label mb-1 mt-1">
                         <b>Tên Thể Loại</b>
                       </label>
-                      <input v-model="obj_update_the_loai.ten_the_loai" type="text" class="form-control" placeholder="nhập thể loại..." />
+                      <input v-model="obj_update_the_loai.ten_the_loai" v-on:keyup="addSlugUpdate()" v-on:change="kiemTraSlugUpdate()" type="text" class="form-control" placeholder="nhập thể loại..." />
                     </div>
                     <div class="mb-3 mt-1">
                       <label for="" class="form-label mb-1 mt-1">
                         <b>Slug Thể Loại</b>
                       </label>
-                      <input  v-model="obj_update_the_loai.slug_the_loai" type="text" class="form-control" placeholder="nhập slug thể loại..." />
+                      <input  v-model="obj_update_the_loai.slug_the_loai"  disabled type="text" class="form-control" placeholder="nhập slug thể loại..." />
                     </div>
                     <div class="mb-3">
                       <label class="form-label mb-1 mt-1">
@@ -175,6 +175,58 @@
       this.loaddataTheLoai();
     },
     methods: {
+      convertToSlug(str) {
+            str = str.toLowerCase();     
+            str = str
+                .normalize('NFD') 
+                .replace(/[\u0300-\u036f]/g, '');
+            str = str.replace(/[đĐ]/g, 'd');
+            str = str.replace(/([^0-9a-z-\s])/g, '');
+            str = str.replace(/(\s+)/g, '-');
+            str = str.replace(/-+/g, '-');
+            str = str.replace(/^-+|-+$/g, '');
+            return str;
+        },
+        addSlug() {
+            this.obj_add_the_loai.slug_the_loai = this.convertToSlug(this.obj_add_the_loai.ten_the_loai);
+        },
+
+        addSlugUpdate() {
+            this.obj_update_the_loai.slug_the_loai = this.convertToSlug(this.obj_update_the_loai.ten_the_loai);
+        },
+
+        kiemTraSlug() {
+            var payload = {
+                'slug' : this.obj_add_the_loai.slug_the_loai
+            }
+            baseRequest
+                .post('admin/the-loai/kiem-tra-slug', payload)
+                .then((res) => {
+                    if(res.data.status) {
+                        toaster.success(res.data.message);
+                        this.is_create = 1;
+                    } else {
+                        toaster.error(res.data.message);
+                        this.is_create = 0;
+                    }
+                });
+        },  
+
+        kiemTraSlugUpdate() {
+            var payload = {
+                'slug' : this.obj_update_the_loai.slug_the_loai,
+                'id'   : this.obj_update_the_loai.id
+            }
+            baseRequest
+                .post('admin/the-loai/kiem-tra-slug-update', payload)
+                .then((res) => {
+                    if(res.data.status) {
+                        toaster.success(res.data.message);
+                    } else {
+                        toaster.error(res.data.message);
+                    }
+                });
+        }, 
       loaddataTheLoai() {
         baseRequest
           .get("admin/the-loai/lay-du-lieu")

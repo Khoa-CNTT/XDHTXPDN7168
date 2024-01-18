@@ -213,7 +213,7 @@ export default {
             axios
                 .post('http://127.0.0.1:8000/api/login', this.dang_nhap)
                 .then((res) => {
-                    if (res.data.status) {
+                    if (res.data.status == true) {
                         toaster.success(res.data.message);
                         var arr = res.data.token.split("|");
                         localStorage.setItem('token', arr[1]);

@@ -15,7 +15,9 @@
     "owl.carousel": "^2.3.4",
     "vue": "^3.3.4",
     "vue-axios": "^3.5.2",
-    "vue-router": "^4.0.13"
+    "vue-plyr": "^7.0.0",
+    "vue-router": "^4.0.13",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

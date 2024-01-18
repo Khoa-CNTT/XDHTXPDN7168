@@ -71,6 +71,7 @@ export default {
                 .then((res) => {
                     toaster.success(res.data.message);
                     this.dang_ky = {};
+                    // this.$route.push('/login');
                 });
         },
            /// file base 64
@@ -92,9 +93,12 @@ export default {
             const base64Data = await this.imageToBase64(file);
             console.log('Base64 Data:', base64Data);
             this.dang_ky.hinh_anh = base64Data;
+            toaster.success('Thêm ảnh thành công!');
             // Thực hiện các hành động khác với base64Data ở đây
           } catch (error) {
             console.error('Error converting image to base64:', error);
+            toaster.error('Thêm không ảnh thành công!');
+
           }
         }
       },
