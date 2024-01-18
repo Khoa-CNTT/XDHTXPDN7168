@@ -39,7 +39,7 @@
 												
 												<p class="text-secondary mb-1">Thành viên của WAnime</p>
 
-												<input type="file" @change="handleFileChangeUpdate" class="form-control-sm" style="width: 100px;" />
+												<input type="file" @change="handleFile" class="form-control-sm" style="width: 100px;" />
 
 											</div>
 										</div>
@@ -83,7 +83,7 @@
 												<h6 class="mb-0">Email</h6>
 											</div>
 											<div class="col-sm-9 text-secondary">
-												<input v-model="obj_update_tt.email" type="text" class="form-control" >
+												<input v-model="obj_update_tt.email" type="text" disabled class="form-control" >
 											</div>
 										</div>
 										<div class="row mb-3 collapse multi-collapse" id="multiCollapseExample1">
@@ -187,46 +187,33 @@
               }
             });
         },
-		/// file base 64
-        async imageToBase64(file) {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-  
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-          });
-        },
-  
-        // async handleFileChange(event) {
-        //   const file = event.target.files[0];
-  
-        //   if (file) {
-        //     try {
-        //       const base64Data = await this.imageToBase64(file);
-        //       console.log('Base64 Data:', base64Data);
-        //       this.obj_add_admin.hinh_anh = base64Data;
-        //       // Thực hiện các hành động khác với base64Data ở đây
-        //     } catch (error) {
-        //       console.error('Error converting image to base64:', error);
-        //     }
-        //   }
-        // },
-        async handleFileChangeUpdate(event) {
+		
+          handleFile(event) {
           const file = event.target.files[0];
-  
-          if (file) {
-            try {
-              const base64Data = await this.imageToBase64(file);
-              console.log('Base64 Data:', base64Data);
-              this.hinh_anh_user = base64Data;
-			  localStorage.setItem('hinh_anh_user', this.hinh_anh_user);
+          const cloudName = 'dltbjoii4';
+          const uploadPreset = 'yvvll2k0';
 
-              // Thực hiện các hành động khác với base64Data ở đây
-            } catch (error) {
-              console.error('Error converting image to base64:', error);
-            }
-          }
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('upload_preset', uploadPreset);
+
+          fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+            method: 'POST',
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Set the imageUrl to the URL of the uploaded image.
+              this.imageUrl = data.secure_url;
+              // console.log(this.imageUrl);
+        this.hinh_anh = data.secure_url;
+          localStorage.setItem('hinh_anh_user', this.hinh_anh_user);
+              toaster.success('Thêm ảnh thành công!');
+            })
+            .catch((error) => {
+              toaster.error('Thêm ảnh không thành công!');
+              console.error('Error uploading image:', error);
+            });
         },
 
         },

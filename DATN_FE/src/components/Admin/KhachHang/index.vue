@@ -36,7 +36,7 @@
                     <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
                       Ảnh Đại Diện
                     </label>
-                    <input type="file" @change="handleFileChange" class="form-control" />
+                    <input type="file" @change="handleFile" class="form-control" />
                   </div>
   
                 </div>
@@ -134,7 +134,7 @@
                                 <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
                                 Ảnh Đại Diện
                                 </label>
-                                <input type="file" @change="handleFileChangeUpdate" class="form-control" />
+                                <input type="file" @change="handleFileUpload" class="form-control" />
                             </div>
             
                             </div>
@@ -255,71 +255,55 @@
             });
         },
   
-        // doiTrangThai(xyz) {
-        //   baseRequest
-        //     .put('admin/khach-hang/thong-tin-thay-doi-trang-thai', xyz)
-        //     .then((res) => {
-        //       if (res.data.status == true) {
-        //         toaster.success('Thông báo<br>' + res.data.message);
-        //         this.laydataAdmin();
-        //       } else {
-        //         toaster.error(res.data.message);
-        //       }
-        //     });
-        // },
-        /// file base 64
-        async imageToBase64(file) {
-          return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-  
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
+        handleFile(event) {
+        const file = event.target.files[0];
+        const cloudName = 'dltbjoii4';
+        const uploadPreset = 'yvvll2k0';
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', uploadPreset);
+
+        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Set the imageUrl to the URL of the uploaded image.
+            this.imageUrl = data.secure_url;
+            // console.log(this.imageUrl);
+            this.obj_add_user.hinh_anh = data.secure_url;
+            toaster.success('Thêm ảnh thành công!');
+          })
+          .catch((error) => {
+            toaster.error('Thêm ảnh không thành công!');
+            console.error('Error uploading image:', error);
           });
-        },
-  
-        async handleFileChange(event) {
-          const file = event.target.files[0];
-  
-          if (file) {
-            try {
-              const base64Data = await this.imageToBase64(file);
-              console.log('Base64 Data:', base64Data);
-              this.obj_add_user.hinh_anh = base64Data;
-              // Thực hiện các hành động khác với base64Data ở đây
-            } catch (error) {
-              console.error('Error converting image to base64:', error);
-            }
-          }
-        },
-        async handleFileChangeUpdate(event) {
-          const file = event.target.files[0];
-  
-          if (file) {
-            try {
-              const base64Data = await this.imageToBase64(file);
-              console.log('Base64 Data:', base64Data);
-              this.obj_add_user.hinh_anh = base64Data;
-              // Thực hiện các hành động khác với base64Data ở đây
-            } catch (error) {
-              console.error('Error converting image to base64:', error);
-            }
-          }
-        },
-        async handleFileChangeUpdate(event) {
-          const file = event.target.files[0];
-  
-          if (file) {
-            try {
-              const base64Data = await this.imageToBase64(file);
-              console.log('Base64 Data:', base64Data);
-              this.obj_update_admin.hinh_anh = base64Data;
-              // Thực hiện các hành động khác với base64Data ở đây
-            } catch (error) {
-              console.error('Error converting image to base64:', error);
-            }
-          }
-        },
+      },
+      handleFileUpload(event) {
+        const file = event.target.files[0];
+        const cloudName = 'dltbjoii4';
+        const uploadPreset = 'yvvll2k0';
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', uploadPreset);
+
+        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+          method: 'POST',
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            this.obj_update_admin.hinh_anh = data.secure_url;
+            toaster.success('Thêm ảnh thành công!');
+          })
+          .catch((error) => {
+            console.error('Error uploading image:', error);
+            toaster.error('Thêm ảnh không thành công!');
+          });
+      },
       },
   
     };

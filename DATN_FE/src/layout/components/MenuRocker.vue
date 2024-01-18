@@ -59,6 +59,16 @@
                                 </a>
                             </router-link>
 						</li>
+                        <li> 
+                            <router-link to="/admin/tap-phim">
+                                <a href="/admin/anime" class="nav-link">
+                                    <div class="parent-icon">
+                                        <i class="fa-solid fa-file-video"></i>
+                                    </div>
+                                    <div class="menu-title">Tập Phim</div>
+                                </a>
+                            </router-link>
+						</li>
 					  </ul>
 			</li>  
             <li class="nav-item dropdown">

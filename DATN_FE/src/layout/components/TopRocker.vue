@@ -48,6 +48,8 @@
     </template>
     <script>
     import axios from "axios";
+    import { createToaster } from "@meforma/vue-toaster";
+    const toaster = createToaster({ position: "top-right" });
     export default {
         
         data() {
@@ -64,7 +66,10 @@
             removeToken() {
                     localStorage.removeItem('token');
                     localStorage.removeItem('hinh_anh');
-                    this.checkToken()
+                    localStorage.removeItem('id_admin');
+                    this.$router.push('/admin/login');
+                    toaster.success('Bạn đã đăng xuất thành công!');
+                    // this.checkToken()
               },
             checkToken() {
                     axios
@@ -79,7 +84,6 @@
                             // localStorage.setItem('hinh_anh', res.data.hinh_anh);
                             if (res.status === 200) {
                                 // this.list_token = res.data.list;
-
                             }
 
                         })
