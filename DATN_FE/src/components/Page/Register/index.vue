@@ -17,7 +17,17 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="login__form">
-            <h3>Đăng Ký</h3>
+            <div class="row">
+                            <div class="col-6">
+                               <h3>Đăng Ký</h3>
+                            </div>
+                            <div class="col-6">
+                                <router-link to="login" >
+                                    <a > <h3 style="color: #17a2b8" ><i class="fa-solid fa-caret-left"></i>Đăng Nhập </h3></a>
+                                     
+                                </router-link>
+                            </div>
+                        </div>
             <div>
               <div class="input__item">
                 <input v-model="dang_ky.email" type="text" placeholder="Nhập địa chỉ Email" /><span
@@ -41,10 +51,8 @@
                   style="width: 369px" @change="handleFileUpload"
                 /><!-- <span class="icon_lock"></span> -->
               </div>
-              <button @click="dangKy()" class="site-btn">Đăng Ký</button>
-              <router-link to="/login"
-                ><a href="#" class="forget_pass">Đăng Nhập?</a></router-link
-              >
+              <button @click="dangKy()" class="site-btn mt-3">Đăng Ký</button>
+              
             </div>
           </div>
         </div>

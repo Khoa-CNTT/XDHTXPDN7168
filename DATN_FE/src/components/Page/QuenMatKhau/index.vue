@@ -7,41 +7,39 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <div class="row">
-                            <div class="col-6">
-                               <h3>Đăng Nhập</h3>
+                            <div class="col-12">
+                               <h3>Quên Mật Khẩu! </h3>
                             </div>
-                            <div class="col-6">
-                                <router-link to="register" >
-                                    <a > <h3 style="color: #17a2b8" >Đăng Ký <i class="fa-solid fa-caret-right"></i></h3></a>
-                                     
-                                </router-link>
-                            </div>
+                            
                         </div>
                         <div >
                             <div class="input__item">
-                                <input v-model="dang_nhap.email" type="text" placeholder="Địa chỉ email">
+                                <input v-model="dang_nhap.email" type="text" placeholder="Nhập Email để đổi mật khẩu!">
                                 <span class="icon_mail"></span>
                             </div>
-                            <div class="input__item">
-                                <input v-model="dang_nhap.password" type="password" >
-                                <span class="icon_lock"></span>
-                            </div>
-                            <!-- <div class="row">
-                                <div class="col-md-6">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="gridCheck3">
-											<label class="form-check-label" for="gridCheck3">Check me out</label>
-										</div>
-							</div>
-                            <div class="col-md-6 text-end">	<a href="javascript:;">Forgot Password ?</a>
-							</div>
-                            </div> -->
-                            
-                            <button @click="dangNhap()" class="site-btn">Đăng Nhập</button>
                         </div>
-                                <router-link to="/forget-password">
-                                    <a  type="button" class="forget_pass ">Quên mật khẩu?</a>
+                        <div class="row">
+                            <div class="col-12">
+                                  <button @click="dangNhap()" style="width: 100%;" class="site-btn">GỬI</button>
+                            </div>
+                            <div class="col-12 text-center mt-1 text-white" >
+                                <b>Or</b>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <router-link to="/login">
+                                     <button  style="width: 100%; background: rgb(223, 68, 68); " class="site-btn btn">Đăng nhập</button>
                                 </router-link>
+                            </div>
+                            <div class="col-6">
+                                <router-link to="/register">
+                                     <button  style="width: 100%; background: rgb(75, 46, 207); " class="site-btn btn">Đăng ký</button>
+                                </router-link>
+                            </div>
+                        </div>
+                               
 
                                
                                 

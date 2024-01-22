@@ -14,14 +14,33 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="row">
+            <div class="row"> 
+              <div class="row">
+                <div class="col-6">
+                  <label class="form-label mb-1 mt-1">
+                    <b>Chọn Phim</b>
+                  </label>
+                  <select v-model="obj_add_tap_phim.id_phim" @change="layTenPhim()" name="" id="" class="form-control">
+                    <template v-for="(v, k) in list_phim">
+                      <option  v-bind:value="v.id">{{ v.ten_phim }}</option>
+                    </template>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label for="" class="form-label mb-1 mt-1">
+                    <b>Loại Phim</b>
+                  </label>
+                  <input v-model="obj_tap_phim.ten_loai_phim" type="text" disabled class="form-control"
+                    placeholder="loai_phim..." />
+                </div>
+              </div>
               <div class="row">
                 <div class="col-6">
                   <label for="" class="form-label mb-1 mt-1">
-                    <b>Tên Tập Phim</b>
+                    <b>Tập Phim</b>
                   </label>
                   <input v-model="obj_add_tap_phim.ten_tap_phim" @keyup="addSlug()" @change="kiemTraSlug()" type="text"
-                    class="form-control" placeholder="nhập tên tập phim..." />
+                    class="form-control" placeholder="VD: TẬP 1, MOVIE 1, RAW 1" />
                 </div>
                 <div class="col-6">
                   <label for="" class="form-label mb-1 mt-1">
@@ -34,14 +53,10 @@
   
               <div class="row">
                 <div class="col-6">
-                  <label class="form-label mb-1 mt-1">
-                    <b>Phim</b>
+                  <label for="" class="form-label mb-1 mt-1">
+                    <b>Video</b>
                   </label>
-                  <select v-model="obj_add_tap_phim.id_phim" name="" id="" class="form-control">
-                    <template v-for="(v, k) in list_phim">
-                      <option v-bind:value="v.id">{{ v.ten_phim }}</option>
-                    </template>
-                  </select>
+                  <input type="file" @change="handleFileCreateVideo" class="form-control" />
                 </div>
                 <div class="col-6">
                   <label class="form-label mb-1 mt-1">
@@ -51,14 +66,6 @@
                     <option value="0">Tạm Dừng</option>
                     <option value="1">Hiển Thị</option>
                   </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label for="" class="form-label mb-1 mt-1">
-                    <b>Video</b>
-                  </label>
-                  <input type="file" @change="handleFileCreateVideo" class="form-control" />
                 </div>
               </div>
             </div>
@@ -79,14 +86,14 @@
             <b>DANH SÁCH PHIM</b>
           </div>
           <div class="card-body">
-            <table class="table table-bordered table-responsive ">
+            <table class="table table-bordered ">
               <thead>
                 <tr>
                   <th colspan="100%">
                     <div class="input-group mb-3">
-                      <input v-on:keyup.enter="searchPhim()" v-model="key_tim.key" type="text" class="form-control"
+                      <input v-on:keyup="searchTapPhim()" v-model="key_tim.key" type="text" class="form-control"
                         placeholder="Nhập thông tin cần tìm">
-                      <button class="btn btn-primary" v-on:click="searchPhim()">
+                      <button class="btn btn-primary" v-on:click="searchTapPhim()">
                         <i class="fa-solid fa-magnifying-glass"></i>
                       </button>
                     </div>
@@ -94,10 +101,10 @@
                 </tr>
                 <tr class="text-center">
                   <th>#</th>
-                  <th class="text-center align-middle text-nowrap">Tên Tập Phim</th>
+                  <th class="text-center align-middle text-nowrap">Tên Phim</th>
+                  <th class="text-center align-middle text-nowrap">Tập Phim</th>
                   <th class="text-center align-middle text-nowrap">Slug Tập Phim</th>
                   <th class="text-center align-middle text-nowrap">Link Video</th>
-                  <th class="text-center align-middle text-nowrap">Tên Phim</th>
                   <th class="text-center align-middle text-nowrap">Tình Trạng</th>
                   <th class="text-center align-middle text-nowrap">Action</th>
                 </tr>
@@ -105,10 +112,10 @@
               <tbody>
                 <tr v-for="(v, k) in list_tap_phim" class="">
                   <td class="text-center align-middle text-nowrap">{{ k + 1 }}</td>
+                  <td class=" align-middle text-nowrap">{{ v.ten_phim }}</td>
                   <td class=" align-middle text-nowrap">{{ v.ten_tap_phim }}</td>
                   <td class=" align-middle text-nowrap">{{ v.slug_tap_phim }}</td>
                   <td class=" align-middle text-nowrap">{{ v.url }}</td>
-                  <td class=" align-middle text-nowrap">{{ v.ten_phim }}</td>
                   <td class="text-center align-middle text-nowrap">
                     <i @click="doiTrangThai(v)" v-if="v.tinh_trang == 1" type="button"
                       class="fa-solid fa-square-check fa-2x  text-success"></i>
@@ -135,54 +142,61 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
+                    <div class="row"> 
+                  <div class="row">
+                    <div class="col-6">
+                      <label class="form-label mb-1 mt-1">
+                        <b>Chọn Phim</b>
+                      </label>
+                      <select v-model="obj_update_tap_phim.id_phim" @change="layTenPhimUpdate()" name="" id="" class="form-control">
+                        <template v-for="(v, k) in list_phim">
+                          <option  v-bind:value="v.id">{{ v.ten_phim }}</option>
+                        </template>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label for="" class="form-label mb-1 mt-1">
+                        <b>Loại Phim</b>
+                      </label>
+                      <input v-model="obj_tap_phim.ten_loai_phim" type="text" disabled class="form-control"
+                        placeholder="loai_phim..." />
+                    </div>
+                  </div>
                     <div class="row">
-                      <div class="row">
-                        <div class="col-6">
-                          <label for="" class="form-label mb-1 mt-1">
-                            <b>Tên Tập Phim</b>
-                          </label>
-                          <input v-model="obj_update_tap_phim.ten_tap_phim" @keyup="addSlugUpdate()" @change="kiemTraSlugUpdate()"
-                            type="text" class="form-control" placeholder="nhập phim..." />
-                        </div>
-                        <div class="col-6">
-                          <label for="" class="form-label mb-1 mt-1">
-                            <b>Slug Tập Phim</b>
-                          </label>
-                          <input v-model="obj_update_tap_phim.slug_tap_phim" type="text" disabled class="form-control"
-                            placeholder="slug phim..." />
-                        </div>
+                      <div class="col-6">
+                        <label for="" class="form-label mb-1 mt-1">
+                          <b>Tập Phim</b>
+                        </label>
+                        <input v-model="obj_update_tap_phim.ten_tap_phim" @keyup="addSlugUpdate()" @change="kiemTraSlugUpdate()" type="text"
+                          class="form-control" placeholder="nhập tên tập phim..." />
                       </div>
-  
-                      <div class="row">
-                        <div class="col-6">
-                          <label class="form-label mb-1 mt-1">
-                            <b>Phim</b>
-                          </label>
-                          <select v-model="obj_update_tap_phim.id_phim" name="" id="" class="form-control">
-                            <template v-for="(v, k) in list_phim">
-                              <option v-bind:value="v.id">{{ v.ten_phim }}</option>
-                            </template>
-                          </select>
-                        </div>
-                        <div class="col-6">
-                          <label class="form-label mb-1 mt-1">
-                            <b>Tình Trạng</b>
-                          </label>
-                          <select v-model="obj_update_tap_phim.tinh_trang" class="form-control mb-2">
-                            <option value="0">Tạm Dừng</option>
-                            <option value="1">Hiển Thị</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6">
-                          <label for="" class="form-label mb-1 mt-1">
-                            <b>Video</b>
-                          </label>
-                          <input type="file" @change="handleFileUploadVideo" class="form-control" />
-                        </div>
+                      <div class="col-6">
+                        <label for="" class="form-label mb-1 mt-1">
+                          <b>Slug Tập Phim</b>
+                        </label>
+                        <input v-model="obj_update_tap_phim.slug_tap_phim" type="text" disabled class="form-control"
+                          placeholder="slug phim..." />
                       </div>
                     </div>
+        
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="" class="form-label mb-1 mt-1">
+                          <b>Video</b>
+                        </label>
+                        <input type="file" @change="handleFileCreateVideo" class="form-control" />
+                      </div>
+                      <div class="col-6">
+                        <label class="form-label mb-1 mt-1">
+                          <b>Tình Trạng</b>
+                        </label>
+                        <select v-model="obj_update_tap_phim.tinh_trang" class="form-control mb-2">
+                          <option value="0">Tạm Dừng</option>
+                          <option value="1">Hiển Thị</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
@@ -237,6 +251,7 @@
           key_tim: {},
           obj_update_tap_phim: {},
           obj_mo_ta: {},
+          obj_tap_phim: {},
           obj_delete_tap_phim: {},
         };
       },
@@ -245,6 +260,36 @@
         this.laydataPhim();
       },
       methods: {
+        layTenPhim() {
+          var payload = {
+            'id_phim': this.obj_add_tap_phim.id_phim
+          }
+          baseRequest
+            .post('admin/tap-phim/lay-ten-phim', payload)
+            .then((res) => {
+              if (res.data.status) {
+                this.obj_tap_phim = res.data.ten_phim;
+                toaster.success(res.data.message);
+              } else {
+                toaster.error(res.data.message);
+              }
+            });
+        },
+        layTenPhimUpdate() {
+          var payload = {
+            'id_phim': this.obj_update_tap_phim.id_phim,
+          }
+          baseRequest
+            .post('admin/tap-phim/lay-ten-phim-update', payload)
+            .then((res) => {
+              if (res.data.status) {
+                this.obj_tap_phim = res.data.ten_phim;
+                toaster.success(res.data.message);
+              } else {
+                toaster.error(res.data.message);
+              }
+            });
+        },
         convertToSlug(str) {
           str = str.toLowerCase();
           str = str
@@ -255,8 +300,9 @@
           str = str.replace(/(\s+)/g, '-');
           str = str.replace(/-+/g, '-');
           str = str.replace(/^-+|-+$/g, '');
-          return str;
+          return this.obj_tap_phim.slug_phim + '-' + str;
         },
+        
         addSlug() {
           this.obj_add_tap_phim.slug_tap_phim = this.convertToSlug(this.obj_add_tap_phim.ten_tap_phim);
         },
@@ -332,7 +378,7 @@
           baseRequest
             .post('admin/tap-phim/thong-tin-tim', this.key_tim)
             .then((res) => {
-              this.list_phim = res.data.phim;
+              this.list_tap_phim = res.data.tap_phim;
             });
         },
         deleteTapPhim() {

@@ -1,6 +1,4 @@
 <template>
-    <template v-for="(v,k) in list_phim">
-        <template v-if="v.id == id">
                 <!-- Breadcrumb Begin -->
         <div class="breadcrumb-option" style="background-color: #0b0c2a">
             <div class="container">
@@ -8,9 +6,9 @@
                     <div class="col-lg-12">
                         <div class="breadcrumb__links">
                             <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-                            <router-link :to="`/index1/${v.id_the_loai}`"> Thể Loại</router-link>
-                            <router-link :to="`/index1/${v.id_the_loai}`"> {{  v.ten_the_loai }}</router-link>
-                            <span>{{  v.ten_phim }}</span>
+                            <router-link :to="`/the-loai/${obj_phim.id_the_loai}`"> Thể Loại</router-link>
+                            <router-link :to="`/the-loai/${obj_phim.id_the_loai}`"> {{  obj_phim.ten_the_loai }}</router-link>
+                            <span>{{  obj_phim.ten_phim }}</span>
                         </div>
                 </div>
                 </div>
@@ -19,45 +17,21 @@
         <!-- Breadcrumb End -->
 
         <!-- Anime Section Begin -->
-        <section class="anime-details spad" style="background-color: #0b0c2a">
+        <section class="anime-details spad" style="background-color: #0b0c2a; padding-top: 15px;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="anime__video__player">
-                            <video style="width: auto;"  controls>
-                                <source src="https://res.cloudinary.com/dltbjoii4/video/upload/v1705583753/image_anime/qynb3jhjizkk98ye7qh9.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
+                        <div class="anime__video__player" style="margin-bottom: 30px;">
+                            <iframe width="1140px" height="654px"  v-bind:style="{'background-image': 'url(' + obj_phim.hinh_anh + ')', }" v-bind:src="obj_tap_phim.url" frameborder="0" allow="autoplay" allowfullscreen></iframe>
                         </div>
                         <div class="anime__details__episodes">
                             <div class="section-title">
-                                <h5> {{ v.ten_phim }}</h5>
+                                <h5> {{ obj_phim.ten_phim }}</h5>
                             </div >
-                            <template v-if="v.ten_loai_phim === 'Phim Bộ'">
-                                <a href="#">Ep 01</a>
-                                <a href="#">Ep 02</a>
-                                <a href="#">Ep 03</a>
-                                <a href="#">Ep 04</a>
-                                <a href="#">Ep 05</a>
-                                <a href="#">Ep 06</a>
-                                <a href="#">Ep 07</a>
-                                <a href="#">Ep 08</a>
-                                <a href="#">Ep 09</a>
-                                <a href="#">Ep 10</a>
-                                <a href="#">Ep 11</a>
-                                <a href="#">Ep 12</a>
-                                <a href="#">Ep 13</a>
-                                <a href="#">Ep 14</a>
-                                <a href="#">Ep 15</a>
-                                <a href="#">Ep 16</a>
-                                <a href="#">Ep 17</a>
-                                <a href="#">Ep 18</a>
-                                <a href="#">Ep 19</a>
-                            </template>
-                            <template v-else>
-                                <a href="#">Movie 1</a>
-                                <a href="#">Movie 2</a>
-                                <a href="#">Movie 3</a>
+                            <template v-for="(v,k) in list_tap_phim">
+                                <template v-if="v.id_phim == obj_phim.id">
+                                    <a @click="Object.assign(obj_tap_phim,v)" type="button" class="text-white" >{{ v.ten_tap_phim }}</a>
+                                </template>
                             </template>
                         </div>
                         
@@ -118,12 +92,6 @@
             </div>
         </section>
         <!-- Anime Section End -->
-        </template>
-        
-
-
-    </template>
-
 
 </template>
 
@@ -131,63 +99,52 @@
   import axios from "axios";
   import baseRequest from '../../../core/baseRequestUser';
   import { createToaster } from "@meforma/vue-toaster";
-  import YoutubeVideo from '../../core/index.vue';
 
   const toaster = createToaster({
     position: "top-right",
   });
   export default {
-    components : {
-            YoutubeVideo
-        },
     data() {
       return {
-        list_loai_phim  : [],
+        list_tap_phim  : [],
+        obj_phim       : {},
+        obj_tap_phim   : {},
         id_user        : localStorage.getItem('id_user'), 
-        list_the_loai   : [],
         list_cmt       : [],
         obj_cmt_phim    : { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id,},
         obj_xoa_cmt     : {},
-        list_phim: [],
 		id : this.$route.params.id,
         // list_phimHD     : [],
       };
     },
     mounted() {
-
-      this.laydataLoaiPhim();
-      this.loaddataTheLoai();
-      this.laydataPhim();
+      this.LaydataDeXem();
+      this.laydataTapPhim();
       this.laydataCMT();
     },
     
 
     methods: {
-
-      laydataPhim() {
-        axios
-          .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
-          .then((res) => {
-            this.list_phim = res.data.phim;
-          });
-      },
-      laydataLoaiPhim() {
-        axios
-          .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
-          .then((res) => {
-            this.list_loai_phim = res.data.loai_phim;
-          });
-      },
-      loaddataTheLoai() {
-        axios
-          .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-          .then((res) => {
-            this.list_the_loai = res.data.the_loai;
-          });
-      },
+        LaydataDeXem() {
+                    var payload = {
+                    'id': this.$route.params.id
+                }
+                baseRequest
+            .post("lay-data-watch", payload)
+            .then((res) => {
+              this.obj_phim = res.data.phim;
+            });
+        },
+      laydataTapPhim() {
+                baseRequest
+            .get("tap-phim/lay-du-lieu-show")
+            .then((res) => {
+              this.list_tap_phim = res.data.tap_phim;
+            });
+        },
       laydataCMT() {
-                axios
-                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show")
+                 baseRequest
+                .get("binh-luan-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_cmt = res.data.binh_luan_phim;
                 });

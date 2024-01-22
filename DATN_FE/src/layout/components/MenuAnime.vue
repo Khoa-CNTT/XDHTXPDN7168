@@ -21,36 +21,34 @@
                                         <a href="/">Trang Chủ</a>
                                     </li>
                                 </router-link>
-                                <!-- <router-link :to="`/index1/${1}`"> -->
-                                <li class="menu"><a v-bind:href="'/index1/' +  '1'">Thể Loại <span
+                                <li class="menu"><a href="#">Thể Loại <span
                                             class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <template v-for="(v,k) in list_the_loai">
-                                            <li class="menu" v-if="v.tinh_trang == 1">
-                                                <!-- <router-link :to="`/index1/${v.id}`">
-                                                        {{  v.ten_the_loai }}
-                                                </router-link> -->
-                                                <a v-bind:href="'/index1/' + v.id"> {{ v.ten_the_loai }}</a>
+                                            <li class="menu" >
+                                                <router-link :to="{ name: 'PageList', params: { id: v.id, slug: v.slug_the_loai }}">
+                                                     {{ v.ten_the_loai }}
+                                                </router-link>
+                                                <!-- <a v-bind:href="'/the-loai/' + v.id"> {{ v.ten_the_loai }}</a> -->
                                             </li>
                                         </template>
                                     </ul>
                                 </li>
-                                <!-- </router-link> -->
-                                <!-- <router-link to="/index6"> -->
-                                <li class="menu"><a v-bind:href="'/index6/' +  '1'">Loại Phim <span
+                                <li class="menu"><a href="#" >Loại Phim <span
                                             class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <template v-for="(v,k) in list_loai_phim">
-                                            <li class="menu" v-if="v.tinh_trang == 1">
-                                                <!-- <router-link :to="`/index6/${v.id}`">
+                                            <li class="menu" >
+                                                <!-- <router-link :to="`/loai-phim/${v.id}`">
                                                     {{  v.ten_loai_phim }}
                                                 </router-link> -->
-                                                <a v-bind:href="'/index6/' + v.id">{{ v.ten_loai_phim }}</a>
+                                                <router-link :to="{ name: 'PageLoaiPhim', params: { id: v.id, slug: v.slug_loai_phim }}">
+                                                     {{ v.ten_loai_phim }}
+                                                </router-link>
                                             </li>
                                         </template>
                                     </ul>
                                 </li>
-                                <!-- </router-link> -->
                                 <router-link to="/index4">
                                     <li class="menu active"><a href="#"> Blog</a></li>
                                 </router-link>
@@ -133,7 +131,7 @@
                                                 <div v-if="v.id_khach_hang == id_user" class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
-                                                            <a v-bind:href="'/index2/' + v.id_phim">
+                                                            <a v-bind:href="'/de-list/' + v.id_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
                                                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                                                 </div>
@@ -144,8 +142,8 @@
                                                                     <li>phim lẻ</li>
                                                                 </ul>
                                                                 <h5>
-                                                                    <!-- <router-link :to="`/index2/${v.id}`"> -->
-                                                                    <a v-bind:href="'/index2/' + v.id_phim">
+                                                                    <!-- <router-link :to="`/de-list/${v.id}`"> -->
+                                                                    <a v-bind:href="'/de-list/' + v.id_phim">
                                                                         {{ v.ten_phim }}</a>
                                                                     <!-- </router-link> -->
                                                                 </h5>
@@ -194,7 +192,7 @@
                                                 <div   class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
-                                                            <a v-bind:href="'/index2/' + v.id">
+                                                            <a v-bind:href="'/de-list/' + v.id">
                                                                 <div class="product__sidebar__comment__item__pic">
                                                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                                                 </div>
@@ -206,8 +204,8 @@
                                                                     <li>phim lẻ</li>
                                                                 </ul>
                                                                 <h5>
-                                                                    <!-- <router-link :to="`/index2/${v.id}`"> -->
-                                                                    <a v-bind:href="'/index2/' + v.id">
+                                                                    <!-- <router-link :to="`/de-list/${v.id}`"> -->
+                                                                    <a v-bind:href="'/de-list/' + v.id">
                                                                         {{ v.ten_phim }}</a>
                                                                     <!-- </router-link> -->
                                                                 </h5>

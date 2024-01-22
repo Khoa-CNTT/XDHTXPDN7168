@@ -35,7 +35,7 @@
                                     <template v-for="(v,k) in list_phim">
                                         <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                           <router-link :to="`/index2/${v.id}`"  >
+                                           <router-link :to="`/de-list/${v.id}`"  >
                                                 <div class="product__item__pic set-bg"
                                                 v-bind:style="{'background-image': 'url(' + v.hinh_anh + ')',}">
                                                 <div v-if="v.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
@@ -51,8 +51,8 @@
                                                      <li>{{ v.ten_loai_phim }}</li>
                                                 </ul>
                                                 <h5>
-                                                            <router-link :to="`/index2/${v.id}`">
-                                                        <a v-bind:href="'/index2' + v.id">
+                                                            <router-link :to="`/de-list/${v.id}`">
+                                                        <a v-bind:href="'/de-list' + v.id">
                                                         {{ v.ten_phim }}</a></router-link>
                                                      </h5>
                                             </div>
@@ -82,7 +82,7 @@
                                     <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
                                     
-                                    <router-link  :to="`/index2/${v.id}`" >
+                                    <router-link  :to="`/de-list/${v.id}`" >
                                         <div class="product__sidebar__comment__item__pic">
                                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                         </div>
@@ -93,8 +93,8 @@
                                     <li>{{ v.ten_loai_phim }}</li>
                                     </ul>
                                     <h5>
-                                    <router-link :to="`/index2/${v.id}`">
-                                            <a v-bind:href="'/index2' + v.id">
+                                    <router-link :to="`/de-list/${v.id}`">
+                                            <a v-bind:href="'/de-list' + v.id">
                                             {{ v.ten_phim }}</a></router-link>
                                     </h5>
                                     <span><i class="fa fa-eye"></i> 19.141 Viewes</span>

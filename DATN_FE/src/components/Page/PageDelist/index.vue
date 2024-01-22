@@ -8,8 +8,8 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-                        <router-link :to="`/index1/${v.id_the_loai}`"> Thể Loại</router-link>
-                        <router-link :to="`/index1/${v.id_the_loai}`"> {{  v.ten_the_loai }}</router-link>
+                        <router-link to="/"> Thể Loại</router-link>
+                        <router-link :to="{ name: 'PageList', params: { id: v.id_tl, slug: v.slug_the_loai }}"> {{  v.ten_the_loai }}</router-link>
                         <span>{{  v.ten_phim }}</span>
                     </div>
                 </div>
@@ -134,19 +134,23 @@
                             </div>
                             <template v-for="(v,k) in list_5_phim ">
                                 <div class="product__sidebar__comment__item">
-                                <a v-bind:href="'/index2/' + v.id" > 
-                                    <div class="product__sidebar__comment__item__pic">
-                                        <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
-                                    </div>
-                                </a>
+                                    <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
+                                        <a v-bind:href="'/de-list/' + v.slug_phim" > 
+                                            <div class="product__sidebar__comment__item__pic">
+                                                <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                            </div>
+                                        </a>
+                                    </router-link>
+                                
                                 <div class="product__sidebar__comment__item__text">
                                     <ul>
                                     <li>{{ v.ten_the_loai }}</li>
                                     <li>{{ v.ten_loai_phim }}</li>
                                     </ul>
                                     <h5>
-                                            <a  v-bind:href="'/index2/' + v.id">
-                                            {{ v.ten_phim }}</a>
+                                            <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
+                                                {{ v.ten_phim }}
+                                            </router-link>
                                     </h5>
                                     <span><i class="fa fa-eye"></i> 19.141 lượt xem</span>
                                 </div>
@@ -188,51 +192,48 @@
     });
 
     export default {
+         props : ['id', 'slug'],
         data() {
             return {
-				id : this.$route.params.id,
+				// id : this.$route.params.id,
                 id_user        : localStorage.getItem('id_user'), 
-                obj_yt_phim    : { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id},
-                obj_cmt_phim   : { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id,},
+                obj_yt_phim    : { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.id},
+                obj_cmt_phim   : { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.id},
                 obj_xoa_cmt    : {},
-                list_loai_phim : [],
-                list_the_loai  : [],
-                list_tac_gia   : [],
-                list_5_phim: [],
+                list_5_phim    :  [],
                 list_phim      : [],
                 list_cmt       : [],
                 isFollow       : {},
              };
         },
         mounted() {
-            this.laydataLoaiPhim();
-            this.loaddataTheLoai();
-            this.laydataPhim();
             this.checkYeuThich();
             this.laydataCMT();
+            this.laydataDelistPhim();
+            
+
         },
+        watch: {
+        $route(to, from){
+          this.laydataDelistPhim();
+          this.id_phim   = this.id;
+          this.obj_yt_phim    = { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.id};
+          this.obj_cmt_phim   = { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.id};
+          this.laydataCMT();
+          this.checkYeuThich();
+        }
+      },
         methods: {
-            laydataPhim() {
+            laydataDelistPhim() {
                 axios
-                .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
+                .get("http://127.0.0.1:8000/api/phim/lay-data-delist", {
+                    params :{
+                    id_phim : this.id,
+                    } })
                 .then((res) => {
                     this.list_phim = res.data.phim;
                     this.list_5_phim = res.data.phim_5_obj;
 
-                });
-            },
-            laydataLoaiPhim() {
-                axios
-                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
-                .then((res) => {
-                    this.list_loai_phim = res.data.loai_phim;
-                });
-            },
-            loaddataTheLoai() {
-                axios
-                .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-                .then((res) => {
-                    this.list_the_loai = res.data.the_loai;
                 });
             },
             laydataCMT() {
@@ -291,7 +292,7 @@
                 .then((res) => {
                 if (res.data.status == true) {
                     toaster.success(res.data.message);
-                    this.obj_cmt_phim   = { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id, 'noi_dung' : ''};
+                    this.obj_cmt_phim   = { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.id, 'noi_dung' : ''};
                     this.laydataCMT();
                 } else {
                     toaster.error(res.data.message);
