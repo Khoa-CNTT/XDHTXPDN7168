@@ -50,12 +50,16 @@
                     <template v-for="(v1,k1) in paginatedData">
                       <div  class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
-                          <router-link :to="`/index2/${v1.id}`">
+                          <router-link :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim }}">
                             <div class="product__item__pic set-bg"
                               v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">
-                              <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
-                              <div v-else-if="v1.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
-                              <div v-else class="ep">1/1</div>
+                              <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">
+                                    ??/{{v1.so_tap_phim  }}
+                                  </div>
+                                  <div v-else-if="v1.ten_loai_phim === 'Phim Lẻ'" class="ep">
+                                    Movie
+                                  </div>
+                                  <div v-else class="ep">RAW</div>
                               <div class="comment"><i class="fa fa-comments"></i> 11</div>
                               <div class="view"><i class="fa fa-eye"></i> 9141</div>
                             </div>
@@ -66,8 +70,8 @@
                               <li>{{ v1.ten_loai_phim }}</li>
                             </ul>
                             <h5>
-                              <router-link :to="`/index2/${v1.id}`">
-                                <a v-bind:href="'/index2' + v1.id">
+                              <router-link :to="`/de-list/${v1.id}`">
+                                <a v-bind:href="'/de-list' + v1.id">
                                   {{ v1.ten_phim }}</a></router-link>
                             </h5>
                           </div>
@@ -92,7 +96,7 @@
                     </div>
                     <template v-for="(v,k) in list_9_phim ">
                       <div class="product__sidebar__comment__item">
-                        <router-link :to="`/index2/${v.id}`">
+                        <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
                           <div class="product__sidebar__comment__item__pic">
                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                           </div>
@@ -104,8 +108,8 @@
                             <li>{{ v.ten_loai_phim }}</li>
                           </ul>
                           <h5>
-                            <router-link :to="`/index2/${v.id}`">
-                              <a v-bind:href="'/index2' + v.id">
+                            <router-link :to="`/de-list/${v.id}`">
+                              <a v-bind:href="'/de-list' + v.id">
                                 {{ v.ten_phim }}</a></router-link>
                           </h5>
                           <span><i class="fa fa-eye"></i> 19.141 Viewes</span>

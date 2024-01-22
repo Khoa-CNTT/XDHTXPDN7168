@@ -1,6 +1,6 @@
 <template>
     <template v-for="(v,k) in list_loai_phim">
-        <template v-if="v.id == id">
+        <template v-if="v.id == loai_phim.id">
             <!-- Breadcrumb Begin -->
             <div class="breadcrumb-option" style="background-color: #0b0c2a">
                 <div class="container">
@@ -9,7 +9,7 @@
                             <div class="breadcrumb__links">
                                 <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
                                 <router-link to="/"> Loại Phim</router-link>
-                                <a href=""> {{ v.ten_loai_phim }}</a>
+                                <router-link to="/">  {{ v.ten_loai_phim }}</router-link>
                                 <span>{{ v.ten_phim }}</span>
                             </div>
                         </div>
@@ -53,13 +53,17 @@
                                     <template v-for="(v1,k1) in list_phim">
                                         <div v-if="v1.id_loai_phim == v.id" class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                           <router-link :to="`/index2/${v1.id}`"  >
+                                           <router-link :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim }}" >
                                                 <div class="product__item__pic set-bg"
                                                 v-bind:style="{'background-image': 'url(' + v1.hinh_anh + ')',}">
-                                                <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
-                                                <div v-else-if="v1.ten_loai_phim === 'Phim Chiếu Rap'" class="ep">Movie</div>
-                                                <div v-else class="ep">1/1</div>
-                                                    <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                                                <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">
+                                                    ??/{{v1.so_tap_phim  }}
+                                                </div>
+                                                <div v-else-if="v1.ten_loai_phim === 'Phim Lẻ'" class="ep">
+                                                    Movie
+                                                </div>
+                                                <div v-else class="ep">RAW</div>
+                                                    <div class="comment"><i class="fa fa-comments"></i> 1</div>
                                                     <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                                 </div>
                                            </router-link>
@@ -69,7 +73,7 @@
                                                      <li>{{ v1.ten_loai_phim }}</li>
                                                 </ul>
                                                 <h5>
-                                                            <router-link :to="`/index2/${v1.id}`">
+                                                            <router-link :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim }}">
                                                         <a v-bind:href="'/index2' + v1.id">
                                                         {{ v1.ten_phim }}</a></router-link>
                                                      </h5>
@@ -100,7 +104,7 @@
                                     <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
                                     
-                                    <router-link  :to="`/index2/${v.id}`" >
+                                    <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}" >
                                         <div class="product__sidebar__comment__item__pic">
                                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                         </div>
@@ -111,7 +115,7 @@
                                     <li>{{ v.ten_loai_phim }}</li>
                                     </ul>
                                     <h5>
-                                    <router-link :to="`/index2/${v.id}`">
+                                    <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
                                             <a v-bind:href="'/index2' + v.id">
                                             {{ v.ten_phim }}</a></router-link>
                                     </h5>
@@ -142,11 +146,12 @@
     });
 
     export default {
+        props : ['id', 'slug'],
         data() {
             return {
-                id: this.$route.params.id,
+                // id: this.$route.params.id,
+                loai_phim        : {},
                 list_loai_phim: [],
-                list_the_loai: [],
                 list_tac_gia: [],
                 list_phim: [],
                 list_9_phim: [],
@@ -156,10 +161,27 @@
         },
         mounted() {
             this.laydataLoaiPhim();
-            this.loaddataTheLoai();
-            this.laydataPhim();
+              this.loadataLoaiPhimAndPhim();
+        },
+        watch: {
+        $route(to, from){
+          this.laydataLoaiPhim();
+          this.loadataLoaiPhimAndPhim();
+        }
         },
         methods: {
+            loadataLoaiPhimAndPhim() {
+                    axios
+                        .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show-tat-ca", {
+                        params :{
+                        id_lp : this.id,
+                        } }) 
+                        .then((res) => {
+                        this.loai_phim = res.data.loai_phim;
+                        this.list_phim = res.data.phim;
+                        this.list_9_phim = res.data.phim_9_obj;
+                        });
+                    },
             Sapxep(id_loai_phim) {
                     axios
                         .get("http://127.0.0.1:8000/api/loai-phim/sap-xep", {
@@ -172,15 +194,7 @@
                                 this.list_phim = res.data.phim;
                         });
                 },
-            laydataPhim() {
-                axios
-                    .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
-                    .then((res) => {
-                        this.list_phim = res.data.phim;
-                        this.list_9_phim = res.data.phim_9_obj;
-
-                    });
-            },
+            
             laydataLoaiPhim() {
                 axios
                     .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
@@ -188,13 +202,7 @@
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
-            loaddataTheLoai() {
-                axios
-                    .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-                    .then((res) => {
-                        this.list_the_loai = res.data.the_loai;
-                    });
-            },
+           
 
         },
     };

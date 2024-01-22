@@ -15,6 +15,18 @@ const routes = [
 
     },
     {
+        path : '/forget-password',
+        component: ()=>import('../components/Page/QuenMatKhau/index.vue'),
+        meta : {layout : 'loginanime'} ,
+
+    },
+    {
+        path : '/reset-password',
+        component: ()=>import('../components/Page/DatLaiMatKhau/index.vue'),
+        meta : {layout : 'loginanime'} ,
+
+    },
+    {
         path : '/register',
         component: ()=>import('../components/Page/Register/index.vue'),
         meta : {layout : 'loginanime'} ,
@@ -26,13 +38,18 @@ const routes = [
 
     }, 
     {
-        path : '/index1/:id',
+        path : '/the-loai/:slug',
         component: ()=>import('../components/Page/PageList/index.vue'),
+        name: 'PageList',
+        props: route => ({ id: route.params.id, slug : route.params.slug }),
 
     }, 
     {
-        path : '/index2/:id',
+        path : '/de-list/:slug',
         component: ()=>import('../components/Page/PageDelist/index.vue'),
+        name: 'PageDelist',
+        props: route => ({ id: route.params.id, slug : route.params.slug }),
+
 
     },
     {
@@ -41,8 +58,10 @@ const routes = [
 
     }, 
     {
-        path : '/index6/:id',
+        path : '/loai-phim/:slug',
         component: ()=>import('../components/Page/PageLoaiPhim/index.vue'),
+        name: 'PageLoaiPhim',
+        props: route => ({ id: route.params.id, slug : route.params.slug }),
 
     },
     {

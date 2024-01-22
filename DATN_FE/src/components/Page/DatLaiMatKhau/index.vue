@@ -7,41 +7,29 @@
                 <div class="col-lg-6">
                     <div class="login__form">
                         <div class="row">
-                            <div class="col-6">
-                               <h3>Đăng Nhập</h3>
+                            <div class="col-12">
+                               <h3>Đặt Lại Mật Khẩu! </h3>
                             </div>
-                            <div class="col-6">
-                                <router-link to="register" >
-                                    <a > <h3 style="color: #17a2b8" >Đăng Ký <i class="fa-solid fa-caret-right"></i></h3></a>
-                                     
-                                </router-link>
-                            </div>
+                            
                         </div>
                         <div >
                             <div class="input__item">
-                                <input v-model="dang_nhap.email" type="text" placeholder="Địa chỉ email">
-                                <span class="icon_mail"></span>
-                            </div>
-                            <div class="input__item">
-                                <input v-model="dang_nhap.password" type="password" >
+                                <input v-model="dang_nhap.password" type="password" placeholder="Nhập mật khẩu mới!" >
                                 <span class="icon_lock"></span>
                             </div>
-                            <!-- <div class="row">
-                                <div class="col-md-6">
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="gridCheck3">
-											<label class="form-check-label" for="gridCheck3">Check me out</label>
-										</div>
-							</div>
-                            <div class="col-md-6 text-end">	<a href="javascript:;">Forgot Password ?</a>
-							</div>
-                            </div> -->
-                            
-                            <button @click="dangNhap()" class="site-btn">Đăng Nhập</button>
+                            <div class="input__item">
+                                <input v-model="dang_nhap.password" type="password" placeholder="Nhập lại mật khẩu!" >
+                                <span class="icon_lock"></span>
+                            </div>
                         </div>
-                                <router-link to="/forget-password">
-                                    <a  type="button" class="forget_pass ">Quên mật khẩu?</a>
-                                </router-link>
+                        <div class="row">
+                            <div class="col-12">
+                                  <button @click="dangNhap()" style="width: 100%;" class="site-btn">ĐỔI MẬT KHẨU</button>
+                            </div>
+                            
+                        </div>
+                       
+                               
 
                                
                                 
@@ -49,8 +37,8 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="login__register">
-                            <router-link to="/">
-                                <a href="#" class="btn btn-sm  text-info"><i class="fa-solid fa-left-long"></i>Trang Chủ </a>
+                            <router-link to="/login">
+                                <a href="#" class="btn btn-sm  text-info"><i class="fa-solid fa-left-long"></i>Đăng Nhập</a>
                             </router-link>
                     </div>
                     <div class="login__social__links">
