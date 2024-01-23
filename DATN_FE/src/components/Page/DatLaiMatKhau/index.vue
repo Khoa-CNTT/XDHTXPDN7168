@@ -14,24 +14,21 @@
                         </div>
                         <div >
                             <div class="input__item">
-                                <input v-model="dang_nhap.password" type="password" placeholder="Nhập mật khẩu mới!" >
+                                <input v-model="doi_mat_khau.password" type="password" placeholder="Nhập mật khẩu mới!" >
                                 <span class="icon_lock"></span>
                             </div>
                             <div class="input__item">
-                                <input v-model="dang_nhap.password" type="password" placeholder="Nhập lại mật khẩu!" >
+                                <input v-model="doi_mat_khau.re_password" type="password" placeholder="Nhập lại mật khẩu!" >
                                 <span class="icon_lock"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                  <button @click="dangNhap()" style="width: 100%;" class="site-btn">ĐỔI MẬT KHẨU</button>
+                                  <button @click="doiMatKhau()" style="width: 100%;" class="site-btn">ĐỔI MẬT KHẨU</button>
                             </div>
                             
                         </div>
                        
-                               
-
-                               
                                 
                     </div>
                 </div>
@@ -62,105 +59,46 @@
 <script>
 import axios from 'axios';
 import { createToaster } from "@meforma/vue-toaster";
+import baseRequestUser from '../../../core/baseRequestUser';
 const toaster = createToaster({ position: "top-right" });
 export default {
     data() {
         return {
-            dang_ky: {},
-            dang_nhap: {},
-            check_token: {},
-            is_login: true,
-            list_token: [],
-            remove_token: {},
+            doi_mat_khau    :   {},
         }
     },
     mounted() {
-        // this.is_login = false;
-        this.checkToken();
+        this.checkHashPass();
+        console.log(this.hash);
     },
     methods: {
-        dangKy() {
-            axios
-                .post('http://127.0.0.1:8000/api/khach-hang/register', this.dang_ky)
-                .then((res) => {
-                    toaster.success( res.data.message);
+        checkHashPass() {
+            this.doi_mat_khau.hash_quen_mat_khau   =    this.$route.params.hash;
+            baseRequestUser
+                .post('kiem-tra-quen-hash-pass', this.doi_mat_khau)
+                .then((res) =>  {
+                    if(res.data.status == true) {
+                        toaster.success(res.data.message);
+                    } else {
+                        toaster.error(res.data.message);
+                        this.$router.push('/login');
+                    }
                 });
         },
-        dangNhap() {
-            axios
-                .post('http://127.0.0.1:8000/api/khach-hang/login', this.dang_nhap)
-                .then((res) => {
-                    if (res.data.status) {
+        doiMatKhau() {
+            baseRequestUser
+                .post('dat-lai-mat-khau', this.doi_mat_khau)
+                .then((res) =>  {
+                    if(res.data.status == true) {
                         toaster.success( res.data.message);
-                        var arr = res.data.token.split("|");
-                        localStorage.setItem('token_user', arr[1]);
-                        console.log(arr[1]);
-                        this.checkToken();
+                        this.$router.push('/login');
                     } else {
                         toaster.error( res.data.message);
+                        this.$router.push('/login');
                     }
                 });
-        },
-        checkToken() {
-            axios
-                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token_user')
-                    }
-                })
-                .then((res) => {
-                    console.log(res.data);
-                    localStorage.setItem('ho_ten_user', res.data.ho_ten_user);
-                    localStorage.setItem('hinh_anh_user', res.data.hinh_anh_user);
-                    localStorage.setItem('id_user', res.data.id_user);
-                    if (res.status === 200) {
-                        this.is_login = true;
-                        // this.list_token = res.data.list;
-                        this.$router.push('/');
-
-                    }
-
-                })
-                .catch(() => {
-                    this.is_login = false;
-                });
-        },
-        // removeToken() {
-        //     axios
-        //         .delete('http://127.0.0.1:8000/api/khach-hang/thong-tin-xoa/'+ this.remove_token.id)
-        //         .then((res) => {
-        //             if (res.data.status == true) {
-        //                 toaster.success( res.data.message);
-        //                 this.list_token = [],
-        //                     this.checkToken();
-        //             }
-        //         })
-        // },
-        /// file base 64
-      async imageToBase64(file) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-  
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = (error) => reject(error);
-        });
-      },
-  
-      async handleFileChange(event) {
-        const file = event.target.files[0];
-  
-        if (file) {
-          try {
-            const base64Data = await this.imageToBase64(file);
-            console.log('Base64 Data:', base64Data);
-            this.dang_ky.hinh_anh = base64Data;
-            // Thực hiện các hành động khác với base64Data ở đây
-          } catch (error) {
-            console.error('Error converting image to base64:', error);
-          }
         }
-      },
+        
     },
 }
 </script>

@@ -78,7 +78,7 @@ const toaster = createToaster({ position: "top-right" });
 export default {
     data() {
         return {
-            dang_ky: {},
+            dang_ky: {is_done : 0,},
             dang_nhap: {},
             check_token: {},
             is_login: true,
@@ -111,6 +111,12 @@ export default {
                     } else {
                         toaster.error( res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors  = Object.values(res.response.data.errors);
+                    errors.forEach(function(v,k){
+                            toaster.error(v[0]);
+                    });
                 });
         },
         checkToken() {

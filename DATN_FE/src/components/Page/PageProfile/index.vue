@@ -206,8 +206,8 @@
               // Set the imageUrl to the URL of the uploaded image.
               this.imageUrl = data.secure_url;
               // console.log(this.imageUrl);
-        this.hinh_anh = data.secure_url;
-          localStorage.setItem('hinh_anh_user', this.hinh_anh_user);
+              this.hinh_anh_user = data.secure_url;
+               localStorage.setItem('hinh_anh_user', this.hinh_anh_user);
               toaster.success('Thêm ảnh thành công!');
             })
             .catch((error) => {
