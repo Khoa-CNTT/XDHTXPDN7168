@@ -1,6 +1,4 @@
 <template>
-    <template v-for="(v,k) in list_loai_phim">
-        <template v-if="v.id == loai_phim.id">
             <!-- Breadcrumb Begin -->
             <div class="breadcrumb-option" style="background-color: #0b0c2a">
                 <div class="container">
@@ -9,8 +7,7 @@
                             <div class="breadcrumb__links">
                                 <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
                                 <router-link to="/"> Loại Phim</router-link>
-                                <router-link to="/">  {{ v.ten_loai_phim }}</router-link>
-                                <span>{{ v.ten_phim }}</span>
+                                <span>{{ loai_phim.ten_loai_phim }}</span>
                             </div>
                         </div>
                     </div>
@@ -27,13 +24,13 @@
                                     <div class="row">
                                         <div class="col-lg-8 col-md-8 col-sm-6">
                                             <div class="section-title">
-                                                <h4>{{ v.ten_loai_phim }}</h4>
+                                                <h4>{{ loai_phim.ten_loai_phim }}</h4>
                                             </div>
                                         </div>
                                         <div class="col-lg-4 col-md-4 col-sm-6">
                                             <div class="product__page__filter">
                                                 <p>Sắp xếp theo:</p>
-                                                <select v-model="bien" @change="Sapxep(v.id)" >
+                                                <select v-model="bien" @change="Sapxep(loai_phim.id)" >
                                                     <option value="az">A-Z</option>
                                                     <option value="za">Z-A</option>
                                                     <option value="1to10">1-9</option>
@@ -51,7 +48,7 @@
                                 </div>
                                 <div class="row">
                                     <template v-for="(v1,k1) in list_phim">
-                                        <div v-if="v1.id_loai_phim == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                                        <div  class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
                                            <router-link :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim }}" >
                                                 <div class="product__item__pic set-bg"
@@ -130,12 +127,6 @@
                 </div>
             </section>
 
-
-        </template>
-        
-    </template>
-
-
 </template>
 <script>
     import axios from "axios"
@@ -146,7 +137,7 @@
     });
 
     export default {
-        props : ['id', 'slug'],
+        props : ['slug'],
         data() {
             return {
                 // id: this.$route.params.id,
@@ -174,7 +165,7 @@
                     axios
                         .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show-tat-ca", {
                         params :{
-                        id_lp : this.id,
+                        slug_lp : this.slug,
                         } }) 
                         .then((res) => {
                         this.loai_phim = res.data.loai_phim;

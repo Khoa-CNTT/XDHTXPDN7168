@@ -26,7 +26,7 @@
                                     <ul class="dropdown">
                                         <template v-for="(v,k) in list_the_loai">
                                             <li class="menu" >
-                                                <router-link :to="{ name: 'PageList', params: { id: v.id, slug: v.slug_the_loai }}">
+                                                <router-link :to="{ name: 'PageList', params: {  slug: v.slug_the_loai }}">
                                                      {{ v.ten_the_loai }}
                                                 </router-link>
                                                 <!-- <a v-bind:href="'/the-loai/' + v.id"> {{ v.ten_the_loai }}</a> -->
@@ -42,7 +42,7 @@
                                                 <!-- <router-link :to="`/loai-phim/${v.id}`">
                                                     {{  v.ten_loai_phim }}
                                                 </router-link> -->
-                                                <router-link :to="{ name: 'PageLoaiPhim', params: { id: v.id, slug: v.slug_loai_phim }}">
+                                                <router-link :to="{ name: 'PageLoaiPhim', params: { slug: v.slug_loai_phim }}">
                                                      {{ v.ten_loai_phim }}
                                                 </router-link>
                                             </li>
@@ -131,7 +131,7 @@
                                                 <div v-if="v.id_khach_hang == id_user" class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
-                                                            <a v-bind:href="'/de-list/' + v.id_phim">
+                                                            <a v-bind:href="'/de-list/' + v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
                                                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                                                 </div>
@@ -143,7 +143,7 @@
                                                                 </ul>
                                                                 <h5>
                                                                     <!-- <router-link :to="`/de-list/${v.id}`"> -->
-                                                                    <a v-bind:href="'/de-list/' + v.id_phim">
+                                                                    <a v-bind:href="'/de-list/' + v.slug_phim">
                                                                         {{ v.ten_phim }}</a>
                                                                     <!-- </router-link> -->
                                                                 </h5>
@@ -192,7 +192,7 @@
                                                 <div   class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
-                                                            <a v-bind:href="'/de-list/' + v.id">
+                                                            <a v-bind:href="'/de-list/' + v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
                                                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                                                 </div>
@@ -205,7 +205,7 @@
                                                                 </ul>
                                                                 <h5>
                                                                     <!-- <router-link :to="`/de-list/${v.id}`"> -->
-                                                                    <a v-bind:href="'/de-list/' + v.id">
+                                                                    <a v-bind:href="'/de-list/' + v.slug_phim">
                                                                         {{ v.ten_phim }}</a>
                                                                     <!-- </router-link> -->
                                                                 </h5>

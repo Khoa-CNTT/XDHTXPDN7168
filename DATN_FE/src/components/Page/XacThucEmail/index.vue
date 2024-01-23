@@ -4,48 +4,32 @@
     <section class="login spad" style="background-image: url(https://wallpapers.com/images/hd/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.jpg); height: 100%;  ">
         <div class="container" style="background-color: rgba(10, 9, 9, 0.7); padding: 50px; ; margin-bottom: 100px;">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-7">
                     <div class="login__form">
                         <div class="row">
                             <div class="col-12">
-                               <h3>Quên Mật Khẩu! </h3>
+                               <h3>KÍCH HOẠT EMAIL THÀNH CÔNG! </h3>
+                               <h3>VUI LÒNG ĐĂNG NHẬP! </h3>
                             </div>
                             
                         </div>
-                        <div >
-                            <div class="input__item">
-                                <input v-model="obj_quen_mk.email" type="text" placeholder="Nhập Email để đổi mật khẩu!">
-                                <span class="icon_mail"></span>
-                            </div>
-                        </div>
+                      
                         <div class="row">
                             <div class="col-12">
-                                  <button @click="quenMatKhau()" style="width: 100%;" class="site-btn">GỬI</button>
+                                  <button @click="quenMatKhau()" style="width: 100%;" class="site-btn">ĐĂNG NHẬP</button>
                             </div>
                             <div class="col-12 text-center mt-1 text-white" >
-                                <b>Or</b>
                             </div>
                             
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <router-link to="/login">
-                                     <button  style="width: 100%; background: rgb(223, 68, 68); " class="site-btn btn">Đăng nhập</button>
-                                </router-link>
-                            </div>
-                            <div class="col-6">
-                                <router-link to="/register">
-                                     <button  style="width: 100%; background: rgb(75, 46, 207); " class="site-btn btn">Đăng ký</button>
-                                </router-link>
-                            </div>
-                        </div>
+                        
                                
 
                                
                                 
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <div class="login__register">
                             <router-link to="/">
                                 <a class="btn btn-sm  text-info"><i class="fa-solid fa-left-long"></i>Trang Chủ </a>

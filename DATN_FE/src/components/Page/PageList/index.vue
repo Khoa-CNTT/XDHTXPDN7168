@@ -1,6 +1,4 @@
 <template>
-    <template v-for="(v,k) in list_the_loai">
-      <template v-if="v.id == id">
         <!-- Breadcrumb Begin -->
         <div class="breadcrumb-option" style="background-color: #0b0c2a">
           <div class="container">
@@ -9,17 +7,14 @@
                 <div class="breadcrumb__links">
                   <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
                   <router-link to="/"> Thể Loại</router-link>
-                  <router-link :to="{ name: 'PageList', params: { id: v.id, slug: v.slug_the_loai }}">
-                             {{ v.ten_the_loai }}
-                  </router-link>
-                  <span>{{ v.ten_phim }}</span>
+                  <span>{{ the_loai.ten_the_loai }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <!-- Breadcrumb End -->
-  
+       
         <section class="product-page spad" style="background-color: #0b0c2a">
           <div class="container">
             <div class="row">
@@ -29,13 +24,13 @@
                     <div class="row">
                       <div class="col-lg-8 col-md-8 col-sm-6">
                         <div class="section-title">
-                          <h4>{{ v.ten_the_loai }}</h4>
+                          <h4>{{ the_loai.ten_the_loai }}</h4>
                         </div>
                       </div>
                       <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="product__page__filter">
                           <p>Sắp xếp theo:</p>
-                          <select v-model="bien" @change="Sapxep(v.id)" >
+                          <select v-model="bien" @change="Sapxep(the_loai.id)" >
                             <option value="az">A-Z</option>
                             <option value="za">Z-A</option>
                             <option value="1to10">1-9</option>
@@ -53,7 +48,7 @@
                   </div>
                   <div class="row">
                     <template v-for="(v1,k1) in list_phim">
-                      <div v-if="v1.id_the_loai == v.id" class="col-lg-4 col-md-6 col-sm-6">
+                      <div  class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
                           <router-link :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim }}">
                             <div class="product__item__pic set-bg"
@@ -130,13 +125,6 @@
             </div>
           </div>
         </section>
-  
-  
-      </template>
-  
-    </template>
-  
-  
   </template>
   <script>
     import axios from "axios"
@@ -147,7 +135,7 @@
     });
   
     export default {
-      props : ['id', 'slug'],
+      props : ['slug'],
       data() {
         return {
           // id: this.$route.params.id,
@@ -160,12 +148,10 @@
         };
       },
       mounted() {
-        this.loadataTheLoai();
         this.loadataTheLoaiAndPhim();
       },
       watch: {
         $route(to, from){
-          this.loadataTheLoai();
           this.loadataTheLoaiAndPhim();
         }
       },
@@ -174,7 +160,8 @@
           axios
             .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show-tat-ca", {
             params :{
-              id_tl : this.id,
+              // id_tl : this.id,
+              slug_tl : this.slug,
             } }) 
             .then((res) => {
               this.the_loai = res.data.the_loai;
@@ -194,13 +181,7 @@
                         this.list_phim = res.data.phim;
                 });
         },
-        loadataTheLoai() {
-          axios
-            .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-            .then((res) => {
-              this.list_the_loai = res.data.the_loai;
-            });
-        },
+      
   
   
       },

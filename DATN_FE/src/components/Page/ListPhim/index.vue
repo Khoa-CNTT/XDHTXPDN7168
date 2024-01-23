@@ -26,6 +26,7 @@
                       <div class="col-lg-8 col-md-8 col-sm-6">
                         <div class="section-title">
                           <!-- <h4>{{ v.ten_the_loai }}</h4> -->
+                          <h4> Tất cả Phim</h4>
                         </div>
                       </div>
                       <div class="col-lg-4 col-md-4 col-sm-6">

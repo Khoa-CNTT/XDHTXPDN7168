@@ -21,8 +21,14 @@ const routes = [
 
     },
     {
-        path : '/reset-password',
+        path : '/reset-password/:hash',
         component: ()=>import('../components/Page/DatLaiMatKhau/index.vue'),
+        meta : {layout : 'loginanime'} ,
+
+    },
+    {
+        path : '/kich-hoat-email/:hash',
+        component: ()=>import('../components/Page/XacThucEmail/index.vue'),
         meta : {layout : 'loginanime'} ,
 
     },
