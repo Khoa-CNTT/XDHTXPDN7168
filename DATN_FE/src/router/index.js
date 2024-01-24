@@ -59,7 +59,7 @@ const routes = [
 
     },
     {
-        path : '/index3/:id',
+        path : '/watching/:slug',
         component: ()=>import('../components/Page/PageWatch/index.vue'),
 
     }, 
@@ -82,12 +82,12 @@ const routes = [
     },
     //Page Blog
     {
-        path : '/index4',
+        path : '/bai-viet',
         component: ()=>import('../components/Page/BlogList/index.vue'),
 
     }, 
     {
-        path : '/index5/:id',
+        path : '/blog/:slug',
         component: ()=>import('../components/Page/BlogDelist/index.vue'),
 
     }, 

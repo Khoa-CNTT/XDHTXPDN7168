@@ -43,9 +43,8 @@
                             <div class="section-title">
                                 <h5>Bình Luận</h5>
                             </div>
-                            
                             <template v-for="(v,k) in list_cmt">
-                                <div v-if="v.id_phim == id " class="anime__review__item">
+                                <div v-if="v.id_phim == obj_phim.id " class="anime__review__item">
                                     <div class="anime__review__item__pic">
                                         <img v-bind:src="v.hinh_anh" alt="">
                                     </div>
@@ -111,10 +110,8 @@
         obj_tap_phim   : {},
         id_user        : localStorage.getItem('id_user'), 
         list_cmt       : [],
-        obj_cmt_phim    : { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id,},
+        obj_cmt_phim    : { },
         obj_xoa_cmt     : {},
-		id : this.$route.params.id,
-        // list_phimHD     : [],
       };
     },
     mounted() {
@@ -127,7 +124,7 @@
     methods: {
         LaydataDeXem() {
                     var payload = {
-                    'id': this.$route.params.id
+                    'slug': this.$route.params.slug
                 }
                 baseRequest
             .post("lay-data-watch", payload)
@@ -150,13 +147,18 @@
                 });
         },
         themBinhLuan(){
+            var payload = {
+                    'id_phim': this.obj_phim.id,
+                    'id_khach_hang' : localStorage.getItem('id_user'),
+                    'noi_dung'      : this.obj_cmt_phim.noi_dung
+                }
                 baseRequest
-                .post("admin/binh-luan-phim/thong-tin-tao" , this.obj_cmt_phim
+                .post("admin/binh-luan-phim/thong-tin-tao" , payload
                 )
                 .then((res) => {
                 if (res.data.status == true) {
                     toaster.success(res.data.message);
-                    this.obj_cmt_phim   = { 'id_khach_hang' : localStorage.getItem('id_user'), 'id_phim' : this.$route.params.id, 'noi_dung' : ''};
+                    this.obj_cmt_phim   = {};
                     this.laydataCMT();
                 } else {
                     toaster.error(res.data.message);

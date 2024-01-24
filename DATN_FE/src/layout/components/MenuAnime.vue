@@ -49,7 +49,7 @@
                                         </template>
                                     </ul>
                                 </li>
-                                <router-link to="/index4">
+                                <router-link to="/bai-viet">
                                     <li class="menu active"><a href="#"> Blog</a></li>
                                 </router-link>
 

@@ -117,8 +117,8 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="btn__all">
-                      <router-link :to="`/the-loai/${v1.id}`">
-                        <a v-bind:href="'/the-loai' + v1.id" class="primary-btn">View All <span
+                      <router-link :to="`/the-loai/${v1.slug_the_loai }`">
+                        <a v-bind:href="'/the-loai' + v1.slug_the_loai" class="primary-btn">View All <span
                             class="arrow_right"></span></a>
                       </router-link>
                       <!-- <<router-link :to="`/de-list/${v.id}`">

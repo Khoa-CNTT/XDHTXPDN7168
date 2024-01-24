@@ -121,7 +121,7 @@
               <tr>
                 <th colspan="100%">
                   <div class="input-group mb-3">
-                    <input v-on:keyup.enter="searchPhim()" v-model="key_tim.key" type="text" class="form-control"
+                    <input v-on:keyup="searchPhim()" v-model="key_tim.key" type="text" class="form-control"
                       placeholder="Nhập thông tin cần tìm">
                     <button class="btn btn-primary" v-on:click="searchPhim()">
                       <i class="fa-solid fa-magnifying-glass"></i>

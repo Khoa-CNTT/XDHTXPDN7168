@@ -66,8 +66,8 @@
                             <div class="anime__details__btn">
                                  <button   v-if="isFollow == false" type="button"  @click="anTheoDoi()  " class="unfollow-btn"><i class="fa fa-heart-o"></i> Theo Dõi</button>
                                  <button   v-else type="button" @click="unTheoDoi()" class="follow-btn"><i class="fa-solid fa-heart"></i> Bỏ Theo Dõi</button>
-                                    <router-link :to="`/index3/${obj_phim.id}`">
-                                        <a v-bind:href="'/index3/' + obj_phim.id" class="watch-btn"><span>Xem Ngay</span> </a>
+                                    <router-link :to="`/watching/${obj_phim.slug_phim}`">
+                                        <a v-bind:href="'/watching/' + obj_phim.slug_phim" class="watch-btn"><span>Xem Ngay</span> </a>
                                     </router-link>
                                 
                                 </div>

@@ -86,7 +86,7 @@
             <b>DANH SÁCH PHIM</b>
           </div>
           <div class="card-body">
-            <table class="table table-bordered ">
+            <table class="table table-bordered table-responsive">
               <thead>
                 <tr>
                   <th colspan="100%">
