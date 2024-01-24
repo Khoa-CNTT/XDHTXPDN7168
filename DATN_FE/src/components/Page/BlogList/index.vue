@@ -59,7 +59,7 @@
 											<div class="row">
 												<template v-for="(v1,k1) in list_blog">
                             <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
-                              <router-link :to="`/index5/${v1.id}`" >
+                              <router-link :to="`/blog/${v1.slug_tieu_de}`" >
                                 <div
                                   class="blog__item small__item set-bg"
                                   v-bind:style="{
@@ -69,8 +69,8 @@
                                   <div style=" background-color: rgba(35, 33, 33, 0.7);top: 194px; bottom: 0;" class="blog__item__text">
                                     <p><span class="icon_calendar"></span> 21 March 2023</p>
                                     <h4>
-                                      <router-link :to="`/index5/${v1.id}`">
-                                        <a v-bind:href="'/index5' + v1.id">
+                                      <router-link :to="`/blog/${v1.slug_tieu_de}`">
+                                        <a v-bind:href="'/blog' + v1.slug_tieu_de">
                                           {{ v1.tieu_de }}</a></router-link>
                                     </h4>
                                   </div>
@@ -88,7 +88,7 @@
 											<div class="row">
 												<template v-for="(v1,k1) in list_blog">
                             <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
-                              <router-link :to="`/index5/${v1.id}`" >
+                              <router-link :to="`/blog/${v1.slug_tieu_de}`" >
                                 <div 
                                   class="blog__item small__item set-bg"
                                   v-bind:style="{
@@ -98,8 +98,8 @@
                                   <div style=" background-color: rgba(35, 33, 33, 0.7);top: 194px; bottom: 0;" class="blog__item__text">
                                     <p><span class="icon_calendar"></span> 21 March 2023</p>
                                     <h4>
-                                      <router-link :to="`/index5/${v1.id}`">
-                                        <a v-bind:href="'/index5' + v1.id">
+                                      <router-link :to="`/blog/${v1.slug_tieu_de}`">
+                                        <a v-bind:href="'/blog' + v1.id">
                                           {{ v1.tieu_de }}</a></router-link>
                                     </h4>
                                   </div>

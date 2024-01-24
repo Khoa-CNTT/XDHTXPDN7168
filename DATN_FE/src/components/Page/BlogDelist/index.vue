@@ -1,7 +1,5 @@
 <template>
   <!-- Blog Details Section Begin -->
-  <template v-for="(v, k) in list_blog">
-    <template v-if="v.id == id">
       <div class="breadcrumb-option" style="background-color: #0b0c2a">
         <div class="container">
           <div class="row">
@@ -10,8 +8,8 @@
                 <router-link to="/"
                   ><i class="fa fa-home"></i> Home</router-link
                 >
-                <router-link to="/index4"> Blog</router-link>
-                <span>{{ v.tieu_de }}</span>
+                <router-link to="/bai-viet"> Blog</router-link>
+                <span>{{ obj_blog.tieu_de }}</span>
               </div>
             </div>
           </div>
@@ -22,8 +20,8 @@
           <div class="row d-flex justify-content-center">
             <div class="col-lg-8">
               <div class="blog__details__title">
-                <h6>{{ v.ten_chuyen_muc }} <span>- March 21, 2023</span></h6>
-                <h2>{{ v.tieu_de }}</h2>
+                <h6>{{ obj_blog.ten_chuyen_muc }} <span>- March 21, 2023</span></h6>
+                <h2>{{ obj_blog.tieu_de }}</h2>
                 <div class="blog__details__social">
                   <a href="#" class="facebook"
                     ><i class="fa fa-facebook-square"></i> Facebook</a
@@ -42,23 +40,23 @@
             </div>
             <div class="col-lg-12">
               <div class="blog__details__text tex">
-                <p>{{ v.mo_ta }}</p>
+                <p>{{ obj_blog.mo_ta }}</p>
               </div>
               <div class="blog__details__pic">
-                <img v-bind:src="v.hinh_anh" alt="" />
+                <img v-bind:src="obj_blog.hinh_anh" alt="" />
               </div>
             </div>
             <div class="col-lg-8">
               <div class="blog__details__content">
                 <div class="blog__details__item__text">
-                  <h4>{{ v.tieu_de }}</h4>
-                  <p>{{ v.mo_ta_chi_tiet }}</p>
+                  <h4>{{ obj_blog.tieu_de }}</h4>
+                  <p>{{ obj_blog.mo_ta_chi_tiet }}</p>
                 </div>
 
                 <div class="blog__details__tags">
                   <a href="#">Healthfood</a>
                   <a href="#">Sport</a>
-                  <a href="#">{{ v.ten_chuyen_muc }}</a>
+                  <a href="#">{{ obj_blog.ten_chuyen_muc }}</a>
                 </div>
                 <div class="blog__details__btns">
                   <div class="row">
@@ -87,7 +85,7 @@
                 <div class="blog__details__comment">
                   <h4>Bình Luận</h4>
                   <template v-for="(v, k) in list_cmt">
-                    <div v-if="v.id_bai_viet == id" class="anime__review__item">
+                    <div v-if="v.id_bai_viet == obj_blog.id" class="anime__review__item">
                       <div class="anime__review__item__pic">
                         <img v-bind:src="v.hinh_anh" alt="" />
                       </div>
@@ -175,8 +173,6 @@
           </div>
         </div>
       </section>
-    </template>
-  </template>
 </template>
 <script>
 import axios from "axios";
@@ -189,9 +185,8 @@ const toaster = createToaster({
 export default {
   data() {
     return {
-      id: this.$route.params.id,
       id_user: localStorage.getItem("id_user"),
-      list_blog: [],
+      obj_blog : {},
       list_cmt: [],
       obj_cmt_blog: {
         id_khach_hang: localStorage.getItem("id_user"),
@@ -201,25 +196,20 @@ export default {
     };
   },
   mounted() {
-    this.laydataBlog();
+    this.laydataDelistBlog();
     this.laydataCMT();
   },
-  computed: {
-    // Tính toán để lấy ba phần tử cuối cùng của mảng items
-    Show5object() {
-      const totalItems = this.list_phim.length;
-      // Sử dụng slice để lấy ba phần tử cuối cùng của mảng
-      return this.list_phim.slice(totalItems - 5, totalItems);
-    },
-  },
   methods: {
-    laydataBlog() {
-      axios
-        .get("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-show")
-        .then((res) => {
-          this.list_blog = res.data.bai_viet;
-        });
-    },
+    laydataDelistBlog() {
+      var payload = {
+                    'slug': this.$route.params.slug
+                }
+              axios
+                .post("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-delist-blog", payload)
+                .then((res) => {
+                  this.obj_blog = res.data.bai_viet;
+                });
+            },
     laydataCMT() {
       axios
         .get("http://127.0.0.1:8000/api/binh-luan-blog/lay-du-lieu-show")
@@ -228,16 +218,17 @@ export default {
         });
     },
     themBinhLuan() {
+      var payload = {
+                    'id_bai_viet'   : this.obj_blog.id,
+                    'id_khach_hang' : localStorage.getItem('id_user'),
+                    'noi_dung'      : this.obj_cmt_blog.noi_dung
+                }
       baseRequest
-        .post("admin/binh-luan-blog/thong-tin-tao", this.obj_cmt_blog)
+        .post("admin/binh-luan-blog/thong-tin-tao", payload)
         .then((res) => {
           if (res.data.status == true) {
             toaster.success(res.data.message);
-            this.obj_cmt_blog = {
-              id_khach_hang: localStorage.getItem("id_user"),
-              id_bai_viet: this.$route.params.id,
-              noi_dung: "",
-            };
+            this.obj_cmt_blog = {};
             this.laydataCMT();
           } else {
             toaster.error(res.data.message);

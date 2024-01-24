@@ -35,7 +35,7 @@
                                     <template v-for="(v,k) in list_phim">
                                         <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                           <router-link :to="`/de-list/${v.id}`"  >
+                                           <router-link :to="`/de-list/${v.slug_phim}`"  >
                                                 <div class="product__item__pic set-bg"
                                                 v-bind:style="{'background-image': 'url(' + v.hinh_anh + ')',}">
                                                 <div v-if="v.ten_loai_phim === 'Phim Bộ'" class="ep">1??/99</div>
@@ -51,7 +51,7 @@
                                                      <li>{{ v.ten_loai_phim }}</li>
                                                 </ul>
                                                 <h5>
-                                                            <router-link :to="`/de-list/${v.id}`">
+                                                            <router-link :to="`/de-list/${v.slug_phim}`">
                                                         <a v-bind:href="'/de-list' + v.id">
                                                         {{ v.ten_phim }}</a></router-link>
                                                      </h5>
@@ -82,7 +82,7 @@
                                     <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
                                     
-                                    <router-link  :to="`/de-list/${v.id}`" >
+                                    <router-link  :to="`/de-list/${v.slug_phim}`" >
                                         <div class="product__sidebar__comment__item__pic">
                                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                         </div>
@@ -93,8 +93,8 @@
                                     <li>{{ v.ten_loai_phim }}</li>
                                     </ul>
                                     <h5>
-                                    <router-link :to="`/de-list/${v.id}`">
-                                            <a v-bind:href="'/de-list' + v.id">
+                                    <router-link :to="`/de-list/${v.slug_phim}`">
+                                            <a v-bind:href="'/de-list' + v.slug_phim">
                                             {{ v.ten_phim }}</a></router-link>
                                     </h5>
                                     <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
@@ -125,34 +125,17 @@
         data() {
             return {
                 key_tim         : {key : this.$route.params.id},
-                list_loai_phim  : [],
-                list_the_loai   : [],
-                list_tac_gia    : [],
                 list_phim       : [],
                 list_9_phim     : [],
-                bien            : '',
 
             };
         },
         mounted() {
-            this.laydataLoaiPhim();
-            this.loaddataTheLoai();
             this.laydataPhim();
             this.searchPhim();
         },
         methods: {
-            Sapxep(id_loai_phim) {
-                    axios
-                        .get("http://127.0.0.1:8000/api/loai-phim/sap-xep", {
-                            params : {
-                                id_lp : id_loai_phim,
-                                catagory: this.bien
-                            }
-                        })
-                        .then((res)=>{
-                                this.list_phim = res.data.phim;
-                        });
-                },
+           
             laydataPhim() {
                 axios
                     .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
@@ -167,13 +150,6 @@
                     .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
-                    });
-            },
-            loaddataTheLoai() {
-                axios
-                    .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-                    .then((res) => {
-                        this.list_the_loai = res.data.the_loai;
                     });
             },
             searchPhim() {

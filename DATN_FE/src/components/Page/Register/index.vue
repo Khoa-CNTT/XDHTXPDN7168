@@ -85,11 +85,12 @@
 <script>
 import axios from "axios";
 import { createToaster } from "@meforma/vue-toaster";
+import baseRequest from '../../../core/baseRequestUser';
 const toaster = createToaster({ position: "top-right" });
 export default {
   data() {
     return {
-      dang_ky: {},
+      dang_ky: {is_done : 0,},
       imageUrl: {},
     };
   },
@@ -97,16 +98,32 @@ export default {
     this.checkToken();
   },
   methods: {
+    kichHoatTK() {
+            baseRequest
+                .post('gui-mail-kich-hoat', this.dang_ky)
+                .then((res) =>  {
+                    if(res.data.status == true) {
+                        toaster.success( res.data.message);
+                        // this.$router.push('/login');
+                    } else {
+                        toaster.error( res.data.message);
+                    }
+                });
+        },
     dangKy() {
-      axios
-        .post(
-          "http://127.0.0.1:8000/api/khach-hang/register",
-          this.dang_ky
-        )
+      baseRequest
+        .post("khach-hang/register",this.dang_ky)
         .then((res) => {
-          toaster.success("Thông báo<br>" + res.data.message);
+          this.kichHoatTK();
           this.dang_ky = {};
-          this.$router.push('/login');
+          
+          // this.$router.push('/login');
+        })
+        .catch((res) => {
+                    var errors  = Object.values(res.response.data.errors);
+                    errors.forEach(function(v,k){
+                            toaster.error(v[0]);
+                    });
         });
     },
     checkToken() {
@@ -124,7 +141,6 @@ export default {
                         this.is_login = true;
                         this.list_token = res.data.list;
                         this.$router.push('/');
-
                     }
 
                 })
@@ -151,6 +167,7 @@ export default {
               this.imageUrl = data.secure_url;
               // console.log(this.imageUrl);
               this.dang_ky.hinh_anh = data.secure_url;
+              toaster.success('upload ảnh thành công!');
             })
             .catch((error) => {
               console.error('Error uploading image:', error);
