@@ -76,29 +76,29 @@
 						<div class="parent-icon"> <i class="fa-solid fa-list-check"></i>
 						</div>
 						<div class="menu-title"><b>Quản Lý Bài Viết</b></div>
-					  </a>
-					  <ul class="dropdown-menu show" data-bs-popper="static">
-						<li> 
-                            <router-link to="/admin/bai-viet">
-                                <a href="/admin/bai-viet" class="nav-link">
-                                    <div class="parent-icon">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </div>
-                                    <div class="menu-title">Bài Viết</div>
-                                </a>
-                            </router-link>
-						</li>
-						<li> 
-                            <router-link to="/admin/chuyen-muc">
-                                <a href="/admin/loai-phim" class="nav-link">
-                                    <div class="parent-icon">
-                                        <i class="fa-solid fa-layer-group"></i>
-                                    </div>
-                                    <div class="menu-title">Chuyên Mục</div>
-                                </a>
-                            </router-link>
-						</li>
-					  </ul>
+                        </a>
+                        <ul class="dropdown-menu show" data-bs-popper="static">
+                            <li> 
+                                <router-link to="/admin/bai-viet">
+                                    <a href="/admin/bai-viet" class="nav-link">
+                                        <div class="parent-icon">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </div>
+                                        <div class="menu-title">Bài Viết</div>
+                                    </a>
+                                </router-link>
+                            </li>
+                            <li> 
+                                <router-link to="/admin/chuyen-muc">
+                                    <a href="/admin/loai-phim" class="nav-link">
+                                        <div class="parent-icon">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                        </div>
+                                        <div class="menu-title">Chuyên Mục</div>
+                                    </a>
+                                </router-link>
+                            </li>
+                        </ul>
 			</li>  
             <li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle dropdown-toggle-nocaret show" data-bs-toggle="dropdown" aria-expanded="true">
@@ -117,6 +117,16 @@
                                 </a>
                             </router-link>
 						</li>
+                        <li> 
+                            <router-link to="/admin/chuc-vu">
+                                <a href="/admin/tk-admin" class="nav-link">
+                                    <div class="parent-icon">
+                                        <i class="fa-solid fa-user-tie"></i>
+                                    </div>
+                                    <div class="menu-title">Chức vụ</div>
+                                </a>
+                            </router-link>
+						</li>
 						<li> 
                             <router-link to="/admin/khach-hang">
                                 <a href="/admin/khach-hang" class="nav-link">
@@ -127,8 +137,19 @@
                                 </a>
                             </router-link>
 						</li>
+                        <li> 
+                            <router-link to="/admin/phan-quyen">
+                                <a href="/admin/phan-quyen" class="nav-link">
+                                    <div class="parent-icon">
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                    <div class="menu-title">Phân Quyền</div>
+                                </a>
+                            </router-link>
+						</li>
 					  </ul>
 			</li> 
+          
 
               
             

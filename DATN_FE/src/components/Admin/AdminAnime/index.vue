@@ -33,6 +33,14 @@
                       placeholder="Password">
                   </div>
                   <div class="col-12">
+                    <label for="inputChoosePassword" class="form-label">Chức Vụ</label>
+                    <select v-model="obj_add_admin.id_chuc_vu"  name="" id="" class="form-control">
+                    <template v-for="(v, k) in list_chuc_vu">
+                      <option  v-bind:value="v.id">{{ v.ten_chuc_vu }}</option>
+                    </template>
+                  </select>
+                  </div>
+                  <div class="col-12">
                     <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
                       Ảnh Đại Diện
                     </label>
@@ -63,7 +71,7 @@
                   <tr>
                     <th colspan="100%">
                       <div class="input-group mb-3">
-                        <input v-on:keyup.enter="searchAdmin()" v-model="key_tim.key" type="text" class="form-control"
+                        <input v-on:keyup="searchAdmin()" v-model="key_tim.key" type="text" class="form-control"
                           placeholder="Nhập thông tin cần tìm">
                         <button class="btn btn-primary" v-on:click="searchAdmin()">
                           <i class="fa-solid fa-magnifying-glass"></i>
@@ -75,6 +83,7 @@
                     <th>#</th>
                     <th class="text-center align-middle text-nowrap">Họ Và Tên</th>
                     <th class="text-center align-middle text-nowrap">Email</th>
+                    <th class="text-center align-middle text-nowrap">Chức Vụ</th>
                     <th class="text-center align-middle text-nowrap">Ảnh Đại Diện</th>
                     <th class="text-center align-middle text-nowrap">Action</th>
                   </tr>
@@ -84,6 +93,7 @@
                     <td class="text-center align-middle text-nowrap">{{ k + 1 }}</td>
                     <td class=" align-middle text-nowrap">{{ v.ho_va_ten }}</td>
                     <td class=" align-middle text-nowrap">{{ v.email }}</td>
+                    <td class=" align-middle text-nowrap">{{ v.ten_chuc_vu }}</td>
                     <td class=" align-middle text-nowrap">
                       <img v-bind:src="v.hinh_anh" class="img-fluid" style="width: 70px; height: auto;" alt="">
                     </td>
@@ -124,6 +134,14 @@
                                 <label for="inputEmailAddress" class="form-label">Email</label>
                                 <input type="email" v-model="obj_update_admin.email" class="form-control" id="inputEmailAddress"
                                 placeholder="example@user.com">
+                            </div>
+                            <div class="col-12">
+                              <label for="inputChoosePassword" class="form-label">Chức Vụ</label>
+                              <select v-model="obj_update_admin.id_chuc_vu"  name="" id="" class="form-control">
+                                <template v-for="(v, k) in list_chuc_vu">
+                                  <option  v-bind:value="v.id">{{ v.ten_chuc_vu }}</option>
+                                </template>
+                              </select>
                             </div>
                             <!-- <div class="col-12">
                                 <label for="inputChoosePassword" class="form-label">Password</label>
@@ -186,6 +204,7 @@
       data() {
         return {
           list_admin: [],
+          list_chuc_vu : [],
           obj_add_admin: {},
           key_tim: {},
           obj_update_admin: {},
@@ -194,10 +213,17 @@
       },
       mounted() {
         this.laydataAdmin();
+        this.loaddataChucVu();
   
       },
       methods: {
-  
+        loaddataChucVu() {
+            baseRequest
+              .get("admin/chuc-vu/lay-du-lieu")
+              .then((res) => {
+                this.list_chuc_vu = res.data.chuc_vu_admin;
+              });
+          },
         laydataAdmin() {
           baseRequest
             .get("admin/admin/lay-du-lieu")

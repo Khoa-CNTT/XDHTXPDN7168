@@ -434,8 +434,13 @@
         baseRequest
           .get("admin/phim/lay-du-lieu")
           .then((res) => {
-            this.list_phim = res.data.phim_admin;
-            console.log(this.list_phim_admin);
+            if (res.data.status == false) {
+              toaster.error(res.data.message);
+             
+            } else {
+              this.list_phim = res.data.phim_admin;
+            }
+            
           });
       },
       taoDataPhim() {
