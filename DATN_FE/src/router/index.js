@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
 import checkLogin from "./checkLoginAdmin";
-import checkLoginAnime from "./checkLoginAnime";
 const routes = [
     // Page Anime
     {
@@ -112,6 +111,12 @@ const routes = [
         meta : {layout : 'new'} ,
     },
     {
+        path : '/admin/chuc-vu',
+        component: ()=>import('../components/Admin/ChucVu/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'} ,
+    },
+    {
         path : '/admin/khach-hang',
         component: ()=>import('../components/Admin/KhachHang/index.vue'),
         beforeEnter: checkLogin,
@@ -153,6 +158,12 @@ const routes = [
      {
         path : '/admin/anime',
         component: ()=>import('../components/Admin/Phim/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'}
+    },
+    {
+        path : '/admin/phan-quyen',
+        component: ()=>import('../components/Admin/PhanQuyen/index.vue'),
         beforeEnter: checkLogin,
         meta : {layout : 'new'}
     },
