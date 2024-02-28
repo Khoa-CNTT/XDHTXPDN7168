@@ -18,10 +18,10 @@
         <div class="col-lg-6">
           <div class="login__form">
             <div class="row">
-                            <div class="col-6">
+                            <div class="col-5">
                                <h3>Đăng Ký</h3>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <router-link to="login" >
                                     <a > <h3 style="color: #17a2b8" ><i class="fa-solid fa-caret-left"></i>Đăng Nhập </h3></a>
                                      
@@ -40,18 +40,23 @@
                 ></span>
               </div>
               <div class="input__item">
-                <input v-model="dang_ky.password" type="text" placeholder="Mật khấu" /><span
+                <input v-model="dang_ky.password" type="password" placeholder="Mật khấu" /><span
                   class="icon_lock"
                 ></span>
               </div>
-              <div>
+              <div class="input__item">
+                <input type="date" v-model="dang_ky.ngay_sinh" class="form-control"  placeholder="Mật khấu"  /><span
+                  class="icon_menu-circle_alt2"
+                ></span>
+              </div>
+              <!-- <div>
                 <input
                   class="form-control form-control-sm"
                   type="file"
                   style="width: 369px" @change="handleFileUpload"
-                /><!-- <span class="icon_lock"></span> -->
-              </div>
-              <button @click="dangKy()" class="site-btn mt-3">Đăng Ký</button>
+                /><span class="icon_lock"></span>
+              </div> -->
+              <button @click="dangKy()" style="width: 100%;" class="site-btn mt-3">Đăng Ký</button>
               
             </div>
           </div>
@@ -90,7 +95,7 @@ const toaster = createToaster({ position: "top-right" });
 export default {
   data() {
     return {
-      dang_ky: {is_done : 0,},
+      dang_ky: {is_done : 0, hinh_anh : 'https://cdn-icons-png.flaticon.com/512/666/666201.png',},
       imageUrl: {},
     };
   },
@@ -116,8 +121,7 @@ export default {
         .then((res) => {
           this.kichHoatTK();
           this.dang_ky = {};
-          
-          // this.$router.push('/login');
+          this.$router.push('/login');
         })
         .catch((res) => {
                     var errors  = Object.values(res.response.data.errors);
@@ -148,31 +152,31 @@ export default {
                     this.is_login = false;
                 });
         },
-      handleFileUpload(event) {
-            const file = event.target.files[0];
-            const cloudName = 'dltbjoii4';
-            const uploadPreset = 'yvvll2k0';
+      // handleFileUpload(event) {
+      //       const file = event.target.files[0];
+      //       const cloudName = 'dltbjoii4';
+      //       const uploadPreset = 'yvvll2k0';
 
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('upload_preset', uploadPreset);
+      //       const formData = new FormData();
+      //       formData.append('file', file);
+      //       formData.append('upload_preset', uploadPreset);
 
-            fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-              method: 'POST',
-              body: formData,
-            })
-            .then((response) => response.json())
-            .then((data) => {
-              // Set the imageUrl to the URL of the uploaded image.
-              this.imageUrl = data.secure_url;
-              // console.log(this.imageUrl);
-              this.dang_ky.hinh_anh = data.secure_url;
-              toaster.success('upload ảnh thành công!');
-            })
-            .catch((error) => {
-              console.error('Error uploading image:', error);
-            });
-        },   
+      //       fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+      //         method: 'POST',
+      //         body: formData,
+      //       })
+      //       .then((response) => response.json())
+      //       .then((data) => {
+      //         // Set the imageUrl to the URL of the uploaded image.
+      //         this.imageUrl = data.secure_url;
+      //         // console.log(this.imageUrl);
+      //         this.dang_ky.hinh_anh = data.secure_url;
+      //         toaster.success('upload ảnh thành công!');
+      //       })
+      //       .catch((error) => {
+      //         console.error('Error uploading image:', error);
+      //       });
+      //   },   
         
       },
     };

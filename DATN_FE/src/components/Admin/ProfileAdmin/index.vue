@@ -18,7 +18,7 @@
 
 													</div>
 												</div>
-												<p class="text-secondary mb-1">ADMIN WEB WANIME</p>
+												<p class="text-secondary mb-1"><b>{{ obj_doi_pass.ten_chuc_vu }}</b></p>
 												<input type="file" @change="handleFile" class="form-control-sm" style="width: 100px;" />
 											</div>
 										</div>
