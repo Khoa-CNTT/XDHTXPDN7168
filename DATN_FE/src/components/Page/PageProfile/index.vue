@@ -39,7 +39,7 @@
 												
 												<p class="text-secondary mb-1">Thành viên của WAnime</p>
 
-												<input type="file" @change="handleFile" class="form-control-sm" style="width: 100px;" />
+												<input type="file" @change="handleFile"  class="form-control-sm" style="width: 100px;" />
 
 											</div>
 										</div>
@@ -84,6 +84,14 @@
 											</div>
 											<div class="col-sm-9 text-secondary">
 												<input v-model="obj_update_tt.email" type="text" disabled class="form-control" >
+											</div>
+										</div>
+                    <div class="row mb-3">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Ngày sinh</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												<input v-model="obj_update_tt.ngay_sinh" type="date"  class="form-control" >
 											</div>
 										</div>
 										<div class="row mb-3 collapse multi-collapse" id="multiCollapseExample1">
@@ -206,8 +214,10 @@
               // Set the imageUrl to the URL of the uploaded image.
               this.imageUrl = data.secure_url;
               // console.log(this.imageUrl);
-              this.hinh_anh_user = data.secure_url;
-               localStorage.setItem('hinh_anh_user', this.hinh_anh_user);
+              // this.hinh_anh_user = data.secure_url;
+              this.obj_update_tt.hinh_anh =  data.secure_url;
+              this.DoiThongTin();
+               localStorage.setItem('hinh_anh_user',this.obj_update_tt.hinh_anh);
               toaster.success('Thêm ảnh thành công!');
             })
             .catch((error) => {

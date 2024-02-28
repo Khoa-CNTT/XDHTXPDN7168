@@ -194,6 +194,7 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 import baseRequest from '../../../core/baseRequest';
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({ position: "top-right" });
@@ -227,6 +228,7 @@ export default {
                 .post('admin/phan-quyen/create', payload)
                 .then((res) => {
                     if(res.data.status) {
+                       
                         toaster.success('Thông báo<br>' + res.data.message);
                         this.getChucNang();
                     } else {
@@ -271,7 +273,8 @@ export default {
                         toaster.error('Có Lỗi<br>' + v[0]);
                     });
                 });
-        }
+        },
+       
     },  
 }
 </script>

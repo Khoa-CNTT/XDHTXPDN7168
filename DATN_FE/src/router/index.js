@@ -174,6 +174,12 @@ const routes = [
         meta : {layout : 'new'}
     },
     {
+        path : '/admin/thong-ke',
+        component: ()=>import('../components/Admin/ThongKe/index.vue'),
+        beforeEnter: checkLogin,
+        meta : {layout : 'new'}
+    },
+    {
         path : '/admin/login',
         component: ()=>import('../components/Admin/Login/index.vue'),
         meta : {layout : 'login'}

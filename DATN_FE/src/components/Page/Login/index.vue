@@ -23,7 +23,7 @@
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input v-model="dang_nhap.password" type="password" >
+                                <input v-model="dang_nhap.password" placeholder="Nhập mật khẩu" type="password" >
                                 <span class="icon_lock"></span>
                             </div>
                             <!-- <div class="row">
@@ -36,14 +36,11 @@
                             <div class="col-md-6 text-end">	<a href="javascript:;">Forgot Password ?</a>
 							</div>
                             </div> -->
-                            
                             <button @click="dangNhap()" class="site-btn">Đăng Nhập</button>
                         </div>
                                 <router-link to="/forget-password">
                                     <a  type="button" class="forget_pass ">Quên mật khẩu?</a>
                                 </router-link>
-
-                               
                                 
                     </div>
                 </div>

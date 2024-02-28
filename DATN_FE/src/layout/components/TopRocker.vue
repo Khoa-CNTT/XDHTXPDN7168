@@ -28,7 +28,7 @@
                         <img v-bind:src="img" class="user-img" alt="user avatar">
                         <div class="user-info ps-3">
                             <p class="user-name mb-0"><b>{{ user }}</b></p>
-                            <p class="designattion mb-0">Admin WAnime</p>
+                            <p class="designattion mb-0">{{  }}</p>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
