@@ -143,7 +143,7 @@
                                 </router-link> -->
                             <!-- </p> -->
                         </div>
-                       
+
                         <div class="form-body">
                             <form class="row g-3">
                                 <div class="col-12">
@@ -204,14 +204,14 @@ export default {
     methods: {
         dangKy() {
             axios
-                .post('http://127.0.0.1:8000/api/register', this.dang_ky)
+                .post('https://wietfe216.trangchudulich.com/api/register', this.dang_ky)
                 .then((res) => {
                     toaster.success(res.data.message);
                 });
         },
         dangNhap() {
             axios
-                .post('http://127.0.0.1:8000/api/login', this.dang_nhap)
+                .post('https://wietfe216.trangchudulich.com/api/login', this.dang_nhap)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
@@ -226,7 +226,7 @@ export default {
         },
         checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/check', {}, {
+                .post('https://wietfe216.trangchudulich.com/api/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
@@ -249,7 +249,7 @@ export default {
         },
         removeToken() {
             axios
-                .delete('http://127.0.0.1:8000/api/thong-tin-xoa/'+ this.remove_token.id)
+                .delete('https://wietfe216.trangchudulich.com/api/thong-tin-xoa/'+ this.remove_token.id)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
@@ -263,15 +263,15 @@ export default {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.readAsDataURL(file);
-  
+
           reader.onload = () => resolve(reader.result);
           reader.onerror = (error) => reject(error);
         });
       },
-  
+
       async handleFileChange(event) {
         const file = event.target.files[0];
-  
+
         if (file) {
           try {
             const base64Data = await this.imageToBase64(file);

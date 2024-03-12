@@ -69,7 +69,7 @@
                                     <router-link :to="`/watching/${obj_phim.slug_phim}`">
                                         <a v-bind:href="'/watching/' + obj_phim.slug_phim" class="watch-btn"><span>Xem Ngay</span> </a>
                                     </router-link>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -91,9 +91,9 @@
                                                 <p>Phim đã hay mà admin còn đẹp trai nữa còn gì bằng !!!</p>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
-                                       
+
                             </div>
                             <template v-for="(v,k) in list_cmt">
                                 <div v-if="v.id_phim == obj_phim.id " class="anime__review__item">
@@ -132,13 +132,13 @@
                             <template v-for="(v,k) in list_5_phim ">
                                 <div class="product__sidebar__comment__item">
                                     <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
-                                        <a v-bind:href="'/de-list/' + v.slug_phim" > 
+                                        <a v-bind:href="'/de-list/' + v.slug_phim" >
                                             <div class="product__sidebar__comment__item__pic">
                                                 <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                             </div>
                                         </a>
                                     </router-link>
-                                
+
                                 <div class="product__sidebar__comment__item__text">
                                     <ul>
                                     <li>{{ v.ten_the_loai }}</li>
@@ -173,7 +173,7 @@
             </div>
     </section>
         <!-- Anime Section End -->
-       
+
 
 </template>
 <script>
@@ -190,7 +190,7 @@
             return {
 				// id : this.$route.params.id,
                 id_phim        : '',
-                id_user        : localStorage.getItem('id_user'), 
+                id_user        : localStorage.getItem('id_user'),
                 obj_yt_phim    : { 'id_khach_hang' : localStorage.getItem('id_user'),},
                 obj_cmt_phim   : { 'id_khach_hang' : localStorage.getItem('id_user'),},
                 obj_xoa_cmt    : {},
@@ -204,7 +204,7 @@
             this.checkYeuThich();
             this.laydataCMT();
             this.laydataDelistPhim();
-            
+
 
         },
         watch: {
@@ -220,7 +220,7 @@
         methods: {
             laydataDelistPhim() {
                 axios
-                .get("http://127.0.0.1:8000/api/phim/lay-data-delist", {
+                .get("https://wietfe216.trangchudulich.com/api/phim/lay-data-delist", {
                     params :{
                     slug : this.slug,
                     } })
@@ -234,7 +234,7 @@
             },
             laydataCMT() {
                 axios
-                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show")
+                .get("https://wietfe216.trangchudulich.com/api/binh-luan-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_cmt = res.data.binh_luan_phim;
                 });
@@ -264,7 +264,7 @@
                 }
                 });
             },
-           
+
             unTheoDoi() {
                 baseRequest
                     .post('admin/yeu-thich/thong-tin-xoa' , this.obj_yt_phim)

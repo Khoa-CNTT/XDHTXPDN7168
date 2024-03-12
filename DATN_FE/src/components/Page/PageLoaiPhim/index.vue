@@ -15,7 +15,7 @@
             </div>
             <!-- Breadcrumb End -->
 
-            <section class="product-page spad" style="background-color: #0b0c2a"> 
+            <section class="product-page spad" style="background-color: #0b0c2a">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8">
@@ -79,7 +79,7 @@
                                     </div>
 
                                     </template>
-                                    
+
                                 </div>
                             </div>
                             <div class="product__pagination">
@@ -93,14 +93,14 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-8">
                             <div class="product__sidebar">
-                                
+
                                 <div class="product__sidebar__comment">
                                     <div class="section-title">
                                         <h5>Hot Phim</h5>
                                     </div>
                                     <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
-                                    
+
                                     <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}" >
                                         <div class="product__sidebar__comment__item__pic">
                                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
@@ -163,10 +163,10 @@
         methods: {
             loadataLoaiPhimAndPhim() {
                     axios
-                        .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show-tat-ca", {
+                        .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show-tat-ca", {
                         params :{
                         slug_lp : this.slug,
-                        } }) 
+                        } })
                         .then((res) => {
                         this.loai_phim = res.data.loai_phim;
                         this.list_phim = res.data.phim;
@@ -175,7 +175,7 @@
                     },
             Sapxep(id_loai_phim) {
                     axios
-                        .get("http://127.0.0.1:8000/api/loai-phim/sap-xep", {
+                        .get("https://wietfe216.trangchudulich.com/api/loai-phim/sap-xep", {
                             params : {
                                 id_lp : id_loai_phim,
                                 catagory: this.bien
@@ -185,15 +185,15 @@
                                 this.list_phim = res.data.phim;
                         });
                 },
-            
+
             laydataLoaiPhim() {
                 axios
-                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+                    .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
-           
+
 
         },
     };

@@ -7,7 +7,7 @@
                             <div class="breadcrumb__links">
                                 <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
                                 <router-link to="/profile"> Profile</router-link>
-								
+
                             </div>
                         </div>
                     </div>
@@ -15,7 +15,7 @@
             </div>
             <!-- Breadcrumb End -->
 
-            <section class="product-page spad " style="background-color: #0b0c2a; padding-bottom: 400px" > 
+            <section class="product-page spad " style="background-color: #0b0c2a; padding-bottom: 400px" >
                 <div class="container" >
 						<div  class="row" >
 							<div class="col-lg-4 ">
@@ -28,15 +28,15 @@
 												<div class="dropdown">
 													<div class="cursor-pointer font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded"></i>
 													</div>
-													<div class="dropdown-menu dropdown-menu-end" style=" background-color: rgba(35, 33, 33);"> 
-												
+													<div class="dropdown-menu dropdown-menu-end" style=" background-color: rgba(35, 33, 33);">
+
 														<!-- <a  class="dropdown-item">Đổi ảnh </a> -->
-														
+
 											  			<a data-bs-toggle="collapse"  href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-sm text-white px-4" value="Mật Khẩu	">Đổi mật khẩu</a>
 
 													</div>
 												</div>
-												
+
 												<p class="text-secondary mb-1">Thành viên của WAnime</p>
 
 												<input type="file" @change="handleFile"  class="form-control-sm" style="width: 100px;" />
@@ -45,16 +45,16 @@
 										</div>
 										<hr class="my-1">
 
-										
-										
+
+
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-8">
-								
+
 								<div class="card">
 									<div class="card-body text-white" style="background-color: #0b0c2adb">
-										<div class="trending__product" style="margin-bottom: 0px;"> 
+										<div class="trending__product" style="margin-bottom: 0px;">
 											<div class="row">
 												<div class="col-lg-8 col-md-8 col-sm-8">
 													<div class="section-title">
@@ -121,7 +121,7 @@
 								</div>
 							</div>
 					    </div>
-                    
+
                 </div>
             </section>
 </template>
@@ -154,7 +154,7 @@
         methods: {
 			laydataAdmin() {
 				axios
-            .get("http://127.0.0.1:8000/api/admin/khach-hang/lay-du-lieu-profile", {
+            .get("https://wietfe216.trangchudulich.com/api/admin/khach-hang/lay-du-lieu-profile", {
                     params : {
                         id_khach_hang : this.id_user,
                     },
@@ -195,7 +195,7 @@
               }
             });
         },
-		
+
           handleFile(event) {
           const file = event.target.files[0];
           const cloudName = 'dltbjoii4';

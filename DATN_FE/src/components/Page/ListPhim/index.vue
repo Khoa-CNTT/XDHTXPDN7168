@@ -79,7 +79,7 @@
                         </div>
                       </div>
                     </template>
-  
+
                   </div>
                 </div>
                 <div class="product__pagination text-center">
@@ -90,7 +90,7 @@
               </div>
               <div class="col-lg-4 col-md-6 col-sm-8 ">
                 <div class="product__sidebar">
-  
+
                   <div class="product__sidebar__comment">
                     <div class="section-title">
                       <h5>Hot Phim</h5>
@@ -102,7 +102,7 @@
                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                           </div>
                         </router-link>
-  
+
                         <div class="product__sidebar__comment__item__text">
                           <ul>
                             <li>{{ v.ten_the_loai }}</li>
@@ -132,7 +132,7 @@
     const toaster = createToaster({
       position: "top-right",
     });
-  
+
     export default {
       data() {
         return {
@@ -158,7 +158,7 @@
       methods: {
         // Sapxep(id_the_loai) {
         //     axios
-        //         .get("http://127.0.0.1:8000/api/list-phim/sap-xep", {
+        //         .get("https://wietfe216.trangchudulich.com/api/list-phim/sap-xep", {
         //             params : {
         //                 catagory: this.bien
         //             }
@@ -169,23 +169,23 @@
         // },
         laydataPhim() {
           axios
-            .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
+            .get("https://wietfe216.trangchudulich.com/api/phim/lay-du-lieu-show")
             .then((res) => {
               this.list_phim = res.data.phim;
               this.list_9_phim = res.data.phim_9_obj;
-  
+
             });
         },
         laydataLoaiPhim() {
           axios
-            .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+            .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
             .then((res) => {
               this.list_loai_phim = res.data.loai_phim;
             });
         },
         loaddataTheLoai() {
           axios
-            .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
+            .get("https://wietfe216.trangchudulich.com/api/the-loai/lay-du-lieu-show")
             .then((res) => {
               this.list_the_loai = res.data.the_loai;
             });
@@ -197,7 +197,7 @@
       async fetchData() {
       try {
         // Gửi yêu cầu API để lấy dữ liệu list_9_phim bằng Axios
-        const response = await axios.get('http://127.0.0.1:8000/api/phim/lay-du-lieu-show');
+        const response = await axios.get('https://wietfe216.trangchudulich.com/api/phim/lay-du-lieu-show');
         const data = response.data.phim;
         // Cập nhật dữ liệu trong store Vuex
         this.$store.commit('setList_9_Phim', data);
@@ -211,7 +211,7 @@
           catagory: this.bien
         };
         // Gửi yêu cầu API để lấy dữ liệu list_9_phim bằng Axios
-        const response = await axios.get('http://127.0.0.1:8000/api/list-phim/sap-xep', {
+        const response = await axios.get('https://wietfe216.trangchudulich.com/api/list-phim/sap-xep', {
           params: params,
         });
         const data = response.data.phim;

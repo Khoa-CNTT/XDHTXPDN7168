@@ -16,7 +16,7 @@
             </div>
             <!-- Breadcrumb End -->
 
-            <section class="product-page spad" style="background-color: #0b0c2a"> 
+            <section class="product-page spad" style="background-color: #0b0c2a">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8">
@@ -28,7 +28,7 @@
                                                 <h4>Từ khoá Tìm: {{ key_tim.key }}</h4>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row">
@@ -60,7 +60,7 @@
                                     </div>
 
                                     </template>
-                                    
+
                                 </div>
                             </div>
                             <div class="product__pagination">
@@ -74,14 +74,14 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-8">
                             <div class="product__sidebar">
-                                
+
                                 <div class="product__sidebar__comment">
                                     <div class="section-title">
                                         <h5>Hot Phim</h5>
                                     </div>
                                     <template v-for="(v,k) in list_9_phim ">
                                 <div class="product__sidebar__comment__item">
-                                    
+
                                     <router-link  :to="`/de-list/${v.slug_phim}`" >
                                         <div class="product__sidebar__comment__item__pic">
                                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
@@ -135,10 +135,10 @@
             this.searchPhim();
         },
         methods: {
-           
+
             laydataPhim() {
                 axios
-                    .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
+                    .get("https://wietfe216.trangchudulich.com/api/phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_phim = res.data.phim;
                         this.list_9_phim = res.data.phim_9_obj;
@@ -147,14 +147,14 @@
             },
             laydataLoaiPhim() {
                 axios
-                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+                    .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
             searchPhim() {
                 axios
-                    .post("http://127.0.0.1:8000/api/phim/thong-tin-tim",this.key_tim)
+                    .post("https://wietfe216.trangchudulich.com/api/phim/thong-tin-tim",this.key_tim)
                     .then((res) => {
                         this.list_phim = res.data.phim;
                     });

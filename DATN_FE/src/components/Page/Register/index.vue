@@ -24,7 +24,7 @@
                             <div class="col-7">
                                 <router-link to="login" >
                                     <a > <h3 style="color: #17a2b8" ><i class="fa-solid fa-caret-left"></i>Đăng Nhập </h3></a>
-                                     
+
                                 </router-link>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                 /><span class="icon_lock"></span>
               </div> -->
               <button @click="dangKy()" style="width: 100%;" class="site-btn mt-3">Đăng Ký</button>
-              
+
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default {
     },
     checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
+                .post('https://wietfe216.trangchudulich.com/api/khach-hang/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token_user')
                     }
@@ -176,8 +176,8 @@ export default {
       //       .catch((error) => {
       //         console.error('Error uploading image:', error);
       //       });
-      //   },   
-        
+      //   },
+
       },
     };
 </script>
