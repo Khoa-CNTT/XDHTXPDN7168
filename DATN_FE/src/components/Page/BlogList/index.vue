@@ -76,10 +76,10 @@
                                   </div>
                                 </div>
                               </router-link>
-                          </div> 
+                          </div>
 											</template>
 											</div>
-											
+
 										</div>
 									</template>
 									<template v-else>
@@ -89,7 +89,7 @@
 												<template v-for="(v1,k1) in list_blog">
                             <div  v-if="v1.id_chuyen_muc == v.id" class="col-lg-4 col-md-6 col-sm-6">
                               <router-link :to="`/blog/${v1.slug_tieu_de}`" >
-                                <div 
+                                <div
                                   class="blog__item small__item set-bg"
                                   v-bind:style="{
                                     'background-image': 'url(' + v1.hinh_anh + ')',
@@ -108,21 +108,21 @@
                            </div>
 											  </template>
 											</div>
-											
+
 										</div>
 									</template>
 								</template>
-								
-								
+
+
 
 
 							</div>
-                
+
               </div>
           </div>
         </div>
 
-       
+
       </div>
     </div>
   </section>
@@ -151,14 +151,14 @@ export default {
   methods: {
     laydataLoaiBlog() {
       axios
-        .get("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-show")
+        .get("https://wietfe216.trangchudulich.com/api/bai-viet/lay-du-lieu-show")
         .then((res) => {
           this.list_blog = res.data.bai_viet;
         });
     },
     loaddataChuyenMuc() {
       axios
-        .get("http://127.0.0.1:8000/api/chuyen-muc/lay-du-lieu-show")
+        .get("https://wietfe216.trangchudulich.com/api/chuyen-muc/lay-du-lieu-show")
             .then((res) => {
               this.list_chuyen_muc = res.data.chuyen_muc;
             });

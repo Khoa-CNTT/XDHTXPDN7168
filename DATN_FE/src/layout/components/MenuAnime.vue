@@ -100,7 +100,7 @@
 
                                             </a>
                                     </router-link>
-                                   
+
                                 </li>
                                 <li class="user-avatar mt-2">
                                     <a v-show="is_login" class="dropdown-item" data-bs-toggle="modal" type="button"
@@ -179,7 +179,7 @@
                                             <div class="input-group mb-3">
                                                 <a v-bind:href="'/tim-kiem/' + key_tim.key" @click="searchPhim()" type="button"  class="input-group-text serch" >
                                                 <i class="fa-solid fa-magnifying-glass"></i></a>
-                                                
+
                                                 <input v-on:keyup="searchPhim()" v-model="key_tim.key" class="form-control" list="datalistOptions" id="exampleDataList"
                                                     placeholder="Tìm kiếm phim..">
                                                 <datalist id="datalistOptions">
@@ -197,7 +197,7 @@
                                                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                                                                 </div>
                                                             </a>
-                                                        
+
                                                             <div class="product__sidebar__comment__item__text">
                                                                 <ul>
                                                                     <li>hành động</li>
@@ -299,7 +299,7 @@
             this.laydataYeuThich();
         },
         methods: {
-           
+
             laydataYeuThich() {
                 baseRequest
                     .get("admin/yeu-thich/lay-du-lieu")
@@ -309,7 +309,7 @@
             },
             laydataTheoTheLoai(id_the_loai) {
                     axios
-                        .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
+                        .get("https://wietfe216.trangchudulich.com/api/lay-data-theo-the-loai", {
                             params : {
                                 id_tl : id_the_loai,
                             }
@@ -320,14 +320,14 @@
                 },
             laydataLoaiPhim() {
                 axios
-                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+                    .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
             loaddataTheLoai() {
                 axios
-                    .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
+                    .get("https://wietfe216.trangchudulich.com/api/the-loai/lay-du-lieu-show")
                     .then((res) => {
                         this.list_the_loai = res.data.the_loai;
                     });
@@ -343,7 +343,7 @@
             },
             checkToken() {
                 axios
-                    .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
+                    .post('https://wietfe216.trangchudulich.com/api/khach-hang/check', {}, {
                         headers: {
                             Authorization: 'Bearer ' + localStorage.getItem('token_user')
                         }
@@ -381,7 +381,7 @@
             },
             searchPhim() {
                 axios
-                    .post("http://127.0.0.1:8000/api/phim/thong-tin-tim",this.key_tim)
+                    .post("https://wietfe216.trangchudulich.com/api/phim/thong-tin-tim",this.key_tim)
                     .then((res) => {
                         this.list_phim_search = res.data.phim;
                     });

@@ -258,7 +258,7 @@
     methods: {
       laydataPhim() {
         axios
-          .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
+          .get("https://wietfe216.trangchudulich.com/api/phim/lay-du-lieu-show")
           .then((res) => {
             this.list_9_phim = res.data.phim_9_obj;
             this.list_2_phim = res.data.phim_2_obj;
@@ -267,14 +267,14 @@
       },
       laydataLoaiPhim() {
         axios
-          .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+          .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
           .then((res) => {
             this.list_loai_phim = res.data.loai_phim;
           });
       },
       loaddataTheLoai() {
         axios
-          .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
+          .get("https://wietfe216.trangchudulich.com/api/the-loai/lay-du-lieu-show")
           .then((res) => {
             this.list_the_loai = res.data.the_loai;
             this.list_phim = res.data.phim_theo_the_loai;

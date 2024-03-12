@@ -13,7 +13,7 @@
                             <div class="col-6">
                                 <router-link to="register" >
                                     <a > <h3 style="color: #17a2b8" >Đăng Ký <i class="fa-solid fa-caret-right"></i></h3></a>
-                                     
+
                                 </router-link>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 <router-link to="/forget-password">
                                     <a  type="button" class="forget_pass ">Quên mật khẩu?</a>
                                 </router-link>
-                                
+
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -58,13 +58,13 @@
                                 </li>
                             </ul>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
     </section>
-  
+
 
 
 </template>
@@ -90,14 +90,14 @@ export default {
     methods: {
         dangKy() {
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/register', this.dang_ky)
+                .post('https://wietfe216.trangchudulich.com/api/khach-hang/register', this.dang_ky)
                 .then((res) => {
                     toaster.success( res.data.message);
                 });
         },
         dangNhap() {
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/login', this.dang_nhap)
+                .post('https://wietfe216.trangchudulich.com/api/khach-hang/login', this.dang_nhap)
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success( res.data.message);
@@ -118,7 +118,7 @@ export default {
         },
         checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
+                .post('https://wietfe216.trangchudulich.com/api/khach-hang/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token_user')
                     }
@@ -142,7 +142,7 @@ export default {
         },
         // removeToken() {
         //     axios
-        //         .delete('http://127.0.0.1:8000/api/khach-hang/thong-tin-xoa/'+ this.remove_token.id)
+        //         .delete('https://wietfe216.trangchudulich.com/api/khach-hang/thong-tin-xoa/'+ this.remove_token.id)
         //         .then((res) => {
         //             if (res.data.status == true) {
         //                 toaster.success( res.data.message);
@@ -156,15 +156,15 @@ export default {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.readAsDataURL(file);
-  
+
           reader.onload = () => resolve(reader.result);
           reader.onerror = (error) => reject(error);
         });
       },
-  
+
       async handleFileChange(event) {
         const file = event.target.files[0];
-  
+
         if (file) {
           try {
             const base64Data = await this.imageToBase64(file);

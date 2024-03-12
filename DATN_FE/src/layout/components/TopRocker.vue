@@ -6,7 +6,7 @@
                     <div class="">
                     </div>
                     <div class="">
-                        <h4 class="logo-text text-danger">ADMIN</h4> 
+                        <h4 class="logo-text text-danger">ADMIN</h4>
                     </div>
                 </div>
                 <div class="mobile-toggle-menu"><i class='bx bx-menu'></i></div>
@@ -37,7 +37,7 @@
                                 <a class="dropdown-item" href="javascript:;"><i class="bx bx-user"></i><span>Profile</span></a>
                             </router-link>
                         </li>
-                       
+
                         <li><a @click="removeToken()" class="dropdown-item" href="javascript:;"><i class='bx bx-log-out-circle'></i><span>Logout</span></a>
                         </li>
                     </ul>
@@ -51,7 +51,7 @@
     import { createToaster } from "@meforma/vue-toaster";
     const toaster = createToaster({ position: "top-right" });
     export default {
-        
+
         data() {
             return {
                 user : 'chưa dang nhap',
@@ -73,7 +73,7 @@
               },
             checkToken() {
                     axios
-                        .post('http://127.0.0.1:8000/api/admin/check', {}, {
+                        .post('https://wietfe216.trangchudulich.com/api/admin/check', {}, {
                             headers: {
                                 Authorization: 'Bearer ' + localStorage.getItem('token')
                             }
@@ -89,13 +89,13 @@
                         })
                         .catch(() => {
                             this.$router.push('/admin/anime');
-                            
+
                         });
-        },  
         },
-        
+        },
+
     }
     </script>
     <style>
-        
+
     </style>

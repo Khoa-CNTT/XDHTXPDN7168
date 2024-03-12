@@ -14,7 +14,7 @@
           </div>
         </div>
         <!-- Breadcrumb End -->
-       
+
         <section class="product-page spad" style="background-color: #0b0c2a">
           <div class="container">
             <div class="row">
@@ -78,7 +78,7 @@
                         </div>
                       </div>
                     </template>
-  
+
                   </div>
                 </div>
                 <div class="product__pagination">
@@ -92,7 +92,7 @@
               </div>
               <div class="col-lg-4 col-md-6 col-sm-8">
                 <div class="product__sidebar">
-  
+
                   <div class="product__sidebar__comment">
                     <div class="section-title">
                       <h5>Hot Phim</h5>
@@ -104,7 +104,7 @@
                             <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
                           </div>
                         </router-link>
-  
+
                         <div class="product__sidebar__comment__item__text">
                           <ul>
                             <li>{{ v.ten_the_loai }}</li>
@@ -133,7 +133,7 @@
     const toaster = createToaster({
       position: "top-right",
     });
-  
+
     export default {
       props : ['slug'],
       data() {
@@ -158,11 +158,11 @@
       methods: {
         loadataTheLoaiAndPhim() {
           axios
-            .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show-tat-ca", {
+            .get("https://wietfe216.trangchudulich.com/api/the-loai/lay-du-lieu-show-tat-ca", {
             params :{
               // id_tl : this.id,
               slug_tl : this.slug,
-            } }) 
+            } })
             .then((res) => {
               this.the_loai = res.data.the_loai;
               this.list_phim = res.data.phim;
@@ -171,7 +171,7 @@
         },
         Sapxep(id_the_loai) {
             axios
-                .get("http://127.0.0.1:8000/api/the-loai/sap-xep", {
+                .get("https://wietfe216.trangchudulich.com/api/the-loai/sap-xep", {
                     params : {
                         id_tl : id_the_loai,
                         catagory: this.bien
@@ -181,9 +181,9 @@
                         this.list_phim = res.data.phim;
                 });
         },
-      
-  
-  
+
+
+
       },
     };
   </script>

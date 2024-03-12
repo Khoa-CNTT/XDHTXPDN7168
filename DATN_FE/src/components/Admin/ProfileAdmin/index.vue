@@ -10,10 +10,10 @@
 												<div class="dropdown">
 													<div class="cursor-pointer font-24 dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-horizontal-rounded"></i>
 													</div>
-													<div class="dropdown-menu dropdown-menu-end text-dark"> 
-												
+													<div class="dropdown-menu dropdown-menu-end text-dark">
+
 														<!-- <a  class="dropdown-item">Đổi ảnh </a> -->
-														
+
 											  			<a data-bs-toggle="collapse"  href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-sm px-4" value="Mật Khẩu">Đổi mật khẩu</a>
 
 													</div>
@@ -23,14 +23,14 @@
 											</div>
 										</div>
 										<hr class="my-4">
-										
+
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-8">
 								<div class="card">
 									<div class="card-body " >
-										<div class="trending__product" style="margin-bottom: 0px;"> 
+										<div class="trending__product" style="margin-bottom: 0px;">
 											<div class="row">
 												<div class="col-lg-8 col-md-8 col-sm-8">
 												<div class="section-title">
@@ -80,7 +80,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 </template>
@@ -112,7 +112,7 @@ mounted() {
 methods: {
     laydataAdmin() {
         axios
-			.get("http://127.0.0.1:8000/api/admin/admin/lay-du-lieu-profile", {
+			.get("https://wietfe216.trangchudulich.com/api/admin/admin/lay-du-lieu-profile", {
 				params : {
 					id_admin : this.id_admin,
 				},
@@ -121,7 +121,7 @@ methods: {
 				}
 				})
 			.then((res) => {
-					// console.log(res.data);
+					console.log(res.data);
 				this.obj_doi_pass = res.data.obj_admin;
 				this.obj_update_tt = res.data.obj_admin;
 				});
@@ -162,6 +162,7 @@ methods: {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', uploadPreset);
+		t
 
         fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
           method: 'POST',
@@ -172,8 +173,9 @@ methods: {
             // Set the imageUrl to the URL of the uploaded image.
             this.imageUrl = data.secure_url;
             // console.log(this.imageUrl);
-			this.hinh_anh = data.secure_url;
-			localStorage.setItem('hinh_anh', this.hinh_anh);
+			this.obj_update_tt.hinh_anh = data.secure_url;
+			this.DoiThongTin();
+			localStorage.setItem('hinh_anh', this.obj_update_tt.hinh_anh);
             toaster.success('Thêm ảnh thành công!');
           })
           .catch((error) => {

@@ -21,7 +21,7 @@
                     <input type="text" v-model="obj_add_user.ho_va_ten" class="form-control" id="inputFirstName"
                       placeholder="Họ Và Tên">
                   </div>
-  
+
                   <div class="col-12">
                     <label for="inputEmailAddress" class="form-label">Email</label>
                     <input type="email" v-model="obj_add_user.email" class="form-control" id="inputEmailAddress"
@@ -29,16 +29,14 @@
                   </div>
                   <div class="col-12">
                     <label for="inputChoosePassword" class="form-label">Password</label>
-                    <input type="Mật khẩu" v-model="obj_add_user.password" class="form-control" id=""
+                    <input type="Password" v-model="obj_add_user.password" class="form-control" id=""
                       placeholder="Password">
                   </div>
                   <div class="col-12">
-                    <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
-                      Ảnh Đại Diện
-                    </label>
-                    <input type="file" @change="handleFile" class="form-control" />
+                    <label for="inputChoosePassword" class="form-label">Ngày sinh</label>
+                    <input type="date" v-model="obj_add_user.ngay_sinh" class="form-control" id=""
+                      placeholder="Password">
                   </div>
-  
                 </div>
               </div>
             </div>
@@ -51,7 +49,7 @@
         </div>
       </div>
       <div class="row">
-  
+
         <div class="col-12">
           <div class="card border-5 border-primary border-top">
             <div class="card-header">
@@ -87,14 +85,14 @@
                     <td class="text-center align-middle text-nowrap">
                       <img v-bind:src="v.hinh_anh" class="img-fluid" style="width: 70px; height: auto;" alt="">
                     </td>
-  
-                  
+
+
                     <td class="text-center align-middle text-nowrap">
                       <button @click="Object.assign(obj_update_admin,v)" type="button" class="btn btn-warning me-1"
                         data-bs-toggle="modal" data-bs-target="#Chinhsua">
                         Chỉnh Sữa
                       </button>
-  
+
                       <button @click="Object.assign(obj_delete_admin,v)" data-bs-target="#Xoa" data-bs-toggle="modal"
                         class="btn btn-danger">
                         Xoá
@@ -103,7 +101,7 @@
                   </tr>
                 </tbody>
               </table>
-  
+
               <div class="modal fade" id="Chinhsua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog ">
                     <div class="modal-content">
@@ -114,29 +112,28 @@
                         <div class="modal-body">
                         <div class="row">
                             <div class="row">
-                            <div class="col-12">
-                                <label for="inputFirstName" class="form-label">Họ Và Tên</label>
-                                <input type="text" v-model="obj_update_admin.ho_va_ten" class="form-control" id="inputFirstName"
-                                placeholder="Họ Và Tên">
-                            </div>
-            
-                            <div class="col-12">
-                                <label for="inputEmailAddress" class="form-label">Email</label>
-                                <input type="email" v-model="obj_update_admin.email" class="form-control" id="inputEmailAddress"
-                                placeholder="example@user.com">
-                            </div>
-                            <!-- <div class="col-12">
-                                <label for="inputChoosePassword" class="form-label">Password</label>
-                                <input type="Mật khẩu" v-model="obj_update_admin.password" class="form-control" id=""
-                                placeholder="Password">
-                            </div> -->
-                            <div class="col-12">
-                                <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
-                                Ảnh Đại Diện
-                                </label>
-                                <input type="file" @change="handleFileUpload" class="form-control" />
-                            </div>
-            
+                                <div class="col-12">
+                                    <label for="inputFirstName" class="form-label">Họ Và Tên</label>
+                                    <input type="text" v-model="obj_update_admin.ho_va_ten" class="form-control" id="inputFirstName"
+                                    placeholder="Họ Và Tên">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="inputEmailAddress" class="form-label">Email</label>
+                                    <input type="email" v-model="obj_update_admin.email" class="form-control" id="inputEmailAddress"
+                                    placeholder="example@user.com">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputChoosePassword" class="form-label">Ngày sinh</label>
+                                    <input type="date" v-model="obj_update_admin.ngay_sinh" class="form-control" id=""
+                                    placeholder="Password">
+                                </div>
+                                <div class="col-12">
+                                    <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
+                                    Ảnh Đại Diện
+                                    </label>
+                                    <input type="file" @change="handleFileUpload" class="form-control" />
+                                </div>
                             </div>
                         </div>
                         </div>
@@ -147,7 +144,7 @@
                     </div>
                 </div>
               </div>
-  
+
               <!-- {{-- // modol xoa --}} -->
               <div class="modal fade" id="Xoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -186,7 +183,7 @@
       data() {
         return {
           list_khach_khach: [],
-          obj_add_user: {},
+          obj_add_user: {is_done : 1, hinh_anh : 'https://cdn-icons-png.flaticon.com/512/666/666201.png',},
           key_tim: {},
           obj_update_admin: {},
           obj_delete_admin: {},
@@ -194,10 +191,10 @@
       },
       mounted() {
         this.laydataAdmin();
-  
+
       },
       methods: {
-  
+
         laydataAdmin() {
           baseRequest
             .get("admin/khach-hang/lay-du-lieu")
@@ -254,33 +251,33 @@
               }
             });
         },
-  
-        handleFile(event) {
-        const file = event.target.files[0];
-        const cloudName = 'dltbjoii4';
-        const uploadPreset = 'yvvll2k0';
 
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', uploadPreset);
+    //     handleFile(event) {
+    //     const file = event.target.files[0];
+    //     const cloudName = 'dltbjoii4';
+    //     const uploadPreset = 'yvvll2k0';
 
-        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-          method: 'POST',
-          body: formData,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            // Set the imageUrl to the URL of the uploaded image.
-            this.imageUrl = data.secure_url;
-            // console.log(this.imageUrl);
-            this.obj_add_user.hinh_anh = data.secure_url;
-            toaster.success('Thêm ảnh thành công!');
-          })
-          .catch((error) => {
-            toaster.error('Thêm ảnh không thành công!');
-            console.error('Error uploading image:', error);
-          });
-      },
+    //     const formData = new FormData();
+    //     formData.append('file', file);
+    //     formData.append('upload_preset', uploadPreset);
+
+    //     fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+    //       method: 'POST',
+    //       body: formData,
+    //     })
+    //       .then((response) => response.json())
+    //       .then((data) => {
+    //         // Set the imageUrl to the URL of the uploaded image.
+    //         this.imageUrl = data.secure_url;
+    //         // console.log(this.imageUrl);
+    //         this.obj_add_user.hinh_anh = data.secure_url;
+    //         toaster.success('Thêm ảnh thành công!');
+    //       })
+    //       .catch((error) => {
+    //         toaster.error('Thêm ảnh không thành công!');
+    //         console.error('Error uploading image:', error);
+    //       });
+    //   },
       handleFileUpload(event) {
         const file = event.target.files[0];
         const cloudName = 'dltbjoii4';
@@ -305,7 +302,7 @@
           });
       },
       },
-  
+
     };
   </script>
   <style lang=""></style>
