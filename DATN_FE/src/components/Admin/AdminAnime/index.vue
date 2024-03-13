@@ -21,7 +21,7 @@
                     <input type="text" v-model="obj_add_admin.ho_va_ten" class="form-control" id="inputFirstName"
                       placeholder="Họ Và Tên">
                   </div>
-  
+
                   <div class="col-12">
                     <label for="inputEmailAddress" class="form-label">Email</label>
                     <input type="email" v-model="obj_add_admin.email" class="form-control" id="inputEmailAddress"
@@ -46,7 +46,7 @@
                     </label>
                     <input type="file" @change="handleFile" class="form-control" />
                   </div>
-  
+
                 </div>
               </div>
             </div>
@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="row">
-  
+
         <div class="col-12">
           <div class="card border-5 border-primary border-top">
             <div class="card-header">
@@ -97,14 +97,14 @@
                     <td class=" align-middle text-nowrap">
                       <img v-bind:src="v.hinh_anh" class="img-fluid" style="width: 70px; height: auto;" alt="">
                     </td>
-  
-                  
+
+
                     <td class="align-middle text-nowrap">
                       <button @click="Object.assign(obj_update_admin,v)" type="button" class="btn btn-warning me-1"
                         data-bs-toggle="modal" data-bs-target="#Chinhsua">
                         Chỉnh Sữa
                       </button>
-  
+
                       <button @click="Object.assign(obj_delete_admin,v)" data-bs-target="#Xoa" data-bs-toggle="modal"
                         class="btn btn-danger">
                         Xoá
@@ -113,7 +113,7 @@
                   </tr>
                 </tbody>
               </table>
-  
+
               <div class="modal fade" id="Chinhsua" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog ">
                     <div class="modal-content">
@@ -129,7 +129,7 @@
                                 <input type="text" v-model="obj_update_admin.ho_va_ten" class="form-control" id="inputFirstName"
                                 placeholder="Họ Và Tên">
                             </div>
-            
+
                             <div class="col-12">
                                 <label for="inputEmailAddress" class="form-label">Email</label>
                                 <input type="email" v-model="obj_update_admin.email" class="form-control" id="inputEmailAddress"
@@ -154,7 +154,7 @@
                                 </label>
                                 <input type="file" @change="handleFileUpload" class="form-control" />
                             </div>
-            
+
                             </div>
                         </div>
                         </div>
@@ -165,7 +165,7 @@
                     </div>
                 </div>
               </div>
-  
+
               <!-- {{-- // modol xoa --}} -->
               <div class="modal fade" id="Xoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -214,7 +214,7 @@
       mounted() {
         this.laydataAdmin();
         this.loaddataChucVu();
-  
+
       },
       methods: {
         loaddataChucVu() {
@@ -281,7 +281,7 @@
               }
             });
         },
-  
+
         doiTrangThai(xyz) {
           baseRequest
             .put('admin/admin/thong-tin-thay-doi-trang-thai', xyz)
@@ -344,7 +344,7 @@
             });
         },
       },
-  
+
     };
   </script>
   <style lang=""></style>

@@ -204,14 +204,14 @@ export default {
     methods: {
         dangKy() {
             axios
-                .post('https://wietfe216.trangchudulich.com/api/register', this.dang_ky)
+                .post('https://wietbe216.trangchudulich.com/api/register', this.dang_ky)
                 .then((res) => {
                     toaster.success(res.data.message);
                 });
         },
         dangNhap() {
             axios
-                .post('https://wietfe216.trangchudulich.com/api/login', this.dang_nhap)
+                .post('https://wietbe216.trangchudulich.com/api/login', this.dang_nhap)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
@@ -226,7 +226,7 @@ export default {
         },
         checkToken() {
             axios
-                .post('https://wietfe216.trangchudulich.com/api/check', {}, {
+                .post('https://wietbe216.trangchudulich.com/api/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
@@ -249,7 +249,7 @@ export default {
         },
         removeToken() {
             axios
-                .delete('https://wietfe216.trangchudulich.com/api/thong-tin-xoa/'+ this.remove_token.id)
+                .delete('https://wietbe216.trangchudulich.com/api/thong-tin-xoa/'+ this.remove_token.id)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);

@@ -138,7 +138,7 @@
 
             laydataPhim() {
                 axios
-                    .get("https://wietfe216.trangchudulich.com/api/phim/lay-du-lieu-show")
+                    .get("https://wietbe216.trangchudulich.com/api/phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_phim = res.data.phim;
                         this.list_9_phim = res.data.phim_9_obj;
@@ -147,14 +147,14 @@
             },
             laydataLoaiPhim() {
                 axios
-                    .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
+                    .get("https://wietbe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
             searchPhim() {
                 axios
-                    .post("https://wietfe216.trangchudulich.com/api/phim/thong-tin-tim",this.key_tim)
+                    .post("https://wietbe216.trangchudulich.com/api/phim/thong-tin-tim",this.key_tim)
                     .then((res) => {
                         this.list_phim = res.data.phim;
                     });

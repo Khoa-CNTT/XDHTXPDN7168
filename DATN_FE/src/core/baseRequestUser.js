@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiUrl = 'https://wietfe216.trangchudulich.com/api/';
+const apiUrl = 'https://wietbe216.trangchudulich.com/api/';
 
 export default {
     getHeader() {

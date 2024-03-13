@@ -112,7 +112,7 @@ mounted() {
 methods: {
     laydataAdmin() {
         axios
-			.get("https://wietfe216.trangchudulich.com/api/admin/admin/lay-du-lieu-profile", {
+			.get("https://wietbe216.trangchudulich.com/api/admin/admin/lay-du-lieu-profile", {
 				params : {
 					id_admin : this.id_admin,
 				},
