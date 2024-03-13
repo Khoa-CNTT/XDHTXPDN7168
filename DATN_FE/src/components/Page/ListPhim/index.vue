@@ -158,7 +158,7 @@
       methods: {
         // Sapxep(id_the_loai) {
         //     axios
-        //         .get("https://wietfe216.trangchudulich.com/api/list-phim/sap-xep", {
+        //         .get("https://wietbe216.trangchudulich.com/api/list-phim/sap-xep", {
         //             params : {
         //                 catagory: this.bien
         //             }
@@ -169,7 +169,7 @@
         // },
         laydataPhim() {
           axios
-            .get("https://wietfe216.trangchudulich.com/api/phim/lay-du-lieu-show")
+            .get("https://wietbe216.trangchudulich.com/api/phim/lay-du-lieu-show")
             .then((res) => {
               this.list_phim = res.data.phim;
               this.list_9_phim = res.data.phim_9_obj;
@@ -178,14 +178,14 @@
         },
         laydataLoaiPhim() {
           axios
-            .get("https://wietfe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
+            .get("https://wietbe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
             .then((res) => {
               this.list_loai_phim = res.data.loai_phim;
             });
         },
         loaddataTheLoai() {
           axios
-            .get("https://wietfe216.trangchudulich.com/api/the-loai/lay-du-lieu-show")
+            .get("https://wietbe216.trangchudulich.com/api/the-loai/lay-du-lieu-show")
             .then((res) => {
               this.list_the_loai = res.data.the_loai;
             });
@@ -197,7 +197,7 @@
       async fetchData() {
       try {
         // Gửi yêu cầu API để lấy dữ liệu list_9_phim bằng Axios
-        const response = await axios.get('https://wietfe216.trangchudulich.com/api/phim/lay-du-lieu-show');
+        const response = await axios.get('https://wietbe216.trangchudulich.com/api/phim/lay-du-lieu-show');
         const data = response.data.phim;
         // Cập nhật dữ liệu trong store Vuex
         this.$store.commit('setList_9_Phim', data);
@@ -211,7 +211,7 @@
           catagory: this.bien
         };
         // Gửi yêu cầu API để lấy dữ liệu list_9_phim bằng Axios
-        const response = await axios.get('https://wietfe216.trangchudulich.com/api/list-phim/sap-xep', {
+        const response = await axios.get('https://wietbe216.trangchudulich.com/api/list-phim/sap-xep', {
           params: params,
         });
         const data = response.data.phim;

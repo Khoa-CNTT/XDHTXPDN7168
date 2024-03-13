@@ -67,7 +67,7 @@ export default {
     methods: {
         dangKy() {
             axios
-                .post('https://wietfe216.trangchudulich.com/api/register', this.dang_ky)
+                .post('https://wietbe216.trangchudulich.com/api/register', this.dang_ky)
                 .then((res) => {
                     toaster.success(res.data.message);
                     this.dang_ky = {};

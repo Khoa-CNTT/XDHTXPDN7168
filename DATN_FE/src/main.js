@@ -4,10 +4,10 @@ import store from './store';
 import axios from 'axios'
 import Toaster from "@meforma/vue-toaster";
 import router from './router'
-import Default from './Layout/Wrapper/MasterAnime.vue'
-import PageAnime from './Layout/Wrapper/MasterRocker.vue'
-import Login from './Layout/Wrapper/MasterRockerLogin.vue'
-import LoginAnime from './Layout/Wrapper/MasterAnimeLogin.vue'
+import Default from './layout/wrapper/MasterAnime.vue'
+import PageAnime from './layout/wrapper/MasterRocker.vue'
+import Login from './layout/wrapper/MasterRockerLogin.vue'
+import LoginAnime from './layout/wrapper/MasterAnimeLogin.vue'
 const app = createApp(App)
 
 app.use(store);

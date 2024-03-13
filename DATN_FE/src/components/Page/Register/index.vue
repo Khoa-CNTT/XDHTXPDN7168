@@ -132,7 +132,7 @@ export default {
     },
     checkToken() {
             axios
-                .post('https://wietfe216.trangchudulich.com/api/khach-hang/check', {}, {
+                .post('https://wietbe216.trangchudulich.com/api/khach-hang/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token_user')
                     }

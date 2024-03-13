@@ -151,14 +151,14 @@ export default {
   methods: {
     laydataLoaiBlog() {
       axios
-        .get("https://wietfe216.trangchudulich.com/api/bai-viet/lay-du-lieu-show")
+        .get("https://wietbe216.trangchudulich.com/api/bai-viet/lay-du-lieu-show")
         .then((res) => {
           this.list_blog = res.data.bai_viet;
         });
     },
     loaddataChuyenMuc() {
       axios
-        .get("https://wietfe216.trangchudulich.com/api/chuyen-muc/lay-du-lieu-show")
+        .get("https://wietbe216.trangchudulich.com/api/chuyen-muc/lay-du-lieu-show")
             .then((res) => {
               this.list_chuyen_muc = res.data.chuyen_muc;
             });

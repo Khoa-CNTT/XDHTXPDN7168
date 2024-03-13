@@ -4,7 +4,7 @@ import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({ position: "top-right" });
 export default function(to, from, next) {
     axios
-        .post('https://wietfe216.trangchudulich.com/api/check', {}, {
+        .post('https://wietbe216.trangchudulich.com/api/check', {}, {
             headers: {
                 Authorization: 'Bearer ' +  localStorage.getItem('token')
             }}

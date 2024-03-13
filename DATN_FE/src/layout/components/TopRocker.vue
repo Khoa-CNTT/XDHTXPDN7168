@@ -73,7 +73,7 @@
               },
             checkToken() {
                     axios
-                        .post('https://wietfe216.trangchudulich.com/api/admin/check', {}, {
+                        .post('https://wietbe216.trangchudulich.com/api/admin/check', {}, {
                             headers: {
                                 Authorization: 'Bearer ' + localStorage.getItem('token')
                             }
