@@ -163,7 +163,7 @@
         methods: {
             loadataLoaiPhimAndPhim() {
                     axios
-                        .get("https://wietbe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show-tat-ca", {
+                        .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show-tat-ca", {
                         params :{
                         slug_lp : this.slug,
                         } })
@@ -175,7 +175,7 @@
                     },
             Sapxep(id_loai_phim) {
                     axios
-                        .get("https://wietbe216.trangchudulich.com/api/loai-phim/sap-xep", {
+                        .get("http://127.0.0.1:8000/api/loai-phim/sap-xep", {
                             params : {
                                 id_lp : id_loai_phim,
                                 catagory: this.bien
@@ -188,7 +188,7 @@
 
             laydataLoaiPhim() {
                 axios
-                    .get("https://wietbe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
+                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });

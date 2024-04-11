@@ -205,14 +205,14 @@ export default {
                     'slug': this.$route.params.slug
                 }
               axios
-                .post("https://wietbe216.trangchudulich.com/api/bai-viet/lay-du-lieu-delist-blog", payload)
+                .post("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-delist-blog", payload)
                 .then((res) => {
                   this.obj_blog = res.data.bai_viet;
                 });
             },
     laydataCMT() {
       axios
-        .get("https://wietbe216.trangchudulich.com/api/binh-luan-blog/lay-du-lieu-show")
+        .get("http://127.0.0.1:8000/api/binh-luan-blog/lay-du-lieu-show")
         .then((res) => {
           this.list_cmt = res.data.binh_luan_bai_viet;
         });

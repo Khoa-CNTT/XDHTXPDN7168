@@ -220,7 +220,7 @@
         methods: {
             laydataDelistPhim() {
                 axios
-                .get("https://wietbe216.trangchudulich.com/api/phim/lay-data-delist", {
+                .get("http://127.0.0.1:8000/api/phim/lay-data-delist", {
                     params :{
                     slug : this.slug,
                     } })
@@ -234,7 +234,7 @@
             },
             laydataCMT() {
                 axios
-                .get("https://wietbe216.trangchudulich.com/api/binh-luan-phim/lay-du-lieu-show")
+                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_cmt = res.data.binh_luan_phim;
                 });

@@ -309,7 +309,7 @@
             },
             laydataTheoTheLoai(id_the_loai) {
                     axios
-                        .get("https://wietbe216.trangchudulich.com/api/lay-data-theo-the-loai", {
+                        .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
                             params : {
                                 id_tl : id_the_loai,
                             }
@@ -320,14 +320,14 @@
                 },
             laydataLoaiPhim() {
                 axios
-                    .get("https://wietbe216.trangchudulich.com/api/loai-phim/lay-du-lieu-show")
+                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
                     });
             },
             loaddataTheLoai() {
                 axios
-                    .get("https://wietbe216.trangchudulich.com/api/the-loai/lay-du-lieu-show")
+                    .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
                     .then((res) => {
                         this.list_the_loai = res.data.the_loai;
                     });
@@ -343,7 +343,7 @@
             },
             checkToken() {
                 axios
-                    .post('https://wietbe216.trangchudulich.com/api/khach-hang/check', {}, {
+                    .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
                         headers: {
                             Authorization: 'Bearer ' + localStorage.getItem('token_user')
                         }
@@ -381,7 +381,7 @@
             },
             searchPhim() {
                 axios
-                    .post("https://wietbe216.trangchudulich.com/api/phim/thong-tin-tim",this.key_tim)
+                    .post("http://127.0.0.1:8000/api/phim/thong-tin-tim",this.key_tim)
                     .then((res) => {
                         this.list_phim_search = res.data.phim;
                     });
