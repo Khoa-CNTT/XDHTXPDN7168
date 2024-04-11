@@ -158,7 +158,7 @@
       methods: {
         loadataTheLoaiAndPhim() {
           axios
-            .get("https://wietbe216.trangchudulich.com/api/the-loai/lay-du-lieu-show-tat-ca", {
+            .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show-tat-ca", {
             params :{
               // id_tl : this.id,
               slug_tl : this.slug,
@@ -171,7 +171,7 @@
         },
         Sapxep(id_the_loai) {
             axios
-                .get("https://wietbe216.trangchudulich.com/api/the-loai/sap-xep", {
+                .get("http://127.0.0.1:8000/api/the-loai/sap-xep", {
                     params : {
                         id_tl : id_the_loai,
                         catagory: this.bien

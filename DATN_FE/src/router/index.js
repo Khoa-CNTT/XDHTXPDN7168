@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
 import checkLogin from "./checkLoginAdmin";
 const routes = [
+
+    // Page thanh toan
+    {
+        path : '/thanh-toan',
+        component: ()=>import('../components/Page/MuaVip/index.vue'),
+
+    },
     // Page Anime
     {
         path : '/',
@@ -41,14 +48,14 @@ const routes = [
         path : '/list-phim',
         component: ()=>import('../components/Page/ListPhim/index.vue'),
 
-    }, 
+    },
     {
         path : '/the-loai/:slug',
         component: ()=>import('../components/Page/PageList/index.vue'),
         name: 'PageList',
         props: route => ({ id: route.params.id, slug : route.params.slug }),
 
-    }, 
+    },
     {
         path : '/de-list/:slug',
         component: ()=>import('../components/Page/PageDelist/index.vue'),
@@ -61,7 +68,7 @@ const routes = [
         path : '/watching/:slug',
         component: ()=>import('../components/Page/PageWatch/index.vue'),
 
-    }, 
+    },
     {
         path : '/loai-phim/:slug',
         component: ()=>import('../components/Page/PageLoaiPhim/index.vue'),
@@ -84,13 +91,13 @@ const routes = [
         path : '/bai-viet',
         component: ()=>import('../components/Page/BlogList/index.vue'),
 
-    }, 
+    },
     {
         path : '/blog/:slug',
         component: ()=>import('../components/Page/BlogDelist/index.vue'),
 
-    }, 
-    
+    },
+
     /// Admin
     {
         path : '/admin/profile',
@@ -140,7 +147,7 @@ const routes = [
         beforeEnter: checkLogin,
         meta : {layout : 'new'} ,
     },
-   
+
     {
         path : '/admin/loai-phim',
         component: ()=>import('../components/Admin/LoaiAnime/index.vue'),
@@ -189,8 +196,8 @@ const routes = [
         component: ()=>import('../components/Admin/Register/index.vue'),
         meta : {layout : 'login'}
     },
-    
-    
+
+
 ]
 
 const router = createRouter({

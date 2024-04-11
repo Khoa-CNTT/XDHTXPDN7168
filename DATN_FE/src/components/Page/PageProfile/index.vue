@@ -154,7 +154,7 @@
         methods: {
 			laydataAdmin() {
 				axios
-            .get("https://wietbe216.trangchudulich.com/api/admin/khach-hang/lay-du-lieu-profile", {
+            .get("http://127.0.0.1:8000/api/admin/khach-hang/lay-du-lieu-profile", {
                     params : {
                         id_khach_hang : this.id_user,
                     },
