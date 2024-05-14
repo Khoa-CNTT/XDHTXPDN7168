@@ -25,7 +25,7 @@
                 <div class="user-box dropdown">
                     <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret"
                         href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img v-bind:src="img" class="user-img" alt="user avatar">
+                        <img :src="img" class="user-img" alt="user avatar">
                         <div class="user-info ps-3">
                             <p class="user-name mb-0"><b>{{ user }}</b></p>
                             <p class="designattion mb-0">{{  }}</p>
@@ -55,7 +55,7 @@
         data() {
             return {
                 user : 'chưa dang nhap',
-                img : '',
+                img : 'https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/438223092_924978372646480_8892922029517455750_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5f2048&_nc_ohc=1M_bsPbrCFAQ7kNvgFx_sSo&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfAK4f4KmvMgcb_wJwjzxOqtkSWXMdaTIqYWIyTbbaxS8g&oe=663FBF44',
             }
         },
         mounted() {

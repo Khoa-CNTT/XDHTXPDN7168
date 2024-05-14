@@ -11,7 +11,7 @@
                                <h3>Đăng Nhập</h3>
                             </div>
                             <div class="col-6">
-                                <router-link to="register" >
+                                <router-link to="home/register" >
                                     <a > <h3 style="color: #17a2b8" >Đăng Ký <i class="fa-solid fa-caret-right"></i></h3></a>
 
                                 </router-link>
@@ -38,7 +38,7 @@
                             </div> -->
                             <button @click="dangNhap()" class="site-btn">Đăng Nhập</button>
                         </div>
-                                <router-link to="/forget-password">
+                                <router-link to="/home/forget-password">
                                     <a  type="button" class="forget_pass ">Quên mật khẩu?</a>
                                 </router-link>
 

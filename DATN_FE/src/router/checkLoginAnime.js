@@ -21,6 +21,6 @@ export default function(to, from, next) {
         })
         .catch(() => {
             toaster.warning('Thông báo<br>Bạn cần đăng nhập hệ thống trước!');
-            next('/login');
+            next('/home/login');
         });
 }

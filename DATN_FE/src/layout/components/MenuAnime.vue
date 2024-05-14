@@ -71,7 +71,7 @@
                             <ul class="dropdown-menu" style=" background-color: rgba(35, 33, 33, 0.9);">
                                 <!-- Dropdown menu links -->
                                 <li class="user-avatar" v-show="is_login == false">
-                                    <router-link to="/login" class="with-100">
+                                    <router-link to="/home/login" class="with-100">
                                         <a class="dropdown-item " type="button"><i
                                                 class="fa-solid fa-user me-1"></i><span>Đăng Nhập</span></a>
                                     </router-link>
