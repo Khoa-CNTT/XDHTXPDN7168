@@ -10,7 +10,7 @@
                             <div class="col-12">
                                <h3>Đặt Lại Mật Khẩu! </h3>
                             </div>
-                            
+
                         </div>
                         <div >
                             <div class="input__item">
@@ -26,15 +26,15 @@
                             <div class="col-12">
                                   <button @click="doiMatKhau()" style="width: 100%;" class="site-btn">ĐỔI MẬT KHẨU</button>
                             </div>
-                            
+
                         </div>
-                       
-                                
+
+
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="login__register">
-                            <router-link to="/login">
+                            <router-link to="/home/login">
                                 <a href="#" class="btn btn-sm  text-info"><i class="fa-solid fa-left-long"></i>Đăng Nhập</a>
                             </router-link>
                     </div>
@@ -46,13 +46,13 @@
                                 </li>
                             </ul>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
     </section>
-  
+
 
 
 </template>
@@ -81,7 +81,7 @@ export default {
                         toaster.success(res.data.message);
                     } else {
                         toaster.error(res.data.message);
-                        this.$router.push('/login');
+                        this.$router.push('/home/login');
                     }
                 });
         },
@@ -91,14 +91,14 @@ export default {
                 .then((res) =>  {
                     if(res.data.status == true) {
                         toaster.success( res.data.message);
-                        this.$router.push('/login');
+                        this.$router.push('/home/login');
                     } else {
                         toaster.error( res.data.message);
-                        this.$router.push('/login');
+                        this.$router.push('/home/login');
                     }
                 });
         }
-        
+
     },
 }
 </script>

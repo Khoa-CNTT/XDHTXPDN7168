@@ -11,26 +11,26 @@
                                <h3>Tài khoản <b class="text-warning">{{ obj_user.email }} </b> đã kích hoạt thành công! </h3>
                                <h3 class="text-center">VUI LÒNG ĐĂNG NHẬP! </h3>
                             </div>
-                            
+
                         </div>
-                      
+
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <router-link to="/login">
+                                <router-link to="/home/login">
                                     <button  style="width: 100%;" class="site-btn">ĐĂNG NHẬP</button>
                                 </router-link>
                             </div>
                             <div class="col-12 text-center mt-1 text-white" >
                             </div>
-                            
+
                         </div>
                         <div class="mb-5">
                         </div>
-                        
-                               
 
-                               
-                                
+
+
+
+
                     </div>
                 </div>
                 <!-- <div class="col-lg-5">
@@ -47,13 +47,13 @@
                                 </li>
                             </ul>
                     </div>
-                    
+
                 </div> -->
             </div>
-            
+
         </div>
     </section>
-  
+
 
 
 </template>
@@ -82,7 +82,7 @@ export default {
                         this.obj_user.email   = res.data.email;
                     } else {
                         toaster.error(res.data.message);
-                        this.$router.push('/login');
+                        this.$router.push('/home/login');
                     }
                 });
         },

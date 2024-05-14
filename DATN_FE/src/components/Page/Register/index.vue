@@ -121,7 +121,7 @@ export default {
         .then((res) => {
           this.kichHoatTK();
           this.dang_ky = {};
-          this.$router.push('/login');
+          this.$router.push('/home/login');
         })
         .catch((res) => {
                     var errors  = Object.values(res.response.data.errors);

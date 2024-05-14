@@ -48,7 +48,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(v, k) in listChucVu" class="align-middle">
+                                <tr v-for="(v, k) in listChucVu" class="align-middle" :key="k">
                                     <th class="text-center">{{ k + 1 }}</th>
                                     <td> {{ v.ten_chuc_vu }}</td>
                                     <td class="text-center">
@@ -145,7 +145,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(v, k) in listChucNang" class="align-middle">
+                                    <tr v-for="(v, k) in listChucNang" class="align-middle" :key="k">
                                         <th class="text-center">{{ k + 1 }}</th>
                                         <td> {{ v.ten_chuc_nang }}</td>
                                         <td class="text-center">
@@ -177,7 +177,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="(v, k) in phan_quyen" class="align-middle">
+                                    <tr v-for="(v, k) in phan_quyen" class="align-middle" :key="k">
                                         <th class="text-center">{{ k + 1 }}</th>
                                         <td>{{ v.ten_chuc_nang }}</td>
                                         <td class="text-center">
@@ -228,7 +228,7 @@ export default {
                 .post('admin/phan-quyen/create', payload)
                 .then((res) => {
                     if(res.data.status) {
-                       
+
                         toaster.success('Thông báo<br>' + res.data.message);
                         this.getChucNang();
                     } else {
@@ -274,10 +274,10 @@ export default {
                     });
                 });
         },
-       
-    },  
+
+    },
 }
 </script>
 <style>
-    
+
 </style>

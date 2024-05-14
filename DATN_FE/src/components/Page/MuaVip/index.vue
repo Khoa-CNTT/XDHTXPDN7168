@@ -10,7 +10,7 @@
                             <span>Dành cho Premium</span>
                             <span class="arrow-icon">&#8250;</span>
                         </div>
-                        <div class="premium-feature">
+                        <div  class="premium-feature">
                             <div class="icon icon-hd premium-feature-icon"></div>
                             <div class="premium-feature-text">Độ phân giải cao</div>
                         </div>
@@ -31,15 +31,15 @@
                 </div>
             </div>
             <div class="pricing-cards">
-                <div class="card">
+                <div role="button" class="card">
                 <h3>Premium 1 tháng</h3>
                 <p class="price">₫57000.00</p>
                 </div>
-                <div class="card">
+                <div role="button" class="card">
                 <h3>Premium 3 tháng</h3>
                 <p class="price">₫160000.00</p>
                 </div>
-                <div class="card">
+                <div role="button" class="card">
                 <h3>Premium 1 năm</h3>
                 <p class="price">₫549000.00</p>
                 </div>
@@ -83,7 +83,8 @@
 <style>
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #333842; /* Dark background */
+  /* background: #333842; */
+  background: #070720; /* Dark background */
   color: #ffffff;
   margin: 0;
   padding: 0;
@@ -114,7 +115,7 @@ body {
 .pricing-container {
   max-width: 960px;
   margin: 40px auto;
-  background-color: #fff;
+  background-color: #e7dede;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
