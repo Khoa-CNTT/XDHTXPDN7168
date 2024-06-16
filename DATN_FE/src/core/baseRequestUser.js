@@ -7,7 +7,7 @@ export default {
         if(token == null) {
             return {}
         }
-        console.log(token);
+        // console.log(token);
         return { Authorization: 'Bearer ' + token }
     },
     get(url) {
