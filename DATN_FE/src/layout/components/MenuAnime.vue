@@ -24,7 +24,7 @@
                                 <li class="menu"><a href="#">Thể Loại <span
                                             class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
-                                        <template v-for="(v,k) in list_the_loai">
+                                        <template v-for="(v,k) in list_the_loai" :key="k">
                                             <li class="menu" >
                                                 <router-link :to="{ name: 'PageList', params: {  slug: v.slug_the_loai }}">
                                                      {{ v.ten_the_loai }}
@@ -37,7 +37,7 @@
                                 <li class="menu"><a href="#" >Loại Phim <span
                                             class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
-                                        <template v-for="(v,k) in list_loai_phim">
+                                        <template v-for="(v,k) in list_loai_phim" :key="k">
                                             <li class="menu" >
                                                 <!-- <router-link :to="`/loai-phim/${v.id}`">
                                                     {{  v.ten_loai_phim }}
@@ -60,7 +60,7 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <div class="dropdown-center">
-                            <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
+                            <a class="dropdown-toggle" type="button" >
                                 <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                             </a>
                             <!-- người dùng -->
@@ -216,8 +216,6 @@
                                                 </div>
                                             </template>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
