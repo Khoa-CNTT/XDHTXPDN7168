@@ -75,9 +75,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        v-on:click="taoDataTapPhim()">Thêm
-                        Mới</button>
+                    <button v-if="is_create == 0" disabled class="btn btn-danger">Thêm Mới</button>
+                    <button v-else v-on:click="taoDataTapPhim()" data-bs-dismiss="modal" class="btn btn-primary">Thêm Mới</button>
                 </div>
             </div>
         </div>
@@ -161,7 +160,7 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">CHỈNH SỮA PHIM
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">CHỈNH Sửa PHIM
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -230,8 +229,8 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
                                     </button>
-                                    <button @click="updateTapPhim()" type="button" class="btn btn-success"
-                                        data-bs-dismiss="modal">Lưu</button>
+                                        <button v-if="is_update == 0" disabled class="btn btn-danger">Lưu</button>
+                                        <button v-else v-on:click="updateTapPhim()" data-bs-dismiss="modal" class="btn btn-primary">Lưu</button>
                                 </div>
                             </div>
                         </div>
@@ -278,6 +277,8 @@ const toaster = createToaster({
 export default {
     data() {
         return {
+            is_create: 0,
+            is_update: 0,
             list_phim: [],
             list_tap_phim: [],
             obj_add_tap_phim: {},
@@ -303,8 +304,7 @@ export default {
         },
     },
     mounted() {
-        this.laydataTapPhim();
-        this.laydataPhim();
+        this.laydataTapPhim(1);
     },
     methods: {
         changPage(page) {
@@ -323,6 +323,7 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         this.obj_tap_phim = res.data.ten_phim;
+                        this.obj_add_tap_phim.slug_tap_phim = this.obj_tap_phim.slug_phim;
                         toaster.success(res.data.message);
                     } else {
                         toaster.error(res.data.message);
@@ -392,18 +393,15 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success(res.data.message);
+                        this.is_update = 1;
+
                     } else {
                         toaster.error(res.data.message);
+                        this.is_update = 0;
                     }
                 });
         },
-        laydataPhim() {
-            baseRequest
-                .get("admin/phim/lay-du-lieu")
-                .then((res) => {
-                    this.list_phim = res.data.phim_admin;
-                });
-        },
+
 
         laydataTapPhim(page) {
             baseRequest
@@ -411,6 +409,7 @@ export default {
                 .then((res) => {
                     this.list_tap_phim = res.data.tap_phim_admin.dataAdmin.data;
                     this.pagination = res.data.tap_phim_admin.pagination;
+                    this.list_phim = res.data.phim_admin;
                 });
         },
         taoDataTapPhim() {
@@ -423,7 +422,7 @@ export default {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.obj_add_tap_phim = {};
-                        this.laydataTapPhim();
+                        this.laydataTapPhim(1);
                     } else {
                         toaster.error(res.data.message);
                     }
@@ -444,7 +443,7 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
-                        this.laydataTapPhim();
+                        this.laydataTapPhim(1);
                     }
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
@@ -457,7 +456,7 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
-                        this.laydataTapPhim();
+                        this.laydataTapPhim(1);
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
@@ -470,7 +469,7 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
-                        this.laydataTapPhim();
+                        this.laydataTapPhim(1);
                     } else {
                         toaster.error(res.data.message);
                     }

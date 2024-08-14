@@ -97,6 +97,12 @@ export default {
                     } else {
                         toaster.error( res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors  = Object.values(res.response.data.errors);
+                    errors.forEach(function(v,k){
+                            toaster.error(v[0]);
+                    });
                 });
         }
     }

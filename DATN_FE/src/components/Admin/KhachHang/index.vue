@@ -94,7 +94,7 @@
                                     <td class="text-center align-middle text-nowrap">
                                         <button @click="Object.assign(obj_update_admin, v)" type="button"
                                             class="btn btn-warning me-1" data-bs-toggle="modal" data-bs-target="#Chinhsua">
-                                            Chỉnh Sữa
+                                            Chỉnh Sửa
                                         </button>
 
                                         <button @click="Object.assign(obj_delete_admin, v)" data-bs-target="#Xoa"
@@ -129,7 +129,7 @@
                         <div class="modal-dialog ">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh Sữa Khách Hàng Admin</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh Sửa Khách Hàng Admin</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>

@@ -96,9 +96,8 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Thoát
                     </button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="taoDataPhim()">
-                        Thêm Mới
-                    </button>
+                    <button v-if="is_create == 0" disabled class="btn btn-danger">Thêm Mới</button>
+                    <button v-else v-on:click="taoDataPhim()" class="btn btn-primary" data-bs-dismiss="modal">Thêm Mới</button>
                 </div>
             </div>
         </div>
@@ -154,8 +153,8 @@
                                     <td class="text-center align-middle text-nowrap">
                                         {{ k + 1 }}
                                     </td>
-                                    <td class="align-middle text-nowrap">{{ v.ten_phim }}</td>
-                                    <td class="align-middle text-nowrap">{{ v.slug_phim }}</td>
+                                    <td class="align-middle text-wrap">{{ v.ten_phim }}</td>
+                                    <td class="align-middle text-wrap">{{ v.slug_phim }}</td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button @click="Object.assign(obj_mo_ta, v)" type="button" class="btn text-info"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -238,7 +237,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                        CHỈNH SỮA PHIM
+                                        CHỈNH SỬA PHIM
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -345,10 +344,8 @@
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                         Đóng
                                     </button>
-                                    <button @click="updatePhim()" type="button" class="btn btn-success"
-                                        data-bs-dismiss="modal">
-                                        Lưu
-                                    </button>
+                                    <button v-if="is_update == 0" disabled class="btn btn-danger">Lưu</button>
+                                    <button v-else v-on:click="updatePhim()" class="btn btn-primary" data-bs-dismiss="modal">Lưu</button>
                                 </div>
                             </div>
                         </div>
@@ -398,6 +395,8 @@ const toaster = createToaster({
 export default {
     data() {
         return {
+            is_create: 0,
+            is_update: 0,
             list_loai_phim: [],
             obj_mo_ta: {},
             list_the_loai: [],
@@ -535,8 +534,12 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success(res.data.message);
+                        this.is_update = 1;
+
                     } else {
                         toaster.error(res.data.message);
+                        this.is_update = 0;
+
                     }
                 });
         },

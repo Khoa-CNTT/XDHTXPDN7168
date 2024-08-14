@@ -32,5 +32,5 @@ components: {
 @import '../../assets/assets_Anime/css/slicknav.min.css';
 @import '../../assets/assets_Anime/css/style.css';
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 </style>

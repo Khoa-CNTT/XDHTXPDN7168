@@ -31,11 +31,10 @@ const routes = [
     path: "/",
     component: () => import("../layout/wrapper/MasterAnime.vue"),
     children: [
-
-        // {
-        //     path: "test",
-        //     component: () => import("../components/Page/t"),
-        //   },
+      // {
+      //     path: "test",
+      //     component: () => import("../components/Page/t"),
+      //   },
       // Page thanh toan
       {
         path: "thanh-toan",
@@ -97,6 +96,7 @@ const routes = [
   {
     path: "/admin",
     component: () => import("../layout/wrapper/MasterRocker.vue"),
+    beforeEnter: checkLogin,
     children: [
       {
         path: "goi-vip",
@@ -123,11 +123,11 @@ const routes = [
         component: () => import("../components/Admin/ChucVu/index.vue"),
         beforeEnter: checkLogin,
       },
-    //   {
-    //     path: "khach-hang",
-    //     component: () => import("../components/Admin/KhachHang/index.vue"),
-    //     beforeEnter: checkLogin,
-    //   },
+      //   {
+      //     path: "khach-hang",
+      //     component: () => import("../components/Admin/KhachHang/index.vue"),
+      //     beforeEnter: checkLogin,
+      //   },
       {
         path: "khach-hang",
         component: () => import("../components/Admin/KhachHang/index.vue"),

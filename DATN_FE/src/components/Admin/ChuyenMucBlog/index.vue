@@ -31,7 +31,8 @@
                     </div>
                 </div>
                 <div class="card-footer text-end">
-                    <button @click="taoDataChuyenMuc()" class="btn btn-primary">Thêm Mới</button>
+                    <button v-if="is_create == 0" disabled class="btn btn-danger">Thêm Mới</button>
+                    <button v-else v-on:click="taoDataChuyenMuc()" class="btn btn-primary">Thêm Mới</button>
                 </div>
             </div>
         </div>
@@ -65,7 +66,7 @@
                             </thead>
                             <tbody>
 
-                                <tr v-for="(v, k) in list_chuyen_muc" class="text-center">
+                                <tr v-for="(v, k) in list_chuyen_muc" class="text-center" :key="k" >
                                     <td class="text-center align-middle text-nowrap">{{ k + 1 }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.ten_chuyen_muc }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.slug_chuyen_muc }}</td>
@@ -81,7 +82,7 @@
                                     <td class=" align-middle text-nowrap">
                                         <button @click="Object.assign(obj_update_chuyen_muc, v)" type="button"
                                             class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#Chinhsua">
-                                            Chỉnh Sữa
+                                            Chỉnh Sửa
                                         </button>
 
                                         <button @click="Object.assign(obj_delete_chuyen_muc, v)" data-bs-target="#Xoa"
@@ -117,7 +118,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
 
-                                    <h4 class="modal-title fs-5" id="exampleModalLabel"><b>CHỈNH SỮA CHUYÊN MỤC</b>
+                                    <h4 class="modal-title fs-5" id="exampleModalLabel"><b>CHỈNH Sửa CHUYÊN MỤC</b>
                                     </h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -152,8 +153,8 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
                                     </button>
-                                    <button @click="updateTheLoai()" type="button" class="btn btn-success"
-                                        data-bs-dismiss="modal">Xong</button>
+                                    <button v-if="is_update == 0" disabled class="btn btn-danger">Xong</button>
+                                     <button v-else v-on:click="updateTheLoai()" data-bs-dismiss="modal" class="btn btn-primary">Xong</button>
                                 </div>
                             </div>
                         </div>
@@ -200,6 +201,8 @@ const toaster = createToaster({
 export default {
     data() {
         return {
+            is_create: 0,
+            is_update: 0,
             list_chuyen_muc: [],
             key_tim: {},
             obj_add_chuyen_muc: {},
@@ -280,8 +283,12 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success(res.data.message);
+                        this.is_update = 1;
+
                     } else {
                         toaster.error(res.data.message);
+                        this.is_update = 0;
+
                     }
                 });
         },

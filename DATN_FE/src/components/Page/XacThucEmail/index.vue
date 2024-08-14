@@ -73,7 +73,7 @@ export default {
     },
     methods: {
         checkHashLogin() {
-            this.obj_user.hash_kich_hoat   =    this.$route.params.hash;
+            this.obj_user.hash_active   =    this.$route.params.hash;
             baseRequest
                 .post('kiem-tra-hash-kich-hoat', this.obj_user)
                 .then((res) =>  {

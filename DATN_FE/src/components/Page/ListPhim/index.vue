@@ -32,7 +32,7 @@
                       <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="product__page__filter">
                           <p>Sắp xếp theo:</p>
-                          <select v-model="bien" @change="Sapxep()" >
+                          <select v-model="bien" @change="Sapxep(1)" >
                             <option value="az">A-Z</option>
                             <option value="za">Z-A</option>
                           </select>
@@ -48,7 +48,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <template v-for="(v1,k1) in paginatedData">
+                    <template v-for="(v1,k1) in list_phim" :key="k1">
                       <div  class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
                           <router-link :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim }}">
@@ -83,9 +83,13 @@
                   </div>
                 </div>
                 <div class="product__pagination text-center">
-                  <button type="button" @click="changePage(-1)" :disabled="currentPage === 1" class="current-page " ><i class="fa-solid fa-chevron-left"></i></button>
-                  <span style="padding: 0 28px;" class="text-white">{{ currentPage }} / {{ totalPages }}</span>
-                  <button type="button" @click="changePage(1)" :disabled="currentPage === totalPages"  class="current-page" ><i class="fa-solid fa-chevron-right"></i></button>
+                        <a @click="changPage(1)" type="button" ><i class="fa fa-angle-double-left"></i></a>
+
+                        <a type="button" :class="{ current_page: page === pagination.current_page }" v-for="page in pageNumbers" :key="page"  @click="page !== '...' && changPage(page)">
+                            {{ page }}
+                        </a>
+
+                        <a @click="changPage(pagination.last_page)" type="button" ><i class="fa fa-angle-double-right"></i></a>
                 </div>
               </div>
               <div class="col-lg-4 col-md-6 col-sm-8 ">
@@ -95,7 +99,7 @@
                     <div class="section-title">
                       <h5>Hot Phim</h5>
                     </div>
-                    <template v-for="(v,k) in list_9_phim ">
+                    <template v-for="(v,k) in list_9_phim " :key="k">
                       <div class="product__sidebar__comment__item">
                         <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
                           <div class="product__sidebar__comment__item__pic">
@@ -128,6 +132,7 @@
     import axios from "axios"
     import { mapState, mapGetters, mapMutations } from 'vuex';
     import baseRequest from '../../../core/baseRequest';
+    import { getPageNumbers } from "../../../core/paginationUtils.js";
     import { createToaster } from "@meforma/vue-toaster";
     const toaster = createToaster({
       position: "top-right",
@@ -137,90 +142,57 @@
       data() {
         return {
           id: this.$route.params.id,
-          list_loai_phim: [],
-          list_the_loai: [],
           list_tac_gia: [],
           list_9_phim: [],
           list_phim: [],
           bien: '',
+          pagination: {
+                last_page: "",
+                per_page: "",
+                current_page: "",
+                last_page: "",
+                from: "",
+                to: "",
+            },
+            check_page: 0,
         };
       },
       computed: {
-      ...mapState(['currentPage']),
-      ...mapGetters(['paginatedData', 'totalPages'])
+        pageNumbers() {
+            return getPageNumbers(this.pagination);
+        },
     },
       mounted() {
-        this.laydataLoaiPhim();
-        this.loaddataTheLoai();
-        this.laydataPhim();
-        this.fetchData();
+
+        this.laydataPhim(1);
       },
       methods: {
-        // Sapxep(id_the_loai) {
-        //     axios
-        //         .get("http://127.0.0.1:8000/api/list-phim/sap-xep", {
-        //             params : {
-        //                 catagory: this.bien
-        //             }
-        //         })
-        //         .then((res)=>{
-        //                 this.list_phim = res.data.phim;
-        //         });
-        // },
-        laydataPhim() {
+        changPage(page) {
+            if (this.check_page == 0) {
+                this.laydataPhim(page);
+            } else if (this.check_page == 1) {
+                this.Sapxep(page);
+            }
+        },
+        laydataPhim(page) {
           axios
-            .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
+            .get("http://127.0.0.1:8000/api/lay-tat-ca-phim?page=" + page)
             .then((res) => {
-              this.list_phim = res.data.phim;
-              this.list_9_phim = res.data.phim_9_obj;
+                this.list_phim = res.data.phim.dataPhim.data;
+                this.pagination = res.data.phim.pagination;
+                this.list_9_phim = res.data.phim_9_obj;
+            });
+        },
+        Sapxep(page) {
+            this.check_page = 1;
+            axios
+                .get("http://127.0.0.1:8000/api/lay-tat-ca-phim/sap-xep/"+ this.bien + '?page=' + page, {})
+                .then((res) => {
+                    this.list_phim = res.data.phim.dataPhim.data;
+                    this.pagination = res.data.phim.pagination;
 
-            });
+                });
         },
-        laydataLoaiPhim() {
-          axios
-            .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
-            .then((res) => {
-              this.list_loai_phim = res.data.loai_phim;
-            });
-        },
-        loaddataTheLoai() {
-          axios
-            .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-            .then((res) => {
-              this.list_the_loai = res.data.the_loai;
-            });
-        },
-        ...mapMutations(['setPage']),
-        changePage(amount) {
-        this.setPage(this.currentPage + amount);
-       },
-      async fetchData() {
-      try {
-        // Gửi yêu cầu API để lấy dữ liệu list_9_phim bằng Axios
-        const response = await axios.get('http://127.0.0.1:8000/api/phim/lay-du-lieu-show');
-        const data = response.data.phim;
-        // Cập nhật dữ liệu trong store Vuex
-        this.$store.commit('setList_9_Phim', data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    },
-    async Sapxep() {
-      try {
-        const params = {
-          catagory: this.bien
-        };
-        // Gửi yêu cầu API để lấy dữ liệu list_9_phim bằng Axios
-        const response = await axios.get('http://127.0.0.1:8000/api/list-phim/sap-xep', {
-          params: params,
-        });
-        const data = response.data.phim;
-        // Cập nhật dữ liệu trong store Vuex
-        this.$store.commit('setList_9_Phim', data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    },
       },
     };
   </script>

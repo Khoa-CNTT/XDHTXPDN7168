@@ -95,10 +95,10 @@
                                     </div>
 
                             </div>
-                            <template v-for="(v,k) in list_cmt">
+                            <template v-for="(v,k) in list_cmt" :key="k">
                                 <div v-if="v.id_phim == obj_phim.id " class="anime__review__item">
                                     <div class="anime__review__item__pic">
-                                        <img v-bind:src="v.hinh_anh" alt="">
+                                        <img v-bind:src="v.avatar" alt="">
                                     </div>
                                     <div class="anime__review__item__text">
                                         <div class="row">
@@ -129,7 +129,7 @@
                             <div class="section-title">
                                 <h5>hot phim</h5>
                             </div>
-                            <template v-for="(v,k) in list_5_phim ">
+                            <template v-for="(v,k) in list_5_phim " :key="k">
                                 <div class="product__sidebar__comment__item">
                                     <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
                                         <a v-bind:href="'/de-list/' + v.slug_phim" >
