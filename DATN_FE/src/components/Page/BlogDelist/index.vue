@@ -84,10 +84,10 @@
                 </div>
                 <div class="blog__details__comment">
                   <h4>Bình Luận</h4>
-                  <template v-for="(v, k) in list_cmt">
+                  <template v-for="(v, k) in list_cmt" :key="k">
                     <div v-if="v.id_bai_viet == obj_blog.id" class="anime__review__item">
                       <div class="anime__review__item__pic">
-                        <img v-bind:src="v.hinh_anh" alt="" />
+                        <img v-bind:src="v.avatar" alt="" />
                       </div>
                       <div class="anime__review__item__text">
                         <div class="row">

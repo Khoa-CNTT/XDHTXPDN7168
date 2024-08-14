@@ -38,7 +38,7 @@
                                 <label for="" class="form-label mb-1 mt-1">
                                     <b>Hình Ảnh</b>
                                 </label>
-                                <input type="file" @change="handleFile" class="form-control" />
+                                <input type="file" @change="handleFile($event, true)" class="form-control" />
                             </div>
                         </div>
                         <div class="row">
@@ -74,15 +74,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        v-on:click="taoDataBaiViet()">Thêm
-                        Mới</button>
+                    <button v-if="is_create == 0" disabled class="btn btn-danger">Thêm Mới</button>
+                    <button v-else v-on:click="taoDataBaiViet()" class="btn btn-primary" data-bs-dismiss="modal">Thêm Mới</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-
         <div class="col-12">
             <div class="card border-5 border-primary border-top">
                 <div class="card-header d-flex justify-content-between">
@@ -123,10 +121,10 @@
                             <tbody>
                                 <tr v-for="(v, k) in list_bai_viet" class="" :key="k">
                                     <td class=" align-middle text-nowrap">{{ k + 1 }}</td>
-                                    <td class=" align-middle text-nowrap">{{ v.tieu_de }}</td>
-                                    <td class=" align-middle text-nowrap">{{ v.slug_tieu_de }}</td>
+                                    <td class=" align-middle text-wrap">{{ v.tieu_de }}</td>
+                                    <td class=" align-middle text-wrap">{{ v.slug_tieu_de }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.ten_chuyen_muc }}</td>
-                                    <td class=" align-middle text-nowrap">{{ v.mo_ta }}</td>
+                                    <td class=" align-middle text-wrap">{{ v.mo_ta }}</td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button @click="Object.assign(obj_mo_ta, v)" type="button" class="btn text-info"
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"><i
@@ -152,7 +150,7 @@
                                         <button @click="Object.assign(obj_update_bai_viet, v)" type="button"
                                             class="btn btn-warning me-1" data-bs-toggle="modal"
                                             data-bs-target="#Chinhsua">
-                                            Chỉnh Sữa
+                                            Chỉnh Sửa
                                         </button>
 
                                         <button @click="Object.assign(obj_delete_bai_viet, v)" data-bs-target="#Xoa"
@@ -205,7 +203,7 @@
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">CHỈNH SỮA BÀI VIẾT
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">CHỈNH Sửa BÀI VIẾT
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -243,7 +241,7 @@
                                                 <label for="" class="form-label mb-1 mt-1">
                                                     <b>Hình Ảnh</b>
                                                 </label>
-                                                <input type="file" @change="handleFileUpload" class="form-control" />
+                                                <input type="file" @change="handleFile($event, false)" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -283,8 +281,9 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
                                     </button>
-                                    <button @click="updateBaiViet()" type="button" class="btn btn-success"
-                                        data-bs-dismiss="modal">Lưu</button>
+                                    <button v-if="is_update == 0" disabled class="btn btn-danger">Cập Nhật</button>
+                                    <button v-else v-on:click="updateBaiViet()" class="btn btn-primary"  data-bs-dismiss="modal">Cập Nhật</button>
+
                                 </div>
                             </div>
                         </div>
@@ -332,6 +331,8 @@ const toaster = createToaster({
 export default {
     data() {
         return {
+            is_create: 0,
+            is_update: 1,
             obj_mo_ta: {},
             list_bai_viet: [],
             list_chuyen_muc: [],
@@ -355,11 +356,38 @@ export default {
             return getPageNumbers(this.pagination);
         },
     },
-    
+
     mounted() {
         this.laydataBaiViet(1);
     },
     methods: {
+        handleFile(e, isCreate) {
+            let files = e.target.files || e.dataTransfer.files;
+            this.file = files;
+            if (!files.length) return;
+            // File type validation
+            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/webp'];
+            if (!validImageTypes.includes(files[0].type)) {
+                alert('Vui lòng chọn đúng file hình ảnh');
+                return;
+            }
+            else{
+                this.createImage(files[0], isCreate);
+            }
+        },
+        createImage(file, isCreate) {
+            let reader = new FileReader();
+            let vm = this;
+            reader.onload = (e) => {
+                // vm.banner = e.target.result;
+                if (isCreate == true) {
+                    vm.obj_add_bai_viet.hinh_anh = file;
+                } else {
+                    vm.obj_update_bai_viet.hinh_anh = file;
+                }
+            };
+            reader.readAsDataURL(file);
+        },
         changPage(page) {
             if (this.check_page == 0) {
                 this.laydataBaiViet(page);
@@ -414,8 +442,10 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success(res.data.message);
+                        this.is_update = 1;
                     } else {
                         toaster.error(res.data.message);
+                        this.is_update = 0;
                     }
                 });
         },
@@ -429,15 +459,20 @@ export default {
                 });
         },
         taoDataBaiViet() {
+            const formData = new FormData();
+            for (let key in this.obj_add_bai_viet) {
+                formData.append(key, this.obj_add_bai_viet[key]);
+            }
             baseRequest
                 .post(
                     "admin/bai-viet/thong-tin-tao",
-                    this.obj_add_bai_viet
+                    formData
                 )
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.obj_add_bai_viet = {};
+                        this.is_create = 0;
                         this.laydataBaiViet(this.pagination.last_page);
                     } else {
                         toaster.error(res.data.message);
@@ -459,7 +494,8 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
-                        this.laydataBaiViet(1);
+                        this.laydataBaiViet(this.pagination.current_page);
+
                     }
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
@@ -467,12 +503,17 @@ export default {
                 });
         },
         updateBaiViet() {
+            const formData = new FormData();
+            for (let key in this.obj_update_bai_viet) {
+                formData.append(key, this.obj_update_bai_viet[key]);
+            }
             baseRequest
-                .put('admin/bai-viet/thong-tin-cap-nhat', this.obj_update_bai_viet)
+                .post('admin/bai-viet/thong-tin-cap-nhat', formData)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
-                        this.laydataBaiViet(1);
+                        this.is_update = 1;
+                        this.laydataBaiViet(this.pagination.current_page);
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
@@ -492,32 +533,32 @@ export default {
                 });
         },
         //
-        handleFile(event) {
-            const file = event.target.files[0];
-            const cloudName = 'dltbjoii4';
-            const uploadPreset = 'yvvll2k0';
+        // handleFile(event) {
+        //     const file = event.target.files[0];
+        //     const cloudName = 'dltbjoii4';
+        //     const uploadPreset = 'yvvll2k0';
 
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('upload_preset', uploadPreset);
+        //     const formData = new FormData();
+        //     formData.append('file', file);
+        //     formData.append('upload_preset', uploadPreset);
 
-            fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-                method: 'POST',
-                body: formData,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    this.imageUrl = data.secure_url;
-                    this.obj_add_bai_viet.hinh_anh = data.secure_url;
-                    toaster.success('Thêm ảnh thành công!');
+        //     fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        //         method: 'POST',
+        //         body: formData,
+        //     })
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             this.imageUrl = data.secure_url;
+        //             this.obj_add_bai_viet.hinh_anh = data.secure_url;
+        //             toaster.success('Thêm ảnh thành công!');
 
-                })
-                .catch((error) => {
-                    console.error('Error uploading image:', error);
-                    toaster.error('Thêm không ảnh thành công!');
+        //         })
+        //         .catch((error) => {
+        //             console.error('Error uploading image:', error);
+        //             toaster.error('Thêm không ảnh thành công!');
 
-                });
-        },
+        //         });
+        // },
         handleFileUpload(event) {
             const file = event.target.files[0];
             const cloudName = 'dltbjoii4';

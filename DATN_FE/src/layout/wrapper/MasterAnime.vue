@@ -20,6 +20,9 @@ import '../../assets/assets_Anime/js/jquery.slicknav.js';
 import '../../assets/assets_Anime/js/owl.carousel.min.js';
 import '../../assets/assets_Anime/js/main.js';
 
+import '../../assets/assets_Rocker/js/bootstrap.bundle.min.js';
+
+
 /// Newws
 
 
@@ -32,6 +35,9 @@ export default {
 }
 </script>
 <style >
+@import '../../assets/assets_Rocker/css/bootstrap.min.css';
+
+
 @import '../../assets/assets_Anime/css/bootstrap.min.css';
 @import '../../assets/assets_Anime/css/font-awesome.min.css';
 @import '../../assets/assets_Anime/css/elegant-icons.css';

@@ -939,7 +939,7 @@ ol {
 	color: #ffffff;
 }
 
-.product__pagination a.current-page {
+.product__pagination a.current_page {
 	border: 1px solid #ffffff;
 }
 
@@ -968,7 +968,7 @@ ol {
 	color: #ffffff;
 }
 
-.product__pagination button.current-page {
+.product__pagination button.current_page {
 	border: 1px solid #ffffff;
 }
 

@@ -60,8 +60,8 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <div class="dropdown-center">
-                            <a class="dropdown-toggle" type="button" >
-                                <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                            <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem" >
+                                <i  class="fa-solid fa-magnifying-glass fa-xl"></i>
                             </a>
                             <!-- người dùng -->
                             <a type="button" class=" dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,7 +82,7 @@
                                                 type="button">
                                                 <div class="d-flex align-items-center">
                                                     <div class="chat-user-online">
-                                                        <img v-bind:src="img" width="45" height="45" class="rounded-circle" alt="">
+                                                        <img v-bind:src="img" width="40" height="40" class="rounded-circle" alt="">
                                                     </div>
                                                     <div class="flex-grow-1 ms-2">
                                                         <b class="mb-0">{{  user_name }}</b>
@@ -104,12 +104,12 @@
                                 </li>
                                 <li class="user-avatar mt-2">
                                     <a v-show="is_login" class="dropdown-item" data-bs-toggle="modal" type="button"
-                                        @click="laydataYeuThich()" data-bs-target="#DanhSachYT"><i class="fa-solid fa-heart fa-xl me-1"></i><span>Yêu thích</span></a>
+                                        @click="laydataYeuThich()" data-bs-target="#DanhSachYT"><i class="fa-solid fa-heart fa-xl me-3 ms-1"></i><span>Yêu thích</span></a>
                                 </li>
 
                                 <li class="user-avatar mt-2 ">
                                     <router-link to="/" v-show="is_login" class="with-100">
-                                        <a @click="removeToken()" class="dropdown-item"><i class="fa-solid fa-power-off fa-xl me-1"></i><span>Đăng xuất</span></a>
+                                        <a @click="removeToken()" class="dropdown-item"><i class="fa-solid fa-power-off fa-xl me-3 ms-1"></i><span>Đăng xuất</span></a>
                                     </router-link>
                                 </li>
 
@@ -127,7 +127,7 @@
                                             <h5>Danh Sách Phim Yêu Thích Của Bạn</h5>
                                         </div>
                                         <div class="row sctrollspy-example" data-bs-spy="sctroll">
-                                            <template v-for="(v,k) in list_yeu_thich ">
+                                            <template v-for="(v,k) in list_yeu_thich" :key="k">
                                                 <div v-if="v.id_khach_hang == id_user" class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
@@ -188,7 +188,7 @@
                                             </div>
                                         </div>
                                         <div class="row sctrollspy-example" data-bs-spy="sctroll">
-                                            <template v-for="(v,k) in list_phim_search ">
+                                            <template v-for="(v,k) in list_phim_search" :key="k">
                                                 <div   class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
@@ -290,7 +290,18 @@
                 img: 'https://static.vecteezy.com/system/resources/thumbnails/007/407/996/small/user-icon-person-icon-client-symbol-login-head-sign-icon-design-vector.jpg',
             };
         },
+        beforeRouteUpdate(to, from, next) {
+            if (localStorage.getItem('ho_ten_user')) {
+                this.img = localStorage.getItem('hinh_anh_user');
+                this.user_name = localStorage.getItem('ho_ten_user');
+                this.id_user = localStorage.getItem('id_user');
+            }
+            next();
+        },
         mounted() {
+            this.img = localStorage.getItem('hinh_anh_user');
+            this.user_name = localStorage.getItem('ho_ten_user');
+            this.id_user = localStorage.getItem('id_user');
             this.laydataLoaiPhim();
             this.loaddataTheLoai();
             this.checkToken();
@@ -335,7 +346,7 @@
                 localStorage.removeItem('hinh_anh_user');
                 localStorage.removeItem('ho_ten_user');
                 localStorage.removeItem('id_user');
-                this.img = 'https://media.istockphoto.com/id/1198413547/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-ch%E1%BB%A7-%C4%91%E1%BB%81-d%E1%BA%A5u-ch%E1%BA%A5m-h%E1%BB%8Fi-vector-v%E1%BB%9Bi-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-avatar-h%E1%BB%93-s%C6%A1-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-nam-%C4%91%E1%BB%83-%C4%91%C6%B0%E1%BB%A3c-tr%E1%BB%A3.jpg?s=612x612&w=0&k=20&c=0QXMNF-sT-EZsZBbae0ZYlN07LUFPwqV8JSzUT9eoxw=',
+                this.img = 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
                     this.checkToken()
                 toaster.success("Đăng xuất thành công");
             },
@@ -351,7 +362,7 @@
                         // localStorage.setItem('hinh_anh', res.data.hinh_anh);
                         if (res.status === 200) {
                             this.is_login = true;
-                            this.img = localStorage.getItem('hinh_anh_user');
+                            this.img = res.data.hinh_anh_user;
                             this.user_name = localStorage.getItem('ho_ten_user');
                             this.id_user = localStorage.getItem('id_user');
                             // this.list_token = res.data.list;

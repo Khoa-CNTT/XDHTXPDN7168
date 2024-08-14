@@ -28,13 +28,13 @@
                             <div class="section-title">
                                 <h5> {{ obj_phim.ten_phim }}</h5>
                             </div >
-                            <template v-for="(v,k) in list_tap_phim">
-                                <template v-if="v.id_phim == obj_phim.id">
+                            <template v-for="(v,k) in list_tap_phim" :key="k">
+                                <template v-if="v.id_phim == obj_phim.id" >
                                     <a @click="Object.assign(obj_tap_phim,v)" type="button" class="text-white" >{{ v.ten_tap_phim }}</a>
                                 </template>
                             </template>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="row">
@@ -43,10 +43,10 @@
                             <div class="section-title">
                                 <h5>Bình Luận</h5>
                             </div>
-                            <template v-for="(v,k) in list_cmt">
+                            <template v-for="(v,k) in list_cmt" :key="k">
                                 <div v-if="v.id_phim == obj_phim.id " class="anime__review__item">
                                     <div class="anime__review__item__pic">
-                                        <img v-bind:src="v.hinh_anh" alt="">
+                                        <img v-bind:src="v.avatar" alt="">
                                     </div>
                                     <div class="anime__review__item__text">
                                         <div class="row">
@@ -64,7 +64,7 @@
                         </div>
                         <div class="anime__details__form">
                             <div class="section-title">
-                                <h5>Bình Luận của Bạn</h5>
+                                <h5>Viết Bình Luận </h5>
                             </div>
                             <form action="#">
                                 <textarea v-model="obj_cmt_phim.noi_dung"  placeholder="Nhập bình luận"></textarea>
@@ -72,7 +72,7 @@
                             </form>
                         </div>
                     </div>
-                    
+
                      <!-- Modal xoa binh luan -->
                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -108,7 +108,7 @@
         list_tap_phim  : [],
         obj_phim       : {},
         obj_tap_phim   : {},
-        id_user        : localStorage.getItem('id_user'), 
+        id_user        : localStorage.getItem('id_user'),
         list_cmt       : [],
         obj_cmt_phim    : { },
         obj_xoa_cmt     : {},
@@ -119,7 +119,7 @@
       this.laydataTapPhim();
       this.laydataCMT();
     },
-    
+
 
     methods: {
         LaydataDeXem() {
@@ -177,7 +177,7 @@
                     toaster.danger(  res.data.message);
                     }
                 });
-            },   
+            },
 
     },
 

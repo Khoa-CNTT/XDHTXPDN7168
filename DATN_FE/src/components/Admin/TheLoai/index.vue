@@ -32,9 +32,8 @@
                     </div>
                 </div>
                 <div class="card-footer text-end">
-                    <button @click="taoDataTheLoai()" class="btn btn-primary">
-                        Thêm Mới
-                    </button>
+                    <button v-if="is_create == 0" disabled class="btn btn-danger">Thêm Mới</button>
+                    <button v-else v-on:click="taoDataTheLoai()" class="btn btn-primary">Thêm Mới</button>
                 </div>
             </div>
         </div>
@@ -98,7 +97,7 @@
                                         <button @click="Object.assign(obj_update_the_loai, v)" type="button"
                                             class="btn btn-success me-1" data-bs-toggle="modal"
                                             data-bs-target="#Chinhsua">
-                                            Chỉnh Sữa
+                                            Chỉnh Sửa
                                         </button>
 
                                         <button @click="Object.assign(obj_delete_the_loai, v)" data-bs-target="#Xoa"
@@ -134,7 +133,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title fs-5" id="exampleModalLabel">
-                                        <b>CHỈNH SỮA THỂ LOẠI</b>
+                                        <b>CHỈNH SỬA THỂ LOẠI</b>
                                     </h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -170,10 +169,8 @@
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                         Đóng
                                     </button>
-                                    <button @click="updateTheLoai()" type="button" class="btn btn-success"
-                                        data-bs-dismiss="modal">
-                                        Xong
-                                    </button>
+                                    <button v-if="is_update == 0" disabled class="btn btn-danger">Thêm Mới</button>
+                                    <button v-else v-on:click="updateTheLoai()" class="btn btn-primary" data-bs-dismiss="modal">Thêm Mới</button>
                                 </div>
                             </div>
                         </div>
@@ -225,6 +222,8 @@ const toaster = createToaster({
 export default {
     data() {
         return {
+            is_create: 0,
+            is_update: 0,
             list_the_loai: [],
             key_tim: {},
             obj_add_the_loai: {},
@@ -304,8 +303,10 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success(res.data.message);
+                        this.is_update = 1;
                     } else {
                         toaster.error(res.data.message);
+                        this.is_update = 0;
                     }
                 });
         },

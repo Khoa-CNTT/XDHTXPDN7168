@@ -31,7 +31,8 @@
                     </div>
                 </div>
                 <div class="card-footer text-end">
-                    <button @click="taoDataTacGia()" class="btn btn-primary">Thêm Mới</button>
+                    <button v-if="is_create == 0" disabled class="btn btn-danger">Thêm Mới</button>
+                    <button v-else v-on:click="taoDataTacGia()" class="btn btn-primary">Thêm Mới</button>
                 </div>
             </div>
         </div>
@@ -64,7 +65,7 @@
                         </thead>
                         <tbody>
 
-                            <tr v-for="(v, k) in list_tac_gia" class="">
+                            <tr v-for="(v, k) in list_tac_gia" class="" :key="k">
                                 <td class=" align-middle text-nowrap">{{ k + 1 }}</td>
                                 <td class=" align-middle text-nowrap">{{ v.ten_tac_gia }}</td>
                                 <td class=" align-middle text-nowrap">{{ v.slug_tac_gia }}</td>
@@ -79,7 +80,7 @@
                                 <td class="text-center align-middle text-nowrap">
                                     <button @click="Object.assign(obj_update_tac_gia, v)" type="button"
                                         class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#Chinhsua">
-                                        Chỉnh Sữa
+                                        Chỉnh Sửa
                                     </button>
 
                                     <button @click="Object.assign(obj_delete_tac_gia, v)" data-bs-target="#Xoa"
@@ -114,7 +115,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
 
-                                    <h4 class="modal-title fs-5" id="exampleModalLabel"><b>CHỈNH SỮA TÁC GIẢ</b>
+                                    <h4 class="modal-title fs-5" id="exampleModalLabel"><b>CHỈNH Sửa TÁC GIẢ</b>
                                     </h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -150,8 +151,8 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
                                     </button>
-                                    <button @click="updateTacGia()" type="button" class="btn btn-success"
-                                        data-bs-dismiss="modal">Xong</button>
+                                    <button v-if="is_update == 0" disabled class="btn btn-danger">Lưu</button>
+                                    <button v-else v-on:click="updateTacGia()" class="btn btn-primary" data-bs-dismiss="modal">Lưu</button>
                                 </div>
                             </div>
                         </div>
@@ -198,6 +199,8 @@ const toaster = createToaster({
 export default {
     data() {
         return {
+            is_create: 0,
+            is_update: 0,
             list_tac_gia: [],
             key_tim: {},
             obj_add_tac_gia: {},
@@ -277,8 +280,12 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success(res.data.message);
+                        this.is_update = 1;
+
                     } else {
                         toaster.error(res.data.message);
+                        this.is_update = 0;
+
                     }
                 });
         },

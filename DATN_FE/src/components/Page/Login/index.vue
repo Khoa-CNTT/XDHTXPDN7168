@@ -11,7 +11,7 @@
                                <h3>Đăng Nhập</h3>
                             </div>
                             <div class="col-6">
-                                <router-link to="home/register" >
+                                <router-link to="/home/register" >
                                     <a > <h3 style="color: #17a2b8" >Đăng Ký <i class="fa-solid fa-caret-right"></i></h3></a>
 
                                 </router-link>

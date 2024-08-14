@@ -84,7 +84,7 @@
                   </td>
                   <td class="text-center align-middle text-nowrap">
                     <button @click="Object.assign(obj_update_goi_vip,v)" type="button" class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#Chinhsua">
-                      Chỉnh Sữa
+                      Chỉnh Sửa
                     </button>
 
                     <button @click="Object.assign(obj_delete_goi_vip,v)" data-bs-target="#Xoa" data-bs-toggle="modal" class="btn btn-danger">
@@ -99,7 +99,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
 
-                    <h4 class="modal-title fs-5" id="exampleModalLabel"><b>CHỈNH SỮA GÓI VIP</b>
+                    <h4 class="modal-title fs-5" id="exampleModalLabel"><b>CHỈNH Sửa GÓI VIP</b>
                     </h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
