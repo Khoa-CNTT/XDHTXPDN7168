@@ -31,8 +31,8 @@
                   " id="myTab" role="tablist">
                                     <template v-for="(v, k) in list_chuyen_muc" :key="k">
                                         <template v-if="k == 0">
-                                            <li class="nav-item" role="presentation">
-                                                <button style="
+                                            <li  class="nav-item" role="presentation">
+                                                <button @click="changeChuyenMuc(v.id,1)"   style="
                             background-color: rgba(35, 33, 33, 0.4);
                             width: 180px;
                           " class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -43,8 +43,8 @@
                                             </li>
                                         </template>
                                         <template v-else>
-                                            <li class="nav-item" role="presentation">
-                                                <button style="
+                                            <li  class="nav-item" role="presentation">
+                                                <button @click="changeChuyenMuc(v.id,1)" style="
                             background-color: rgba(35, 33, 33, 0.4);
                             width: 180px;
                           " class="nav-link" id="profile-tab" data-bs-toggle="tab"
@@ -135,12 +135,24 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="product__pagination text-center">
+                        <a @click="changPage(1)" type="button" ><i class="fa fa-angle-double-left"></i></a>
+
+                        <a type="button" :class="{ current_page: page === pagination.current_page }" v-for="page in pageNumbers" :key="page"  @click="page !== '...' && changPage(page)">
+                            {{ page }}
+                        </a>
+
+                        <a @click="changPage(pagination.last_page)" type="button" ><i class="fa fa-angle-double-right"></i></a>
+                    </div>
+            </div>
         </div>
     </section>
     <!-- Blog Section End -->
 </template>
 <script>
 import axios from "axios";
+import { getPageNumbers } from "../../../core/paginationUtils.js";
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({
     position: "top-right",
@@ -148,22 +160,45 @@ const toaster = createToaster({
 export default {
     data() {
         return {
+            check_id_cm: 1,
             list_blog: [],
             list_chuyen_muc: [],
             isLoading: true,
+            pagination: {
+                last_page: "",
+                per_page: "",
+                current_page: "",
+                last_page: "",
+                from: "",
+                to: "",
+            },
+            check_page: 0,
         };
     },
+    computed: {
+        pageNumbers() {
+            return getPageNumbers(this.pagination);
+        },
+    },
     mounted() {
-        this.laydataLoaiBlog();
+        this.laydataLoaiBlog(1);
         this.loaddataChuyenMuc();
     },
 
     methods: {
-        laydataLoaiBlog() {
+        changPage(page) {
+            if (this.check_page == 0) {
+                this.laydataLoaiBlog(page);
+            } else if (this.check_page == 1) {
+                this.changeChuyenMuc(this.check_id_cm, page);
+            }
+        },
+        laydataLoaiBlog(page) {
             axios
-                .get("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-show")
+                .get("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-show?page=" + page)
                 .then((res) => {
-                    this.list_blog = res.data.bai_viet;
+                    this.list_blog = res.data.bai_viet.dataAdmin.data;
+                    this.pagination = res.data.bai_viet.pagination;
                 });
         },
         loaddataChuyenMuc() {
@@ -171,6 +206,21 @@ export default {
                 .get("http://127.0.0.1:8000/api/chuyen-muc/lay-du-lieu-show")
                 .then((res) => {
                     this.list_chuyen_muc = res.data.chuyen_muc;
+                });
+        },
+        changeChuyenMuc(id_chuyen_muc,page) {
+            this.check_id_cm = id_chuyen_muc;
+            this.check_page = 1;
+            var payload = {
+                'id_chuyen_muc' : id_chuyen_muc
+            };
+            axios
+                .post("http://127.0.0.1:8000/api/bai-viet/change-chuyen-muc?page=" + page, payload)
+                .then((res) => {
+                    this.list_blog = res.data.bai_viet.dataAdmin.data;
+                    this.pagination = res.data.bai_viet.pagination;
+                    window.scrollTo(0, 0);
+
                 });
         },
     },
