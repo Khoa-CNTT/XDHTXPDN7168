@@ -291,7 +291,7 @@
             };
         },
         beforeRouteUpdate(to, from, next) {
-            if (localStorage.getItem('ho_ten_user')) {
+            if (to.localStorage.getItem('ho_ten_user')) {
                 this.img = localStorage.getItem('hinh_anh_user');
                 this.user_name = localStorage.getItem('ho_ten_user');
                 this.id_user = localStorage.getItem('id_user');
@@ -302,8 +302,7 @@
             this.img = localStorage.getItem('hinh_anh_user');
             this.user_name = localStorage.getItem('ho_ten_user');
             this.id_user = localStorage.getItem('id_user');
-            this.laydataLoaiPhim();
-            this.loaddataTheLoai();
+            this.loadDataMenu();
             this.checkToken();
             this.laydataYeuThich();
         },
@@ -327,11 +326,13 @@
                                 this.list_phim = res.data.phim;
                         });
                 },
-            laydataLoaiPhim() {
+            loadDataMenu() {
                 axios
                     .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                     .then((res) => {
                         this.list_loai_phim = res.data.loai_phim;
+                        this.list_the_loai = res.data.the_loai;
+
                     });
             },
             loaddataTheLoai() {

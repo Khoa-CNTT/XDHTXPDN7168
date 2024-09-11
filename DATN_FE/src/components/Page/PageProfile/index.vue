@@ -208,7 +208,7 @@ export default {
     methods: {
         laydataAdmin() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/khach-hang/lay-du-lieu-profile", {
+                .get("http://127.0.0.1:8000/api/khach-hang/lay-du-lieu-profile", {
                     params: {
                         id_khach_hang: this.id_user,
                     },
@@ -232,7 +232,7 @@ export default {
         },
         DoiPass() {
             baseRequest
-                .put("admin/khach-hang/doi-mat-khau", this.obj_doi_pass)
+                .put("khach-hang/doi-mat-khau", this.obj_doi_pass)
                 .then((res) => {
                     // console.log(res.data);
                     if (res.data.status == true) {
@@ -251,7 +251,7 @@ export default {
         },
         DoiThongTin() {
             baseRequest
-                .put("admin/khach-hang/doi-thong-tin", this.obj_update_tt)
+                .put("khach-hang/doi-thong-tin", this.obj_update_tt)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
@@ -307,7 +307,7 @@ export default {
             }
             baseRequest
                 .post(
-                    "admin/khach-hang/doi-avatar",
+                    "khach-hang/doi-avatar",
                     formData
                 )
                 .then((res) => {

@@ -180,20 +180,16 @@ export default {
         next();
     },
     methods: {
-        loadataTheLoaiAndPhim(page, type) {
-            var payload = {
-                'type_get'  : 0,
-                'slug'      : this.slug,
-                // ''
-            };
+        loadataTheLoaiAndPhim(page) {
             axios
-                .post('http://127.0.0.1:8000/api/the-loai/lay-du-lieu?page=' + page, payload)
+                .get('http://127.0.0.1:8000/api/the-loai/lay-du-lieu/'  + this.slug + '?page=' + page, {})
                 .then((res) => {
                     this.the_loai = res.data.the_loai;
                     this.list_9_phim = res.data.phim_9_obj;
                     this.pagination = res.data.phim.pagination;
                     this.list_phim = res.data.phim.dataPhim.data;
                     window.scrollTo(0, 0);
+
                 });
         },
         changPage(page) {
@@ -206,7 +202,7 @@ export default {
         Sapxep(page) {
             this.check_page = 1;
             axios
-                .get("http://127.0.0.1:8000/api/the-loai/sap-xep/"+ this.the_loai.id +"/" + this.bien + '?page=' + page, {})
+                .get("http://127.0.0.1:8000/api/the-loai/sap-xep/"+ this.the_loai.id +"/" + this.bien + '?page=' + page)
                 .then((res) => {
                     this.list_phim = res.data.phim.dataPhim.data;
                     this.pagination = res.data.phim.pagination;

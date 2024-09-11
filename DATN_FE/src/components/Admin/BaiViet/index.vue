@@ -109,11 +109,10 @@
                                 <tr class="text-center">
                                     <th>#</th>
                                     <th class=" align-middle text-nowrap">Tiều Đề</th>
-                                    <th class=" align-middle text-nowrap">Slug Tiêu Đề</th>
+                                    <th class=" align-middle text-nowrap">Hình Ảnh</th>
                                     <th class=" align-middle text-nowrap">Chuyên Mục</th>
                                     <th class=" align-middle text-nowrap">Mô Tả</th>
-                                    <th class=" align-middle text-nowrap">Mô Tả Chi Tiết</th>
-                                    <th class=" align-middle text-nowrap">Hình Ảnh</th>
+                                    <th class=" align-middle text-nowrap">Chi tiết</th>
                                     <th class=" align-middle text-nowrap">Tình Trạng</th>
                                     <th class=" align-middle text-nowrap">Action</th>
                                 </tr>
@@ -121,28 +120,27 @@
                             <tbody>
                                 <tr v-for="(v, k) in list_bai_viet" class="" :key="k">
                                     <td class=" align-middle text-nowrap">{{ k + 1 }}</td>
-                                    <td class=" align-middle text-wrap">{{ v.tieu_de }}</td>
-                                    <td class=" align-middle text-wrap">{{ v.slug_tieu_de }}</td>
-                                    <td class=" align-middle text-nowrap">{{ v.ten_chuyen_muc }}</td>
-                                    <td class=" align-middle text-wrap">{{ v.mo_ta }}</td>
-                                    <td class="text-center align-middle text-nowrap">
-                                        <button @click="Object.assign(obj_mo_ta, v)" type="button" class="btn text-info"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal"><i
-                                                class="fa-solid fa-info"></i>
-                                        </button>
+                                    <td class=" align-middle text-nowrap">{{ tenLimited(v.tieu_de) }}</td>
+                                    <td>
+                                        <img v-bind:src="v.hinh_anh" class="product-img-2 ms-2" alt="product img">
                                     </td>
-                                    <td class=" align-middle text-nowrap">
-                                        <img v-bind:src="v.hinh_anh" class="img-fluid"
-                                            style="width: 70px; height: auto;" alt="">
+                                    <td class=" align-middle text-nowrap">{{ v.ten_chuyen_muc }}</td>
+                                    <td class=" align-middle text-wrap">{{ tenLimited(v.mo_ta) }}</td>
+                                    <td class="text-center align-middle text-nowrap">
+                                        <button @click="Object.assign(obj_chi_tiet, v)" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#ChiTiet"
+                                            class="btn btn-primary btn-sm radius-30 px-4">Xem chi
+                                            tiết</button>
                                     </td>
 
-                                    <td class=" align-middle text-nowrap">
+
+                                    <td class="text-center align-middle text-nowrap text-center">
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
-                                            class="btn btn-success">
+                                            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3" style="border: none;">
                                             Hoạt Động
                                         </button>
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 0"
-                                            class="btn btn-warning">
+                                            class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3" style="border: none;">
                                             Tạm Dừng
                                         </button>
                                     </td>
@@ -180,20 +178,53 @@
                             </div>
                         </nav>
                     </div>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="ChiTiet" tabindex="-1" aria-labelledby="ChiTietLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mô Tả</h1>
+                                    <h1 class="modal-title fs-5" id="ChiTietLabel">Chi Tiết Bài Viết</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    {{ obj_mo_ta.mo_ta_chi_tiet }}
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Đóng</button>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Hình ảnh</th>
+                                                <td>
+                                                    <img v-bind:src="obj_chi_tiet.hinh_anh" class="img" alt="..."
+                                                        style="max-height: 200px; max-width: 100px;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Tiêu đề</th>
+                                                <td colspan="6" class="text-wrap">{{ obj_chi_tiet.tieu_de}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Slug Tiêu Đề</th>
+                                                <td colspan="6">{{ obj_chi_tiet.slug_tieu_de }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Chuyên Mục</th>
+                                                <td colspan="6">{{ obj_chi_tiet.ten_chuyen_muc }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Mô tả</th>
+                                                <td colspan="6">{{ obj_chi_tiet.mo_ta }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Mô tả chi tiết</th>
+                                                <td colspan="6">{{ obj_chi_tiet.mo_ta_chi_tiet }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Trạng thái</th>
+                                                <td colspan="6">
+                                                    <a class="text">{{ obj_chi_tiet.tinh_trang == 1 ? 'Hiển thị' : 'Tạm' }} </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -323,6 +354,7 @@
 <script>
 import axios from "axios";
 import baseRequest from '../../../core/baseRequest';
+import functionBasic from "../../../core/functionBasic";
 import { createToaster } from "@meforma/vue-toaster";
 import { getPageNumbers } from "../../../core/paginationUtils.js";
 const toaster = createToaster({
@@ -333,7 +365,7 @@ export default {
         return {
             is_create: 0,
             is_update: 1,
-            obj_mo_ta: {},
+            obj_chi_tiet: {},
             list_bai_viet: [],
             list_chuyen_muc: [],
             obj_add_bai_viet: {},
@@ -349,6 +381,8 @@ export default {
                 to: "",
             },
             check_page: 0,
+            maxChars: 20
+
         };
     },
     computed: {
@@ -361,6 +395,12 @@ export default {
         this.laydataBaiViet(1);
     },
     methods: {
+        tenLimited(tenqg) {
+            if (tenqg && tenqg.length > this.maxChars) {
+                return tenqg.substring(0, 15) + '...';
+            }
+            return tenqg || ''; // Return an empty string if tenqg is undefined or null
+        },
         handleFile(e, isCreate) {
             let files = e.target.files || e.dataTransfer.files;
             this.file = files;

@@ -197,6 +197,7 @@
 import axios from 'axios';
 import baseRequest from '../../../core/baseRequest';
 import { createToaster } from "@meforma/vue-toaster";
+import functionBasic from "../../../core/functionBasic";
 const toaster = createToaster({ position: "top-right" });
 export default {
     data() {

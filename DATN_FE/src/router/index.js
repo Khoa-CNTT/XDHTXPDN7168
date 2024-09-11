@@ -99,80 +99,90 @@ const routes = [
     beforeEnter: checkLogin,
     children: [
       {
+        path: "danh-muc",
+        component: () => import("../components/Admin/DanhMuc/index.vue"),
+
+      },
+      {
         path: "goi-vip",
         component: () => import("../components/Admin/GoiVip/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "profile",
         component: () => import("../components/Admin/ProfileAdmin/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "the-loai",
         component: () => import("../components/Admin/TheLoai/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "tk-admin",
         component: () => import("../components/Admin/AdminAnime/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "chuc-vu",
         component: () => import("../components/Admin/ChucVu/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       //   {
       //     path: "khach-hang",
       //     component: () => import("../components/Admin/KhachHang/index.vue"),
-      //     beforeEnter: checkLogin,
+      //
       //   },
       {
         path: "khach-hang",
         component: () => import("../components/Admin/KhachHang/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "bai-viet",
         component: () => import("../components/Admin/BaiViet/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "chuyen-muc",
         component: () => import("../components/Admin/ChuyenMucBlog/index.vue"),
-        beforeEnter: checkLogin,
+
       },
 
       {
         path: "loai-phim",
         component: () => import("../components/Admin/LoaiAnime/index.vue"),
-        beforeEnter: checkLogin,
+
+      },
+      {
+        path: "dien-vien",
+        component: () => import("../components/Admin/DienVien/index.vue"),
+
       },
       {
         path: "tac-gia",
         component: () => import("../components/Admin/TacGia/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "anime",
         component: () => import("../components/Admin/Phim/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "phan-quyen",
         component: () => import("../components/Admin/PhanQuyen/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "tap-phim",
         component: () => import("../components/Admin/TapPhim/index.vue"),
-        beforeEnter: checkLogin,
+
       },
       {
         path: "thong-ke",
         component: () => import("../components/Admin/ThongKe/index.vue"),
-        beforeEnter: checkLogin,
+
       },
     ],
   },

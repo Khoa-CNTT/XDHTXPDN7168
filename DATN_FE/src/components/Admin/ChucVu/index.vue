@@ -71,11 +71,13 @@
                                     <td class="text-center align-middle text-nowrap">{{ v.ten_chuc_vu }}</td>
                                     <td class="text-center align-middle text-nowrap">{{ v.slug_chuc_vu }}</td>
 
-                                    <td class="text-center align-middle text-nowrap">
-                                        <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1" class="btn btn-success">
+                                    <td class="text-center align-middle text-nowrap text-center">
+                                        <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
+                                            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3" style="border: none;">
                                             Hoạt Động
                                         </button>
-                                        <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 0" class="btn btn-warning">
+                                        <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 0"
+                                            class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3" style="border: none;">
                                             Tạm Dừng
                                         </button>
                                     </td>
@@ -192,6 +194,7 @@
 <script>
 import axios from "axios";
 import baseRequest from '../../../core/baseRequest';
+import functionBasic from "../../../core/functionBasic";
 import { createToaster } from "@meforma/vue-toaster";
 import { getPageNumbers } from "../../../core/paginationUtils.js";
 const toaster = createToaster({
@@ -201,7 +204,7 @@ export default {
     data() {
         return {
             is_create: 0,
-            is_update: 0,
+            is_update: 1,
             list_chuc_vu: [],
             key_tim: {},
             obj_add_chuc_vu: {},

@@ -169,6 +169,7 @@
 </template>
 <script>
   import axios from "axios";
+import functionBasic from "../../../core/functionBasic";
   import baseRequest from '../../../core/baseRequest';
   import { createToaster } from "@meforma/vue-toaster";
   const toaster = createToaster({

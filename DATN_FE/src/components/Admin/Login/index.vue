@@ -147,14 +147,14 @@
                         <div class="form-body">
                             <form class="row g-3">
                                 <div class="col-12">
-                                    <label for="inputEmailAddress" class="form-label">Địa Chỉ Email</label>
+                                    <label  class="form-label">Địa Chỉ Email</label>
                                     <input type="email" v-model="dang_nhap.email" class="form-control"
-                                        id="inputEmailAddress" placeholder="Nhập Email">
+                                        placeholder="Nhập Email">
                                 </div>
                                 <div class="col-12">
                                     <label for="inputChoosePassword" class="form-label">Mật Khẩu</label>
-                                    <input type="password" v-model="dang_nhap.password" class="form-control"
-                                        id="inputEmailAddress" placeholder="Nhập Mật Khẩu">
+                                    <input v-on:keyup.enter="dangNhap()" type="password" v-model="dang_nhap.password" class="form-control"
+                                        placeholder="Nhập Mật Khẩu">
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <div class="form-check form-switch">
@@ -185,6 +185,7 @@
 <script>
 import axios from 'axios';
 import { createToaster } from "@meforma/vue-toaster";
+import functionBasic from "../../../core/functionBasic";
 const toaster = createToaster({ position: "top-right" });
 export default {
     data() {
@@ -202,13 +203,7 @@ export default {
         this.checkToken();
     },
     methods: {
-        dangKy() {
-            axios
-                .post('http://127.0.0.1:8000/api/register', this.dang_ky)
-                .then((res) => {
-                    toaster.success(res.data.message);
-                });
-        },
+
         dangNhap() {
             axios
                 .post('http://127.0.0.1:8000/api/login', this.dang_nhap)
@@ -217,7 +212,12 @@ export default {
                         toaster.success(res.data.message);
                         var arr = res.data.token.split("|");
                         localStorage.setItem('token', arr[1]);
-                        console.log(arr[1]);
+                        // localStorage.setItem('avatar_admin',res.data.hinh_anh);
+                        // localStorage.setItem('avatar_admin', res.data.hinh_anh);
+                        localStorage.setItem('avt_admin', res.data.avt_admin);
+                        localStorage.setItem('name_admin',res.data.name_admin);
+                        localStorage.setItem('ten_chuc_vu',res.data.chuc_vu);
+                        // console.log(arr[1]);
                         this.checkToken();
                     } else {
                         toaster.error(res.data.message);
@@ -232,13 +232,8 @@ export default {
                     }
                 })
                 .then((res) => {
-                    console.log(res.data);
-                    localStorage.setItem('ho_ten', res.data.ho_ten);
-                    localStorage.setItem('id_admin', res.data.id_admin);
-                    localStorage.setItem('hinh_anh', res.data.hinh_anh);
                     if (res.status === 200) {
                         this.is_login = true;
-                        this.list_token = res.data.list;
                         this.$router.push('/admin/anime');
                     }
 
