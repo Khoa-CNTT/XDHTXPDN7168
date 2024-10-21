@@ -21,29 +21,29 @@
                                         <a href="/">Trang Chủ</a>
                                     </li>
                                 </router-link>
-                                <li class="menu"><a href="#">Thể Loại <span
-                                            class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown">
-                                        <template v-for="(v,k) in list_the_loai" :key="k">
-                                            <li class="menu" >
-                                                <router-link :to="{ name: 'PageList', params: {  slug: v.slug_the_loai }}">
-                                                     {{ v.ten_the_loai }}
+                                <li class="menu"><a href="#">Thể Loại <span class="arrow_carrot-down"></span></a>
+                                    <ul class="dropdown" style=" column-count: 2; width: 260px;">
+                                        <template v-for="(v, k) in list_the_loai" :key="k">
+                                            <li class="menu text-nowrap">
+                                                <router-link
+                                                    :to="{ name: 'PageList', params: { slug: v.slug_the_loai } }">
+                                                    {{ v.ten_the_loai }}
                                                 </router-link>
                                                 <!-- <a v-bind:href="'/the-loai/' + v.id"> {{ v.ten_the_loai }}</a> -->
                                             </li>
                                         </template>
                                     </ul>
                                 </li>
-                                <li class="menu"><a href="#" >Loại Phim <span
-                                            class="arrow_carrot-down"></span></a>
+                                <li class="menu"><a href="#">Loại Phim <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
-                                        <template v-for="(v,k) in list_loai_phim" :key="k">
-                                            <li class="menu" >
+                                        <template v-for="(v, k) in list_loai_phim" :key="k">
+                                            <li class="menu">
                                                 <!-- <router-link :to="`/loai-phim/${v.id}`">
                                                     {{  v.ten_loai_phim }}
                                                 </router-link> -->
-                                                <router-link :to="{ name: 'PageLoaiPhim', params: { slug: v.slug_loai_phim }}">
-                                                     {{ v.ten_loai_phim }}
+                                                <router-link
+                                                    :to="{ name: 'PageLoaiPhim', params: { slug: v.slug_loai_phim } }">
+                                                    {{ v.ten_loai_phim }}
                                                 </router-link>
                                             </li>
                                         </template>
@@ -60,8 +60,8 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <div class="dropdown-center">
-                            <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem" >
-                                <i  class="fa-solid fa-magnifying-glass fa-xl"></i>
+                            <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
+                                <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                             </a>
                             <!-- người dùng -->
                             <a type="button" class=" dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,22 +73,23 @@
                                 <li class="user-avatar" v-show="is_login == false">
                                     <router-link to="/home/login" class="with-100">
                                         <a class="dropdown-item " type="button"><i
-                                                class="fa-solid fa-user me-1"></i><span>Đăng Nhập</span></a>
+                                                class="fa-solid fa-user me-1"></i><span>Đăng
+                                                Nhập</span></a>
                                     </router-link>
                                 </li>
                                 <li class="user-avatar">
                                     <router-link to="/profile">
-                                            <a v-show="is_login" class="dropdown-item text-center  "
-                                                type="button">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="chat-user-online">
-                                                        <img v-bind:src="img" width="40" height="40" class="rounded-circle" alt="">
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-2">
-                                                        <b class="mb-0">{{  user_name }}</b>
-                                                    </div>
+                                        <a v-show="is_login" class="dropdown-item text-center  " type="button">
+                                            <div class="d-flex align-items-center">
+                                                <div class="chat-user-online">
+                                                    <img v-bind:src="img" width="40" height="40" class="rounded-circle"
+                                                        alt="">
                                                 </div>
-                                                <!-- <div class="row">
+                                                <div class="flex-grow-1 ms-2">
+                                                    <b class="mb-0">{{ user_name }}</b>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
                                                     <div class="col">
                                                         <img style="width: 40px; height: 40px; margin: 0;" v-bind:src="img"
                                                             class="user-img " alt="user avatar">
@@ -98,18 +99,21 @@
                                                     </div>
                                                 </div> -->
 
-                                            </a>
+                                        </a>
                                     </router-link>
 
                                 </li>
                                 <li class="user-avatar mt-2">
                                     <a v-show="is_login" class="dropdown-item" data-bs-toggle="modal" type="button"
-                                        @click="laydataYeuThich()" data-bs-target="#DanhSachYT"><i class="fa-solid fa-heart fa-xl me-3 ms-1"></i><span>Yêu thích</span></a>
+                                        @click="laydataYeuThich()" data-bs-target="#DanhSachYT"><i
+                                            class="fa-solid fa-heart fa-xl me-3 ms-1"></i><span>Yêu thích</span></a>
                                 </li>
 
                                 <li class="user-avatar mt-2 ">
                                     <router-link to="/" v-show="is_login" class="with-100">
-                                        <a @click="removeToken()" class="dropdown-item"><i class="fa-solid fa-power-off fa-xl me-3 ms-1"></i><span>Đăng xuất</span></a>
+                                        <a @click="removeToken()" class="dropdown-item"><i
+                                                class="fa-solid fa-power-off fa-xl me-3 ms-1"></i><span>Đăng
+                                                xuất</span></a>
                                     </router-link>
                                 </li>
 
@@ -127,13 +131,14 @@
                                             <h5>Danh Sách Phim Yêu Thích Của Bạn</h5>
                                         </div>
                                         <div class="row sctrollspy-example" data-bs-spy="sctroll">
-                                            <template v-for="(v,k) in list_yeu_thich" :key="k">
+                                            <template v-for="(v, k) in list_yeu_thich" :key="k">
                                                 <div v-if="v.id_khach_hang == id_user" class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
                                                             <a v-bind:href="'/de-list/' + v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
-                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;"
+                                                                        alt="" />
                                                                 </div>
                                                             </a>
                                                             <div class="product__sidebar__comment__item__text">
@@ -152,12 +157,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-2">
-                                                        <a @click="xoaYeuThich(v)" type="button" class="mt-5 text-danger">
-                                                            <h4 style="color: red;"><i class="fa-solid fa-trash"></i></h4>
+                                                        <a @click="xoaYeuThich(v)" type="button"
+                                                            class="mt-5 text-danger">
+                                                            <h4 style="color: red;"><i class="fa-solid fa-trash"></i>
+                                                            </h4>
                                                         </a>
                                                     </div>
                                                 </div>
-                                             </template>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>
@@ -177,10 +184,12 @@
                                     <div class="product__sidebar__comment">
                                         <div class="section-title ">
                                             <div class="input-group mb-3">
-                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" @click="searchPhim()" type="button"  class="input-group-text serch" >
-                                                <i class="fa-solid fa-magnifying-glass"></i></a>
+                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" @click="searchPhim()"
+                                                    type="button" class="input-group-text serch">
+                                                    <i class="fa-solid fa-magnifying-glass"></i></a>
 
-                                                <input v-on:keyup="searchPhim()" v-model="key_tim.key" class="form-control" list="datalistOptions" id="exampleDataList"
+                                                <input v-on:keyup="searchPhim()" v-model="key_tim.key"
+                                                    class="form-control" list="datalistOptions" id="exampleDataList"
                                                     placeholder="Tìm kiếm phim..">
                                                 <datalist id="datalistOptions">
                                                     <option value="chuyển sinh thành máy bán nước"></option>
@@ -188,13 +197,14 @@
                                             </div>
                                         </div>
                                         <div class="row sctrollspy-example" data-bs-spy="sctroll">
-                                            <template v-for="(v,k) in list_phim_search" :key="k">
-                                                <div   class="row ">
+                                            <template v-for="(v, k) in list_phim_search" :key="k">
+                                                <div class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
                                                             <a v-bind:href="'/de-list/' + v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
-                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;"
+                                                                        alt="" />
                                                                 </div>
                                                             </a>
 
@@ -269,184 +279,193 @@
 
 </template>
 <script>
-    import baseRequest from '../../core/baseRequestUser';
-    import axios from "axios";
-    import { createToaster } from "@meforma/vue-toaster";
-    const toaster = createToaster({
-        position: "top-right",
-    });
-    export default {
-        data() {
-            return {
-                list_the_loai: [],
-                list_loai_phim: [],
-                list_yeu_thich: [],
-                list_phim_search : [],
-                list_phim   :   [],
-                key_tim        : {},
-                is_login: false,
-                user_name: {},
-                id_user: {},
-                img: 'https://static.vecteezy.com/system/resources/thumbnails/007/407/996/small/user-icon-person-icon-client-symbol-login-head-sign-icon-design-vector.jpg',
-            };
-        },
-        beforeRouteUpdate(to, from, next) {
-            if (to.localStorage.getItem('ho_ten_user')) {
-                this.img = localStorage.getItem('hinh_anh_user');
-                this.user_name = localStorage.getItem('ho_ten_user');
-                this.id_user = localStorage.getItem('id_user');
-            }
-            next();
-        },
-        mounted() {
+import baseRequest from '../../core/baseRequestUser';
+import axios from "axios";
+import { createToaster } from "@meforma/vue-toaster";
+const toaster = createToaster({
+    position: "top-right",
+});
+export default {
+    data() {
+        return {
+            list_the_loai: [],
+            list_loai_phim: [],
+            list_yeu_thich: [],
+            list_phim_search: [],
+            list_phim: [],
+            key_tim: {},
+            is_login: false,
+            user_name: {},
+            id_user: {},
+            img: 'https://static.vecteezy.com/system/resources/thumbnails/007/407/996/small/user-icon-person-icon-client-symbol-login-head-sign-icon-design-vector.jpg',
+        };
+    },
+    beforeRouteUpdate(to, from, next) {
+        if (to.localStorage.getItem('ho_ten_user')) {
             this.img = localStorage.getItem('hinh_anh_user');
             this.user_name = localStorage.getItem('ho_ten_user');
             this.id_user = localStorage.getItem('id_user');
-            this.loadDataMenu();
-            this.checkToken();
-            this.laydataYeuThich();
+        }
+        next();
+    },
+    mounted() {
+        this.img = localStorage.getItem('hinh_anh_user');
+        this.user_name = localStorage.getItem('ho_ten_user');
+        this.id_user = localStorage.getItem('id_user');
+        this.loadDataMenu();
+        this.checkToken();
+        this.laydataYeuThich();
+    },
+    methods: {
+
+        laydataYeuThich() {
+            baseRequest
+                .get("admin/yeu-thich/lay-du-lieu")
+                .then((res) => {
+                    this.list_yeu_thich = res.data.yeu_thich;
+                });
         },
-        methods: {
+        laydataTheoTheLoai(id_the_loai) {
+            axios
+                .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
+                    params: {
+                        id_tl: id_the_loai,
+                    }
+                })
+                .then((res) => {
+                    this.list_phim = res.data.phim;
+                });
+        },
+        loadDataMenu() {
+            axios
+                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+                .then((res) => {
+                    this.list_loai_phim = res.data.loai_phim;
+                    this.list_the_loai = res.data.the_loai;
 
-            laydataYeuThich() {
-                baseRequest
-                    .get("admin/yeu-thich/lay-du-lieu")
-                    .then((res) => {
-                        this.list_yeu_thich = res.data.yeu_thich;
-                    });
-            },
-            laydataTheoTheLoai(id_the_loai) {
-                    axios
-                        .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
-                            params : {
-                                id_tl : id_the_loai,
-                            }
-                        })
-                        .then((res)=>{
-                                this.list_phim = res.data.phim;
-                        });
-                },
-            loadDataMenu() {
-                axios
-                    .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
-                    .then((res) => {
-                        this.list_loai_phim = res.data.loai_phim;
-                        this.list_the_loai = res.data.the_loai;
+                });
+        },
+        // loaddataTheLoai() {
+        //     axios
+        //         .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
+        //         .then((res) => {
+        //             this.list_the_loai = res.data.the_loai;
+        //         });
+        // },
+        removeToken() {
+            localStorage.removeItem('token_user');
+            localStorage.removeItem('hinh_anh_user');
+            localStorage.removeItem('ho_ten_user');
+            localStorage.removeItem('id_user');
+            this.img = 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
+                this.checkToken()
+            toaster.success("Đăng xuất thành công");
+        },
+        checkToken() {
+            axios
+                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token_user')
+                    }
+                })
+                .then((res) => {
+                    // localStorage.setItem('ho_ten', res.data.ho_ten);
+                    // localStorage.setItem('hinh_anh', res.data.hinh_anh);
+                    if (res.status === 200) {
+                        this.is_login = true;
+                        this.img = res.data.hinh_anh_user;
+                        this.user_name = localStorage.getItem('ho_ten_user');
+                        this.id_user = localStorage.getItem('id_user');
+                        // this.list_token = res.data.list;
+                        // this.$router.push('/');
 
-                    });
-            },
-            loaddataTheLoai() {
-                axios
-                    .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-                    .then((res) => {
-                        this.list_the_loai = res.data.the_loai;
-                    });
-            },
-            removeToken() {
-                localStorage.removeItem('token_user');
-                localStorage.removeItem('hinh_anh_user');
-                localStorage.removeItem('ho_ten_user');
-                localStorage.removeItem('id_user');
-                this.img = 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
-                    this.checkToken()
-                toaster.success("Đăng xuất thành công");
-            },
-            checkToken() {
-                axios
-                    .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
-                        headers: {
-                            Authorization: 'Bearer ' + localStorage.getItem('token_user')
-                        }
-                    })
-                    .then((res) => {
-                        // localStorage.setItem('ho_ten', res.data.ho_ten);
-                        // localStorage.setItem('hinh_anh', res.data.hinh_anh);
-                        if (res.status === 200) {
-                            this.is_login = true;
-                            this.img = res.data.hinh_anh_user;
-                            this.user_name = localStorage.getItem('ho_ten_user');
-                            this.id_user = localStorage.getItem('id_user');
-                            // this.list_token = res.data.list;
-                            // this.$router.push('/');
+                    }
 
-                        }
-
-                    })
-                    .catch(() => {
-                        this.is_login = false;
-                    });
-            },
-            xoaYeuThich(v) {
-                baseRequest
-                    .post('admin/yeu-thich/thong-tin-xoa', v)
-                    .then((res) => {
-                        if (res.data.status == true) {
-                            toaster.success(res.data.message);
-                            this.laydataYeuThich();
-                        }
-                        else {
-                            toaster.danger(res.data.message);
-                        }
-                    });
-            },
-            searchPhim() {
-                axios
-                    .post("http://127.0.0.1:8000/api/phim/thong-tin-tim",this.key_tim)
-                    .then((res) => {
-                        this.list_phim_search = res.data.phim;
-                    });
-            },
-
+                })
+                .catch(() => {
+                    this.is_login = false;
+                });
+        },
+        xoaYeuThich(v) {
+            baseRequest
+                .post('admin/yeu-thich/thong-tin-xoa', v)
+                .then((res) => {
+                    if (res.data.status == true) {
+                        toaster.success(res.data.message);
+                        this.laydataYeuThich();
+                    }
+                    else {
+                        toaster.danger(res.data.message);
+                    }
+                });
+        },
+        searchPhim() {
+            axios
+                .post("http://127.0.0.1:8000/api/phim/thong-tin-tim", this.key_tim)
+                .then((res) => {
+                    this.list_phim_search = res.data.phim;
+                });
         },
 
+    },
 
 
-    };
+
+};
 </script>
 <style>
-    .sctrollspy-example {
-        height: 400px;
-        overflow-y: auto;
-    }
-    /* Mặc định */
-    li {
-        color: #000;
-        /* Màu chữ mặc định */
-    }
+.sctrollspy-example {
+    height: 400px;
+    overflow-y: auto;
+}
 
-    /* Hover */
-    .menu:hover {
-        cursor: pointer;
-        background-color: #e53637;
-        color: #000;
+/* Mặc định */
+li {
+    color: #000;
+    /* Màu chữ mặc định */
+}
 
-    }
+/* Hover */
+.menu:hover {
+    cursor: pointer;
+    background-color: #e53637;
+    color: #000;
 
-    /* Mặc định cho thẻ a bên trong thẻ li */
-    li a {
-        color: #000;
-        /* Màu chữ mặc định */
-    }
+}
 
-    /* Hover cho thẻ a bên trong thẻ li */
-    li:hover a {
-        color: #000;
-        /* Màu chữ khi hover (màu đen) */
-    }
+/* Mặc định cho thẻ a bên trong thẻ li */
+li a {
+    color: #000;
+    /* Màu chữ mặc định */
+}
 
-    /* Mặc định cho thẻ a có class arrow_carrot-down */
-    li a.arrow_carrot-down {
-        color: #000;
-        /* Màu chữ mặc định */
-    }
+/* Chia danh sách thành 2 cột */
 
-    /* Hover cho thẻ a có class arrow_carrot-down */
-    li:hover a.arrow_carrot-down {
-        color: #000;
-        /* Màu chữ khi hover (màu đen) */
-    }
+/* Thêm padding cho từng mục menu nếu cần */
+ul.dropdown-menu li {
+    padding: 5px 0;
+    /* Khoảng cách giữa các mục trong menu */
+}
 
-    .with-100 {
-        width: 100%;
-    }
+/* Hover cho thẻ a bên trong thẻ li */
+li:hover a {
+    color: #000;
+    /* Màu chữ khi hover (màu đen) */
+}
+
+/* Mặc định cho thẻ a có class arrow_carrot-down */
+li a.arrow_carrot-down {
+    color: #000;
+    /* Màu chữ mặc định */
+}
+
+/* Hover cho thẻ a có class arrow_carrot-down */
+li:hover a.arrow_carrot-down {
+    color: #000;
+    /* Màu chữ khi hover (màu đen) */
+}
+
+.with-100 {
+    width: 100%;
+}
 </style>

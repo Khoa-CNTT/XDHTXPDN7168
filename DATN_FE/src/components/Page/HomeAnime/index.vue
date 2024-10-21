@@ -2,7 +2,7 @@
     <div>
         <!-- Hero Section Begin -->
         <section class="hero" style="background-color: #0b0c2a">
-            <div class="container-floid">
+            <div class="container">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -68,103 +68,141 @@
                             </div>
                             <div class="row">
                                 <template v-for="(v, k) in phim_moi_cap_nhats" :key="k">
-                                    <template v-for="(v1,k1) in  so_luong_tap" :key="k1">
-                                        <div v-show="v.ten_phim == v1.ten_phim && v1.tong_so_tap > 0 && k1 < 9" class="col-lg-4 col-md-6 col-sm-6">
-                                            <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim }}">
+                                    <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-6 col-sm-6">
+                                        <router-link
+                                            :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
                                             <div class="product__item">
                                                 <div class="product__item__pic set-bg"
                                                     style="background-image: url('undefined')">
-                                                    <a><img
-                                                            style="height: 100%; width: 230px"
-                                                            v-bind:src="v.hinh_anh"
+                                                    <a><img style="height: 100%; width: 230px" v-bind:src="v.hinh_anh"
                                                             alt="" /></a>
-                                                    <div class="ep">{{v1.tong_so_tap}}/{{ v.so_tap_phim  }}
-                                                    <span v-if="v.so_tap_phim == v1.tong_so_tap  ">FULL</span></div>
+                                                    <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }}
+                                                        <span v-if="v.tong_tap == v.tong_so_tap">FULL</span>
+                                                    </div>
 
-                                                    <div class="view"><i class="fa fa-eye"></i> 24</div>
+                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luong_xem }}
+                                                    </div>
                                                 </div>
                                                 <div class="product__item__text">
                                                     <ul>
-                                                        <li>Chính kịch</li>
+                                                        <template v-for="item in v.ten_the_loais">
+                                                            <li>{{ item }}</li>
+                                                        </template>
                                                     </ul>
 
                                                     <h5>
-                                                        <a href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai" >{{ v.ten_phim }}</a>
+                                                        <a href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
+                                    v.ten_phim }}</a>
                                                     </h5>
                                                 </div>
                                             </div>
                                         </router-link>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        <div class="trending__product">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="section-title">
+                                        <h4>Tất Cả Phim</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="btn__all">
+                                        <router-link to="/list-phim">
+                                            <a class="primary-btn">View All <span class="arrow_right"></span></a>
+                                        </router-link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <template v-for="(v, k) in tat_ca_phim" :key="k">
+                                    <template v-for="(v1, k1) in  so_luong_tap" :key="k1">
+                                        <div v-show="v.ten_phim == v1.ten_phim && v1.tong_so_tap > 0 && k1 < 3"
+                                            class="col-lg-4 col-md-6 col-sm-6">
+                                            <router-link
+                                                :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
+                                                <div class="product__item">
+                                                    <div class="product__item__pic set-bg"
+                                                        style="background-image: url('undefined')">
+                                                        <a><img style="height: 100%; width: 230px"
+                                                                v-bind:src="v.hinh_anh" alt="" /></a>
+                                                        <div class="ep">{{ v1.tong_so_tap }}/{{ v.so_tap_phim }}
+                                                            <span v-if="v.so_tap_phim == v1.tong_so_tap">FULL</span>
+                                                        </div>
+
+                                                        <div class="view"><i class="fa fa-eye"></i> 24</div>
+                                                    </div>
+                                                    <div class="product__item__text">
+                                                        <ul>
+                                                            <li>Chính kịch</li>
+                                                        </ul>
+
+                                                        <h5>
+                                                            <a
+                                                                href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
+                                    v.ten_phim }}</a>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </router-link>
                                         </div>
                                     </template>
                                 </template>
                             </div>
                         </div>
-                        <template v-for="(v1, k1) in list_the_loai" :key="k1">
-                            <div class="trending__product">
-                                <div class="row">
-                                    <div class="col-lg-8 col-md-8 col-sm-8">
-                                        <div class="section-title">
-                                            <h4>{{ v1.ten_the_loai }}</h4>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="btn__all">
-                                            <router-link :to="`/the-loai/${v1.slug_the_loai}`">
-                                                <a v-bind:href="'/the-loai' + v1.slug_the_loai" class="primary-btn">View
-                                                    All <span class="arrow_right"></span></a>
-                                            </router-link>
-                                            <!-- <<router-link :to="`/de-list/${v.id}`">
-                            <a v-bind:href="'/de-list' + v.id">
-                            {{ v.ten_phim }}</a></router-link>> -->
-                                        </div>
+                        <div class="trending__product">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="section-title">
+                                        <h4>Phim Đã Hoàn Thành</h4>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <template v-for="(v, k) in list_phim" :key="k">
-                                        <template v-if="v.id_the_loai == v1.id">
-                                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="btn__all">
+                                        <router-link to="/list-phim">
+                                            <a class="primary-btn">View All <span class="arrow_right"></span></a>
+                                        </router-link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <template v-for="(v, k) in phim_moi_cap_nhats" :key="k">
+                                    <template v-for="(v1, k1) in  so_luong_tap" :key="k1">
+                                        <div v-show="v.ten_phim == v1.ten_phim && v1.tong_so_tap > 0 && k1 < 3"
+                                            class="col-lg-4 col-md-6 col-sm-6">
+                                            <router-link
+                                                :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
                                                 <div class="product__item">
-                                                    <router-link :to="{
-                                    name: 'PageDelist',
-                                    params: { id: v.id, slug: v.slug_phim },
-                                }">
-                                                        <div class="product__item__pic" v-bind:style="{
-                                    'background-image': 'url(' + v.hinh_anh + ')',
-                                }">
-                                                            <div v-if="v.ten_loai_phim === 'Phim Bộ'" class="ep">
-                                                                ??/{{ v.so_tap_phim }}
-                                                            </div>
-                                                            <div v-else-if="v.ten_loai_phim === 'Phim Lẻ'" class="ep">
-                                                                Movie
-                                                            </div>
-                                                            <div v-else class="ep">RAW</div>
-                                                            <div class="comment"></div>
-                                                            <div class="view">
-                                                                <i class="fa fa-eye"></i> 13401
-                                                            </div>
+                                                    <div class="product__item__pic set-bg"
+                                                        style="background-image: url('undefined')">
+                                                        <a><img style="height: 100%; width: 230px"
+                                                                v-bind:src="v.hinh_anh" alt="" /></a>
+                                                        <div class="ep">{{ v1.tong_so_tap }}/{{ v.so_tap_phim }}
+                                                            <span v-if="v.so_tap_phim == v1.tong_so_tap">FULL</span>
                                                         </div>
-                                                    </router-link>
+
+                                                        <div class="view"><i class="fa fa-eye"></i> 24</div>
+                                                    </div>
                                                     <div class="product__item__text">
                                                         <ul>
-                                                            <li>{{ v.ten_the_loai }}</li>
-                                                            <li>{{ v.ten_loai_phim }}</li>
+                                                            <li>Chính kịch</li>
                                                         </ul>
+
                                                         <h5>
-                                                            <router-link :to="{
-                                    name: 'PageDelist',
-                                    params: { id: v.id, slug: v.slug_phim },
-                                }">
-                                                                <a v-bind:href="'/de-list' + v.id">
-                                                                    {{ v.ten_phim }}</a></router-link>
+                                                            <a
+                                                                href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
+                                    v.ten_phim }}</a>
                                                         </h5>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </template>
+                                            </router-link>
+                                        </div>
                                     </template>
-                                </div>
+                                </template>
                             </div>
-                        </template>
+                        </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 col-sm-8">
@@ -175,7 +213,7 @@
                                 </div>
 
                                 <div class="filter__gallery" id="MixItUpF5B6EA">
-                                    <template v-for="(v, k) in list_2_phim" :key="k">
+                                    <template v-for="(v, k) in list_hot_trong_thang" :key="k">
                                         <router-link :to="{
                                     name: 'PageDelist',
                                     params: { id: v.id, slug: v.slug_phim },
@@ -199,7 +237,7 @@
                                 <div class="section-title">
                                     <h5>Hot trong tuần</h5>
                                 </div>
-                                <template v-for="(v, k) in list_9_phim" :key="k">
+                                <template v-for="(v, k) in list_hot_trong_thang" :key="k">
                                     <div class="product__sidebar__comment__item">
                                         <router-link :to="{
                                     name: 'PageDelist',
@@ -248,8 +286,8 @@ export default {
         return {
             list_loai_phim: [],
             list_the_loai: [],
-            list_9_phim: [],
-            list_2_phim: [],
+            tat_ca_phim: [],
+            list_hot_trong_thang: [],
             phim_moi_cap_nhats: [],
             so_luong_tap: [],
             list_phim: [],
@@ -266,10 +304,15 @@ export default {
             axios
                 .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
                 .then((res) => {
-                    this.list_9_phim = res.data.phim_9_obj;
-                    this.list_2_phim = res.data.phim_2_obj;
+                    this.list_hot_trong_thang = res.data.top_view_thang;
+                    this.tat_ca_phim = res.data.tat_ca_phim;
+                    this.tat_ca_phim.forEach((value, index) => {
+                        value.ten_the_loais = value.ten_the_loais.split(',');
+                    });
                     this.phim_moi_cap_nhats = res.data.phim_moi_cap_nhats;
-                    this.so_luong_tap = res.data.so_luong_tap;
+                    this.phim_moi_cap_nhats.forEach((value, index) => {
+                        value.ten_the_loais = value.ten_the_loais.split(',');
+                    });
                 });
         },
         laydataLoaiPhim() {

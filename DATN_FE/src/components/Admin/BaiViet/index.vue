@@ -520,7 +520,7 @@ export default {
                 });
         },
         searchBaiViet(page) {
-            th
+            this.check_page = 1;
             baseRequest
                 .post('admin/bai-viet/thong-tin-tim?page=' + page, this.key_tim)
                 .then((res) => {
@@ -534,7 +534,8 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
-                        this.laydataBaiViet(this.pagination.current_page);
+                        this.changPage(this.pagination.current_page);
+
 
                     }
                     else {
@@ -553,7 +554,8 @@ export default {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
                         this.is_update = 1;
-                        this.laydataBaiViet(this.pagination.current_page);
+                        this.changPage(this.pagination.current_page);
+
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
@@ -566,7 +568,7 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success('Thông báo<br>' + res.data.message);
-                        this.laydataBaiViet(1);
+                        this.changPage(this.pagination.current_page);
                     } else {
                         toaster.error(res.data.message);
                     }

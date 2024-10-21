@@ -25,6 +25,7 @@
                             <b>Danh Mục Cha</b>
                         </label>
                         <select v-model="obj_add_danh_muc.id_danh_muc_cha" name="" id="" class="form-control">
+                            <option value="0">Root</option>
                             <template v-for="(v,k) in list_danh_muc" :key="k" >
                                 <option v-bind:value="v.id">{{ v.ten_danh_muc }}</option>
                             </template>

@@ -3,9 +3,6 @@
         <div class="container-floid" >
             <router-view></router-view >
         </div>
-
-
-
     <FooterAnime></FooterAnime>
 </template>
 <script>
