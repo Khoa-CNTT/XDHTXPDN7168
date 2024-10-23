@@ -60,7 +60,7 @@ const routes = [
         path: "de-list/:slug",
         component: () => import("../components/Page/PageDelist/index.vue"),
         name: "PageDelist",
-        props: (route) => ({ id: route.params.id, slug: route.params.slug }),
+        props: (route) => ({ slug: route.params.slug }),
       },
       {
         path: "watching/:slug",
@@ -82,7 +82,7 @@ const routes = [
       },
       //Page Blog
       {
-        path: "bai-viet",
+        path: "blog",
         component: () => import("../components/Page/BlogList/index.vue"),
       },
       {

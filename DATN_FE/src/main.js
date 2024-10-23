@@ -9,5 +9,5 @@ import $ from "jquery";
 const app = createApp(App)
 
 app.use(store);
-app.use(router, axios,Toaster)
+app.use(router, axios,Toaster,$)
 app.mount("#app")

@@ -49,7 +49,7 @@
                                         </template>
                                     </ul>
                                 </li>
-                                <router-link to="/bai-viet">
+                                <router-link to="/blog">
                                     <li class="menu active"><a href="#"> Blog</a></li>
                                 </router-link>
 
@@ -320,7 +320,7 @@ export default {
 
         laydataYeuThich() {
             baseRequest
-                .get("admin/yeu-thich/lay-du-lieu")
+                .get("khach-hang/yeu-thich/lay-du-lieu")
                 .then((res) => {
                     this.list_yeu_thich = res.data.yeu_thich;
                 });

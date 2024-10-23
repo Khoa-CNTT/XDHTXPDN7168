@@ -21,28 +21,32 @@
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg"
-                            v-bind:style="{ 'background-image': 'url(' + obj_phim.hinh_anh + ')', }"
-                            data-setbg="../../../assets/assets_Anime/img/anime/details-pic.jpg">
-                        </div>
+                        <div class="anime__details__pic set-bg" v-bind:style="{
+                            'background-image': 'url(' + obj_phim.hinh_anh + ')',
+                        }" data-setbg="../../../assets/assets_Anime/img/anime/details-pic.jpg"></div>
                     </div>
                     <div class="col-lg-9">
                         <div class="anime__details__text">
-                            <div class="anime__details__title">
+                            <div class="anime__details__title mb-4">
                                 <h3>{{ obj_phim.ten_phim }}</h3>
                                 <p>
                                     <span>{{ obj_phim.dao_dien }}</span>
                                 </p>
                             </div>
                             <div class="anime__details__rating">
-                                <div class="rating">
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star"></i></a>
-                                    <a href="#"><i class="fa fa-star-half-o"></i></a>
+                                <div class="rating" data-bs-toggle="modal" data-bs-target="#ratingFilm">
+                                    <a v-for="star in 5" :key="star">
+                                        <i class="fa" :class="{
+                                            'fa-star': star <= Math.floor(averageRating), // Full stars for whole numbers
+                                            'fa-star-half-o':
+                                                star === Math.ceil(averageRating) &&
+                                                averageRating % 1 !== 0, // Half star if the rating has a fraction
+                                            'fa-star-o': star > averageRating, // Empty stars
+                                        }"></i>
+                                    </a>
                                 </div>
-                                <span>1.029 Votes</span>
+                                <span>({{ ratingCount }} lượt, đánh giá:
+                                    {{ averageRating.toFixed(1) }}/5)</span>
                             </div>
                             <p v-html="obj_phim.mo_ta"></p>
                             <div class="anime__details__widget">
@@ -50,36 +54,52 @@
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
                                             <li><span>Quốc gia:</span> {{ obj_phim.quoc_gia }}</li>
-                                            <li><span>Năm Sản Xuất:</span>{{ obj_phim.nam_san_xuat }}</li>
-
-                                            <li><span>Trạng Thái:</span>
-                                                {{ obj_phim.tong_tap = obj_phim.so_tap_phim ? 'Đang cập nhật':'Đã hoàn thành' }}
+                                            <li>
+                                                <span>Năm Sản Xuất:</span>{{ obj_phim.nam_san_xuat }}
                                             </li>
-                                            <li><span>Thể Loại:</span>
-                                                {{ obj_phim.ten_the_loais }},
+
+                                            <li>
+                                                <span>Trạng Thái:</span>
+                                                {{
+                                                    (obj_phim.tong_tap = obj_phim.so_tap_phim
+                                                        ? "Đang cập nhật"
+                                                        : "Đã hoàn thành")
+                                                }}
+                                            </li>
+                                            <li>
+                                                <span>Thể Loại:</span> {{ obj_phim.ten_the_loais }},
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <ul>
-                                            <li><span>Tổng Số Tập:</span> {{ obj_phim.so_tap_phim }} </li>
-                                            <li><span>Thời Lượng:</span> {{ obj_phim.thoi_gian_chieu }} phút/tập</li>
+                                            <li>
+                                                <span>Tổng Số Tập:</span> {{ obj_phim.so_tap_phim }}
+                                            </li>
+                                            <li>
+                                                <span>Thời Lượng:</span>
+                                                {{ obj_phim.thoi_gian_chieu }} phút/tập
+                                            </li>
                                             <li><span>Chất lượng:</span>1080 P</li>
-                                            <li><span>Luợt Xem:</span> {{ obj_phim.tong_luong_xem }}</li>
+                                            <li>
+                                                <span>Luợt Xem:</span> {{ obj_phim.tong_luong_xem }}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                             <div class="anime__details__btn">
-                                <button v-if="isFollow == false" type="button" @click="anTheoDoi()"
-                                    class="unfollow-btn"><i class="fa fa-heart-o"></i> Theo Dõi</button>
-                                <button v-else type="button" @click="unTheoDoi()" class="follow-btn"><i
-                                        class="fa-solid fa-heart"></i> Bỏ Theo Dõi</button>
+                                <button v-if="isFollow" type="button" @click="anTheoDoi()" class="unfollow-btn">
+                                    <i class="fa fa-heart-o"></i> Theo Dõi
+                                </button>
+                                <button v-else type="button" @click="unTheoDoi()" class="follow-btn">
+                                    <i class="fa-solid fa-heart"></i> Bỏ Theo Dõi
+                                </button>
                                 <router-link :to="`/watching/${obj_phim.slug_phim}`">
                                     <a v-bind:href="'/watching/' + obj_phim.slug_phim" class="watch-btn"><span>Xem
-                                            Ngay</span> </a>
+                                            Ngay</span>
+                                    </a>
                                 </router-link>
-
                             </div>
                         </div>
                     </div>
@@ -89,68 +109,87 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="anime__details__review">
                         <div class="section-title">
-                            <h5>Đánh Giá</h5>
-                        </div>
-                        <div class="anime__review__item">
-                            <div class="anime__review__item__pic">
-                                <img src="../../../assets/assets_Anime/img/anime/review-1.jpg" alt="">
-                            </div>
-                            <div class="anime__review__item__text">
-                                <div class="row">
-                                    <div class="col-11">
-                                        <h6>Chris Curry - <span>1 giờ trước</span></h6>
-                                        <p>Phim đã hay mà admin còn đẹp trai nữa còn gì bằng !!!</p>
-                                    </div>
-                                </div>
-
-                            </div>
-
+                            <h5>Các Đánh Giá</h5>
                         </div>
                         <template v-for="(v, k) in list_cmt" :key="k">
                             <div v-if="v.id_phim == obj_phim.id" class="anime__review__item">
                                 <div class="anime__review__item__pic">
-                                    <img v-bind:src="v.avatar" alt="">
+                                    <img v-bind:src="v.avatar" alt="" />
                                 </div>
                                 <div class="anime__review__item__text">
                                     <div class="row">
-                                        <div class="col-11">
-                                            <h6>{{ v.ho_va_ten }} - <span>1 phút trước</span></h6>
-                                            <p>{{ v.noi_dung }} !!!</p>
+                                        <div class="col-12">
+                                            <h6>
+                                                {{ v.ho_va_ten
+                                                }}<span style="font-size: 0.9rem">
+                                                    - {{ fromNow(v.created_at) }}</span><span style="font-size: 0.9rem"
+                                                    v-if="v.updated_at > v.created_at">
+                                                    ( Đã chỉnh sửa )</span>
+                                            </h6>
+                                            <p v-if="editingCommentId !== v.id" class="textwrap">
+                                                {{ v.noi_dung }}
+                                            </p>
+                                            <textarea v-if="editingCommentId === v.id" v-model="obj_update_cmt.noi_dung"
+                                                placeholder="Nhập bình luận" class="form-control"></textarea>
+                                            <div style="float: right" class="mt-1">
+                                                <template v-if="id_user == v.id_khach_hang">
+                                                    <a type="button" class="text-primary mr-3" style="font-size: 1rem"
+                                                        v-if="editingCommentId !== v.id"
+                                                        v-on::click.prevent="beginEdit(v)"><i
+                                                            class="fa-solid fa-pen mt-4"></i></a>
+                                                </template>
+                                                <template v-if="id_user == v.id_khach_hang">
+                                                    <a type="button" v-on::click="Object.assign(obj_xoa_cmt, v)"
+                                                        data-bs-toggle="modal" data-bs-target="#delCMT"
+                                                        style="font-size: 1rem" class="mr-3 text-danger"
+                                                        v-if="editingCommentId !== v.id"><i
+                                                            class="fa-solid fa-trash mt-4"></i></a>
+                                                </template>
+                                                <div class="container" v-if="editingCommentId === v.id">
+                                                    <a type="button" class="mr-3 text-primary" style="font-size: 1rem"
+                                                        v-on::click.prevent="cancelEdit()">Hủy</a>
+                                                    <a type="button" class="mr-3 text-primary" style="font-size: 1rem"
+                                                        v-on::click.prevent="updateRating()">Lưu</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-1">
+                                        <!-- <div class="col-1">
                                             <a v-if="v.id_khach_hang == id_user" type="button"
-                                                @click="Object.assign(obj_xoa_cmt, v)" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" style="color: red;"><i
+                                                click="Object.assign(obj_xoa_cmt, v)" data-bs-toggle="modal"
+                                                data-bs-target="#delCMT" style="color: red;"><i
                                                     class="fa-solid fa-trash fa-sm mt-4 "></i></a>
 
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
                         </template>
                     </div>
-                    <div class="anime__details__form">
+                    <!-- <div class="anime__details__form">
                         <div class="section-title">
                             <h5>Bình Luận của Bạn</h5>
                         </div>
                         <form action="#">
                             <textarea v-model="obj_cmt_phim.noi_dung" placeholder="Nhập bình luận"></textarea>
-                            <button @click="themBinhLuan()" type="button"><i class="fa fa-location-arrow"></i>
+                            <button click="addRating()" type="button"><i class="fa fa-location-arrow"></i>
                                 Gửi</button>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <div class="anime__details__sidebar">
                         <div class="section-title">
                             <h5>hot phim</h5>
                         </div>
-                        <template v-for="(v, k) in list_5_phim " :key="k">
+                        <template v-for="(v, k) in list_5_phim" :key="k">
                             <div class="product__sidebar__comment__item">
-                                <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
+                                <router-link :to="{
+                                    name: 'PageDelist',
+                                    params: { id: v.id, slug: v.slug_phim },
+                                }">
                                     <a v-bind:href="'/de-list/' + v.slug_phim">
                                         <div class="product__sidebar__comment__item__pic">
-                                            <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
+                                            <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
                                         </div>
                                     </a>
                                 </router-link>
@@ -158,38 +197,79 @@
                                 <div style="" class="product__sidebar__comment__item__text">
                                     <ul>
                                         <!-- <li >{{ v.ten_loai_phim }}</li> -->
-                                        <template v-for="(value,key) in v.ten_the_loais" :key="key">
-                                            <li >{{ value }}</li>
+                                        <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                            <li>{{ value }}</li>
                                         </template>
                                     </ul>
                                     <h5>
-                                        <router-link
-                                            :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
+                                        <router-link :to="{
+                                            name: 'PageDelist',
+                                            params: { id: v.id, slug: v.slug_phim },
+                                        }">
                                             {{ v.ten_phim }}
                                         </router-link>
                                     </h5>
-                                    <div style="color: #b7b7b7;">
-                                        Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim  }}
-                                </div>
-                                    <span><i class="fa fa-eye"></i> {{ v.tong_luong_xem }} lượt xem</span>
+                                    <div style="color: #b7b7b7">
+                                        Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+                                    </div>
+                                    <span><i class="fa fa-eye"></i> {{ v.tong_luong_xem }} lượt
+                                        xem</span>
                                 </div>
                             </div>
                         </template>
                     </div>
                 </div>
                 <!-- Modal xoa binh luan -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="delCMT" tabindex="-1" aria-labelledby="delCMTLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div style="background-color: rgba(35, 33, 33,  1.0);" class="modal-content">
+                        <div style="background-color: rgba(35, 33, 33, 1)" class="modal-content">
                             <div class="modal-body text-white">
                                 Bạn có chắc muốn xoá bình luận?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                <button type="button" @click="deleteBinhLuan()" class="btn btn-primary"
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Đóng
+                                </button>
+                                <button type="button" v-on:click="deleteRating()" class="btn btn-primary"
                                     data-bs-dismiss="modal">
-                                    Xoá</button>
+                                    Xoá
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Rating Phim -->
+                <div class="modal fade" id="ratingFilm" tabindex="-1" aria-labelledby="ratingFilmLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div style="background-color: rgba(35, 33, 33, 1)" class="modal-content">
+                            <div class="modal-body text-white">
+                                <div class="product__sidebar__comment">
+                                    <div class="section-title">
+                                        <h5>ĐÁNH GIÁ</h5>
+                                    </div>
+                                    <div class="rating-container">
+                                        <div class="stars">
+                                            <span v-for="star in stars" :key="star"
+                                                :class="{ 'star-active': star <= rating }" @click="setRating(star)"
+                                                @mouseover="hoverRating(star)" @mouseleave="resetRating">
+                                                &#9733;
+                                            </span>
+                                        </div>
+                                        Đánh giá: {{ rating }} sao
+                                    </div>
+                                    <textarea v-model="obj_cmt_phim.noi_dung" placeholder="Nhập đánh giá của bạn!"
+                                        class="form-control w-100 mt-3"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Đóng
+                                </button>
+                                <button type="button" @click="addRating()" class="btn btn-primary"
+                                    data-bs-dismiss="modal">
+                                    Đánh Giá
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -198,57 +278,99 @@
         </div>
     </section>
     <!-- Anime Section End -->
-
-
 </template>
 <script>
-import axios from "axios"
-import baseRequest from '../../../core/baseRequestUser';
+import moment from "moment";
+import "moment/locale/vi"; // Import ngôn ngữ tiếng Việt nếu cần
+import axios from "axios";
+import baseRequest from "../../../core/baseRequestUser";
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({
     position: "top-right",
 });
 
 export default {
-    props: ['slug'],
+    props: ["slug"],
+    beforeRouteUpdate(to, from, next) {
+        this.slug = to.params.slug;
+        //   this.id_phim   = this.id;
+        this.obj_yt_phim = { id_khach_hang: localStorage.getItem("id_user") };
+        this.obj_cmt_phim = { id_khach_hang: localStorage.getItem("id_user") };
+        this.laydataCMT();
+        this.laydataDelistPhim();
+        this.checkYeuThich();
+        next();
+    },
     data() {
         return {
-            // id : this.$route.params.id,
-            id_phim: '',
-            id_user: localStorage.getItem('id_user'),
-            obj_yt_phim: { 'id_khach_hang': localStorage.getItem('id_user'), },
-            obj_cmt_phim: { 'id_khach_hang': localStorage.getItem('id_user'), },
+            ratingCount: 0,
+            averageRating: 0,
+            rating: 0,
+            tempRating: 0,
+            stars: [1, 2, 3, 4, 5], // 5 ngôi sao
+            isRatingSelected: false,
+            editingCommentId: null,
+            slug: this.$route.params.slug,
+            id_phim: "",
+            id_user: localStorage.getItem("id_user"),
+            obj_yt_phim: { id_khach_hang: localStorage.getItem("id_user") },
+            obj_cmt_phim: { id_khach_hang: localStorage.getItem("id_user") },
             obj_xoa_cmt: {},
+            obj_update_cmt: {},
             list_5_phim: [],
             obj_phim: {},
             list_cmt: [],
-            isFollow: {},
+            isFollow: true,
         };
     },
     mounted() {
+        this.$store.dispatch('showLoader');
         this.checkYeuThich();
         this.laydataCMT();
         this.laydataDelistPhim();
-
-
-    },
-    watch: {
-        $route(to, from) {
-            this.laydataDelistPhim();
-            //   this.id_phim   = this.id;
-            this.obj_yt_phim = { 'id_khach_hang': localStorage.getItem('id_user'), };
-            this.obj_cmt_phim = { 'id_khach_hang': localStorage.getItem('id_user'), };
-            this.laydataCMT();
-            this.checkYeuThich();
-        }
     },
     methods: {
+        fromNow: function (datetime) {
+            moment.locale("vi");
+            return moment(datetime).fromNow();
+        },
+        beginEdit(comment) {
+            this.editingCommentId = comment.id;
+            this.obj_update_cmt = Object.assign({}, comment);
+        },
+        cancelEdit() {
+            this.editingCommentId = null;
+            this.obj_update_cmt = {};
+        },
+        // Khi người dùng nhấp vào ngôi sao, set giá trị rating đã chọn
+        setRating(star) {
+            this.rating = star;
+            this.isRatingSelected = true; // Đánh dấu đã chọn số sao
+        },
+        // Khi hover, chỉ hiển thị giá trị rating tạm thời (hover) nếu chưa chọn số sao
+        hoverRating(star) {
+            if (!this.isRatingSelected) {
+                this.hoverRatingValue = star; // Hiển thị giá trị khi hover
+            }
+        },
+        // Khi di chuột ra khỏi các ngôi sao, reset về giá trị rating đã chọn trước đó
+        resetRating() {
+            if (!this.isRatingSelected) {
+                this.hoverRatingValue = 0; // Reset giá trị tạm thời khi hover
+            }
+        },
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth', // Thêm hiệu ứng cuộn
+            });
+        },
         laydataDelistPhim() {
             axios
                 .get("http://127.0.0.1:8000/api/phim/lay-data-delist", {
                     params: {
                         slug: this.slug,
-                    }
+                    },
                 })
                 .then((res) => {
                     this.obj_phim = res.data.phim;
@@ -256,98 +378,174 @@ export default {
                     this.obj_yt_phim.id_phim = res.data.phim.id;
                     this.list_5_phim = res.data.phim_5_obj;
                     this.list_5_phim.forEach((value, index) => {
-                        value.ten_the_loais = value.ten_the_loais.split(',');
+                        value.ten_the_loais = value.ten_the_loais.split(",");
                     });
+                    this.$store.dispatch('hideLoader');
+                    this.scrollToTop();
 
+                }).catch(() => {
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 });
         },
         laydataCMT() {
             axios
-                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show")
+                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show", {
+                    params: {
+                        slug: this.slug,
+                    },
+                })
                 .then((res) => {
                     this.list_cmt = res.data.binh_luan_phim;
+                    if (res.data.rate[0]) {
+                        this.ratingCount = res.data.rate[0].tong_so_luot_danh_gia;
+                        this.averageRating = Number(res.data.rate[0].so_sao_trung_binh);
+                    } else {
+                        this.ratingCount = 0;
+                        this.averageRating = 0;
+                    }
+
                 });
         },
         checkYeuThich() {
+            var payload = {
+                slug: this.slug,
+            };
             baseRequest
-                .post("admin/yeu-thich/kiem-tra", this.obj_yt_phim)
+                .post("khach-hang/yeu-thich/kiem-tra", payload)
                 .then((res) => {
                     if (res.data.status == true) {
-                        this.isFollow = true;
-                    } else {
                         this.isFollow = false;
+                    } else {
+                        this.isFollow = true;
                     }
                 });
         },
         anTheoDoi() {
+            var payload = {
+                id_phim: this.obj_phim.id,
+            };
             baseRequest
-                .post("admin/yeu-thich/thong-tin-tao", this.obj_yt_phim)
+                .post("khach-hang/yeu-thich/thong-tin-tao", payload)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.checkYeuThich();
-
                     } else {
                         toaster.error(res.data.message);
                     }
+                    this.scrollToTop();
                 });
         },
 
         unTheoDoi() {
             baseRequest
-                .post('admin/yeu-thich/thong-tin-xoa', this.obj_yt_phim)
+                .post("khach-hang/yeu-thich/thong-tin-xoa", this.obj_yt_phim)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.checkYeuThich();
-
-
-                    }
-                    else {
+                    } else {
                         toaster.danger(res.data.message);
                     }
+                    this.scrollToTop();
                 });
         },
-        themBinhLuan() {
+        addRating() {
+            var payload = {
+                id_phim: this.obj_phim.id,
+                noi_dung: this.obj_cmt_phim.noi_dung,
+                so_sao: this.rating,
+            };
             baseRequest
-                .post("admin/binh-luan-phim/thong-tin-tao", this.obj_cmt_phim
-                )
+                .post("khach-hang/binh-luan-phim/thong-tin-tao", payload)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
-                        this.obj_cmt_phim = { 'id_khach_hang': localStorage.getItem('id_user'), 'id_phim': this.id, 'noi_dung': '' };
+                        this.obj_cmt_phim = {};
+                        this.rating = 0;
                         this.laydataCMT();
                     } else {
                         toaster.error(res.data.message);
                     }
+                    this.scrollToTop();
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
-        deleteBinhLuan() {
+        deleteRating() {
             baseRequest
-                .delete('admin/binh-luan-phim/thong-tin-xoa/' + this.obj_xoa_cmt.id)
+                .delete(
+                    "khach-hang/binh-luan-phim/thong-tin-xoa/" + this.obj_xoa_cmt.id
+                )
+                .then((res) => {
+                    if (res.data.status == true) {
+                        // toaster.success(res.data.message);
+                        this.laydataCMT();
+                        // window.location.reload();
+                    } else {
+                        toaster.danger(res.data.message);
+                    }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
+        },
+        updateRating() {
+            baseRequest
+                .put("khach-hang/binh-luan-phim/thong-tin-sua", this.obj_update_cmt)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
+                        this.cancelEdit();
                         this.laydataCMT();
-                    }
-                    else {
+                    } else {
                         toaster.danger(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
-
     },
 };
 </script>
 <style>
 .product__sidebar__comment__item__text h5 {
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Giới hạn số dòng là 2 */
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis; /* Thêm dấu ba chấm khi vượt quá */
-    white-space: normal; /* Cho phép xuống dòng */
+    text-overflow: ellipsis;
+    white-space: normal;
 }
 
+.rating-container {
+    display: inline-block;
+}
 
+.stars {
+    display: flex;
+    gap: 5px;
+    font-size: 40px;
+}
+
+.stars span {
+    cursor: pointer;
+    color: lightgray;
+    transition: color 0.2s ease;
+}
+
+.stars span.star-active {
+    color: gold;
+}
+
+.textwrap {
+    word-wrap: break-word;
+    /* Tự động xuống dòng khi từ quá dài */
+    word-break: break-word;
+    /* Cắt từ khi cần thiết để không tràn khỏi vùng chứa */
+    white-space: normal;
+    /* Cho phép xuống hàng tự động */
+}
 </style>

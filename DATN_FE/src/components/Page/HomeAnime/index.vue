@@ -92,7 +92,7 @@
 
                                                     <h5>
                                                         <a href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
-                                    v.ten_phim }}</a>
+                                                            v.ten_phim }}</a>
                                                     </h5>
                                                 </div>
                                             </div>
@@ -118,7 +118,7 @@
                             </div>
                             <div class="row">
                                 <template v-for="(v, k) in tat_ca_phim" :key="k">
-                                    <template v-for="(v1, k1) in  so_luong_tap" :key="k1">
+                                    <template v-for="(v1, k1) in so_luong_tap" :key="k1">
                                         <div v-show="v.ten_phim == v1.ten_phim && v1.tong_so_tap > 0 && k1 < 3"
                                             class="col-lg-4 col-md-6 col-sm-6">
                                             <router-link
@@ -142,7 +142,7 @@
                                                         <h5>
                                                             <a
                                                                 href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
-                                    v.ten_phim }}</a>
+                                                                v.ten_phim }}</a>
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -169,7 +169,7 @@
                             </div>
                             <div class="row">
                                 <template v-for="(v, k) in phim_moi_cap_nhats" :key="k">
-                                    <template v-for="(v1, k1) in  so_luong_tap" :key="k1">
+                                    <template v-for="(v1, k1) in so_luong_tap" :key="k1">
                                         <div v-show="v.ten_phim == v1.ten_phim && v1.tong_so_tap > 0 && k1 < 3"
                                             class="col-lg-4 col-md-6 col-sm-6">
                                             <router-link
@@ -193,7 +193,7 @@
                                                         <h5>
                                                             <a
                                                                 href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
-                                    v.ten_phim }}</a>
+                                                                v.ten_phim }}</a>
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -215,13 +215,13 @@
                                 <div class="filter__gallery" id="MixItUpF5B6EA">
                                     <template v-for="(v, k) in list_hot_trong_thang" :key="k">
                                         <router-link :to="{
-                                    name: 'PageDelist',
-                                    params: { id: v.id, slug: v.slug_phim },
-                                }">
+                                            name: 'PageDelist',
+                                            params: { id: v.id, slug: v.slug_phim },
+                                        }">
                                             <div class="product__sidebar__view__item set-bg mix month week"
                                                 data-setbg="img/sidebar/tv-2.jpg" v-bind:style="{
-                                    'background-image': 'url(' + v.hinh_anh + ')',
-                                }">
+                                                    'background-image': 'url(' + v.hinh_anh + ')',
+                                                }">
                                                 <div class="ep">18 / ?</div>
                                                 <div class="view"><i class="fa fa-eye"></i> 210603</div>
                                                 <h5>
@@ -240,9 +240,9 @@
                                 <template v-for="(v, k) in list_hot_trong_thang" :key="k">
                                     <div class="product__sidebar__comment__item">
                                         <router-link :to="{
-                                    name: 'PageDelist',
-                                    params: { id: v.id, slug: v.slug_phim },
-                                }">
+                                            name: 'PageDelist',
+                                            params: { id: v.id, slug: v.slug_phim },
+                                        }">
                                             <div class="product__sidebar__comment__item__pic">
                                                 <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
                                             </div>
@@ -254,9 +254,9 @@
                                             </ul>
                                             <h5>
                                                 <router-link :to="{
-                                    name: 'PageDelist',
-                                    params: { id: v.id, slug: v.slug_phim },
-                                }">
+                                                    name: 'PageDelist',
+                                                    params: { id: v.id, slug: v.slug_phim },
+                                                }">
                                                     <a v-bind:href="'/de-list' + v.slug_phim">
                                                         {{ v.ten_phim }}
                                                     </a>
@@ -295,6 +295,7 @@ export default {
         };
     },
     mounted() {
+        this.$store.dispatch('showLoader');
         //   this.laydataLoaiPhim();
         //   this.loaddataTheLoai();
         this.laydataPhim();
@@ -313,6 +314,9 @@ export default {
                     this.phim_moi_cap_nhats.forEach((value, index) => {
                         value.ten_the_loais = value.ten_the_loais.split(',');
                     });
+                    this.$store.dispatch('hideLoader');
+                }).catch(() => {
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 });
         },
         laydataLoaiPhim() {

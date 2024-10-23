@@ -181,6 +181,7 @@ export default {
         },
     },
     mounted() {
+        this.$store.dispatch('showLoader');
         this.laydataLoaiBlog(1);
         this.loaddataChuyenMuc();
     },
@@ -199,6 +200,10 @@ export default {
                 .then((res) => {
                     this.list_blog = res.data.bai_viet.dataAdmin.data;
                     this.pagination = res.data.bai_viet.pagination;
+                    this.$store.dispatch('hideLoader');
+
+                }).catch(() => {
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 });
         },
         loaddataChuyenMuc() {
