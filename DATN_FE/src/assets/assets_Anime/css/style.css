@@ -805,7 +805,7 @@ ol {
 .product__sidebar__view__item h5 {
 	position: absolute;
 	left: 0;
-	bottom: 25px;
+	bottom: 0px;
 	width: 100%;
 	padding: 0 30px 0 20px;
 }

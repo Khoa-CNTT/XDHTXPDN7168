@@ -5,7 +5,6 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-                        <router-link to="/"> Thể Loại</router-link>
                         <!-- <router-link :to="{ name: 'PageList', params: { id: v.id_tl, slug: v.slug_the_loai }}"> {{  v.ten_the_loai }}</router-link> -->
                         <span>{{ obj_phim.ten_phim }}</span>
                     </div>
@@ -28,12 +27,12 @@
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title mb-4">
-                                <h3>{{ obj_phim.ten_phim }}</h3>
+                                <h3 style="padding-right: 168px;">{{ obj_phim.ten_phim }}</h3>
                                 <p>
                                     <span>{{ obj_phim.dao_dien }}</span>
                                 </p>
                             </div>
-                            <div class="anime__details__rating">
+                            <div class="anime__details__rating" type="button">
                                 <div class="rating" data-bs-toggle="modal" data-bs-target="#ratingFilm">
                                     <a v-for="star in 5" :key="star">
                                         <i class="fa" :class="{
@@ -55,7 +54,7 @@
                                         <ul>
                                             <li><span>Quốc gia:</span> {{ obj_phim.quoc_gia }}</li>
                                             <li>
-                                                <span>Năm Sản Xuất:</span>{{ obj_phim.nam_san_xuat }}
+                                                <span>Loại Phim:</span>{{ obj_phim.ten_loai_phim }}
                                             </li>
 
                                             <li>
@@ -95,8 +94,8 @@
                                 <button v-else type="button" @click="unTheoDoi()" class="follow-btn">
                                     <i class="fa-solid fa-heart"></i> Bỏ Theo Dõi
                                 </button>
-                                <router-link :to="`/watching/${obj_phim.slug_phim}`">
-                                    <a v-bind:href="'/watching/' + obj_phim.slug_phim" class="watch-btn"><span>Xem
+                                <router-link :to="`/${obj_phim.slug_phim}/${tap_phim.slug_tap_phim}`">
+                                    <a v-bind:href=" obj_phim.slug_phim" class="watch-btn"><span>Xem
                                             Ngay</span>
                                     </a>
                                 </router-link>
@@ -316,6 +315,7 @@ export default {
             obj_yt_phim: { id_khach_hang: localStorage.getItem("id_user") },
             obj_cmt_phim: { id_khach_hang: localStorage.getItem("id_user") },
             obj_xoa_cmt: {},
+            tap_phim: {},
             obj_update_cmt: {},
             list_5_phim: [],
             obj_phim: {},
@@ -374,6 +374,7 @@ export default {
                 })
                 .then((res) => {
                     this.obj_phim = res.data.phim;
+                    this.tap_phim = res.data.tap;
                     this.obj_cmt_phim.id_phim = res.data.phim.id;
                     this.obj_yt_phim.id_phim = res.data.phim.id;
                     this.list_5_phim = res.data.phim_5_obj;
@@ -475,8 +476,8 @@ export default {
         },
         deleteRating() {
             baseRequest
-                .delete(
-                    "khach-hang/binh-luan-phim/thong-tin-xoa/" + this.obj_xoa_cmt.id
+                .post(
+                    "khach-hang/binh-luan-phim/thong-tin-xoa" , this.obj_xoa_cmt
                 )
                 .then((res) => {
                     if (res.data.status == true) {
@@ -519,6 +520,11 @@ export default {
     text-overflow: ellipsis;
     white-space: normal;
 }
+.anime_details_title h3 {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
 
 .rating-container {
     display: inline-block;

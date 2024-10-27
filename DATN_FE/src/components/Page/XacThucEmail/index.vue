@@ -16,7 +16,7 @@
 
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <router-link to="/home/login">
+                                <router-link to="/login">
                                     <button  style="width: 100%;" class="site-btn">ĐĂNG NHẬP</button>
                                 </router-link>
                             </div>
@@ -82,7 +82,7 @@ export default {
                         this.obj_user.email   = res.data.email;
                     } else {
                         toaster.error(res.data.message);
-                        this.$router.push('/home/login');
+                        this.$router.push('/login');
                     }
                 });
         },

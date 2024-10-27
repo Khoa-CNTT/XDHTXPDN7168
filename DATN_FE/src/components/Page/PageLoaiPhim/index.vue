@@ -31,8 +31,8 @@
                                     <div class="product__page__filter">
                                         <p>Sắp xếp theo:</p>
                                         <select v-model="bien" @change="Sapxep(1)">
-                                            <option value="az">A-Z</option>
-                                            <option value="za">Z-A</option>
+                                            <option value="ASC">A-Z</option>
+                                            <option value="DESC">Z-A</option>
                                             <!-- <option value="1to10">1-9</option> -->
                                         </select>
                                         <!-- <div class="nice-select" tabindex="0"><span class="current">A-Z</span>
@@ -47,51 +47,50 @@
                             </div>
                         </div>
                         <div class="row">
-                            <template v-for="(v1, k1) in list_phim" :key="k1">
-                                <div class="col-lg-4 col-md-6 col-sm-6">
-                                    <div class="product__item">
-                                        <router-link
-                                            :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim } }">
+                            <template v-for="(v, k) in list_phim" :key="k">
+                                <div v-show="v.tong_tap > 0" class="col-lg-4 col-md-6 col-sm-6">
+                                    <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
+                                        <div class="product__item">
                                             <div class="product__item__pic set-bg"
-                                                v-bind:style="{ 'background-image': 'url(' + v1.hinh_anh + ')', }">
-                                                <div v-if="v1.ten_loai_phim === 'Phim Bộ'" class="ep">
-                                                    ??/{{ v1.so_tap_phim }}
+                                                style="background-image: url('undefined')">
+                                                <a><img style="height: 100%; width: 230px" v-bind:src="v.hinh_anh"
+                                                        alt="" /></a>
+                                                <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }}
+                                                    <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                 </div>
-                                                <div v-else-if="v1.ten_loai_phim === 'Phim Lẻ'" class="ep">
-                                                    Movie
+                                                <div class="comment b">{{ v.ten_loai_phim }}</div>
+                                                <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luong_xem }}
                                                 </div>
-                                                <div v-else class="ep">RAW</div>
-                                                <div class="comment"><i class="fa fa-comments"></i> 1</div>
-                                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
                                             </div>
-                                        </router-link>
-                                        <div class="product__item__text">
-                                            <ul>
-                                                <li>{{ v1.ten_the_loai }}</li>
-                                                <li>{{ v1.ten_loai_phim }}</li>
-                                            </ul>
-                                            <h5>
-                                                <router-link
-                                                    :to="{ name: 'PageDelist', params: { id: v1.id, slug: v1.slug_phim } }">
-                                                    <a v-bind:href="'/index2' + v1.id">
-                                                        {{ v1.ten_phim }}</a></router-link>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <div class="product__item__text">
+                                                <ul>
+                                                    <template v-for="(item, key) in v.ten_the_loais" :key="key">
+                                                        <li v-show="key < 3">{{ item }}</li>
+                                                    </template>
+                                                </ul>
 
+                                                <h5>
+                                                    <a href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
+                                                        tenPhimLimited(v.ten_phim) }}</a>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </router-link>
+                                </div>
                             </template>
 
                         </div>
                     </div>
                     <div class="product__pagination text-center">
-                        <a @click="changPage(1)" type="button" ><i class="fa fa-angle-double-left"></i></a>
+                        <a @click="changPage(1)" type="button"><i class="fa fa-angle-double-left"></i></a>
 
-                        <a type="button" :class="{ current_page: page === pagination.current_page }" v-for="page in pageNumbers" :key="page"  @click="page !== '...' && changPage(page)">
+                        <a type="button" :class="{ current_page: page === pagination.current_page }"
+                            v-for="page in pageNumbers" :key="page" @click="page !== '...' && changPage(page)">
                             {{ page }}
                         </a>
 
-                        <a @click="changPage(pagination.last_page)" type="button" ><i class="fa fa-angle-double-right"></i></a>
+                        <a @click="changPage(pagination.last_page)" type="button"><i
+                                class="fa fa-angle-double-right"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-8">
@@ -101,26 +100,39 @@
                             <div class="section-title">
                                 <h5>Hot Phim</h5>
                             </div>
-                            <template v-for="(v, k) in list_9_phim " :key="k">
+                            <template v-for="(v, k) in list_9_phim" :key="k">
                                 <div class="product__sidebar__comment__item">
-
-                                    <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
-                                        <div class="product__sidebar__comment__item__pic">
-                                            <img v-bind:src="v.hinh_anh" style="width: 99px ;" alt="" />
-                                        </div>
+                                    <router-link :to="{
+                                        name: 'PageDelist',
+                                        params: { id: v.id, slug: v.slug_phim },
+                                    }">
+                                        <a v-bind:href="'/de-list/' + v.slug_phim">
+                                            <div class="product__sidebar__comment__item__pic">
+                                                <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
+                                            </div>
+                                        </a>
                                     </router-link>
-                                    <div class="product__sidebar__comment__item__text">
+
+                                    <div style="" class="product__sidebar__comment__item__text">
                                         <ul>
-                                            <li>{{ v.ten_the_loai }}</li>
-                                            <li>{{ v.ten_loai_phim }}</li>
+                                            <!-- <li >{{ v.ten_loai_phim }}</li> -->
+                                            <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                                <li>{{ value }}</li>
+                                            </template>
                                         </ul>
                                         <h5>
-                                            <router-link
-                                                :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
-                                                <a v-bind:href="'/index2' + v.id">
-                                                    {{ v.ten_phim }}</a></router-link>
+                                            <router-link :to="{
+                                                name: 'PageDelist',
+                                                params: { id: v.id, slug: v.slug_phim },
+                                            }">
+                                                {{ v.ten_phim }}
+                                            </router-link>
                                         </h5>
-                                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+                                        <div style="color: #b7b7b7">
+                                            Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+                                        </div>
+                                        <span><i class="fa fa-eye"></i> {{ v.tong_luong_xem }} lượt
+                                            xem</span>
                                     </div>
                                 </div>
                             </template>
@@ -172,17 +184,28 @@ export default {
         },
     },
     mounted() {
+        this.$store.dispatch('showLoader');
         this.laydataLoaiPhim();
         this.loadataLoaiPhimAndPhim(1);
         this.slug = this.$route.params.slug;
 
     },
     beforeRouteUpdate(to, from, next) {
+        this.$store.dispatch('showLoader');
         this.slug = to.params.slug;
         this.loadataLoaiPhimAndPhim(1);
         next();
     },
     methods: {
+        tenPhimLimited(tenphim) {
+            return tenphim.length > 42 ? tenphim.substring(0, 42) + '...' : tenphim;
+        },
+        scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth', // Thêm hiệu ứng cuộn
+            });
+        },
         changPage(page) {
             if (this.check_page == 0) {
                 this.loadataLoaiPhimAndPhim(page);
@@ -196,20 +219,34 @@ export default {
                 .then((res) => {
                     this.loai_phim = res.data.loai_phim;
                     this.list_phim = res.data.phim.dataPhim.data;
+                    this.list_phim.forEach((value, index) => {
+                        value.ten_the_loais = value.ten_the_loais.split(",");
+                    });
                     this.pagination = res.data.phim.pagination;
                     this.list_9_phim = res.data.phim_9_obj;
-                    window.scrollTo(0, 0);
-
+                    this.list_9_phim.forEach((value, index) => {
+                        value.ten_the_loais = value.ten_the_loais.split(",");
+                    });
+                    this.scrollToTop();
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
+                }).catch(() => {
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 });
         },
         Sapxep(page) {
             this.check_page = 1;
             axios
-                .get("http://127.0.0.1:8000/api/loai-phim/sap-xep/"+ this.loai_phim.id +"/" + this.bien + '?page=' + page, {})
+                .get("http://127.0.0.1:8000/api/loai-phim/sap-xep/" + this.loai_phim.slug_loai_phim + "/" + this.bien + '?page=' + page, {})
                 .then((res) => {
                     this.list_phim = res.data.phim.dataPhim.data;
                     this.pagination = res.data.phim.pagination;
-
+                    this.list_phim.forEach((value, index) => {
+                        value.ten_the_loais = value.ten_the_loais.split(",");
+                    });
+                    this.scrollToTop();
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
+                }).catch(() => {
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 });
         },
 
@@ -225,4 +262,13 @@ export default {
     },
 };
 </script>
-<style></style>
+<style>
+.product__sidebar__comment__item__text h5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+</style>

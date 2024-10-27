@@ -21,16 +21,19 @@
                     <div class="card">
                         <div class="card-body" style="background-color: #0b0c2adb">
                             <div class="d-flex flex-column align-items-center text-white text-center">
-                                <a type="button" onclick="document.getElementById('fileInput').click();" >
-                                    <img v-if="is_avt" src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg" alt="Admin" class="rounded-circle p-1 bg-primary custom-button" width="110" />
-                                    <img v-else v-bind:src="hinh_anh_user" alt="" class="rounded-circle p-1 bg-primary custom-button" width="110" height="110" />
+                                <a type="button" onclick="document.getElementById('fileInput').click();">
+                                    <img v-if="is_avt"
+                                        src="https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg"
+                                        alt="Admin" class="rounded-circle p-1 bg-primary custom-button" width="110" />
+                                    <img v-else v-bind:src="hinh_anh_user" alt=""
+                                        class="rounded-circle p-1 bg-primary custom-button" width="110" height="110" />
                                 </a>
                                 <div class="mt-3">
                                     <h4>{{ ho_ten_user }}</h4>
                                     <p class="text-secondary mb-1">Thành viên của WAnime</p>
 
-                                    <input id="fileInput" type="file" @change="handleFile($event, true)" class="form-control-sm"
-                                        style="display: none;" />
+                                    <input id="fileInput" type="file" @change="handleFile($event, true)"
+                                        class="form-control-sm" style="display: none;" />
                                 </div>
                             </div>
                             <hr class="my-1" />
@@ -57,7 +60,8 @@
                                     <h6 class="mb-0">Họ Và Tên</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input v-model="obj_update_tt.ho_va_ten" type="text" disabled class="form-control" />
+                                    <input v-model="obj_update_tt.ho_va_ten" type="text" disabled
+                                        class="form-control" />
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -73,7 +77,8 @@
                                     <h6 class="mb-0">Số điện thoại</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input v-model="obj_update_tt.so_dien_thoai" type="text" disabled class="form-control" />
+                                    <input v-model="obj_update_tt.so_dien_thoai" type="text" disabled
+                                        class="form-control" />
                                 </div>
                             </div>
                             <div class="row">
@@ -81,7 +86,8 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="button" class="btn btn-danger px-4 me-5" data-bs-toggle="modal"
                                         data-bs-target="#thayDoiThongTin" value="Sửa Thông Tin" />
-                                    <input data-bs-toggle="modal" data-bs-target="#doiMatKhau" type="button" class="btn btn-danger px-4 me-5 " value="Đổi Mật Khẩu" />
+                                    <input data-bs-toggle="modal" data-bs-target="#doiMatKhau" type="button"
+                                        class="btn btn-danger px-4 me-5 " value="Đổi Mật Khẩu" />
                                 </div>
                             </div>
                         </div>
@@ -94,31 +100,34 @@
                             <div class="modal-body">
                                 <div class="product__sidebar__comment">
                                     <div class="section-title" style="color: aliceblue;">
-                                       <h4> Sửa Thông Tin</h4>
+                                        <h4> Sửa Thông Tin</h4>
                                     </div>
-                                        <div class="row mb-3 mt-1">
-                                            <div class="col-sm-3 ">
-                                                <h6 class="mb-0 text-white mt-2">Họ Và Tên</h6>
-                                            </div>
-                                            <div class="col-sm-9 text-secondary">
-                                                <input v-model="obj_update_tt.ho_va_ten" type="text" class="form-control" />
-                                            </div>
+                                    <div class="row mb-3 mt-1">
+                                        <div class="col-sm-3 ">
+                                            <h6 class="mb-0 text-white mt-2">Họ Và Tên</h6>
                                         </div>
-                                        <div class="row mb-3 mt-1">
-                                            <div class="col-sm-3 ">
-                                                <h6 class="mb-0 text-white mt-2">Số điện thoại</h6>
-                                            </div>
-                                            <div class="col-sm-9 text-secondary">
-                                                <input v-model="obj_update_tt.so_dien_thoai" type="text" class="form-control" />
-                                            </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input v-model="obj_update_tt.ho_va_ten" type="text" class="form-control" />
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-3"></div>
-                                            <div class="col-sm-9 text-secondary">
-                                                <input @click="DoiThongTin()" type="button" data-bs-dismiss="modal" class="btn btn-danger px-4 me-5" value="Lưu Thông Tin" />
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                            </div>
+                                    </div>
+                                    <div class="row mb-3 mt-1">
+                                        <div class="col-sm-3 ">
+                                            <h6 class="mb-0 text-white mt-2">Số điện thoại</h6>
                                         </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input v-model="obj_update_tt.so_dien_thoai" type="text"
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input @click="DoiThongTin()" type="button" data-bs-dismiss="modal"
+                                                class="btn btn-danger px-4 me-5" value="Lưu Thông Tin" />
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- <div class="modal-footer">
@@ -135,14 +144,15 @@
                             <div class="modal-body">
                                 <div class="product__sidebar__comment">
                                     <div class="section-title" style="color: aliceblue;">
-                                       <h4> Đổi mật khẩu</h4>
+                                        <h4> Đổi mật khẩu</h4>
                                     </div>
                                     <div class="row mb-3 ">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0 text-white mt-2">Mật khẩu cũ</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input v-model="obj_doi_pass.old_pass" type="password" class="form-control" />
+                                            <input v-model="obj_doi_pass.old_pass" type="password"
+                                                class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row mb-3 ">
@@ -150,7 +160,8 @@
                                             <h6 class="mb-0 text-white mt-2">Mật khẩu mới</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input v-model="obj_doi_pass.new_pass" type="password" class="form-control" />
+                                            <input v-model="obj_doi_pass.new_pass" type="password"
+                                                class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row mb-3 ">
@@ -158,16 +169,19 @@
                                             <h6 class="mb-0 text-white mt-2">Nhập mật khẩu mới</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input v-model="obj_doi_pass.re_new_pass" type="password" class="form-control" />
+                                            <input v-model="obj_doi_pass.re_new_pass" type="password"
+                                                class="form-control" />
                                         </div>
                                     </div>
-                                        <div class="row">
-                                            <div class="col-sm-3"></div>
-                                            <div class="col-sm-9 text-secondary">
-                                                <input  @click="DoiPass()" type="button" data-bs-dismiss="modal" class="btn btn-danger px-4 me-5" value="Đổi mật khẩu" />
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input @click="DoiPass()" type="button" data-bs-dismiss="modal"
+                                                class="btn btn-danger px-4 me-5" value="Đổi mật khẩu" />
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Đóng</button>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- <div class="modal-footer">
@@ -192,7 +206,7 @@ const toaster = createToaster({
 export default {
     data() {
         return {
-            is_avt : true,
+            is_avt: true,
             obj_doi_pass: {},
             obj_update_tt: {},
             obj_avt: {},
@@ -203,6 +217,7 @@ export default {
     },
     mounted() {
         this.laydataAdmin();
+        this.$store.dispatch('showLoader');
         // console.log(this.id_user);
     },
     methods: {
@@ -217,17 +232,20 @@ export default {
                     },
                 })
                 .then((res) => {
-                        // console.log(res.data);
-                        //  this.hinh_anh_user = localStorage.getItem("hinh_anh_user"),
-                        this.obj_doi_pass = res.data.obj_user;
-                        this.obj_update_tt = res.data.obj_user;
-                        if(this.obj_doi_pass.avatar == ''){
-                            this.is_avt = true;
-                        }
-                        else{
-                            this.is_avt = false;
-                            this.hinh_anh_user = this.obj_doi_pass.avatar
-                        }
+                    // console.log(res.data);
+                    //  this.hinh_anh_user = localStorage.getItem("hinh_anh_user"),
+                    this.obj_doi_pass = res.data.obj_user;
+                    this.obj_update_tt = res.data.obj_user;
+                    if (this.obj_doi_pass.avatar == '') {
+                        this.is_avt = true;
+                    }
+                    else {
+                        this.is_avt = false;
+                        this.hinh_anh_user = this.obj_doi_pass.avatar
+                    }
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
+                }).catch(() => {
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 });
         },
         DoiPass() {
@@ -243,10 +261,8 @@ export default {
                     }
                 })
                 .catch((res) => {
-                    var errors  = Object.values(res.response.data.errors);
-                    errors.forEach(function(v,k){
-                            toaster.error(v[0]);
-                    });
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         DoiThongTin() {
@@ -263,10 +279,8 @@ export default {
                     }
                 })
                 .catch((res) => {
-                    var errors  = Object.values(res.response.data.errors);
-                    errors.forEach(function(v,k){
-                            toaster.error(v[0]);
-                    });
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         handleFile(e, isCreate) {
@@ -279,7 +293,7 @@ export default {
                 alert('Vui lòng chọn đúng file hình ảnh');
                 return;
             }
-            else{
+            else {
                 this.createImage(files[0], isCreate);
             }
         },
@@ -313,9 +327,10 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
-                        this.obj_avt = {};
-                        this.is_create = 0;
-                        this.laydataAdmin();
+                        // this.obj_avt = {};
+                        // this.is_create = 0;
+                        // this.laydataAdmin();
+                        window.location.reload();
                     } else {
                         toaster.error(res.data.message);
                     }
@@ -332,4 +347,5 @@ export default {
 
 .custom-button:hover {
     opacity: 0.7;
-}</style>
+}
+</style>
