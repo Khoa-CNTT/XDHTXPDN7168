@@ -184,16 +184,15 @@
                                     <div class="product__sidebar__comment">
                                         <div class="section-title ">
                                             <div class="input-group mb-3">
-                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" @click="searchPhim()"
-                                                    type="button" class="input-group-text serch">
+                                                <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
+                                                    class="form-control"
+                                                    placeholder="Tìm kiếm phim..">
+                                                <a v-bind:href="'/tim-kiem/' + key_tim.key"
+                                                    type="button" class="input-group-text serch bg-primary">
                                                     <i class="fa-solid fa-magnifying-glass"></i></a>
 
-                                                <input v-on:keyup="searchPhim()" v-model="key_tim.key"
-                                                    class="form-control" list="datalistOptions" id="exampleDataList"
-                                                    placeholder="Tìm kiếm phim..">
-                                                <datalist id="datalistOptions">
-                                                    <option value="chuyển sinh thành máy bán nước"></option>
-                                                </datalist>
+
+
                                             </div>
                                         </div>
                                         <div class="row sctrollspy-example" data-bs-spy="sctroll">
@@ -201,25 +200,31 @@
                                                 <div class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
+
                                                             <a v-bind:href="'/de-list/' + v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
-                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px ;"
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px"
                                                                         alt="" />
                                                                 </div>
                                                             </a>
-
-                                                            <div class="product__sidebar__comment__item__text">
+                                                            <div style="" class="product__sidebar__comment__item__text">
                                                                 <ul>
-                                                                    <li>hành động</li>
-                                                                    <li>phim lẻ</li>
+                                                                    <li>{{ v.ten_loai_phim }}</li>
+                                                                    <!-- <li >{{ v.ten_loai_phim }}</li> -->
+                                                                    <template v-for="(value, key) in v.ten_the_loais"
+                                                                        :key="key">
+                                                                        <li>{{ value }}</li>
+                                                                    </template>
                                                                 </ul>
                                                                 <h5>
-                                                                    <!-- <router-link :to="`/de-list/${v.id}`"> -->
                                                                     <a v-bind:href="'/de-list/' + v.slug_phim">
-                                                                        {{ v.ten_phim }}</a>
-                                                                    <!-- </router-link> -->
+                                                                        {{ v.ten_phim }}
+                                                                    </a>
+
                                                                 </h5>
-                                                                <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
+                                                                <div style="color: #b7b7b7">
+                                                                    Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -294,6 +299,7 @@ export default {
             list_phim_search: [],
             list_phim: [],
             key_tim: {},
+            timeout: null,
             is_login: false,
             user_name: {},
             id_user: {},
@@ -345,13 +351,13 @@ export default {
 
                 });
         },
-        // loaddataTheLoai() {
-        //     axios
-        //         .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
-        //         .then((res) => {
-        //             this.list_the_loai = res.data.the_loai;
-        //         });
-        // },
+        debouncedSearch() {
+            clearTimeout(this.timeout);
+            // Đặt khoảng thời gian debounce (300ms)
+            this.timeout = setTimeout(() => {
+                this.searchPhim();
+            }, 600);
+        },
         removeToken() {
             localStorage.removeItem('token_user');
             localStorage.removeItem('hinh_anh_user');
@@ -404,6 +410,9 @@ export default {
                 .post("http://127.0.0.1:8000/api/phim/thong-tin-tim", this.key_tim)
                 .then((res) => {
                     this.list_phim_search = res.data.phim;
+                    this.list_phim_search.forEach((value, index) => {
+                        value.ten_the_loais = value.ten_the_loais.split(",");
+                    });
                 });
         },
 
@@ -414,6 +423,15 @@ export default {
 };
 </script>
 <style>
+.product__sidebar__comment__item__text h5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
 .sctrollspy-example {
     height: 400px;
     overflow-y: auto;

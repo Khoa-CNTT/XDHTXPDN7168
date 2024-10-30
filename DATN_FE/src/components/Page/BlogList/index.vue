@@ -31,8 +31,8 @@
                   " id="myTab" role="tablist">
                                     <template v-for="(v, k) in list_chuyen_muc" :key="k">
                                         <template v-if="k == 0">
-                                            <li  class="nav-item" role="presentation">
-                                                <button @click="changeChuyenMuc(v.id,1)"   style="
+                                            <li class="nav-item" role="presentation">
+                                                <button @click="changeChuyenMuc(v.id, 1)" style="
                             background-color: rgba(35, 33, 33, 0.4);
                             width: 180px;
                           " class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -43,8 +43,8 @@
                                             </li>
                                         </template>
                                         <template v-else>
-                                            <li  class="nav-item" role="presentation">
-                                                <button @click="changeChuyenMuc(v.id,1)" style="
+                                            <li class="nav-item" role="presentation">
+                                                <button @click="changeChuyenMuc(v.id, 1)" style="
                             background-color: rgba(35, 33, 33, 0.4);
                             width: 180px;
                           " class="nav-link" id="profile-tab" data-bs-toggle="tab"
@@ -70,9 +70,9 @@
                                                         class="col-lg-4 col-md-6 col-sm-6">
                                                         <router-link :to="`/blog/${v1.slug_tieu_de}`">
                                                             <div class="blog__item small__item set-bg" v-bind:style="{
-                                        'background-image':
-                                            'url(' + v1.hinh_anh + ')',
-                                    }">
+                                                                'background-image':
+                                                                    'url(' + v1.hinh_anh + ')',
+                                                            }">
                                                                 <div style="
                                     background-color: rgba(35, 33, 33, 0.7);
                                     top: 194px;
@@ -104,9 +104,9 @@
                                                         class="col-lg-4 col-md-6 col-sm-6">
                                                         <router-link :to="`/blog/${v1.slug_tieu_de}`">
                                                             <div class="blog__item small__item set-bg" v-bind:style="{
-                                        'background-image':
-                                            'url(' + v1.hinh_anh + ')',
-                                    }">
+                                                                'background-image':
+                                                                    'url(' + v1.hinh_anh + ')',
+                                                            }">
                                                                 <div style="
                                     background-color: rgba(35, 33, 33, 0.7);
                                     top: 194px;
@@ -137,14 +137,16 @@
             </div>
             <div class="row">
                 <div class="product__pagination text-center">
-                        <a @click="changPage(1)" type="button" ><i class="fa fa-angle-double-left"></i></a>
+                    <a @click="changPage(1)" type="button"><i class="fa fa-angle-double-left"></i></a>
 
-                        <a type="button" :class="{ current_page: page === pagination.current_page }" v-for="page in pageNumbers" :key="page"  @click="page !== '...' && changPage(page)">
-                            {{ page }}
-                        </a>
+                    <a type="button" :class="{ current_page: page === pagination.current_page }"
+                        v-for="page in pageNumbers" :key="page" @click="page !== '...' && changPage(page)">
+                        {{ page }}
+                    </a>
 
-                        <a @click="changPage(pagination.last_page)" type="button" ><i class="fa fa-angle-double-right"></i></a>
-                    </div>
+                    <a @click="changPage(pagination.last_page)" type="button"><i
+                            class="fa fa-angle-double-right"></i></a>
+                </div>
             </div>
         </div>
     </section>
@@ -213,11 +215,11 @@ export default {
                     this.list_chuyen_muc = res.data.chuyen_muc;
                 });
         },
-        changeChuyenMuc(id_chuyen_muc,page) {
+        changeChuyenMuc(id_chuyen_muc, page) {
             this.check_id_cm = id_chuyen_muc;
             this.check_page = 1;
             var payload = {
-                'id_chuyen_muc' : id_chuyen_muc
+                'id_chuyen_muc': id_chuyen_muc
             };
             axios
                 .post("http://127.0.0.1:8000/api/bai-viet/change-chuyen-muc?page=" + page, payload)
