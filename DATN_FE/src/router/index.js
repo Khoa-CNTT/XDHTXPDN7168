@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
 import checkLoginUser from "./checkLoginAnime";
 import checkloginAdmin from "./checkLoginAdmin";
+import checkUserTerm from "./checkUserTerm";
 const routes = [
   {
     path: "/home",
@@ -58,15 +59,16 @@ const routes = [
         props: (route) => ({ slug: route.params.slug }),
       },
       {
-        path: "de-list/:slug",
+        path: ":slug",
         component: () => import("../components/Page/PageDelist/index.vue"),
         name: "PageDelist",
-        props: (route) => ({ slug: route.params.slug }),
+        props: true,
       },
       {
         path: ":slugMovie/:slugEpisode",
         component: () => import("../components/Page/PageWatch/index.vue"),
-        props : true
+        props: true,
+        beforeEnter: checkUserTerm,
       },
       {
         path: "loai-phim/:slug",

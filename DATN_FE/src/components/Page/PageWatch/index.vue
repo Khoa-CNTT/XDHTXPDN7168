@@ -181,8 +181,6 @@ export default {
         this.$route.params.slugEpisode,
             this.LaydataDeXem();
         this.laydataCMT();
-        console.log(moment.locale()); // Kết quả phải là 'vi'
-
     },
 
 
@@ -213,14 +211,18 @@ export default {
             baseRequest
                 .post("lay-data-watch", payload)
                 .then((res) => {
-                    this.obj_phim = res.data.phim;
-                    this.obj_tap_phim = res.data.tap;
-                    this.list_tap_phim = res.data.tap_phims;
+                    // if (res.data.status === 0) {
+                    //     toaster.error(res.data.message);
+
+                    // }
+                    this.obj_phim = res.data.phim || {}; // Gán {} nếu không có dữ liệu
+                    this.obj_tap_phim = res.data.tap || {};
+                    this.list_tap_phim = res.data.tap_phims || [];
                     this.$store.dispatch('hideLoader');
                 })
                 .catch(() => {
                     this.$router.push('/'); // Ẩn loader nếu có lỗi
-                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
+                    toaster.warning("Đã xảy ra lỗi, vui lòng thử lại sau");
                     var errors = Object.values(res.response.data.errors);
                     toaster.error(errors[0]);
                 });
@@ -296,7 +298,7 @@ export default {
                         this.cancelEdit();
                         this.laydataCMT();
                     } else {
-                        toaster.danger(res.data.message);
+                        toaster.error(res.data.message);
                     }
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);

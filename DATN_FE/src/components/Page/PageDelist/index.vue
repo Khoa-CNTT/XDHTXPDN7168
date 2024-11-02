@@ -47,7 +47,7 @@
                                 <span>({{ ratingCount }} lượt, đánh giá:
                                     {{ averageRating.toFixed(1) }}/5)</span>
                             </div>
-                            <p v-html="obj_phim.mo_ta"></p>
+                            <p class="protection" v-html="obj_phim.mo_ta"></p>
                             <div class="anime__details__widget">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
@@ -94,11 +94,19 @@
                                 <button v-else type="button" @click="unTheoDoi()" class="follow-btn">
                                     <i class="fa-solid fa-heart"></i> Bỏ Theo Dõi
                                 </button>
-                                <router-link :to="`/${obj_phim.slug_phim}/${tap_phim.slug_tap_phim}`">
-                                    <a v-bind:href=" obj_phim.slug_phim" class="watch-btn"><span>Xem
+                                <template v-if="isUserTurmed == false">
+                                    <a data-bs-toggle="modal" type="button" @click="checkUserTerm()" data-bs-target="#"
+                                        class="watch-btn"><span>Xem
                                             Ngay</span>
                                     </a>
-                                </router-link>
+                                </template>
+                                <template v-else>
+                                    <router-link :to="`/${obj_phim.slug_phim}/${tap_phim.slug_tap_phim}`">
+                                        <a v-bind:href="obj_phim.slug_phim" class="watch-btn"><span>Xem
+                                                Ngay</span>
+                                        </a>
+                                    </router-link>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -163,6 +171,13 @@
                                 </div>
                             </div>
                         </template>
+                        <div class="text-center" v-if="list_cmt.length === 0">
+                            <h4 class="text-light">Không có đánh giá</h4>
+                        </div>
+                        <!-- Nút Tải thêm bình luận -->
+                        <div class="text-center mt-3" v-if="hasMoreComments">
+                            <button @click="taiThemCMT()" class="btn btn-primary">Tải thêm bình luận</button>
+                        </div>
                     </div>
                     <!-- <div class="anime__details__form">
                         <div class="section-title">
@@ -182,11 +197,8 @@
                         </div>
                         <template v-for="(v, k) in list_5_phim" :key="k">
                             <div class="product__sidebar__comment__item">
-                                <router-link :to="{
-                                    name: 'PageDelist',
-                                    params: { id: v.id, slug: v.slug_phim },
-                                }">
-                                    <a v-bind:href="'/de-list/' + v.slug_phim">
+                                <router-link :to="v.slug_phim">
+                                    <a v-bind:href="v.slug_phim">
                                         <div class="product__sidebar__comment__item__pic">
                                             <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
                                         </div>
@@ -201,10 +213,7 @@
                                         </template>
                                     </ul>
                                     <h5>
-                                        <router-link :to="{
-                                            name: 'PageDelist',
-                                            params: { id: v.id, slug: v.slug_phim },
-                                        }">
+                                        <router-link :to="v.slug_phim">
                                             {{ v.ten_phim }}
                                         </router-link>
                                     </h5>
@@ -275,6 +284,27 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modalBuyVip" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalBuyVipLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div style="background-color: rgba(35, 33, 33, 0.8);" class="modal-content">
+                    <div class="modal-body ">
+                        <div class="product__sidebar__comment">
+                            <div class="section-title ">
+                                <h5>Danh Sách Phim Yêu Thích Của Bạn</h5>
+                            </div>
+                            <div class="row sctrollspy-example" data-bs-spy="sctroll">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                </div> -->
+                </div>
+            </div>
+        </div>
     </section>
     <!-- Anime Section End -->
 </template>
@@ -291,6 +321,7 @@ const toaster = createToaster({
 export default {
     props: ["slug"],
     beforeRouteUpdate(to, from, next) {
+        this.limit = 2;    // Số lượng bình luận muốn tải mỗi lần
         this.slug = to.params.slug;
         //   this.id_phim   = this.id;
         this.obj_yt_phim = { id_khach_hang: localStorage.getItem("id_user") };
@@ -302,6 +333,9 @@ export default {
     },
     data() {
         return {
+            limit: 2,    // Số lượng bình luận muốn tải mỗi lần
+            hasMoreComments: true, // Kiểm tra xem có còn bình luận để tải không
+            isUserTurmed: false,
             ratingCount: 0,
             averageRating: 0,
             rating: 0,
@@ -330,6 +364,26 @@ export default {
         this.laydataDelistPhim();
     },
     methods: {
+        checkUserTerm() {
+            baseRequest
+                .post("check-user-term")
+                .then((res) => {
+                    if (res.data.status === 0) {
+                        toaster.error(res.data.message);
+                        this.$router.push('/login'); // Ẩn loader nếu có listring
+                    }
+                    else if (res.data.status === 2) {
+                        $("#modalBuyVip").modal("show");
+                        toaster.warning(res.data.message);
+
+                    }
+                    else {
+                        alert("Đã xảy ra lỗi, vui lòng thử lại sau");
+                        window.location.reload();
+                    }
+
+                })
+        },
         fromNow: function (datetime) {
             moment.locale("vi");
             return moment(datetime).fromNow();
@@ -366,12 +420,11 @@ export default {
             });
         },
         laydataDelistPhim() {
-            axios
-                .get("http://127.0.0.1:8000/api/phim/lay-data-delist", {
-                    params: {
-                        slug: this.slug,
-                    },
-                })
+            var params = {
+                slug: this.slug,
+            };
+            baseRequest
+                .post("phim/lay-data-delist", params)
                 .then((res) => {
                     this.obj_phim = res.data.phim;
                     this.tap_phim = res.data.tap;
@@ -383,21 +436,36 @@ export default {
                     });
                     this.$store.dispatch('hideLoader');
                     this.scrollToTop();
+                    this.isUserTurmed = res.data.isUserTurmed;
 
                 }).catch(() => {
+                    this.$router.push('/'); // Ẩn loader nếu có listring
                     this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 });
+        },
+        taiThemCMT() {
+            this.limit += this.limit;
+            this.laydataCMT();
         },
         laydataCMT() {
             axios
                 .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show", {
                     params: {
+                        limit: this.limit,
                         slug: this.slug,
                     },
                 })
                 .then((res) => {
-                    this.list_cmt = res.data.binh_luan_phim;
-                    if (res.data.rate[0]) {
+                    var countCMTend = Number(res.data?.rate?.[0]?.tong_so_luot_danh_gia) || 0;
+                    var countCMTbegin = Array.isArray(res.data?.binh_luan_phim) ? res.data.binh_luan_phim.length : 0;
+
+                    if (countCMTbegin >= countCMTend) {
+                        this.hasMoreComments = false;
+                    }
+
+                    this.list_cmt = Array.isArray(res.data?.binh_luan_phim) ? res.data.binh_luan_phim : [];
+
+                    if (res.data?.rate?.[0]) {
                         this.ratingCount = res.data.rate[0].tong_so_luot_danh_gia;
                         this.averageRating = Number(res.data.rate[0].so_sao_trung_binh);
                     } else {
@@ -405,6 +473,9 @@ export default {
                         this.averageRating = 0;
                     }
 
+                }).catch(() => {
+                    toaster.warning("Đã xảy ra lỗi, vui lòng thử lại sau");
+                    this.$router.push('/'); // Ẩn loader nếu có listring
                 });
         },
         checkYeuThich() {
@@ -433,6 +504,7 @@ export default {
                         this.checkYeuThich();
                     } else {
                         toaster.error(res.data.message);
+                        this.$router.push('/login');
                     }
                     this.scrollToTop();
                 });
@@ -447,6 +519,7 @@ export default {
                         this.checkYeuThich();
                     } else {
                         toaster.danger(res.data.message);
+                        this.$router.push('/login');
                     }
                     this.scrollToTop();
                 });
@@ -462,6 +535,8 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
+                        this.limit = 2;
+                        this.hasMoreComments = true;
                         this.obj_cmt_phim = {};
                         this.rating = 0;
                         this.laydataCMT();
@@ -477,7 +552,7 @@ export default {
         deleteRating() {
             baseRequest
                 .post(
-                    "khach-hang/binh-luan-phim/thong-tin-xoa" , this.obj_xoa_cmt
+                    "khach-hang/binh-luan-phim/thong-tin-xoa", this.obj_xoa_cmt
                 )
                 .then((res) => {
                     if (res.data.status == true) {
@@ -520,6 +595,16 @@ export default {
     text-overflow: ellipsis;
     white-space: normal;
 }
+
+.protection {
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
 .anime_details_title h3 {
     word-wrap: break-word;
     white-space: normal;

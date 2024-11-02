@@ -33,7 +33,7 @@
                         <div class="row">
                             <template v-for="(v, k) in list_phim" :key="k">
                                 <div v-show="v.tong_tap > 0" class="col-lg-3 col-md-6 col-sm-12">
-                                    <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
+                                    <router-link :to="`/${v.slug_phim}`">
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg"
                                                 style="background-image: url('undefined')">

@@ -135,7 +135,7 @@
                                                 <div v-if="v.id_khach_hang == id_user" class="row ">
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
-                                                            <a v-bind:href="'/de-list/' + v.slug_phim">
+                                                            <a v-bind:href="v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
                                                                     <img v-bind:src="v.hinh_anh" style="width: 99px ;"
                                                                         alt="" />
@@ -148,7 +148,7 @@
                                                                 </ul>
                                                                 <h5>
                                                                     <!-- <router-link :to="`/de-list/${v.id}`"> -->
-                                                                    <a v-bind:href="'/de-list/' + v.slug_phim">
+                                                                    <a v-bind:href="v.slug_phim">
                                                                         {{ v.ten_phim }}</a>
                                                                     <!-- </router-link> -->
                                                                 </h5>
@@ -201,7 +201,7 @@
                                                     <div class="col-10">
                                                         <div class="product__sidebar__comment__item">
 
-                                                            <a v-bind:href="'/de-list/' + v.slug_phim">
+                                                            <a v-bind:href="v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic">
                                                                     <img v-bind:src="v.hinh_anh" style="width: 99px"
                                                                         alt="" />
@@ -217,7 +217,7 @@
                                                                     </template>
                                                                 </ul>
                                                                 <h5>
-                                                                    <a v-bind:href="'/de-list/' + v.slug_phim">
+                                                                    <a v-bind:href="v.slug_phim">
                                                                         {{ v.ten_phim }}
                                                                     </a>
 

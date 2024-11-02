@@ -50,7 +50,7 @@
                         <div class="row">
                             <template v-for="(v, k) in list_phim" :key="k">
                                 <div v-show="v.tong_tap > 0" class="col-lg-4 col-md-6 col-sm-6">
-                                    <router-link :to="{ name: 'PageDelist', params: { id: v.id, slug: v.slug_phim } }">
+                                    <router-link :to="v.slug_phim">
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg"
                                                 style="background-image: url('undefined')">
@@ -103,11 +103,8 @@
                             </div>
                             <template v-for="(v, k) in list_9_phim" :key="k">
                             <div class="product__sidebar__comment__item">
-                                <router-link :to="{
-                                    name: 'PageDelist',
-                                    params: { id: v.id, slug: v.slug_phim },
-                                }">
-                                    <a v-bind:href="'/de-list/' + v.slug_phim">
+                                <router-link :to="v.slug_phim">
+                                    <a v-bind:href="v.slug_phim">
                                         <div class="product__sidebar__comment__item__pic">
                                             <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
                                         </div>
@@ -122,10 +119,7 @@
                                         </template>
                                     </ul>
                                     <h5>
-                                        <router-link :to="{
-                                            name: 'PageDelist',
-                                            params: { id: v.id, slug: v.slug_phim },
-                                        }">
+                                        <router-link :to="v.slug_phim">
                                             {{ v.ten_phim }}
                                         </router-link>
                                     </h5>
