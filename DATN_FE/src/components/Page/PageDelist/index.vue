@@ -127,11 +127,10 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <h6>
-                                                {{ v.ho_va_ten
-                                                }}<span style="font-size: 0.9rem">
+                                                {{ v.ho_va_ten}}<span style="font-size: 0.9rem">
                                                     - {{ fromNow(v.created_at) }}</span><span style="font-size: 0.9rem"
                                                     v-if="v.updated_at > v.created_at">
-                                                    ( Đã chỉnh sửa )</span>
+                                                    ( Đã chỉnh sửa )</span> - <span  v-for="star in v.so_sao" :key="star" style="font-size: 0.9rem"><i class="fa-solid fa-star text-warning"></i></span>
                                             </h6>
                                             <p v-if="editingCommentId !== v.id" class="textwrap">
                                                 {{ v.noi_dung }}
@@ -321,7 +320,7 @@ const toaster = createToaster({
 export default {
     props: ["slug"],
     beforeRouteUpdate(to, from, next) {
-        this.limit = 2;    // Số lượng bình luận muốn tải mỗi lần
+        this.limit = 5;    // Số lượng bình luận muốn tải mỗi lần
         this.slug = to.params.slug;
         //   this.id_phim   = this.id;
         this.obj_yt_phim = { id_khach_hang: localStorage.getItem("id_user") };
@@ -333,7 +332,7 @@ export default {
     },
     data() {
         return {
-            limit: 2,    // Số lượng bình luận muốn tải mỗi lần
+            limit: 5,    // Số lượng bình luận muốn tải mỗi lần
             hasMoreComments: true, // Kiểm tra xem có còn bình luận để tải không
             isUserTurmed: false,
             ratingCount: 0,
@@ -535,7 +534,7 @@ export default {
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
-                        this.limit = 2;
+                        this.limit = 5;
                         this.hasMoreComments = true;
                         this.obj_cmt_phim = {};
                         this.rating = 0;

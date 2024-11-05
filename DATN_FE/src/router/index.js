@@ -103,6 +103,10 @@ const routes = [
     beforeEnter: checkloginAdmin,
     children: [
       {
+        path: "dashboard",
+        component: () => import("../components/Admin/Dashboard/index.vue"),
+      },
+      {
         path: "danh-muc",
         component: () => import("../components/Admin/DanhMuc/index.vue"),
       },

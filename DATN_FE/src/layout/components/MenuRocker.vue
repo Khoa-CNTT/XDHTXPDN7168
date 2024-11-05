@@ -12,7 +12,7 @@
         <!--navigation-->
         <ul class="metismenu" id="menu">
             <li>
-                <router-link to="">
+                <router-link to="/admin/dashboard">
                     <a href="/admin/dashboard">
                         <div class="parent-icon"><i class="bx bx-home-circle"></i></div>
                         <div class="menu-title">Dashboard</div>
@@ -70,7 +70,7 @@
                     </a>
                 </router-link>
             </li>
-            <li>
+            <!-- <li>
                 <router-link to="/admin/tap-phim">
                     <a href="/admin/anime" class="nav-link">
                         <div class="parent-icon">
@@ -79,7 +79,7 @@
                         <div class="menu-title">Diễn viện</div>
                     </a>
                 </router-link>
-            </li>
+            </li> -->
             <li class="menu-label">Quản lý bài viết</li>
             <li>
                 <router-link to="/admin/bai-viet">

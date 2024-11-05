@@ -297,6 +297,7 @@ export default {
             list_loai_phim: [],
             list_yeu_thich: [],
             list_phim_search: [],
+            list_danh_muc: [],
             list_phim: [],
             key_tim: {},
             timeout: null,
@@ -348,6 +349,7 @@ export default {
                 .then((res) => {
                     this.list_loai_phim = res.data.loai_phim;
                     this.list_the_loai = res.data.the_loai;
+                    this.list_danh_muc = res.data.danh_muc_webs;
 
                 });
         },

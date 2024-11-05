@@ -54,7 +54,7 @@
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg"
                                                 style="background-image: url('undefined')">
-                                                <a><img style="height: 100%; width: 230px" v-bind:src="v.hinh_anh"
+                                                <a><img style="height: 100%; width: 230px" v-bind:src="v.hinh_anh" loading="lazy"
                                                         alt="" /></a>
                                                 <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }}
                                                     <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
