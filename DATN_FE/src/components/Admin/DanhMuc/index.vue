@@ -182,8 +182,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
                                     </button>
-                                    <button v-if="is_update == 0" disabled class="btn btn-danger">Xong</button>
-                                    <button v-else v-on:click="updateDanhMuc()" data-bs-dismiss="modal"
+                                    <button v-on:click="updateDanhMuc()" data-bs-dismiss="modal"
                                         class="btn btn-primary">Xong</button>
                                 </div>
                             </div>
@@ -302,6 +301,10 @@ export default {
                         toaster.error(res.data.message);
                         this.is_create = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -322,6 +325,10 @@ export default {
                         this.is_update = 0;
 
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         laydataDanhMuc(page) {
@@ -330,6 +337,10 @@ export default {
                 .then((res) => {
                     this.list_danh_muc = res.data.danh_muc_admin.dataAdmin.data;
                     this.pagination = res.data.danh_muc_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataDanhMuc() {
@@ -346,6 +357,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchDanhMuc(page) {
@@ -355,6 +370,10 @@ export default {
                 .then((res) => {
                     this.list_danh_muc = res.data.danh_muc_admin.dataAdmin.data;
                     this.pagination = res.data.danh_muc_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteDanhMuc() {
@@ -368,6 +387,10 @@ export default {
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateDanhMuc() {
@@ -380,6 +403,10 @@ export default {
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -393,6 +420,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         }
     },

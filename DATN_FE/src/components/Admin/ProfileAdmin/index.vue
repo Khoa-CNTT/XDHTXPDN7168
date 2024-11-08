@@ -243,9 +243,7 @@ export default {
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    errors.forEach(function (v, k) {
-                        toaster.error(v[0]);
-                    });
+                    toaster.error(errors[0]);
                 });
         },
         DoiThongTin() {
@@ -264,9 +262,7 @@ export default {
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    errors.forEach(function (v, k) {
-                        toaster.error(v[0]);
-                    });
+                    toaster.error(errors[0]);
                 });
         },
         handleFile(e, isCreate) {

@@ -238,9 +238,7 @@ export default {
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    errors.forEach(function(v, k) {
-                        toaster.error('Có Lỗi<br>' + v[0]);
-                    });
+                    toaster.error(errors[0]);
                 });
         },
         getChucNang() {
@@ -251,9 +249,7 @@ export default {
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    errors.forEach(function(v, k) {
-                        toaster.error('Có Lỗi<br>' + v[0]);
-                    });
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -270,9 +266,7 @@ export default {
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    errors.forEach(function(v, k) {
-                        toaster.error('Có Lỗi<br>' + v[0]);
-                    });
+                    toaster.error(errors[0]);
                 });
         },
 

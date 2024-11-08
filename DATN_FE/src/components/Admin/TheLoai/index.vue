@@ -326,6 +326,10 @@ export default {
                         toaster.error(res.data.message);
                         this.is_update = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loaddataTheLoai(page) {
@@ -333,7 +337,11 @@ export default {
                 this.list_the_loai = res.data.the_loai.dataAdmin.data;
                 this.pagination = res.data.the_loai.pagination;
                 this.list_danh_muc = res.data.list_danh_muc;
-            });
+            })
+            .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
         taoDataTheLoai() {
             baseRequest
@@ -346,6 +354,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchTheLoai(page) {
@@ -356,6 +368,10 @@ export default {
                     this.list_the_loai = res.data.the_loai.dataAdmin.data;
                     this.pagination = res.data.the_loai.pagination;
                     this.list_danh_muc = res.data.list_danh_muc;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteTheLoai() {
@@ -368,6 +384,10 @@ export default {
                     } else {
                         toaster.danger("Thông báo<br>" + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateTheLoai() {
@@ -380,6 +400,10 @@ export default {
                     } else {
                         toaster.danger("Thông báo<br>" + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -393,6 +417,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
     },

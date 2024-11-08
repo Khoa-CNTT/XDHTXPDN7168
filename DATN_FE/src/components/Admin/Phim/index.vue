@@ -230,7 +230,8 @@
                                     </td>
                                     <td class="align-middle text-wrap text-center ">{{ v.ten_loai_phim }} </td>
                                     <td class="align-middle text-wrap text-center">{{ v.so_tap_phim }}</td>
-                                    <td class="align-middle text-wrap text-primary">{{ theloaisLimited(v.the_loais) }}</td>
+                                    <td class="align-middle text-wrap text-primary">{{ theloaisLimited(v.the_loais) }}
+                                    </td>
                                     <td class="text-center align-middle text-nowrap text-center">
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
                                             class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"
@@ -250,8 +251,8 @@
                                             tiết</button>
                                     </td>
                                     <td class="text-center align-middle text-nowrap">
-                                        <i @click="Object.assign(obj_update_phim, v);list_chon_update = v.idS;" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#Chinhsua"
+                                        <i @click="Object.assign(obj_update_phim, v); list_chon_update = v.idS;"
+                                            type="button" data-bs-toggle="modal" data-bs-target="#Chinhsua"
                                             class="fa-solid fa-pen-to-square fa-2x text-warning me-2"></i>
 
                                         <i @click="Object.assign(obj_delete_phim, v)" data-bs-target="#Xoa"
@@ -301,7 +302,7 @@
                                             </tr>
                                             <tr>
                                                 <th class="text-nowrap" scope="row">Tên phim</th>
-                                                <td colspan="6" class="text-wrap">{{ obj_chi_tiet.ten_phim}}</td>
+                                                <td colspan="6" class="text-wrap">{{ obj_chi_tiet.ten_phim }}</td>
                                             </tr>
                                             <tr>
                                                 <th class="text-nowrap" scope="row">Thời lượng</th>
@@ -326,7 +327,7 @@
                                             <tr>
                                                 <th class="text-nowrap" scope="row">Đạo diễn</th>
                                                 <td colspan="6">{{ obj_chi_tiet.dao_dien != '' ? obj_chi_tiet.dao_dien :
-                                    'Đang cập nhật' }}</td>
+                                                    'Đang cập nhật' }}</td>
                                             </tr>
                                             <tr>
                                                 <th class="text-nowrap" scope="row">Quốc gia</th>
@@ -374,8 +375,9 @@
                                                 <label for="" class="form-label mb-1 mt-1">
                                                     <b>Tên Phim</b>
                                                 </label>
-                                                <input v-model="obj_update_phim.ten_phim" @keyup="addSlugUpdate()" @change="kiemTraSlugUpdate()"
-                                                    type="text" class="form-control" placeholder="Nhập tên phim..." />
+                                                <input v-model="obj_update_phim.ten_phim" @keyup="addSlugUpdate()"
+                                                    @change="kiemTraSlugUpdate()" type="text" class="form-control"
+                                                    placeholder="Nhập tên phim..." />
                                             </div>
                                             <div class="col-6">
                                                 <label for="" class="form-label mb-1 mt-1">
@@ -390,14 +392,15 @@
                                                 <label for="" class="form-label mb-1 mt-1">
                                                     <b>Slug Phim</b>
                                                 </label>
-                                                <input v-model="obj_update_phim.slug_phim" type="text" disabled class="form-control"
-                                                    placeholder="slug phim..." />
+                                                <input v-model="obj_update_phim.slug_phim" type="text" disabled
+                                                    class="form-control" placeholder="slug phim..." />
                                             </div>
                                             <div class="col-6">
                                                 <label class="form-label mb-1 mt-1">
                                                     <b>Loại Phim</b>
                                                 </label>
-                                                <select v-model="obj_update_phim.id_loai_phim" name="" id="" class="form-control">
+                                                <select v-model="obj_update_phim.id_loai_phim" name="" id=""
+                                                    class="form-control">
                                                     <template v-for="(v, k) in list_loai_phim" :key="k">
                                                         <option v-bind:value="v.id">{{ v.ten_loai_phim }}</option>
                                                     </template>
@@ -408,8 +411,8 @@
                                                 <label class="form-label mb-1 mt-1">
                                                     <b>Đạo diễn</b>
                                                 </label>
-                                                <input v-model="obj_update_phim.dao_dien" type="text" class="form-control"
-                                                    placeholder="Nhập tên đạo diễn..">
+                                                <input v-model="obj_update_phim.dao_dien" type="text"
+                                                    class="form-control" placeholder="Nhập tên đạo diễn..">
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
@@ -417,7 +420,8 @@
                                                         <label class="form-label mb-1 mt-1">
                                                             <b>Tình Trạng</b>
                                                         </label>
-                                                        <select v-model="obj_update_phim.tinh_trang" class="form-control mb-3">
+                                                        <select v-model="obj_update_phim.tinh_trang"
+                                                            class="form-control mb-3">
                                                             <option value="0">Tạm Dừng</option>
                                                             <option value="1">Hiển Thị</option>
                                                         </select>
@@ -426,7 +430,8 @@
                                                         <label class="form-label mb-1 mt-1">
                                                             <b>Số Tập</b>
                                                         </label>
-                                                        <input v-model="obj_update_phim.so_tap_phim" class="form-control" type="number"
+                                                        <input v-model="obj_update_phim.so_tap_phim"
+                                                            class="form-control" type="number"
                                                             placeholder="VD: 12..." />
                                                     </div>
                                                 </div>
@@ -437,14 +442,15 @@
                                                         <label class="form-label mb-1 mt-1">
                                                             <b>Thời lượng (phút)</b>
                                                         </label>
-                                                        <input v-model="obj_update_phim.thoi_gian_chieu" class="form-control" type="number"
-                                                            placeholder="VD: 120...">
+                                                        <input v-model="obj_update_phim.thoi_gian_chieu"
+                                                            class="form-control" type="number" placeholder="VD: 120...">
                                                     </div>
                                                     <div class="col-6">
                                                         <label class="form-label mb-1 mt-1">
                                                             <b>Năm sản xuất</b>
                                                         </label>
-                                                        <input v-model="obj_update_phim.nam_san_xuat" class="form-control" type="number"
+                                                        <input v-model="obj_update_phim.nam_san_xuat"
+                                                            class="form-control" type="number"
                                                             placeholder="VD: 2024...">
                                                     </div>
                                                 </div>
@@ -497,7 +503,8 @@
                                                         <label class="form-label mb-1 mt-1">
                                                             <b>Công ty sản xuất</b>
                                                         </label>
-                                                        <input v-model="obj_update_phim.cong_ty_san_xuat" class="form-control" type="text"
+                                                        <input v-model="obj_update_phim.cong_ty_san_xuat"
+                                                            class="form-control" type="text"
                                                             placeholder="VD: Tên công ty..." />
                                                     </div>
                                                 </div>
@@ -508,21 +515,25 @@
                                                 <label for="" class="form-label mb-1 mt-1">
                                                     <b>Hình Ảnh</b>
                                                 </label>
-                                                <input type="file" @change="handleFile($event, false)" class="form-control" />
+                                                <input type="file" @change="handleFile($event, false)"
+                                                    class="form-control" />
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label mb-1 mt-1">
                                                     <b>Thể Loại</b>
                                                 </label>
-                                                <select v-model="choice" class="form-control" v-on:change="addDanhMucUpdate()">
+                                                <select v-model="choice" class="form-control"
+                                                    v-on:change="addDanhMucUpdate()">
                                                     <template v-for="(v, k) in list_the_loai" :key="k">
                                                         <option v-bind:value="v.id">{{ v.ten_the_loai }}</option>
                                                     </template>
                                                 </select>
                                                 <hr>
                                                 <template v-for="(value, index) in list_the_loai" :key="index">
-                                                    <div class="chip" v-if="list_chon_update.includes(value.id)"> {{ value.ten_the_loai }}
-                                                        <span class="closebtn" v-on:click="removeDanhMucUpdate(list_chon_update.indexOf(value.id))"
+                                                    <div class="chip" v-if="list_chon_update.includes(value.id)"> {{
+                                                        value.ten_the_loai }}
+                                                        <span class="closebtn"
+                                                            v-on:click="removeDanhMucUpdate(list_chon_update.indexOf(value.id))"
                                                             onclick="this.parentElement.style.display='none'">×</span>
                                                     </div>
                                                 </template>
@@ -737,16 +748,16 @@ export default {
             return tenqg || ''; // Return an empty string if tenqg is undefined or null
         },
         theloaisLimited(theLoais) {
-                if (!Array.isArray(theLoais)) {
-                    return ''; // Hoặc một giá trị mặc định khác nếu theLoais không phải là mảng
-                }
+            if (!Array.isArray(theLoais)) {
+                return ''; // Hoặc một giá trị mặc định khác nếu theLoais không phải là mảng
+            }
 
-                let concatenatedString = theLoais.map(t => t.ten_the_loai).join(', ');
-                if (concatenatedString.length > this.maxChars) {
-                    return concatenatedString.substring(0, this.maxChars) + '...';
-                }
-                return concatenatedString;
-            },
+            let concatenatedString = theLoais.map(t => t.ten_the_loai).join(', ');
+            if (concatenatedString.length > this.maxChars) {
+                return concatenatedString.substring(0, this.maxChars) + '...';
+            }
+            return concatenatedString;
+        },
         changPage(page) {
             if (this.check_page == 0) {
                 this.laydataPhim(page);
@@ -788,7 +799,11 @@ export default {
                     toaster.error(res.data.message);
                     this.is_create = 0;
                 }
-            });
+            })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
 
         kiemTraSlugUpdate() {
@@ -839,14 +854,17 @@ export default {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.obj_add_phim = {};
-                        this.laydataPhim(this.pagination.last_page);
+                        this.list_chon = [];
+                        this.laydataPhim(1);
 
                     } else {
                         toaster.error(res.data.message);
                     }
-                }).catch((err) => {
-                    functionBasic.displayErrors(err);
                 })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
         searchPhim(page) {
             this.check_page = 1;
@@ -891,9 +909,11 @@ export default {
                     } else {
                         toaster.danger("Thông báo<br>" + res.data.message);
                     }
-                }).catch((err) => {
-                    functionBasic.displayErrors(err);
                 })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
 
         doiTrangThai(xyz) {
@@ -907,6 +927,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         // handleFile(event) {

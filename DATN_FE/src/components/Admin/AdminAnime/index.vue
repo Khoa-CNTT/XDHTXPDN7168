@@ -223,7 +223,7 @@
                                             <input type="password" v-model="obj_doi_pass.password" class="form-control"
                                                 placeholder="Nhập mật khẩu">
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 mt-2">
                                             <label class="form-label">Nhập lại mật khẩu</label>
                                             <input type="password" v-model="obj_doi_pass.re_password"
                                                 class="form-control" placeholder="Nhập lại mật khẩu">
@@ -349,6 +349,9 @@ export default {
                     this.list_admin = res.data.admin.dataAdmin.data;
                     this.pagination = res.data.admin.pagination;
                     this.list_chuc_vu = res.data.chuc_vu_admin;
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataAdmin() {
@@ -368,6 +371,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchAdmin(page) {
@@ -378,6 +384,9 @@ export default {
                     this.list_admin = res.data.admin.dataAdmin.data;
                     this.pagination = res.data.admin.pagination;
                     this.list_chuc_vu = res.data.chuc_vu_admin;
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteAdmin() {
@@ -391,6 +400,9 @@ export default {
                     else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateAdmin() {
@@ -409,6 +421,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -422,6 +437,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         DoiPass() {

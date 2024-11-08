@@ -302,7 +302,11 @@ export default {
                     toaster.error(res.data.message);
                     this.is_create = 0;
                 }
-            });
+            })
+            .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
 
         kiemTraSlugUpdate() {
@@ -318,13 +322,21 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loaddataGoiVip() {
             baseRequest.get("admin/goi-vip/lay-du-lieu").then((res) => {
                 this.list_goi_vip = res.data.goi_vips.dataAdmin.data;
                 this.pagination = res.data.goi_vips.pagination;
-            });
+            })
+            .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
         taodataGoiVip() {
             baseRequest
@@ -338,6 +350,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchGoiVip() {
@@ -346,6 +362,10 @@ export default {
                 .then((res) => {
                     this.list_goi_vip = res.data.goi_vips.dataAdmin.data;
                     this.pagination = res.data.goi_vips.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteGoiVip() {
@@ -358,6 +378,10 @@ export default {
                     } else {
                         toaster.danger("Thông báo<br>" + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateGoiVip() {
@@ -370,6 +394,10 @@ export default {
                     } else {
                         toaster.danger("Thông báo<br>" + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -383,6 +411,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
     },

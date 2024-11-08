@@ -203,6 +203,10 @@ export default {
                     this.chartData1.labels = res.data.list_lable;
                     this.chartData1.datasets[0].data = res.data.list_data;
                     this.loaded1 = true;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loadDataLuotXem() {
@@ -213,6 +217,10 @@ export default {
                     this.chartData.labels = res.data.list_lable;
                     this.chartData.datasets[0].data = res.data.list_data;
                     this.loaded = true;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
     },

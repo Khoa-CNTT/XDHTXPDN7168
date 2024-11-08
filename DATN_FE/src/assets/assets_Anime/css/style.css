@@ -659,6 +659,12 @@ ol {
 	height: 325px;
 	position: relative;
 	border-radius: 5px;
+	transition: all 0.3s ease-in-out;
+}
+
+.product__item__pic:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	transform: scale(1.05);
 }
 
 .product__item__pic .ep {
@@ -1416,6 +1422,12 @@ ol {
 	margin-left: -10px;
 	margin-right: -10px;
 	margin-bottom: 10px;
+	transition: all 0.3s ease-in-out;
+}
+
+.blog__item:hover {
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+	transform: translateY(-5px);
 }
 
 .blog__item.small__item {

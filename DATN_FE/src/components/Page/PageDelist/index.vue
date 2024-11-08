@@ -20,9 +20,13 @@
             <div class="anime__details__content">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="anime__details__pic set-bg" v-bind:style="{
+                        <div @click=" openModal()" class="anime__details__pic set-bg" v-bind:style="{
                             'background-image': 'url(' + obj_phim.hinh_anh + ')',
-                        }" data-setbg="../../../assets/assets_Anime/img/anime/details-pic.jpg"></div>
+                        }" data-setbg="../../../assets/assets_Anime/img/anime/details-pic.jpg">
+                            <div class="play-button-overlay">
+                                <i class="play-icon">&#9658;</i>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-9">
                         <div class="anime__details__text">
@@ -127,10 +131,12 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <h6>
-                                                {{ v.ho_va_ten}}<span style="font-size: 0.9rem">
+                                                {{ v.ho_va_ten }}<span style="font-size: 0.9rem">
                                                     - {{ fromNow(v.created_at) }}</span><span style="font-size: 0.9rem"
                                                     v-if="v.updated_at > v.created_at">
-                                                    ( Đã chỉnh sửa )</span> - <span  v-for="star in v.so_sao" :key="star" style="font-size: 0.9rem"><i class="fa-solid fa-star text-warning"></i></span>
+                                                    ( Đã chỉnh sửa )</span> - <span v-for="star in v.so_sao" :key="star"
+                                                    style="font-size: 0.9rem"><i
+                                                        class="fa-solid fa-star text-warning"></i></span>
                                             </h6>
                                             <p v-if="editingCommentId !== v.id" class="textwrap">
                                                 {{ v.noi_dung }}
@@ -287,23 +293,82 @@
             aria-labelledby="modalBuyVipLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div style="background-color: rgba(35, 33, 33, 0.8);" class="modal-content">
+
                     <div class="modal-body ">
                         <div class="product__sidebar__comment">
                             <div class="section-title ">
-                                <h5>Danh Sách Phim Yêu Thích Của Bạn</h5>
+                                <h5>CÁC GÓI ĐĂNG KÝ</h5>
                             </div>
-                            <div class="row sctrollspy-example" data-bs-spy="sctroll">
+                            <div class="container">
+                                <div class="row text-center " data-bs-spy="sctroll">
+                                    <template v-for="(value, index) in list_goi_vip" :key="index">
+                                        <div class="col-lg-4 col-md-4 mt-2" type="button">
+                                            <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); transition: transform 0.3s, box-shadow 0.3s;"
+                                                class="card border-primary"
+                                                onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.3)';"
+                                                onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)';">
+                                                <div class="card-header bg-primary text-white"
+                                                    style="font-size: 1.2rem; font-weight: bold;">
+                                                    {{ value.thoi_han }} Tháng
+                                                </div>
+                                                <div class="card-body" style="padding: 20px;">
+                                                    <h5 class="card-title text-decoration-line-through text-secondary"
+                                                        style="font-size: 1rem;">
+                                                        <del>{{ convertVND(value.tien_goc) }}</del>
+                                                    </h5>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <h5 class="mr-2" style="color: red; font-size: 1.1rem;">Sale:
+                                                        </h5>
+                                                        <h5 class="text-primary" style="font-size: 1.2rem;">{{
+                                                            convertVND(value.tien_sale) }}</h5>
+                                                    </div>
+                                                    <p class="card-text" style="color: #666; font-size: 0.9rem;">
+                                                        <span class="text-success">✓</span> Bạn sẽ có {{ value.thoi_han
+                                                        }} tháng xem phim không giới hạn
+                                                    </p>
+                                                    <p class="card-text" style="color: #666; font-size: 0.9rem;">
+                                                        <span class="text-success">✓</span> Xem phim không chứa quảng
+                                                        cáo
+                                                    </p>
+                                                    <a href="#" class="btn btn-primary"
+                                                        style="font-weight: bold; transition: background-color 0.3s;"
+                                                        onmouseover="this.style.backgroundColor='#004085';"
+                                                        onmouseout="this.style.backgroundColor='#007bff';">
+                                                        Mua ngay <i class="fa fa-shopping-cart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                    </template>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Đóng</button>
-                                </div> -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modalTrailer" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="modalTrailerLabel" aria-hidden="true" >
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content"
+                    style="background-color: rgba(35, 33, 33, 0.8); border-radius: 12px; overflow: hidden;">
+                    <div class="modal-body p-0">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe ref="videoIframe" class="embed-responsive-item" :src="videoUrl"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
     <!-- Anime Section End -->
 </template>
@@ -332,6 +397,7 @@ export default {
     },
     data() {
         return {
+            videoUrl: 'https://www.youtube.com/embed/j4u5F6A4uvo?si=Q0AcQCtM-rgmXBNq',
             limit: 5,    // Số lượng bình luận muốn tải mỗi lần
             hasMoreComments: true, // Kiểm tra xem có còn bình luận để tải không
             isUserTurmed: false,
@@ -353,6 +419,7 @@ export default {
             list_5_phim: [],
             obj_phim: {},
             list_cmt: [],
+            list_goi_vip: [],
             isFollow: true,
         };
     },
@@ -361,8 +428,33 @@ export default {
         this.checkYeuThich();
         this.laydataCMT();
         this.laydataDelistPhim();
+        this.goiVipOpen();
+        // Lắng nghe sự kiện khi modal đóng để dừng video
+        const modalElement = document.getElementById('modalTrailer');
+        modalElement.addEventListener('hidden.bs.modal', this.stopVideo);
     },
+    // beforeDestroy() {
+    //     // Đảm bảo loại bỏ sự kiện khi component bị hủy
+    //     const modalElement = document.getElementById('modalTrailer');
+    //     modalElement.removeEventListener('hidden.bs.modal', this.stopVideo);
+    // },
     methods: {
+        openModal() {
+            // Logic to open the modal
+            const modal = new bootstrap.Modal(document.getElementById('modalTrailer'));
+            modal.show();
+        },
+        stopVideo() {
+            // Dừng video khi modal đóng bằng cách xóa và gán lại src của iframe
+            const iframe = this.$refs.videoIframe;
+            const iframeSrc = iframe.src;
+            iframe.src = ''; // Dừng video
+            iframe.src = iframeSrc; // Gán lại src để video tiếp tục khi modal mở
+        },
+        convertVND(money) {
+            money = money.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+            return money;
+        },
         checkUserTerm() {
             baseRequest
                 .post("check-user-term")
@@ -417,6 +509,16 @@ export default {
                 top: 0,
                 behavior: 'smooth', // Thêm hiệu ứng cuộn
             });
+        },
+        goiVipOpen() {
+            baseRequest
+                .get("lay-data-goi-vip-open")
+                .then((res) => {
+                    this.list_goi_vip = res.data.data;
+                }).catch(() => {
+                    this.$router.push('/'); // Ẩn loader nếu có listring
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
+                });
         },
         laydataDelistPhim() {
             var params = {
@@ -586,6 +688,64 @@ export default {
 };
 </script>
 <style>
+/* Container for the anime details picture */
+.anime__details__pic {
+    position: relative;
+    width: 100%;
+    padding-top: 150%;
+    /* Adjusts the aspect ratio of the image container */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    /* Optional: for rounded corners */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+/* Overlay for the play button */
+.play-button-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 8px;
+    /* Match the corners */
+}
+
+/* Styling for the play icon */
+.play-icon {
+    font-size: 50px;
+    /* Adjust size as needed */
+    color: red;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effects */
+.anime__details__pic:hover .play-button-overlay {
+    opacity: 1;
+    /* Show the overlay on hover */
+}
+
+.anime__details__pic:hover {
+    transform: scale(1.05);
+    /* Slight zoom-in effect */
+    cursor: pointer;
+}
+
+.anime__details__pic:hover .play-icon {
+    transform: scale(1.2);
+    /* Slightly enlarge play icon on hover */
+}
+
+
 .product__sidebar__comment__item__text h5 {
     display: -webkit-box;
     -webkit-line-clamp: 2;

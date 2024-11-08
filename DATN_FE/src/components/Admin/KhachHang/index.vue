@@ -304,6 +304,10 @@ export default {
                 .then((res) => {
                     this.list_khach_khach = res.data.khach_hang.dataAdmin.data;
                     this.pagination = res.data.khach_hang.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataUser() {
@@ -323,6 +327,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchAdmin(page) {
@@ -332,6 +340,10 @@ export default {
                 .then((res) => {
                     this.list_khach_khach = res.data.khach_hang.dataAdmin.data;
                     this.pagination = res.data.khach_hang.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteAdmin() {
@@ -345,6 +357,10 @@ export default {
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateAdmin() {
@@ -361,7 +377,11 @@ export default {
                         } else {
                             toaster.danger('Thông báo<br>' + res.data.message);
                         }
-                    });
+                    })
+                    .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
             },
         doiTrangThai(xyz) {
             baseRequest
@@ -373,6 +393,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         kichHoat(xyz) {
@@ -385,6 +409,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
