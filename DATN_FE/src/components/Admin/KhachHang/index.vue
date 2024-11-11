@@ -96,7 +96,7 @@
                                     <td class=" align-middle text-nowrap">{{ v.email }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.so_dien_thoai }}</td>
                                     <td style="text-align: center; vertical-align: middle;">
-                                        <img v-bind:src="v.avatar" class="product-img-2 "
+                                        <img v-bind:src="v.avatar" class="product-img-2 rounded-circle"
                                             style="display: inline-block;" alt="no-image">
                                     </td>
                                     <td class="text-center align-middle text-nowrap text-center">

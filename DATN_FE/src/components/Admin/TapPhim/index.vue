@@ -45,7 +45,7 @@
                                     <img v-bind:src="v.hinh_anh" class="product-img-2" alt="product img" />
                                 </td>
                                 <td class="align-middle text-nowrap text-center">
-                                    {{ v.thoi_gian_chieu }} phút
+                                    {{ v.thoi_gian_chieu }} phút/tập
                                 </td>
                                 <td :class="v.tong_tap == v.so_tap_phim ? 'text-success' : 'text-danger'
                                     " class="align-middle text-nowrap text-center">
@@ -64,7 +64,7 @@
                                     </button>
                                 </td>
                                 <td class="text-center align-middle text-nowrap">
-                                    <i @click="Object.assign(obj_tap_phim, v); obj_them_tap.id = v.id;obj_update_tap_phim={}; is_check_show = false; laydataTapPhim(1, v.id);"
+                                    <i @click="Object.assign(obj_tap_phim, v); obj_them_tap.id = v.id; obj_update_tap_phim = {}; is_check_show = false; laydataTapPhim(1, v.id);"
                                         type="button" data-bs-toggle="modal" data-bs-target="#ThemTap"
                                         class="fa-solid fa-folder-plus fa-2x text-warning me-2"></i>
 
@@ -100,7 +100,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                        {{ obj_tap_phim.ten_phim }}
+                                        Phim: <b class="text-primary">{{ obj_tap_phim.ten_phim }}</b>
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -114,6 +114,7 @@
                                                     <h5>Thêm tập phim</h5>
                                                 </div>
                                                 <div class="card-body">
+
                                                     <label for="" class="form-label mb-2 mt-2">
                                                         Link Tập
                                                     </label>
@@ -125,12 +126,11 @@
                                                     <input v-model="obj_them_tap.so_tap" type="number"
                                                         class="form-control" placeholder="Nhập số tập..." />
                                                     <label class="form-label mb-2 mt-2">
-                                                        Trạng thái
+                                                        Video
                                                     </label>
-                                                    <select v-model="obj_them_tap.tinh_trang" class="form-control">
-                                                        <option value="1">Hiện thị</option>
-                                                        <option value="0">Tạm tắt</option>
-                                                    </select>
+                                                    <iframe  height="200px" :src="obj_them_tap.url"
+                                                        frameborder="0" allow="autoplay" allowfullscreen>
+                                                    </iframe>
                                                 </div>
                                                 <div class="card-footer text-end">
                                                     <button class="btn btn-primary" @click="themTapPhim()">Thêm
@@ -161,6 +161,12 @@
                                                         <option value="1">Hiện thị</option>
                                                         <option value="0">Tạm tắt</option>
                                                     </select>
+                                                    <label class="form-label mb-2 mt-2">
+                                                        Video
+                                                    </label>
+                                                    <iframe  height="200px" :src="obj_update_tap_phim.url"
+                                                        frameborder="0" allow="autoplay" allowfullscreen>
+                                                    </iframe>
                                                 </div>
                                                 <div class="card-footer text-end">
                                                     <button class="btn btn-secondary me-2"
@@ -258,7 +264,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                        {{ obj_tap_phim.ten_phim }}
+                                        Phim: <b class="text-primary">{{ obj_tap_phim.ten_phim }}</b>
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -290,24 +296,24 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                        Xoá tất cả Tập
+                                        Xoá tất cả Tập của Phim: <b class="text-danger">{{ obj_xoa_all.ten_phim }}</b>
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body text-start">
                                     <div class="alert alert-danger" role="alert">
-                                        Bạn có muốn xoá tất cấc của tập của Phim
-                                        <b class="text-danger">{{ obj_xoa_all.ten_phim }}</b>
+                                        <p>Bạn có muốn xoá tất cấc của tập của Phim <b class="text-danger">{{
+                                            obj_xoa_all.ten_phim }}</b> </p>
+                                        <p>Nếu xoá sẽ không khôi phục lại được!</p>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-dark" data-bs-target="#ThemTap"
-                                        data-bs-toggle="modal">
+                                    <button type="button" class="btn btn-dark" data-bs-toggle="modal">
                                         Đóng
                                     </button>
-                                    <button @click="deleteAllTapPhim()" type="button"
-                                        data-bs-toggle="modal" class="btn btn-danger">
+                                    <button @click="deleteAllTapPhim()" type="button" data-bs-toggle="modal"
+                                        class="btn btn-danger">
                                         Vẫn Xoá
                                     </button>
                                 </div>
@@ -376,6 +382,8 @@ export default {
     mounted() {
 
         this.laydataPhim(1);
+        const modalElement = document.getElementById('ThemTap');
+        modalElement.addEventListener('hidden.bs.modal', this.defaultObj());
 
     },
     methods: {
@@ -400,7 +408,11 @@ export default {
             str = str.replace(/^-+|-+$/g, "");
             return this.obj_tap_phim.slug_phim + "-" + str;
         },
-
+        defaultObj() {
+            this.obj_them_tap = {};
+            this.obj_tap_phim = {};
+            this.obj_update_tap_phim = {};
+        },
         addSlugUpdate() {
             this.obj_them_tap.slug_tap_phim = this.convertToSlug(
                 this.obj_them_tap.ten_tap_phim
@@ -517,7 +529,9 @@ export default {
                         toaster.success(res.data.message);
                         this.obj_them_tap = { 'id': this.obj_tap_phim.id, };
                         this.laydataTapPhim(1, this.obj_tap_phim.id);
-                        this.laydataPhim(this.pagination.current_page);
+                        // this.laydataPhim(this.pagination.current_page);
+                        this.changPage(this.pagination.current_page);
+
 
                     } else {
                         toaster.error(res.data.message);
@@ -535,7 +549,9 @@ export default {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.laydataTapPhim(1, this.obj_tap_phim.id);
-                        this.laydataPhim(this.pagination.current_page);
+                        // this.laydataPhim(this.pagination.current_page);
+                        this.changPage(this.pagination.current_page);
+
                     } else {
                         toaster.error(res.data.message);
                     }
@@ -552,7 +568,8 @@ export default {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.laydataTapPhim(1, this.obj_tap_phim.id);
-                        this.laydataPhim(this.pagination.current_page);
+                        this.changPage(this.pagination.current_page);
+                        // this.laydataPhim(this.pagination.current_page);
                     } else {
                         toaster.error(res.data.message);
                     }
@@ -569,7 +586,8 @@ export default {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
                         this.laydataTapPhim(1, this.obj_tap_phim.id);
-                        this.laydataPhim(this.pagination.current_page);
+                        // this.laydataPhim(this.pagination.current_page);
+                        this.changPage(this.pagination.current_page);
 
 
                     } else {

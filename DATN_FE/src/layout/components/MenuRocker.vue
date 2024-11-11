@@ -172,6 +172,17 @@
                     </a>
                 </router-link>
             </li>
+            <li class="menu-label">Quản lý Leech Phim</li>
+            <li>
+                <router-link to="/admin/leech-phim">
+                    <a href="/admin/bai-viet" class="nav-link">
+                        <div class="parent-icon">
+                            <i class="bx bx-message-square-edit"></i>
+                        </div>
+                        <div class="menu-title">Leech Phim</div>
+                    </a>
+                </router-link>
+            </li>
 
 
         </ul>

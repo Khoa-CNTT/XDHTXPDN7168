@@ -103,6 +103,10 @@ const routes = [
     beforeEnter: checkloginAdmin,
     children: [
       {
+        path: "leech-phim",
+        component: () => import("../components/Admin/LeechPhim/index.vue"),
+      },
+      {
         path: "dashboard",
         component: () => import("../components/Admin/Dashboard/index.vue"),
       },

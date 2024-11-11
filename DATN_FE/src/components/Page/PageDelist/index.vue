@@ -352,13 +352,14 @@
             </div>
         </div>
         <div class="modal fade" id="modalTrailer" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="modalTrailerLabel" aria-hidden="true" >
+            aria-labelledby="modalTrailerLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content"
                     style="background-color: rgba(35, 33, 33, 0.8); border-radius: 12px; overflow: hidden;">
                     <div class="modal-body p-0">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe ref="videoIframe" class="embed-responsive-item" :src="videoUrl"
+                            <iframe ref="videoIframe" class="embed-responsive-item"
+                                :src="convertToIframeUrl(videoUrl)"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
@@ -397,7 +398,7 @@ export default {
     },
     data() {
         return {
-            videoUrl: 'https://www.youtube.com/embed/j4u5F6A4uvo?si=Q0AcQCtM-rgmXBNq',
+            videoUrl: 'https://youtu.be/t7jt0ijgV_M',
             limit: 5,    // Số lượng bình luận muốn tải mỗi lần
             hasMoreComments: true, // Kiểm tra xem có còn bình luận để tải không
             isUserTurmed: false,
@@ -439,6 +440,20 @@ export default {
     //     modalElement.removeEventListener('hidden.bs.modal', this.stopVideo);
     // },
     methods: {
+        convertToIframeUrl(youTubeUrl) {
+            // Regular expression to extract videoId from URL
+            const regex = /(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/(?:watch\?v=|embed\/)|\.be\/)([\w\-]{11})/;
+
+            // Check and extract videoId from URL
+            const matches = youTubeUrl.match(regex);
+            if (matches && matches[1]) {
+                // Return the corresponding embed URL
+                return `https://www.youtube.com/embed/${matches[1]}`;
+            } else {
+                // Return null if URL is invalid
+                return null;
+            }
+        },
         openModal() {
             // Logic to open the modal
             const modal = new bootstrap.Modal(document.getElementById('modalTrailer'));

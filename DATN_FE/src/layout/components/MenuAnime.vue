@@ -22,7 +22,7 @@
                                     </li>
                                 </router-link>
                                 <li class="menu"><a href="#">Thể Loại <span class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown" style=" column-count: 2; width: 260px;">
+                                    <ul class="dropdown" style=" column-count: 3; width: 385px;">
                                         <template v-for="(v, k) in list_the_loai" :key="k">
                                             <li class="menu text-nowrap">
                                                 <router-link
