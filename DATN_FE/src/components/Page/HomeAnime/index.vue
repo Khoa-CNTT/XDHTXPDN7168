@@ -213,7 +213,7 @@
                                         <router-link :to="v.slug_phim">
                                             <div class="product__sidebar__view__item set-bg mix month week"
                                                 data-setbg="img/sidebar/tv-2.jpg" v-bind:style="{
-                                                    'background-image': 'url(' + v.hinh_anh + ')',
+                                                    'background-image': 'url(' + v.poster_img + ')',
                                                 }">
                                                 <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }} <span
                                                         v-show="v.tong_tap == v.so_tap_phim">FULL</span></div>

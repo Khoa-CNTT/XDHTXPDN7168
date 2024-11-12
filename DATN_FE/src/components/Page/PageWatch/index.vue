@@ -6,7 +6,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <router-link to="/"><i class="fa fa-home"></i> Home</router-link>
-                        <span>{{ obj_phim.ten_phim }} - Tập {{ obj_tap_phim.so_tap }}</span>
+                        <span> <router-link :to="'/' + slugMovie">{{ obj_phim.ten_phim }} </router-link> Tập {{ obj_tap_phim.so_tap }}</span>
                     </div>
                 </div>
             </div>
@@ -223,7 +223,6 @@ export default {
                 .catch(() => {
                     this.$router.push('/'); // Ẩn loader nếu có lỗi
                     toaster.warning("Đã xảy ra lỗi, vui lòng thử lại sau");
-                    var errors = Object.values(res.response.data.errors);
                     toaster.error(errors[0]);
                 });
 
@@ -249,7 +248,6 @@ export default {
                 }).catch(() => {
                     // this.$router.push('/'); // Ẩn loader nếu có lỗi
                     this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
-                    var errors = Object.values(res.response.data.errors);
                     toaster.error(errors[0]);
                 });
         },
@@ -270,7 +268,6 @@ export default {
                         toaster.error(res.data.message);
                     }
                 }).catch((res) => {
-                    var errors = Object.values(res.response.data.errors);
                     toaster.error(errors[0]);
                 });
         },
@@ -285,7 +282,6 @@ export default {
                         toaster.danger(res.data.message);
                     }
                 }).catch((res) => {
-                    var errors = Object.values(res.response.data.errors);
                     toaster.error(errors[0]);
                 });
         },
@@ -301,7 +297,6 @@ export default {
                         toaster.error(res.data.message);
                     }
                 }).catch((res) => {
-                    var errors = Object.values(res.response.data.errors);
                     toaster.error(errors[0]);
                 });
         },

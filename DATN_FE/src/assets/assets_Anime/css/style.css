@@ -782,6 +782,11 @@ ol {
 	position: relative;
 	border-radius: 5px;
 	margin-bottom: 20px;
+	transition: transform 0.3s ease-in-out;
+}
+
+.product__sidebar__view__item:hover {
+	transform: scale(1.05);
 }
 
 .product__sidebar__view__item .ep {
@@ -825,10 +830,14 @@ ol {
 .product__sidebar__comment {
 	margin-bottom: 35px;
 }
-
 .product__sidebar__comment__item {
 	margin-bottom: 20px;
 	overflow: hidden;
+	transition: transform 0.3s ease-in-out;
+}
+
+.product__sidebar__comment__item:hover {
+	transform: translateY(-5px);
 }
 
 .product__sidebar__comment__item__pic {

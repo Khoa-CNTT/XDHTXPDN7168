@@ -102,7 +102,7 @@
                                         <h6 class="mb-0  mt-2">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input v-model="obj_update_tt.email" type="text" class="form-control" />
+                                        <input disabled v-model="obj_update_tt.email" type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-1">

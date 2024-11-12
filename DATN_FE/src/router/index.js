@@ -30,6 +30,10 @@ const routes = [
     component: () => import("../layout/wrapper/MasterAnime.vue"),
     children: [
       {
+        path: "test",
+        component: () => import("../components/test.vue"),
+      },
+      {
         path: "login",
         component: () => import("../components/Page/Login/index.vue"),
         beforeEnter: checkloginAdmin,

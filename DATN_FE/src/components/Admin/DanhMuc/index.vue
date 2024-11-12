@@ -3,7 +3,7 @@
         <div class="col-3">
             <div class="card border-5 border-primary border-top">
                 <div class="card-header">
-                    <b>THÊM DANH MỤC</b>
+                    <b>THÊM DANH MỤC MENU</b>
                 </div>
                 <div class="card-body">
                     <div class="mb-3 mt-1">
@@ -15,29 +15,20 @@
                     </div>
                     <div class="mb-3 mt-1">
                         <label for="" class="form-label mb-1 mt-1">
-                            <b>Slug Danh Mục</b>
+                            <b>Đường dẫn tĩnh</b>
                         </label>
-                        <input v-model="obj_add_danh_muc.slug_danh_muc" disabled type="text" class="form-control"
-                            placeholder="nhập slug loai phim..." />
+                        <input v-model="obj_add_danh_muc.link" type="text" class="form-control"
+                            placeholder="Vd: /danh-muc/danh-muc-1" />
                     </div>
                     <div class="mb-3 mt-1">
                         <label for="" class="form-label mb-1 mt-1">
                             <b>Danh Mục Cha</b>
                         </label>
                         <select v-model="obj_add_danh_muc.id_danh_muc_cha" name="" id="" class="form-control">
-                            <option value="0">Root</option>
+                            <option value="">Root</option>
                             <template v-for="(v,k) in list_danh_muc" :key="k" >
                                 <option v-bind:value="v.id">{{ v.ten_danh_muc }}</option>
                             </template>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label mb-1 mt-1">
-                            <b>Tình Trạng</b>
-                        </label>
-                        <select v-model="obj_add_danh_muc.tinh_trang" name="" id="" class="form-control">
-                            <option value="0">Tạm Dừng</option>
-                            <option value="1">Hoạt động</option>
                         </select>
                     </div>
                 </div>
@@ -51,7 +42,7 @@
         <div class="col-8">
             <div class="card border-5 border-primary border-top">
                 <div class="card-header">
-                    <b>DANH SÁCH DANH MỤC</b>
+                    <b>DANH SÁCH DANH MỤC MENU</b>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -71,8 +62,8 @@
                                 <tr class="text-center">
                                     <th class="text-center align-middle text-nowrap">#</th>
                                     <th class="text-center align-middle text-nowrap">Tên Danh Mục</th>
-                                    <th class="text-center align-middle text-nowrap">Slug Danh Mục</th>
                                     <th class="text-center align-middle text-nowrap">Tên Danh Mục Cha</th>
+                                    <th class="text-center align-middle text-nowrap">Link</th>
                                     <th class="text-center align-middle text-nowrap">Tình Trạng</th>
                                     <th class="text-center align-middle text-nowrap">Action</th>
                                 </tr>
@@ -81,9 +72,9 @@
                                 <tr v-for="(v, k) in list_danh_muc" :key="k">
                                     <td class=" align-middle text-nowrap">{{ k + 1 }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.ten_danh_muc }}</td>
-                                    <td class=" align-middle text-nowrap">{{ v.slug_danh_muc }}</td>
                                     <td v-if="v.ten_danh_muc_cha == null" class=" align-middle text-nowrap">Root</td>
                                     <td v-else  class=" align-middle text-nowrap">{{ v.ten_danh_muc_cha }}</td>
+                                    <td class=" align-middle text-nowrap">{{ v.link }}</td>
 
                                     <td class="text-center align-middle text-nowrap text-center">
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
@@ -97,17 +88,14 @@
                                             Tạm Dừng
                                         </button>
                                     </td>
-                                    <td class=" align-middle text-nowrap text-center">
-                                        <button @click="Object.assign(obj_update_danh_muc, v)" type="button"
-                                            class="btn btn-success me-1" data-bs-toggle="modal"
-                                            data-bs-target="#ThemMoi">
-                                            Chỉnh Sửa
-                                        </button>
+                                    <td class="text-center align-middle text-nowrap">
+                                        <i @click="Object.assign(obj_update_danh_muc, v);"
+                                            type="button" data-bs-toggle="modal" data-bs-target="#Chinhsua"
+                                            class="fa-solid fa-pen-to-square fa-2x text-warning me-2"></i>
 
-                                        <button @click="Object.assign(obj_delete_danh_muc, v)" data-bs-target="#Xoa"
-                                            data-bs-toggle="modal" class="btn btn-danger">
-                                            Xoá
-                                        </button>
+                                        <i @click="Object.assign(obj_delete_danh_muc, v)" data-bs-target="#Xoa"
+                                            type="button" data-bs-toggle="modal"
+                                            class="fa-solid fa-trash fa-2x text-danger"></i>
                                     </td>
                                 </tr>
                             </tbody>
@@ -131,12 +119,12 @@
                             </div>
                         </nav>
                     </div>
-                    <div class="modal fade" id="ThemMoi" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="Chinhsua" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">CHỈNH Sửa DANH MỤC
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh Sữa Danh Mục Menu
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -152,10 +140,10 @@
                                     </div>
                                     <div class="mb-3 mt-1">
                                         <label for="" class="form-label mb-1 mt-1">
-                                            <b>Slug Danh Mục</b>
+                                            <b>Đường dẫn tĩnh</b>
                                         </label>
-                                        <input v-model="obj_update_danh_muc.slug_danh_muc" disabled type="text"
-                                            class="form-control" placeholder="nhập slug loai phim...">
+                                        <input v-model="obj_update_danh_muc.link" type="text"
+                                            class="form-control" placeholder="Vd: /danh-muc/danh-muc-1">
                                     </div>
                                     <div class="mb-3 mt-1">
                                         <label for="" class="form-label mb-1 mt-1">
@@ -195,8 +183,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Chức
-                                        Năng
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xoá Danh Mục Menu
                                     </h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>

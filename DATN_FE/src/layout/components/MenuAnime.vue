@@ -16,43 +16,30 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <router-link to="/">
-                                    <li class="menu active">
-                                        <a href="/">Trang Chủ</a>
-                                    </li>
-                                </router-link>
-                                <li class="menu"><a href="#">Thể Loại <span class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown" style=" column-count: 3; width: 385px;">
-                                        <template v-for="(v, k) in list_the_loai" :key="k">
-                                            <li class="menu text-nowrap">
-                                                <router-link
-                                                    :to="{ name: 'PageList', params: { slug: v.slug_the_loai } }">
-                                                    {{ v.ten_the_loai }}
-                                                </router-link>
-                                                <!-- <a v-bind:href="'/the-loai/' + v.id"> {{ v.ten_the_loai }}</a> -->
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </li>
-                                <li class="menu"><a href="#">Loại Phim <span class="arrow_carrot-down"></span></a>
-                                    <ul class="dropdown">
-                                        <template v-for="(v, k) in list_loai_phim" :key="k">
-                                            <li class="menu">
-                                                <!-- <router-link :to="`/loai-phim/${v.id}`">
-                                                    {{  v.ten_loai_phim }}
-                                                </router-link> -->
-                                                <router-link
-                                                    :to="{ name: 'PageLoaiPhim', params: { slug: v.slug_loai_phim } }">
-                                                    {{ v.ten_loai_phim }}
-                                                </router-link>
-                                            </li>
-                                        </template>
-                                    </ul>
-                                </li>
-                                <router-link to="/blog">
-                                    <li class="menu active"><a href="#"> Blog</a></li>
-                                </router-link>
+                                <!-- Main Menu Items -->
+                                <template v-for="(item, index) in list_danh_muc" :key="index">
+                                    <li class="menu" v-if="!item.id_danh_muc_cha">
+                                        <!-- Check if there are subcategories -->
+                                        <a href="#" v-if="hasSubCategories(item)">
+                                            {{ item.ten_danh_muc }} <span class="arrow_carrot-down"></span>
+                                        </a>
+                                        <a :href="item.link" v-else>{{ item.ten_danh_muc }}</a>
 
+                                        <!-- Submenu for items with subcategories -->
+                                        <ul class="dropdown" v-if="hasSubCategories(item)"
+                                            :style="item.ten_danh_muc === 'Thể Loại' ? 'column-count: 3; width: 385px;' : ''">
+                                            <template v-for="(subItem, subIndex) in getSubCategories(item.id)"
+                                                :key="subIndex">
+                                                <li class="menu text-nowrap">
+                                                    <router-link
+                                                        :to="{ name: getRouteName(item.ten_danh_muc), params: { slug: subItem.slug_danh_muc } }">
+                                                        {{ subItem.ten_danh_muc }}
+                                                    </router-link>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </li>
+                                </template>
                             </ul>
                         </nav>
                     </div>
@@ -185,10 +172,9 @@
                                         <div class="section-title ">
                                             <div class="input-group mb-3">
                                                 <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
-                                                    class="form-control"
-                                                    placeholder="Tìm kiếm phim..">
-                                                <a v-bind:href="'/tim-kiem/' + key_tim.key"
-                                                    type="button" class="input-group-text serch bg-primary">
+                                                    class="form-control" placeholder="Tìm kiếm phim..">
+                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
+                                                    class="input-group-text serch bg-primary">
                                                     <i class="fa-solid fa-magnifying-glass"></i></a>
 
 
@@ -324,7 +310,15 @@ export default {
         this.laydataYeuThich();
     },
     methods: {
-
+        hasSubCategories(item) {
+            return this.list_danh_muc.some(subItem => subItem.id_danh_muc_cha === item.id);
+        },
+        getSubCategories(parentId) {
+            return this.list_danh_muc.filter(subItem => subItem.id_danh_muc_cha === parentId);
+        },
+        getRouteName(ten_danh_muc) {
+            return ten_danh_muc === 'Thể Loại' ? 'PageList' : 'PageLoaiPhim';
+        },
         laydataYeuThich() {
             baseRequest
                 .get("khach-hang/yeu-thich/lay-du-lieu")
@@ -332,23 +326,21 @@ export default {
                     this.list_yeu_thich = res.data.yeu_thich;
                 });
         },
-        laydataTheoTheLoai(id_the_loai) {
-            axios
-                .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
-                    params: {
-                        id_tl: id_the_loai,
-                    }
-                })
-                .then((res) => {
-                    this.list_phim = res.data.phim;
-                });
-        },
+        // laydataTheoTheLoai(id_the_loai) {
+        //     axios
+        //         .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
+        //             params: {
+        //                 id_tl: id_the_loai,
+        //             }
+        //         })
+        //         .then((res) => {
+        //             this.list_phim = res.data.phim;
+        //         });
+        // },
         loadDataMenu() {
             axios
                 .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                 .then((res) => {
-                    this.list_loai_phim = res.data.loai_phim;
-                    this.list_the_loai = res.data.the_loai;
                     this.list_danh_muc = res.data.danh_muc_webs;
 
                 });

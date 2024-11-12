@@ -130,7 +130,7 @@
                                         <label class="form-label mb-1 mt-1">
                                             <b>Ngôn ngữ</b>
                                         </label>
-                                        <input v-model="obj_add_phim.cong_ty_san_xuat" class="form-control" type="text"
+                                        <input v-model="obj_add_phim.ngon_ngu" class="form-control" type="text"
                                             placeholder="VD: Vietsub, Engsub..." />
                                     </div>
 
@@ -402,7 +402,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th class="text-nowrap" scope="row">Ngôn ngữ</th>
-                                                    <td colspan="6">{{ obj_chi_tiet.cong_ty_san_xuat }}</td>
+                                                    <td colspan="6">{{ obj_chi_tiet.ngon_ngu }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-nowrap" scope="row">Trạng thái</th>
@@ -555,7 +555,7 @@
                                                         <label class="form-label mb-1 mt-1">
                                                             <b>Ngôn ngữ</b>
                                                         </label>
-                                                        <input v-model="obj_update_phim.cong_ty_san_xuat"
+                                                        <input v-model="obj_update_phim.ngon_ngu"
                                                             class="form-control" type="text"
                                                             placeholder="VD: Vietsub, Engsub..." />
                                                     </div>

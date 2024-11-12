@@ -103,6 +103,37 @@
             </li>
             <li class="menu-label">Quản Lý Admin</li>
             <li>
+                <router-link to="/admin/tk-admin">
+                    <a href="/admin/tk-admin" class="nav-link">
+                        <div class="parent-icon">
+                            <i class="bx bx-user-plus"></i>
+                        </div>
+                        <div class="menu-title">Admin</div>
+                    </a>
+                </router-link>
+            </li>
+
+            <li>
+                <router-link to="/admin/khach-hang">
+                    <a href="/admin/khach-hang" class="nav-link">
+                        <div class="parent-icon">
+                            <i class="bx bx-user-circle"></i>
+                        </div>
+                        <div class="menu-title">Khách hàng</div>
+                    </a>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/admin/danh-muc">
+                    <a href="/admin/danh-muc" class="nav-link">
+                        <div class="parent-icon">
+                            <i class="fa-solid fa-list fa-sm"></i>
+                        </div>
+                        <div class="menu-title">Config Menu</div>
+                    </a>
+                </router-link>
+            </li>
+            <li>
                 <router-link to="/admin/goi-vip">
                     <a href="/admin/goi-vip" class="nav-link">
                         <div class="parent-icon">
@@ -113,42 +144,12 @@
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/danh-muc">
-                    <a href="/admin/danh-muc" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-solid fa-list fa-sm"></i>
-                        </div>
-                        <div class="menu-title">Danh mục</div>
-                    </a>
-                </router-link>
-            </li>
-            <li>
-                <router-link to="/admin/tk-admin">
-                    <a href="/admin/tk-admin" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-user-plus"></i>
-                        </div>
-                        <div class="menu-title">Admin</div>
-                    </a>
-                </router-link>
-            </li>
-            <li>
                 <router-link to="/admin/chuc-vu">
                     <a href="/admin/tk-admin" class="nav-link">
                         <div class="parent-icon">
                             <i class="fa-solid fa-user-tie fa-sm"></i>
                         </div>
                         <div class="menu-title">Chức vụ</div>
-                    </a>
-                </router-link>
-            </li>
-            <li>
-                <router-link to="/admin/khach-hang">
-                    <a href="/admin/khach-hang" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-user-circle"></i>
-                        </div>
-                        <div class="menu-title">Khách hàng</div>
                     </a>
                 </router-link>
             </li>

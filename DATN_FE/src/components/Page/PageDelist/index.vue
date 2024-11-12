@@ -83,9 +83,9 @@
                                                 <span>Thời Lượng:</span>
                                                 {{ obj_phim.thoi_gian_chieu }} phút/tập
                                             </li>
-                                            <li><span>Chất lượng:</span>1080 P</li>
+                                            <li><span>Chất lượng:</span>{{ obj_phim.chat_luong }}</li>
                                             <li>
-                                                <span>Luợt Xem:</span> {{ obj_phim.tong_luong_xem }}
+                                                <span>Ngôn ngữ:</span> {{ obj_phim.ngon_ngu }}
                                             </li>
                                         </ul>
                                     </div>
@@ -351,24 +351,27 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modalTrailer" data-bs-keyboard="false" tabindex="-1"
+        '<div class="modal fade" id="modalTrailer" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="modalTrailerLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content"
-                    style="background-color: rgba(35, 33, 33, 0.8); border-radius: 12px; overflow: hidden;">
+                    style="background-color: rgba(35, 33, 33, 1); border-radius: 12px; overflow: hidden;">
                     <div class="modal-body p-0">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe ref="videoIframe" class="embed-responsive-item"
-                                :src="convertToIframeUrl(videoUrl)"
-                                title="YouTube video player" frameborder="0"
+                                :src="convertToIframeUrl(obj_phim.trailer_url)" title="YouTube video player"
+                                frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                             </iframe>
                         </div>
+                        <div class="section-title mt-3 mb-3 ms-3">
+                            <h5>TRAILER PHIM: {{ obj_phim.ten_phim }}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>'
 
     </section>
     <!-- Anime Section End -->
@@ -443,16 +446,20 @@ export default {
         convertToIframeUrl(youTubeUrl) {
             // Regular expression to extract videoId from URL
             const regex = /(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/(?:watch\?v=|embed\/)|\.be\/)([\w\-]{11})/;
+            console.log(youTubeUrl);
 
-            // Check and extract videoId from URL
-            const matches = youTubeUrl.match(regex);
-            if (matches && matches[1]) {
-                // Return the corresponding embed URL
-                return `https://www.youtube.com/embed/${matches[1]}`;
-            } else {
-                // Return null if URL is invalid
-                return null;
+            // Check if youTubeUrl is a string and extract videoId from URL
+            if (typeof youTubeUrl === 'string') {
+                const matches = youTubeUrl.match(regex);
+                if (matches && matches[1]) {
+                    // Return the corresponding embed URL
+                    console.log(`https://www.youtube.com/embed/${matches[1]}`);
+
+                    return `https://www.youtube.com/embed/${matches[1]}`;
+                }
             }
+            // Return null if URL is invalid or not a string
+            return null;
         },
         openModal() {
             // Logic to open the modal

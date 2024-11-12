@@ -179,7 +179,7 @@ export default {
     },
     mounted() {
         this.$store.dispatch('showLoader');
-        this.laydataLoaiPhim();
+        // this.laydataLoaiPhim();
         this.loadataLoaiPhimAndPhim(1);
         this.slug = this.$route.params.slug;
 

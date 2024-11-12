@@ -6,7 +6,7 @@
                     <div class="col">
                         Thống Kê Số Tập Theo Loại Phim
                     </div>
-                    
+
                 </div>
             </div>
             <div class="card-body">
@@ -53,7 +53,7 @@ export default {
             thong_ke    :   {begin: '', end : ''},
             chartData   : {
                 labels: [],
-                datasets: [ 
+                datasets: [
                     {
                         label: 'Thống Kê Số Tập Theo Loại Phim',
                         backgroundColor: [
@@ -67,7 +67,7 @@ export default {
                 responsive: true
             }
         }
-    },  
+    },
     async mounted () {
         this.loaded = false;
         var date                = new Date();
@@ -92,5 +92,5 @@ export default {
 }
 </script>
 <style>
-    
+
 </style>
