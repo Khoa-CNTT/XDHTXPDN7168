@@ -12,8 +12,8 @@
         <!--navigation-->
         <ul class="metismenu" id="menu">
             <li>
-                <router-link to="/admin/dashboard">
-                    <a href="/admin/dashboard">
+                <router-link to="/admin">
+                    <a href="/admin">
                         <div class="parent-icon"><i class="bx bx-home-circle"></i></div>
                         <div class="menu-title">Dashboard</div>
                     </a>
@@ -101,6 +101,27 @@
                     </a>
                 </router-link>
             </li>
+            <li class="menu-label">Quản Lý WEBSITE</li>
+            <li>
+                <router-link to="/admin/danh-muc">
+                    <a href="/admin/danh-muc" class="nav-link">
+                        <div class="parent-icon">
+                            <i class="fa-solid fa-list fa-sm"></i>
+                        </div>
+                        <div class="menu-title">Config Menu</div>
+                    </a>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/admin/config-slide">
+                    <a href="/admin/config-slide" class="nav-link">
+                        <div class="parent-icon">
+                            <i class="fa-solid fa-sliders"></i>
+                        </div>
+                        <div class="menu-title">Config Slide</div>
+                    </a>
+                </router-link>
+            </li>
             <li class="menu-label">Quản Lý Admin</li>
             <li>
                 <router-link to="/admin/tk-admin">
@@ -123,16 +144,7 @@
                     </a>
                 </router-link>
             </li>
-            <li>
-                <router-link to="/admin/danh-muc">
-                    <a href="/admin/danh-muc" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-solid fa-list fa-sm"></i>
-                        </div>
-                        <div class="menu-title">Config Menu</div>
-                    </a>
-                </router-link>
-            </li>
+
             <li>
                 <router-link to="/admin/goi-vip">
                     <a href="/admin/goi-vip" class="nav-link">

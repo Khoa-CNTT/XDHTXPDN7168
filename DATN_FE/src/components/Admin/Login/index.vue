@@ -252,7 +252,7 @@ export default {
                 .then((res) => {
                     if (res.status === 200) {
                         this.is_login = true;
-                        this.$router.push("/admin/dashboard");
+                        this.$router.push("/admin");
                     }
                 })
                 .catch(() => {

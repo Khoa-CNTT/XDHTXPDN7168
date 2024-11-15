@@ -482,7 +482,7 @@ export default {
                 .post("check-user-term")
                 .then((res) => {
                     if (res.data.status === 0) {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                         this.$router.push('/login'); // Ẩn loader nếu có listring
                     }
                     else if (res.data.status === 2) {
@@ -623,10 +623,12 @@ export default {
                 .post("khach-hang/yeu-thich/thong-tin-tao", payload)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.checkYeuThich();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
+
+
                         this.$router.push('/login');
                     }
                     this.scrollToTop();
@@ -638,10 +640,10 @@ export default {
                 .post("khach-hang/yeu-thich/thong-tin-xoa", this.obj_yt_phim)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.checkYeuThich();
                     } else {
-                        toaster.danger(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                         this.$router.push('/login');
                     }
                     this.scrollToTop();
@@ -657,19 +659,20 @@ export default {
                 .post("khach-hang/binh-luan-phim/thong-tin-tao", payload)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.limit = 5;
                         this.hasMoreComments = true;
                         this.obj_cmt_phim = {};
                         this.rating = 0;
                         this.laydataCMT();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                     this.scrollToTop();
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
+
                 });
         },
         deleteRating() {
@@ -679,15 +682,15 @@ export default {
                 )
                 .then((res) => {
                     if (res.data.status == true) {
-                        // toaster.success(res.data.message);
+
                         this.laydataCMT();
                         // window.location.reload();
                     } else {
-                        toaster.danger(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         updateRating() {
@@ -695,15 +698,15 @@ export default {
                 .put("khach-hang/binh-luan-phim/thong-tin-sua", this.obj_update_cmt)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.cancelEdit();
                         this.laydataCMT();
                     } else {
-                        toaster.danger(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
     },

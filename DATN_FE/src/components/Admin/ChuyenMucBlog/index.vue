@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-3">
+        <div class="col-4">
             <div class="card border-5 border-primary border-top">
                 <div class="card-header">
                     <b>THÊM CHUYÊN MỤC</b>

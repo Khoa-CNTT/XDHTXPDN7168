@@ -130,6 +130,10 @@
                                                 <td colspan="6">{{ obj_chi_tiet.director && obj_chi_tiet.director.length
                                                     > 0 ? obj_chi_tiet.director[0] : 'Đang cập nhật' }}</td>
                                             </tr>
+                                            <tr>
+                                                <th class="text-nowrap" scope="row">Trailer</th>
+                                                <td colspan="6">{{ obj_chi_tiet.trailer_url ? obj_chi_tiet.trailer_url : 'Đang cập nhật' }}</td>
+                                            </tr>
 
                                             <tr>
                                                 <th class="text-nowrap" scope="row">Quốc gia</th>

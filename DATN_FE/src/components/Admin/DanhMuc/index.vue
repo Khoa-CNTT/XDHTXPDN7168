@@ -1,11 +1,13 @@
 <template>
     <div class="row">
-        <div class="col-3">
+        <div class="col-4">
             <div class="card border-5 border-primary border-top">
                 <div class="card-header">
                     <b>THÊM DANH MỤC MENU</b>
                 </div>
                 <div class="card-body">
+                    <p style="font-size: 0.8rem; color: gray"> <span class="text-danger">*</span>đường dẫn phải trùng
+                        slug của thể loại hoặc loại phim</p>
                     <div class="mb-3 mt-1">
                         <label for="" class="form-label mb-1 mt-1">
                             <b>Tên Danh Mục</b>
@@ -26,7 +28,7 @@
                         </label>
                         <select v-model="obj_add_danh_muc.id_danh_muc_cha" name="" id="" class="form-control">
                             <option value="">Root</option>
-                            <template v-for="(v,k) in list_danh_muc" :key="k" >
+                            <template v-for="(v, k) in list_danh_muc" :key="k">
                                 <option v-bind:value="v.id">{{ v.ten_danh_muc }}</option>
                             </template>
                         </select>
@@ -41,8 +43,18 @@
         </div>
         <div class="col-8">
             <div class="card border-5 border-primary border-top">
-                <div class="card-header">
-                    <b>DANH SÁCH DANH MỤC MENU</b>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><b>DANH SÁCH DANH MỤC MENU</b></h5>
+                    <div class="d-flex gap-2">
+                        <button @click="autoConfigMenu()"
+                            class="btn btn-primary btn-sm text-white px-2 py-1 rounded-pill">
+                            <i class="fa-solid fa-gear me-1"></i>Auto Config Menu
+                        </button>
+                        <button data-bs-target="#SapXepMenu" type="button" data-bs-toggle="modal"
+                            class="btn btn-primary btn-sm text-white px-2 py-1 rounded-pill">
+                            <i class="fa-solid fa-sort me-1"></i>Sắp xếp menu
+                        </button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -73,7 +85,7 @@
                                     <td class=" align-middle text-nowrap">{{ k + 1 }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.ten_danh_muc }}</td>
                                     <td v-if="v.ten_danh_muc_cha == null" class=" align-middle text-nowrap">Root</td>
-                                    <td v-else  class=" align-middle text-nowrap">{{ v.ten_danh_muc_cha }}</td>
+                                    <td v-else class=" align-middle text-nowrap">{{ v.ten_danh_muc_cha }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.link }}</td>
 
                                     <td class="text-center align-middle text-nowrap text-center">
@@ -89,8 +101,8 @@
                                         </button>
                                     </td>
                                     <td class="text-center align-middle text-nowrap">
-                                        <i @click="Object.assign(obj_update_danh_muc, v);"
-                                            type="button" data-bs-toggle="modal" data-bs-target="#Chinhsua"
+                                        <i @click="Object.assign(obj_update_danh_muc, v);" type="button"
+                                            data-bs-toggle="modal" data-bs-target="#Chinhsua"
                                             class="fa-solid fa-pen-to-square fa-2x text-warning me-2"></i>
 
                                         <i @click="Object.assign(obj_delete_danh_muc, v)" data-bs-target="#Xoa"
@@ -142,15 +154,16 @@
                                         <label for="" class="form-label mb-1 mt-1">
                                             <b>Đường dẫn tĩnh</b>
                                         </label>
-                                        <input v-model="obj_update_danh_muc.link" type="text"
-                                            class="form-control" placeholder="Vd: /danh-muc/danh-muc-1">
+                                        <input v-model="obj_update_danh_muc.link" type="text" class="form-control"
+                                            placeholder="Vd: /danh-muc/danh-muc-1">
                                     </div>
                                     <div class="mb-3 mt-1">
                                         <label for="" class="form-label mb-1 mt-1">
                                             <b>Danh Mục Cha</b>
                                         </label>
-                                        <select v-model="obj_update_danh_muc.id_danh_muc_cha" name="" id="" class="form-control">
-                                            <template v-for="(v,k) in list_danh_muc" :key="k" >
+                                        <select v-model="obj_update_danh_muc.id_danh_muc_cha" name="" id=""
+                                            class="form-control">
+                                            <template v-for="(v, k) in list_danh_muc" :key="k">
                                                 <option v-bind:value="v.id">{{ v.ten_danh_muc }}</option>
                                             </template>
                                         </select>
@@ -202,12 +215,42 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Sắp Xếp Menu -->
+                    <div class="modal fade" id="SapXepMenu" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Kéo và Thả để sắp xếp
+                                            Menu</b>
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-start" style="font-size: 1.6rem;">
+                                    <DraggableTree :menuData="menuData" v-model="treeData" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                    </button>
+                                    <button @click="sapXepMenu()" type="button" class="btn btn-primary"
+                                        data-bs-dismiss="modal">Sắp Xếp Menu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+<script setup>
+import DraggableTree from '../../DraggableTree.vue';
+
+</script>
 <script>
+import DraggableTree from "../../DraggableTree.vue";
 import axios from "axios";
 import functionBasic from "../../../core/functionBasic";
 import baseRequest from '../../../core/baseRequest';
@@ -227,6 +270,8 @@ export default {
             obj_add_danh_muc: {},
             obj_update_danh_muc: {},
             obj_delete_danh_muc: {},
+            menuData: [],
+            treeData: [],
             pagination: {
                 last_page: "",
                 per_page: "",
@@ -318,11 +363,13 @@ export default {
                     toaster.error(errors[0]);
                 });
         },
+
         laydataDanhMuc(page) {
             baseRequest
                 .get("admin/danh-muc/lay-du-lieu?page=" + page)
                 .then((res) => {
                     this.list_danh_muc = res.data.danh_muc_admin.dataAdmin.data;
+                    this.menuData = res.data.data;
                     this.pagination = res.data.danh_muc_admin.pagination;
                 })
                 .catch((res) => {
@@ -368,11 +415,11 @@ export default {
                 .delete('admin/danh-muc/thong-tin-xoa/' + this.obj_delete_danh_muc.id)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success(res.data.message);
                         this.laydataDanhMuc(this.pagination.last_page);
                     }
                     else {
-                        toaster.danger('Thông báo<br>' + res.data.message);
+                        toaster.danger(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -385,10 +432,10 @@ export default {
                 .put('admin/danh-muc/thong-tin-cap-nhat', this.obj_update_danh_muc)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success(res.data.message);
                         this.laydataDanhMuc(1);
                     } else {
-                        toaster.danger('Thông báo<br>' + res.data.message);
+                        toaster.danger(res.data.message);
                     }
                 })
                 .catch((res) => {
@@ -402,7 +449,39 @@ export default {
                 .put('admin/danh-muc/thong-tin-thay-doi-trang-thai', xyz)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success(res.data.message);
+                        this.laydataDanhMuc(1);
+                    } else {
+                        toaster.error(res.data.message);
+                    }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
+        },
+        autoConfigMenu() {
+            baseRequest
+                .get('admin/danh-muc/auto-config-menu')
+                .then((res) => {
+                    if (res.data.status == true) {
+                        toaster.success(res.data.message);
+                        this.laydataDanhMuc(1);
+                    } else {
+                        toaster.error(res.data.message);
+                    }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
+        },
+        sapXepMenu() {
+            baseRequest
+                .post('admin/danh-muc/sap-xep-menu', this.treeData)
+                .then((res) => {
+                    if (res.data.status == true) {
+                        toaster.success(res.data.message);
                         this.laydataDanhMuc(1);
                     } else {
                         toaster.error(res.data.message);

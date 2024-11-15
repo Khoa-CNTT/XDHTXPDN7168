@@ -106,17 +106,25 @@ const routes = [
     component: () => import("../layout/wrapper/MasterRocker.vue"),
     beforeEnter: checkloginAdmin,
     children: [
+      //   {
+      //     path: "test",
+      //     component: () => import("../components/test_1.vue"),
+      //   },
       {
         path: "leech-phim",
         component: () => import("../components/Admin/LeechPhim/index.vue"),
       },
       {
-        path: "dashboard",
+        path: "",
         component: () => import("../components/Admin/Dashboard/index.vue"),
       },
       {
         path: "danh-muc",
         component: () => import("../components/Admin/DanhMuc/index.vue"),
+      },
+      {
+        path: "config-slide",
+        component: () => import("../components/Admin/ConfigSlide/index.vue"),
       },
       {
         path: "goi-vip",

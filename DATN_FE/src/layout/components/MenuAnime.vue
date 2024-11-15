@@ -23,7 +23,9 @@
                                         <a href="#" v-if="hasSubCategories(item)">
                                             {{ item.ten_danh_muc }} <span class="arrow_carrot-down"></span>
                                         </a>
-                                        <a :href="item.link" v-else>{{ item.ten_danh_muc }}</a>
+                                        <router-link :to="item.link" v-else>
+                                            {{ item.ten_danh_muc }}
+                                        </router-link>
 
                                         <!-- Submenu for items with subcategories -->
                                         <ul class="dropdown" v-if="hasSubCategories(item)"
@@ -32,7 +34,7 @@
                                                 :key="subIndex">
                                                 <li class="menu text-nowrap">
                                                     <router-link
-                                                        :to="{ name: getRouteName(item.ten_danh_muc), params: { slug: subItem.slug_danh_muc } }">
+                                                        :to="{ name: getRouteName(item.slug_danh_muc), params: { slug: subItem.slug_danh_muc } }">
                                                         {{ subItem.ten_danh_muc }}
                                                     </router-link>
                                                 </li>
@@ -316,8 +318,8 @@ export default {
         getSubCategories(parentId) {
             return this.list_danh_muc.filter(subItem => subItem.id_danh_muc_cha === parentId);
         },
-        getRouteName(ten_danh_muc) {
-            return ten_danh_muc === 'Thể Loại' ? 'PageList' : 'PageLoaiPhim';
+        getRouteName(slug_danh_muc) {
+            return slug_danh_muc === 'the-loai' ? 'PageList' : 'PageLoaiPhim';
         },
         laydataYeuThich() {
             baseRequest

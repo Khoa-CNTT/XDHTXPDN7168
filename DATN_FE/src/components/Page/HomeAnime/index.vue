@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Hero Section Begin -->
-        <section class="hero" style="background-color: #0b0c2a">
+        <!-- <section class="hero" style="background-color: #0b0c2a">
             <div class="container">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -43,8 +43,29 @@
                     </a>
                 </div>
             </div>
-        </section>
+        </section> -->
         <!-- Hero Section End -->
+        <div class="container mt-2">
+            <Carousel v-bind="config">
+                <Slide v-for="(slide, index) in list_slide" :key="index">
+                    <div class="carousel__item" :style="{ backgroundImage: `url(${slide.poster_img})` }">
+                        <div class="hero__text">
+                            <h2>{{ slide.ten_phim }}</h2>
+                            <p>{{ slide.mo_ta }}
+                            </p>
+                            <button class="carousel__button">Xem ngay</button>
+                        </div>
+                    </div>
+                </Slide>
+
+                <template #addons>
+                    <Navigation class="carousel__navigation">
+                        <button class="prev"><i class="fa fa-chevron-left"></i></button>
+                        <button class="next"><i class="fa fa-chevron-right"></i></button>
+                    </Navigation>
+                </template>
+            </Carousel>
+        </div>
 
         <!-- Product Section Begin -->
         <section class="product spad" style="background-color: #0b0c2a">
@@ -167,13 +188,12 @@
                             <div class="row">
                                 <template v-for="(v, k) in tat_ca_phim_hoan_thanh" :key="k">
                                     <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-6 col-sm-6">
-                                        <router-link
-                                        :to="v.slug_phim">
+                                        <router-link :to="v.slug_phim">
                                             <div class="product__item">
                                                 <div class="product__item__pic set-bg"
                                                     style="background-image: url('undefined')">
-                                                    <a><img style="height: 100%; width: 230px" v-bind:src="v.hinh_anh" loading="lazy"
-                                                            alt="" /></a>
+                                                    <a><img style="height: 100%; width: 230px" v-bind:src="v.hinh_anh"
+                                                            loading="lazy" alt="" /></a>
                                                     <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }}
                                                         <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                     </div>
@@ -272,6 +292,8 @@
     </div>
 </template>
 <script>
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import axios from "axios";
 import baseRequest from "../../../core/baseRequest";
 import { createToaster } from "@meforma/vue-toaster";
@@ -279,8 +301,17 @@ const toaster = createToaster({
     position: "top-right",
 });
 export default {
+    components: {
+        Carousel, Slide, Navigation
+    },
     data() {
         return {
+            list_slide: [],
+            config: {
+                autoplay: 2000,
+                wrapAround: true,
+                pauseAutoplayOnHover: true,
+            },
             list_loai_phim: [],
             list_the_loai: [],
             tat_ca_phim: [],
@@ -299,6 +330,7 @@ export default {
         //   this.laydataLoaiPhim();
         //   this.loaddataTheLoai();
         this.laydataPhim();
+        this.getdataSlide();
     },
     methods: {
         tenPhimLimited(tenphim) {
@@ -306,6 +338,13 @@ export default {
         },
         tenPhimLimited_1(tenphim) {
             return tenphim.length > 42 ? tenphim.substring(0, 42) + '...' : tenphim;
+        },
+        getdataSlide() {
+            axios
+                .get("http://127.0.0.1:8000/api/lay-data-slide-homepage")
+                .then((res) => {
+                    this.list_slide = res.data.data;
+                })
         },
         laydataPhim() {
             axios
@@ -363,5 +402,139 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal;
+}
+
+.carousel__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 585px;
+    width: 1140px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.carousel__item:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.carousel__item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 12px;
+    z-index: 1;
+}
+
+.hero__text {
+    position: relative;
+    color: #fff;
+    z-index: 2;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.hero__text h2 {
+    font-size: 42px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    opacity: 0.9;
+
+}
+
+.hero__text p {
+    font-size: 20px;
+    line-height: 1.6;
+    margin: 15px 0;
+    opacity: 0.9;
+}
+
+.carousel__button {
+    background-color: #ff4757;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 28px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.4s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 5px 20px rgba(255, 71, 87, 0.5);
+    z-index: 3;
+}
+
+.carousel__button:hover {
+    background-color: #d32f39;
+    transform: scale(1.08);
+    box-shadow: 0px 7px 25px rgba(211, 47, 57, 0.6);
+}
+
+.carousel__button:active {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 15px rgba(211, 47, 57, 0.5);
+}
+
+.carousel__navigation button {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.carousel__navigation button:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: #ff4757;
+    transform: scale(1.1);
+}
+
+.carousel__navigation button:active {
+    transform: scale(1);
+}
+
+.carousel__navigation .prev {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+}
+
+.carousel__navigation .next {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
