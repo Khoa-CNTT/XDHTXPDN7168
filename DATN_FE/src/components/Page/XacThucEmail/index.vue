@@ -78,10 +78,10 @@ export default {
                 .post('kiem-tra-hash-kich-hoat', this.obj_user)
                 .then((res) =>  {
                     if(res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.obj_user.email   = res.data.email;
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                         this.$router.push('/login');
                     }
                 });

@@ -597,7 +597,7 @@ export default {
                     }
 
                 }).catch(() => {
-                    toaster.warning("Đã xảy ra lỗi, vui lòng thử lại sau");
+                    this.$store.dispatch('showWarning', {description: "Đã xảy ra lỗi, vui lòng thử lại sau",});
                     this.$router.push('/'); // Ẩn loader nếu có listring
                 });
         },

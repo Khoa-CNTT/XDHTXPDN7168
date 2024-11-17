@@ -173,7 +173,7 @@
 
                                         <div class="col-12">
                                             <label class="form-label">Email</label>
-                                            <input type="email" v-model="obj_update_admin.email" class="form-control"
+                                            <input disabled type="email" v-model="obj_update_admin.email" class="form-control"
                                                 placeholder="example@user.com">
                                         </div>
                                         <div class="col-12">

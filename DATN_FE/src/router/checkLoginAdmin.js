@@ -13,12 +13,12 @@ export default function(to, from, next) {
             if(res.status === 200) {
                 next();
             } else {
-                toaster.warning('Thông báo<br>Bạn cần đăng nhập hệ thống trước!');
+                this.$store.dispatch('showWarning', {description: "Bạn cần đăng nhập hệ thống trước",});
                 next('/admin/login');
             }
         })
         .catch(() => {
-            toaster.warning('Thông báo<br>Bạn cần đăng nhập hệ thống trước!');
+            this.$store.dispatch('showWarning', {description: "Bạn cần đăng nhập hệ thống trước",});
             next('/admin/login');
         });
 }

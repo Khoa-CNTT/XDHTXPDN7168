@@ -77,9 +77,9 @@ export default {
                 .post('kiem-tra-quen-hash-pass', this.doi_mat_khau)
                 .then((res) =>  {
                     if(res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                         this.$router.push('/login');
                     }
                 });
@@ -89,10 +89,10 @@ export default {
                 .post('dat-lai-mat-khau', this.doi_mat_khau)
                 .then((res) =>  {
                     if(res.data.status == true) {
-                        toaster.success( res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.$router.push('/login');
                     } else {
-                        toaster.error( res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                         this.$router.push('/login');
                     }
                 });

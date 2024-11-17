@@ -23,6 +23,11 @@ const routes = [
         path: "kich-hoat-email/:hash",
         component: () => import("../components/Page/XacThucEmail/index.vue"),
       },
+      {
+        path: "auth-google/statute/:token",
+        component: () => import("../components/Page/LoginGG/index.vue"),
+        // props: true,
+      },
     ],
   },
   {
@@ -42,10 +47,10 @@ const routes = [
         path: "register",
         component: () => import("../components/Page/Register/index.vue"),
       },
-      {
-        path: "thanh-toan",
-        component: () => import("../components/Page/MuaVip/index.vue"),
-      },
+      //   {
+      //     path: "thanh-toan",
+      //     component: () => import("../components/Page/MuaVip/index.vue"),
+      //   },
       // Page Anime
       {
         path: "",
@@ -191,6 +196,10 @@ const routes = [
       {
         path: "thong-ke",
         component: () => import("../components/Admin/ThongKe/index.vue"),
+      },
+      {
+        path: "quan-li-thanh-toan",
+        component: () => import("../components/Admin/ThanhToan/index.vue"),
       },
     ],
   },

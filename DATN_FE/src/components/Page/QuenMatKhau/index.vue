@@ -92,17 +92,15 @@ export default {
                 .post('quen-mat-khau', payload)
                 .then((res) =>  {
                     if(res.data.status == true) {
-                        toaster.success( res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.$router.push('/login');
                     } else {
-                        toaster.error( res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 })
                 .catch((res) => {
                     var errors  = Object.values(res.response.data.errors);
-                    errors.forEach(function(v,k){
-                            toaster.error(v[0]);
-                    });
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         }
     }

@@ -179,7 +179,7 @@ export default {
     mounted() {
         this.$store.dispatch('showLoader');
         this.$route.params.slugEpisode,
-            this.LaydataDeXem();
+        this.LaydataDeXem();
         this.laydataCMT();
     },
 
@@ -212,7 +212,7 @@ export default {
                 .post("lay-data-watch", payload)
                 .then((res) => {
                     // if (res.data.status === 0) {
-                    //     toaster.error(res.data.message);
+                    //     this.$store.dispatch('showSuccess', {description: res.data.message,});
 
                     // }
                     this.obj_phim = res.data.phim || {}; // Gán {} nếu không có dữ liệu
@@ -222,8 +222,8 @@ export default {
                 })
                 .catch(() => {
                     this.$router.push('/'); // Ẩn loader nếu có lỗi
-                    toaster.warning("Đã xảy ra lỗi, vui lòng thử lại sau");
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showWarning', {description: "Đã xảy ra lỗi, vui lòng thử lại sau",});
+
                 });
 
         },
@@ -248,7 +248,7 @@ export default {
                 }).catch(() => {
                     // this.$router.push('/'); // Ẩn loader nếu có lỗi
                     this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         themBinhLuan() {
@@ -261,14 +261,14 @@ export default {
                 )
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.obj_cmt_phim = {};
                         this.laydataCMT();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 }).catch((res) => {
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         deleteBinhLuan() {
@@ -279,10 +279,10 @@ export default {
                         this.laydataCMT();
                     }
                     else {
-                        toaster.danger(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 }).catch((res) => {
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         updateBinhLuan() {
@@ -290,14 +290,14 @@ export default {
                 .put("khach-hang/binh-luan-tap-phim/thong-tin-sua", this.obj_cmt_update)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.cancelEdit();
                         this.laydataCMT();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 }).catch((res) => {
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
 

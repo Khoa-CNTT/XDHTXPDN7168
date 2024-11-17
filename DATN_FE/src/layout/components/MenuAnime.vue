@@ -75,7 +75,7 @@
                                                         alt="">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
-                                                    <b class="mb-0">{{ user_name }}</b>
+                                                    <b class="mb-0">Profile</b>
                                                 </div>
                                             </div>
                                             <!-- <div class="row">
@@ -178,9 +178,6 @@
                                                 <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
                                                     class="input-group-text serch bg-primary">
                                                     <i class="fa-solid fa-magnifying-glass"></i></a>
-
-
-
                                             </div>
                                         </div>
                                         <div class="row sctrollspy-example" data-bs-spy="sctroll">
@@ -360,8 +357,9 @@ export default {
             localStorage.removeItem('ho_ten_user');
             localStorage.removeItem('id_user');
             this.img = 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
-                this.checkToken()
-            toaster.success("Đăng xuất thành công");
+            this.checkToken()
+            window.location.href = '/';
+            this.$store.dispatch('showSuccess', { description: 'Đăng xuất thành công', });
         },
         checkToken() {
             axios
@@ -393,12 +391,15 @@ export default {
                 .post('khach-hang/yeu-thich/thong-tin-xoa', v)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', { description: res.data.message, });
                         this.laydataYeuThich();
                     }
                     else {
                         toaster.danger(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    this.$store.dispatch('showError', { description: 'Xảy ra lỗi', });
                 });
         },
         searchPhim() {

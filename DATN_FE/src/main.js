@@ -9,7 +9,7 @@ import "ant-design-vue/dist/reset.css";
 import { Tree, notification } from "ant-design-vue";
 notification.config({
   placement: "topRight", // Default placement
-  duration: 1.5, // Default duration
+  duration: 2, // Default duration
 });
 
 const app = createApp(App);

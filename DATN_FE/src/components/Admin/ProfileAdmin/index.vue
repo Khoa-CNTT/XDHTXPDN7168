@@ -102,7 +102,8 @@
                                         <h6 class="mb-0  mt-2">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input disabled v-model="obj_update_tt.email" type="text" class="form-control" />
+                                        <input disabled v-model="obj_update_tt.email" type="text"
+                                            class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row mb-3 mt-1">
@@ -205,7 +206,7 @@ export default {
             obj_update_tt: {},
             obj_admin: {},
             // name_admin: localStorage.getItem("name_admin"),
-            // avt_admin: localStorage.getItem("avt_admin"),
+            avt_admin: localStorage.getItem("avt_admin"),
             // id_user: localStorage.getItem("id_user"),
             // ten_chuc_vu: localStorage.getItem("ten_chuc_vu"),
         };
@@ -225,6 +226,7 @@ export default {
                 .then((res) => {
                     this.obj_doi_pass = res.data.obj_admin;
                     this.obj_admin = res.data.obj_admin;
+                    this.$store.dispatch('updateAvatar', avatarUrl);
                     localStorage.setItem('avt_admin', obj_admin.hinh_anh);
                     localStorage.setItem('name_admin', obj_admin.ho_va_ten);
                 });
@@ -312,6 +314,7 @@ export default {
                         this.obj_avt = {};
                         localStorage.removeItem('avt_admin');
                         localStorage.setItem('avt_admin', res.data.avatar);
+                        this.$store.dispatch('updateAvatar', res.data.avatar);
                         this.laydataAdmin();
                     } else {
                         toaster.error(res.data.message);

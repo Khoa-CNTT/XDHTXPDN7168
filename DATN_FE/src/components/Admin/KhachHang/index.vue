@@ -174,7 +174,7 @@
 
                                             <div class="col-12 mb-2">
                                                 <label  class="form-label">Email</label>
-                                                <input type="email" v-model="obj_update_user.email" class="form-control"
+                                                <input type="email" disabled v-model="obj_update_user.email" class="form-control"
                                                     placeholder="example@user.com">
                                             </div>
                                             <div class="col-12 mb-2">

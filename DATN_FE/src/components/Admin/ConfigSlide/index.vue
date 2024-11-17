@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="modal-body text-start">
                                     <div class="mb-3">
-                                        <div class="responsive">
+                                        <div class="table-responsive">
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>

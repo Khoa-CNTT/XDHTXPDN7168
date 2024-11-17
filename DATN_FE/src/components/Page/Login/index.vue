@@ -53,7 +53,7 @@
                         <div class="login__social__links">
                             <span>hoặc</span>
                             <ul>
-                                <li><a class="google"><i class="fa fa-google"></i>
+                                <li><a href="http://127.0.0.1:8000/api/auth/google" class="google"><i class="fa fa-google"></i>
                                         Đăng nhập với Google</a></li>
                             </ul>
                         </div>
@@ -87,7 +87,7 @@ export default {
         //     axios
         //         .post('http://127.0.0.1:8000/api/khach-hang/register', this.dang_ky)
         //         .then((res) => {
-        //             toaster.success(res.data.message);
+        //             this.$store.dispatch('showSuccess', {description: res.data.message,});
         //         });
         // },
         dangNhap() {
@@ -95,17 +95,17 @@ export default {
                 .post('http://127.0.0.1:8000/api/khach-hang/login', this.user)
                 .then((res) => {
                     if (res.data.status) {
-                        toaster.success(res.data.message);
                         var arr = res.data.token.split("|");
                         localStorage.setItem('token_user', arr[1]);
                         this.checkToken();
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         checkToken() {

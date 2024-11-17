@@ -201,7 +201,7 @@ export default {
                     let date = new Date(this.obj_blog.updated_at);
                     let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                     let formattedDate = date.toLocaleDateString('vi-VN', options);
-                    console.log(formattedDate);
+                    // console.log(formattedDate);
                     this.obj_blog.updated_at = formattedDate;
                     this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                 })
@@ -221,7 +221,7 @@ export default {
                     this.$router.push('/'); // Ẩn loader nếu có lỗi
                     this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         themBinhLuan() {
@@ -234,16 +234,16 @@ export default {
                 .post("khach-hang/binh-luan-blog/thong-tin-tao", payload)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.obj_cmt_blog = {};
                         this.laydataCMT();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         updateCMT() {
@@ -251,20 +251,17 @@ export default {
                 .put("khach-hang/binh-luan-blog/thong-tin-sua", this.obj_update_cmt)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.cancelEdit();
                         this.laydataCMT();
                     } else {
-                        toaster.danger(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
-                })
-                .catch((res) => {
-                    var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
+
         },
         deleteBinhLuan() {
             baseRequest
@@ -273,12 +270,12 @@ export default {
                     if (res.data.status == true) {
                         this.laydataCMT();
                     } else {
-                        toaster.danger(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
     },

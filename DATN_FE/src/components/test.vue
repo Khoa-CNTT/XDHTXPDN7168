@@ -1,28 +1,50 @@
 <template>
     <div>
-      <button @click="showDynamicSuccess">Hiển thị Thành công</button>
-      <button @click="showDynamicError">Hiển thị Lỗi</button>
-    </div>
-  </template>
+        <h1>Google Login</h1>
+        <a href="http://127.0.0.1:8000/api/auth/google">Login with Google</a>
 
-  <script>
-  export default {
+        <!-- Hiển thị thông tin user sau khi đăng nhập -->
+        <div v-if="user">
+            <p>Welcome, {{ user.name }}</p>
+            <img :src="user.avatar" alt="User Avatar" />
+        </div>
+
+        <!-- Hiển thị lỗi nếu có -->
+        <div v-if="error" class="error">{{ error }}</div>
+    </div>
+</template>
+
+<script>
+import axios from "axios";
+import baseRequestUser from "../core/baseRequestUser";
+
+export default {
     data() {
-      return {
-        dynamicDescription: 'Chi tiết của thông báo cũng là động.', // Description động
-      };
+        return {
+            user: null,
+            error: null,
+        };
     },
     methods: {
-      showDynamicSuccess() {
-        this.$store.dispatch('showSuccess', {
-          description: this.dynamicDescription,
-        });
-      },
-      showDynamicError() {
-        this.$store.dispatch('showError', {
-          description: this.dynamicDescription,
-        });
-      },
+        async handleGoogleLogin() {
+            try {
+                const response = await axios.get("http://127.0.0.1:8000/api/auth/google", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                })
+                this.user = response.data.user; // Lưu thông tin user trả về
+                this.$router.push('/'); // Chuyển hướng đến dashboard hoặc view khác
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    this.error = error.response.data.error || "Something went wrong.";
+                } else {
+                    this.error = "Unable to connect to the server.";
+                }
+            }
+        },
+
+
     },
-  };
-  </script>
+};
+</script>

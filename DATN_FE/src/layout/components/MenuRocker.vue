@@ -13,191 +13,143 @@
         <ul class="metismenu" id="menu">
             <li>
                 <router-link to="/admin">
-                    <a href="/admin">
-                        <div class="parent-icon"><i class="bx bx-home-circle"></i></div>
-                        <div class="menu-title">Dashboard</div>
-                    </a>
+                    <div class="parent-icon"><i class="bx bx-home-circle"></i></div>
+                    <div class="menu-title">Dashboard</div>
                 </router-link>
             </li>
             <li class="menu-label">Quản lý phim</li>
             <li>
-                <router-link to="/admin/the-loai">
-                    <a href="/admin/the-loai" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-bookmark-heart"></i>
-                        </div>
-                        <div class="menu-title">Thể loại</div>
-                    </a>
+                <router-link to="/admin/the-loai" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-bookmark-heart"></i>
+                    </div>
+                    <div class="menu-title">Thể loại</div>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/loai-phim">
-                    <a href="/admin/loai-phim" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-grid"></i>
-                        </div>
-                        <div class="menu-title">Loại phim</div>
-                    </a>
-                </router-link>
-            </li>
-            <!-- <li>
-                <router-link to="/admin/tac-gia">
-                    <a href="/admin/tac-gia" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-sm fa-solid fa-user-pen"></i>
-                        </div>
-                        <div class="menu-title">Tác Giả</div>
-                    </a>
-                </router-link>
-            </li> -->
-            <li>
-                <router-link to="/admin/anime">
-                    <a href="/admin/anime" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-grid-alt"></i>
-                        </div>
-                        <div class="menu-title">Phim</div>
-                    </a>
+                <router-link to="/admin/loai-phim" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-grid"></i>
+                    </div>
+                    <div class="menu-title">Loại phim</div>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/tap-phim">
-                    <a href="/admin/anime" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-video-recording"></i>
-                        </div>
-                        <div class="menu-title">Tập phim</div>
-                    </a>
+                <router-link to="/admin/anime" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-grid-alt"></i>
+                    </div>
+                    <div class="menu-title">Phim</div>
                 </router-link>
             </li>
-            <!-- <li>
-                <router-link to="/admin/tap-phim">
-                    <a href="/admin/anime" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-video-recording"></i>
-                        </div>
-                        <div class="menu-title">Diễn viện</div>
-                    </a>
+            <li>
+                <router-link to="/admin/tap-phim" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-video-recording"></i>
+                    </div>
+                    <div class="menu-title">Tập phim</div>
                 </router-link>
-            </li> -->
+            </li>
             <li class="menu-label">Quản lý bài viết</li>
             <li>
-                <router-link to="/admin/bai-viet">
-                    <a href="/admin/bai-viet" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-message-square-edit"></i>
-                        </div>
-                        <div class="menu-title">Bài viết</div>
-                    </a>
+                <router-link to="/admin/bai-viet" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-message-square-edit"></i>
+                    </div>
+                    <div class="menu-title">Bài viết</div>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/chuyen-muc">
-                    <a href="/admin/loai-phim" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-solid fa-layer-group fa-sm"></i>
-                        </div>
-                        <div class="menu-title">Chuyên mục</div>
-                    </a>
+                <router-link to="/admin/chuyen-muc" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-layer-group fa-sm"></i>
+                    </div>
+                    <div class="menu-title">Chuyên mục</div>
                 </router-link>
             </li>
             <li class="menu-label">Quản Lý WEBSITE</li>
             <li>
-                <router-link to="/admin/danh-muc">
-                    <a href="/admin/danh-muc" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-solid fa-list fa-sm"></i>
-                        </div>
-                        <div class="menu-title">Config Menu</div>
-                    </a>
+                <router-link to="/admin/danh-muc" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-list fa-sm"></i>
+                    </div>
+                    <div class="menu-title">Config Menu</div>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/config-slide">
-                    <a href="/admin/config-slide" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-solid fa-sliders"></i>
-                        </div>
-                        <div class="menu-title">Config Slide</div>
-                    </a>
+                <router-link to="/admin/config-slide" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <div class="menu-title">Config Slide</div>
                 </router-link>
             </li>
             <li class="menu-label">Quản Lý Admin</li>
             <li>
-                <router-link to="/admin/tk-admin">
-                    <a href="/admin/tk-admin" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-user-plus"></i>
-                        </div>
-                        <div class="menu-title">Admin</div>
-                    </a>
-                </router-link>
-            </li>
-
-            <li>
-                <router-link to="/admin/khach-hang">
-                    <a href="/admin/khach-hang" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-user-circle"></i>
-                        </div>
-                        <div class="menu-title">Khách hàng</div>
-                    </a>
-                </router-link>
-            </li>
-
-            <li>
-                <router-link to="/admin/goi-vip">
-                    <a href="/admin/goi-vip" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-package"></i>
-                        </div>
-                        <div class="menu-title">Gói Vip</div>
-                    </a>
+                <router-link to="/admin/tk-admin" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-user-plus"></i>
+                    </div>
+                    <div class="menu-title">Admin</div>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/chuc-vu">
-                    <a href="/admin/tk-admin" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-solid fa-user-tie fa-sm"></i>
-                        </div>
-                        <div class="menu-title">Chức vụ</div>
-                    </a>
+                <router-link to="/admin/khach-hang" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-user-circle"></i>
+                    </div>
+                    <div class="menu-title">Khách hàng</div>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/phan-quyen">
-                    <a href="/admin/phan-quyen" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-shield"></i>
-                        </div>
-                        <div class="menu-title">Phân quyền</div>
-                    </a>
+                <router-link to="/admin/goi-vip" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-package"></i>
+                    </div>
+                    <div class="menu-title">Gói Vip</div>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/thong-ke">
-                    <a href="/admin/thong-ke" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="fa-solid fa-chart-simple fa-sm"></i>
-                        </div>
-                        <div class="menu-title">Thống kế</div>
-                    </a>
+                <router-link to="/admin/quan-li-thanh-toan" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-money-bill-wave fa-sm"></i>
+                    </div>
+                    <div class="menu-title">Quản Lí Thanh Toán</div>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/admin/chuc-vu" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-user-tie fa-sm"></i>
+                    </div>
+                    <div class="menu-title">Chức vụ</div>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/admin/phan-quyen" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-shield"></i>
+                    </div>
+                    <div class="menu-title">Phân quyền</div>
+                </router-link>
+            </li>
+            <li>
+                <router-link to="/admin/thong-ke" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="fa-solid fa-chart-simple fa-sm"></i>
+                    </div>
+                    <div class="menu-title">Thống kế</div>
                 </router-link>
             </li>
             <li class="menu-label">Quản lý Leech Phim</li>
             <li>
-                <router-link to="/admin/leech-phim">
-                    <a href="/admin/bai-viet" class="nav-link">
-                        <div class="parent-icon">
-                            <i class="bx bx-message-square-edit"></i>
-                        </div>
-                        <div class="menu-title">Leech Phim</div>
-                    </a>
+                <router-link to="/admin/leech-phim" class="nav-link">
+                    <div class="parent-icon">
+                        <i class="bx bx-message-square-edit"></i>
+                    </div>
+                    <div class="menu-title">Leech Phim</div>
                 </router-link>
             </li>
-
-
         </ul>
         <!--end navigation-->
     </div>

@@ -86,7 +86,7 @@
                                 <div class="col-sm-9 text-secondary">
                                     <input type="button" class="btn btn-danger px-4 me-5" data-bs-toggle="modal"
                                         data-bs-target="#thayDoiThongTin" value="Sửa Thông Tin" />
-                                    <input data-bs-toggle="modal" data-bs-target="#doiMatKhau" type="button"
+                                    <input v-show="obj_doi_pass.google_id == null" data-bs-toggle="modal" data-bs-target="#doiMatKhau" type="button"
                                         class="btn btn-danger px-4 me-5 " value="Đổi Mật Khẩu" />
                                 </div>
                             </div>
@@ -216,12 +216,12 @@ export default {
         };
     },
     mounted() {
-        this.laydataAdmin();
+        this.laydataUser();
         this.$store.dispatch('showLoader');
         // console.log(this.id_user);
     },
     methods: {
-        laydataAdmin() {
+        laydataUser() {
             axios
                 .get("http://127.0.0.1:8000/api/khach-hang/lay-du-lieu-profile", {
                     params: {
@@ -254,15 +254,15 @@ export default {
                 .then((res) => {
                     // console.log(res.data);
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
-                        this.laydataAdmin();
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.laydataUser();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         DoiThongTin() {
@@ -270,17 +270,17 @@ export default {
                 .put("khach-hang/doi-thong-tin", this.obj_update_tt)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         this.ho_ten_user = res.data.ho_ten_user;
                         localStorage.setItem("ho_ten_user", res.data.ho_ten_user);
-                        this.laydataAdmin();
+                        this.laydataUser();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         },
         handleFile(e, isCreate) {
@@ -326,13 +326,13 @@ export default {
                 )
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                         // this.obj_avt = {};
                         // this.is_create = 0;
-                        // this.laydataAdmin();
+                        // this.laydataUser();
                         window.location.reload();
                     } else {
-                        toaster.error(res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 });
         },

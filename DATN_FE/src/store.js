@@ -12,13 +12,20 @@ import { createStore } from "vuex";
 const store = createStore({
   state: {
     isLoading: false,
+    avatarUrl: localStorage.getItem("avt_admin"),
   },
   mutations: {
     setLoading(state, loading) {
       state.isLoading = loading;
     },
+    setAvatar(state, avatarUrl) {
+      state.avatarUrl = avatarUrl;
+    },
   },
   actions: {
+    updateAvatar({ commit }, avatarUrl) {
+      commit("setAvatar", avatarUrl);
+    },
     showLoader({ commit }) {
       commit("setLoading", true);
     },
