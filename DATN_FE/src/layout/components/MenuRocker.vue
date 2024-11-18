@@ -5,7 +5,7 @@
                 <!-- {{-- <img src="/assets_client_xem_phim/img/net-club1.png" class="logo-icon" alt="logo icon"> --}} -->
             </div>
             <div>
-                <h4 class="logo-text text-danger">WANIME</h4>
+                <h4 class="logo-text text-primary fw-bold" style="font-family: 'Oswald', sans-serif;"> ADMIN-WOPAI</h4>
             </div>
             <div class="toggle-icon ms-auto"><i class="bx bx-arrow-to-left"></i></div>
         </div>

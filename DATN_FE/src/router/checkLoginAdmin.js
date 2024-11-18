@@ -18,7 +18,7 @@ export default function(to, from, next) {
             }
         })
         .catch(() => {
-            this.$store.dispatch('showWarning', {description: "Bạn cần đăng nhập hệ thống trước",});
+            // this.$store.dispatch('showWarning', {description: "Bạn cần đăng nhập hệ thống trước",});
             next('/admin/login');
         });
 }

@@ -58,7 +58,7 @@
                                                     <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                 </div>
                                                 <div class="comment b">{{ v.ten_loai_phim }}</div>
-                                                <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luong_xem }}
+                                                <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luot_xem }}
                                                 </div>
                                             </div>
                                             <div class="product__item__text">
@@ -124,7 +124,7 @@
                                         <div style="color: #b7b7b7">
                                             Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
                                         </div>
-                                        <span><i class="fa fa-eye"></i> {{ v.tong_luong_xem }} lượt
+                                        <span><i class="fa fa-eye"></i> {{ v.tong_luot_xem }} lượt
                                             xem</span>
                                     </div>
                                 </div>

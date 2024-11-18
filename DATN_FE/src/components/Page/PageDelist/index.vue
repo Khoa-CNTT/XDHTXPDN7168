@@ -225,7 +225,7 @@
                                     <div style="color: #b7b7b7">
                                         Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
                                     </div>
-                                    <span><i class="fa fa-eye"></i> {{ v.tong_luong_xem }} lượt
+                                    <span><i class="fa fa-eye"></i> {{ v.tong_luot_xem }} lượt
                                         xem</span>
                                 </div>
                             </div>
@@ -487,7 +487,7 @@ export default {
                     }
                     else if (res.data.status === 2) {
                         $("#modalBuyVip").modal("show");
-                        toaster.warning(res.data.message);
+                        this.$store.dispatch('showWarning', {description: res.data.message,});
 
                     }
                     else {

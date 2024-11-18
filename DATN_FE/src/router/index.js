@@ -41,7 +41,7 @@ const routes = [
       {
         path: "login",
         component: () => import("../components/Page/Login/index.vue"),
-        beforeEnter: checkloginAdmin,
+        // beforeEnter: checkloginAdmin,
       },
       {
         path: "register",
@@ -215,6 +215,16 @@ const routes = [
       {
         path: "register",
         component: () => import("../components/Admin/Register/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/check-out",
+    component: () => import("../layout/wrapper/MasterRockerLogin.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("../components/Checkout/ThanhToan/index.vue"),
       },
     ],
   },

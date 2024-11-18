@@ -103,7 +103,7 @@
                                                         <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                     </div>
                                                     <div class="comment b">{{ v.ten_loai_phim }}</div>
-                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luong_xem }}
+                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luot_xem }}
                                                     </div>
                                                 </div>
                                                 <div class="product__item__text">
@@ -152,7 +152,7 @@
                                                         <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                     </div>
                                                     <div class="comment b">{{ v.ten_loai_phim }}</div>
-                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luong_xem }}
+                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luot_xem }}
                                                     </div>
                                                 </div>
                                                 <div class="product__item__text">
@@ -201,7 +201,7 @@
                                                         <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                     </div>
                                                     <div class="comment b">{{ v.ten_loai_phim }}</div>
-                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luong_xem }}
+                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luot_xem }}
                                                     </div>
                                                 </div>
                                                 <div class="product__item__text">
@@ -241,7 +241,7 @@
                                                 <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }} <span
                                                         v-show="v.tong_tap == v.so_tap_phim">FULL</span></div>
 
-                                                <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luong_xem }}</div>
+                                                <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luot_xem }}</div>
                                                 <h5
                                                     style="background-color: rgba(35, 33, 33, 0.7);padding-bottom: 0px;padding: -59px 8px;padding-top: 3px;">
                                                     <a v-bind:href="v.slug_phim">
@@ -281,7 +281,7 @@
                                             <div style="color: #b7b7b7">
                                                 Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
                                             </div>
-                                            <span><i class="fa fa-eye"></i> {{ v.tong_luong_xem }} lượt
+                                            <span><i class="fa fa-eye"></i> {{ v.tong_luot_xem }} lượt
                                                 xem</span>
                                         </div>
                                     </div>

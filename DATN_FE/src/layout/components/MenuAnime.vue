@@ -6,7 +6,7 @@
                     <div class="header__logo">
                         <router-link to="/">
                             <a href="./index.html">
-                                <img src="../../assets/assets_Anime/img/logo.png" alt="">
+                                <img src="../../assets/assets_Anime/img/logoW.png" alt="">
                             </a>
                         </router-link>
 
