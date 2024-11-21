@@ -49,10 +49,14 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <div class="dropdown-center">
+                            <a class="dropdown-toggle" type="button" data-bs-toggle="modal"
+                                data-bs-target="#modalBuyVip">
+                                <i class="fa-solid fa-gem fa-xl"></i>
+                            </a>
                             <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
                                 <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                             </a>
-                            <!-- người dùng -->
+
                             <a type="button" class=" dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-user fa-xl"></i>
                             </a>
@@ -60,10 +64,16 @@
                             <ul class="dropdown-menu" style=" background-color: rgba(35, 33, 33, 0.9);">
                                 <!-- Dropdown menu links -->
                                 <li class="user-avatar" v-show="is_login == false">
-                                    <router-link to="/login" class="with-100">
-                                        <a class="dropdown-item " type="button"><i
-                                                class="fa-solid fa-user me-1"></i><span>Đăng
-                                                Nhập</span></a>
+                                    <router-link to="/login" class="dropdown-item with-100 d-flex align-items-center">
+                                        <i class="fa-solid fa-right-to-bracket me-2"></i>
+                                        <span>Đăng Nhập</span>
+                                    </router-link>
+                                </li>
+                                <li class="user-avatar" v-show="is_login == false">
+                                    <router-link to="/register"
+                                        class="dropdown-item with-100 d-flex align-items-center">
+                                        <i class="fa-solid fa-user-plus me-2"></i>
+                                        <span>Đăng Ký</span>
                                     </router-link>
                                 </li>
                                 <li class="user-avatar">
@@ -222,6 +232,78 @@
                         </div>
                     </div>
 
+                    <!-- Modal Gói Víp -->
+                    <div class="modal fade" id="modalBuyVip" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="modalBuyVipLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div style="background-color: rgba(35, 33, 33, 0.8);" class="modal-content">
+
+                                <div class="modal-body ">
+                                    <div class="product__sidebar__comment">
+                                        <div class="section-title ">
+                                            <h5>CÁC GÓI ĐĂNG KÝ</h5>
+                                        </div>
+                                        <div class="container">
+                                            <div class="row text-center " data-bs-spy="sctroll">
+                                                <template v-for="(value, index) in list_goi_vip" :key="index">
+                                                    <div class="col-lg-4 col-md-4 mt-2" type="button">
+                                                        <div style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); transition: transform 0.3s, box-shadow 0.3s;"
+                                                            class="card border-primary"
+                                                            onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 8px 16px rgba(0,0,0,0.3)';"
+                                                            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)';">
+                                                            <div class="card-header bg-primary text-white"
+                                                                style="font-size: 1.2rem; font-weight: bold;">
+                                                                {{ value.thoi_han }} Tháng
+                                                            </div>
+                                                            <div class="card-body" style="padding: 20px;">
+                                                                <h5 class="card-title text-decoration-line-through text-secondary"
+                                                                    style="font-size: 1rem;">
+                                                                    <del>{{ convertVND(value.tien_goc) }}</del>
+                                                                </h5>
+                                                                <div style="display: flex; align-items: center;">
+                                                                    <h5 class="mr-2"
+                                                                        style="color: red; font-size: 1.1rem;">Sale:
+                                                                    </h5>
+                                                                    <h5 class="text-primary" style="font-size: 1.2rem;">
+                                                                        {{
+                                                                            convertVND(value.tien_sale) }}</h5>
+                                                                </div>
+                                                                <p class="card-text"
+                                                                    style="color: #666; font-size: 0.9rem;">
+                                                                    <span class="text-success">✓</span> Bạn sẽ có {{
+                                                                        value.thoi_han
+                                                                    }} tháng xem phim không giới hạn
+                                                                </p>
+                                                                <p class="card-text"
+                                                                    style="color: #666; font-size: 0.9rem;">
+                                                                    <span class="text-success">✓</span> Xem phim không
+                                                                    chứa quảng
+                                                                    cáo
+                                                                </p>
+                                                                <a :href="`/platform/checkout/process/${value.id}`"
+                                                                    class="btn btn-primary"
+                                                                    style="font-weight: bold; transition: background-color 0.3s;"
+                                                                    onmouseover="this.style.backgroundColor='#004085';"
+                                                                    onmouseout="this.style.backgroundColor='#007bff';">
+                                                                    Mua ngay <i class="fa fa-shopping-cart"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div id="mobile-menu-wrap">
@@ -283,6 +365,7 @@ export default {
             list_yeu_thich: [],
             list_phim_search: [],
             list_danh_muc: [],
+            list_goi_vip: [],
             list_phim: [],
             key_tim: {},
             timeout: null,
@@ -307,8 +390,13 @@ export default {
         this.loadDataMenu();
         this.checkToken();
         this.laydataYeuThich();
+        this.goiVipOpen();
     },
     methods: {
+        convertVND(money) {
+            money = money.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+            return money;
+        },
         hasSubCategories(item) {
             return this.list_danh_muc.some(subItem => subItem.id_danh_muc_cha === item.id);
         },
@@ -336,6 +424,16 @@ export default {
         //             this.list_phim = res.data.phim;
         //         });
         // },
+        goiVipOpen() {
+            baseRequest
+                .get("lay-data-goi-vip-open")
+                .then((res) => {
+                    this.list_goi_vip = res.data.data;
+                }).catch(() => {
+                    this.$router.push('/'); // Ẩn loader nếu có listring
+                    this.$store.dispatch('hideLoader'); // Ẩn loader nếu có lỗi
+                });
+        },
         loadDataMenu() {
             axios
                 .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
@@ -357,7 +455,7 @@ export default {
             localStorage.removeItem('ho_ten_user');
             localStorage.removeItem('id_user');
             this.img = 'https://static.vecteezy.com/system/resources/previews/009/292/244/original/default-avatar-icon-of-social-media-user-vector.jpg',
-            this.checkToken()
+                this.checkToken()
             window.location.href = '/';
             this.$store.dispatch('showSuccess', { description: 'Đăng xuất thành công', });
         },

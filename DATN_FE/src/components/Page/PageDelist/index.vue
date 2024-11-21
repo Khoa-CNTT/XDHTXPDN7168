@@ -330,12 +330,12 @@
                                                         <span class="text-success">✓</span> Xem phim không chứa quảng
                                                         cáo
                                                     </p>
-                                                    <a href="#" class="btn btn-primary"
-                                                        style="font-weight: bold; transition: background-color 0.3s;"
-                                                        onmouseover="this.style.backgroundColor='#004085';"
-                                                        onmouseout="this.style.backgroundColor='#007bff';">
-                                                        Mua ngay <i class="fa fa-shopping-cart"></i>
-                                                    </a>
+                                                        <a :href="`/platform/checkout/process/${value.id}`" class="btn btn-primary"
+                                                            style="font-weight: bold; transition: background-color 0.3s;"
+                                                            onmouseover="this.style.backgroundColor='#004085';"
+                                                            onmouseout="this.style.backgroundColor='#007bff';">
+                                                            Mua ngay <i class="fa fa-shopping-cart"></i>
+                                                        </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -482,12 +482,12 @@ export default {
                 .post("check-user-term")
                 .then((res) => {
                     if (res.data.status === 0) {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
                         this.$router.push('/login'); // Ẩn loader nếu có listring
                     }
                     else if (res.data.status === 2) {
                         $("#modalBuyVip").modal("show");
-                        this.$store.dispatch('showWarning', {description: res.data.message,});
+                        this.$store.dispatch('showWarning', { description: res.data.message, });
 
                     }
                     else {
@@ -597,7 +597,7 @@ export default {
                     }
 
                 }).catch(() => {
-                    this.$store.dispatch('showWarning', {description: "Đã xảy ra lỗi, vui lòng thử lại sau",});
+                    this.$store.dispatch('showWarning', { description: "Đã xảy ra lỗi, vui lòng thử lại sau", });
                     this.$router.push('/'); // Ẩn loader nếu có listring
                 });
         },
@@ -623,10 +623,10 @@ export default {
                 .post("khach-hang/yeu-thich/thong-tin-tao", payload)
                 .then((res) => {
                     if (res.data.status == true) {
-                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$store.dispatch('showSuccess', { description: res.data.message, });
                         this.checkYeuThich();
                     } else {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
 
 
                         this.$router.push('/login');
@@ -640,10 +640,10 @@ export default {
                 .post("khach-hang/yeu-thich/thong-tin-xoa", this.obj_yt_phim)
                 .then((res) => {
                     if (res.data.status == true) {
-                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$store.dispatch('showSuccess', { description: res.data.message, });
                         this.checkYeuThich();
                     } else {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
                         this.$router.push('/login');
                     }
                     this.scrollToTop();
@@ -659,19 +659,19 @@ export default {
                 .post("khach-hang/binh-luan-phim/thong-tin-tao", payload)
                 .then((res) => {
                     if (res.data.status == true) {
-                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$store.dispatch('showSuccess', { description: res.data.message, });
                         this.limit = 5;
                         this.hasMoreComments = true;
                         this.obj_cmt_phim = {};
                         this.rating = 0;
                         this.laydataCMT();
                     } else {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
                     }
                     this.scrollToTop();
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    this.$store.dispatch('showError', {description: errors[0],});
+                    this.$store.dispatch('showError', { description: errors[0], });
 
                 });
         },
@@ -686,11 +686,11 @@ export default {
                         this.laydataCMT();
                         // window.location.reload();
                     } else {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
                     }
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    this.$store.dispatch('showError', {description: errors[0],});
+                    this.$store.dispatch('showError', { description: errors[0], });
                 });
         },
         updateRating() {
@@ -698,15 +698,15 @@ export default {
                 .put("khach-hang/binh-luan-phim/thong-tin-sua", this.obj_update_cmt)
                 .then((res) => {
                     if (res.data.status == true) {
-                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$store.dispatch('showSuccess', { description: res.data.message, });
                         this.cancelEdit();
                         this.laydataCMT();
                     } else {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
                     }
                 }).catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    this.$store.dispatch('showError', {description: errors[0],});
+                    this.$store.dispatch('showError', { description: errors[0], });
                 });
         },
     },

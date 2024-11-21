@@ -19,28 +19,27 @@
                                         </a>
                                     </div>
                                     <div class="col company-details">
-                                        <h2 class="name">
-                                            <a target="_blank" href="javascript:;">WOPAI</a>
+                                        <h2 class="name text-primary"
+                                            style="font-family: 'Arial', sans-serif; color: red; font-weight: bold;">
+                                            <a target="_blank" href="/" style="text-decoration: none; ">WOPAI</a>
                                         </h2>
                                         <div>Đà Nẵng, Việt Nam</div>
                                         <div>(120) 769-2436</div>
-                                        <div>wopai11@gmail.com </div>
+                                        <div><a href="mailto:vietdev2106@gmail.com">vietdev2106@gmail.com</a></div>
                                     </div>
                                 </div>
                             </header>
                             <div class="row contacts">
                                 <div class="col invoice-to">
                                     <div class="text-gray-light">HÓA ĐƠN TỚI:</div>
-                                    <h2 class="from">NETCLUB</h2>
-                                    <h2 class="to">Văn Việt</h2>
-                                    <!-- <div class="email"><a href="mailto:{{ $user->email }}">{{ $user -> email }}</a> -->
-                                    <div class="email"><a>vietvo371@gmail.com</a>
+                                    <h2 class="to">{{ obj_user.ho_va_ten }}</h2>
+                                    <div class="email"><a :href="`mailto:${obj_user.email}`">{{ obj_user.email }}</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col invoice-details">
                                 <h1 class="invoice-id">HÓA ĐƠN</h1>
-                                <div class="date">Ngày khởi tạo: {{ $today }}</div>
+                                <div class="date">Ngày khởi tạo: {{ new Date().toLocaleDateString('vi-VN') }}</div>
                             </div>
                         </div>
                         <table>
@@ -54,33 +53,33 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <!-- <td class="text-left">
-                                                <h3>{{ $goi -> ten_goi }}</h3>
-                                                Bạn có thể tận hưởng phim trong {{ $goi -> thoi_han }} tháng
-                                            </td>
-                                            <td class="unit">{{ number_format($goi -> tien_sale > 0 ? $goi -> tien_sale :
-                                                $goi->tien_goc) }} VNĐ</td>
-                                            <td class="qty">{{ $goi -> thoi_han }}</td>
-                                            <td class="total">{{ number_format($goi -> tien_sale > 0 ? $goi -> tien_sale :
-                                                $goi->tien_goc) }} VNĐ</td> -->
+                                    <td class="text-left text-wrap">
+                                        <h4 class="text-primary ">{{ obj_goi_vip.ten_goi }}</h4>
+                                        Bạn có thể tận hưởng xem phim trong {{ obj_goi_vip.thoi_han }} tháng và không lo
+                                        quảng cáo làm phiền
+                                    </td>
+                                    <td class="unit">{{ number_format(obj_goi_vip.tien_sale > 0 ? obj_goi_vip.tien_sale
+                                        : obj_goi_vip.tien_goc) }}
+                                    </td>
+                                    <td class="qty">{{ obj_goi_vip.thoi_han }}</td>
+                                    <td class="total">{{ number_format(obj_goi_vip.tien_sale > 0 ? obj_goi_vip.tien_sale
+                                        : obj_goi_vip.tien_goc) }}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
-                                <tr>
+                                <tr style="background-color: #f5f5f5;">
                                     <td colspan="2"></td>
-                                    <td colspan="1">TAX 25%</td>
-                                    <td>1,300.00 VNĐ</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"></td>
-                                    <td colspan="1">TỔNG THANH TOÁN</td>
-                                    <!-- <td>{{ number_format($goi -> tien_sale > 0 ? $goi -> tien_sale : $goi -> tien_goc)
-                                                }} VNĐ</td> -->
+                                    <td colspan="1" style="font-weight: bold;">TỔNG THANH TOÁN</td>
+                                    <td style="font-weight: bold;">{{ number_format(obj_goi_vip.tien_sale > 0 ?
+                                        obj_goi_vip.tien_sale
+                                        : obj_goi_vip.tien_goc) }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="4">
-                                        <a class="btn btn-primary"
-                                            href="{{ route('platform.checkout.qrPayment', ['id_goi' => $goi->id]) }}">THANH
+                                        <a v-if="check == false" class="btn btn-primary"
+                                            :href="`/platform/checkout/qrPayment/${obj_goi_vip.id}`">THANH
+                                            TOÁN</a>
+                                        <a v-else class="btn btn-primary" @click="messageEror()">THANH
                                             TOÁN</a>
                                     </td>
                                 </tr>
@@ -99,7 +98,54 @@
 </template>
 
 <script>
-export default {};
+import baseRequestUser from '../../../core/baseRequestUser';
+
+export default {
+    data() {
+        return {
+            obj_goi_vip: {},
+            obj_hoa_don: {},
+            obj_user: {},
+            linkQR: '',
+            check: false
+        }
+    },
+    mounted() {
+        this.getProcess();
+        this.$store.dispatch('showLoader');
+
+    },
+    methods: {
+        number_format(number) {
+            if (number !== null && number !== undefined) {
+                return number.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+            }
+            return '';
+        },
+        getProcess() {
+            var payload = {
+                id_goi: this.$route.params.id_goi
+            }
+            baseRequestUser
+                .post('khach-hang/check-out/process', payload)
+                .then((res) => {
+                    if (res.data.status == true) {
+                        // this.$store.dispatch('showSuccess', { description: res.data.message, });
+                        this.obj_user = res.data.user;
+                        this.obj_goi_vip = res.data.goi;
+                        this.check = res.data.check;
+                        this.$store.dispatch('hideLoader');
+                    } else {
+                        this.$store.dispatch('showError', { description: res.data.message, });
+                        this.$router.push('/login');
+                    }
+                });
+        },
+        messageEror() {
+            this.$store.dispatch('showError', { description: 'Bạn đã có gói VIP đang hoạt động. Vui lòng chờ đến khi hết hạn để đăng ký gói mới!' });
+        },
+    }
+};
 </script>
 
 <style lang="css">

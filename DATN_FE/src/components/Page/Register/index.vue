@@ -4,9 +4,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="normal__breadcrumb__text">
-                        <h2>Đăng nhập</h2>
-                        <p>Chào mừng đến với WPHIM</p>
+                    <div class="normal__breadcrumb__text" style="
+                        font-family: 'Baloo Da 2', cursive;
+                        font-weight: 600;
+                        font-size: 36px;
+                        line-height: 1.2;
+                        color: #fff;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    ">
+                        <h2>ĐĂNG ký</h2>
+                        <p style="font-size: 18px;color: #fff;margin-top: 10px;">Chào mừng đến với WOPAI</p>
                     </div>
                 </div>
             </div>
@@ -60,7 +68,8 @@
                             <div class="col-lg-6">
                                 <div class="login__social__links">
                                     <ul>
-                                        <li><a href="http://127.0.0.1:8000/api/auth/google" type="button" class="google"><i class="fa fa-google"></i>
+                                        <li><a href="http://127.0.0.1:8000/api/auth/google" type="button"
+                                                class="google"><i class="fa fa-google"></i>
                                                 Đăng nhập với Google</a></li>
                                     </ul>
                                 </div>
@@ -94,10 +103,10 @@ export default {
                 .post('gui-mail-kich-hoat', this.dang_ky)
                 .then((res) => {
                     if (res.data.status == true) {
-                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$store.dispatch('showSuccess', { description: res.data.message, });
                         this.$router.push('/login');
                     } else {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
                     }
                 });
         },
@@ -111,7 +120,7 @@ export default {
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    this.$store.dispatch('showError', {description: errors[0],});
+                    this.$store.dispatch('showError', { description: errors[0], });
                 });
         },
         checkToken() {

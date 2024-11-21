@@ -1,50 +1,48 @@
-<template>
-    <div>
-        <h1>Google Login</h1>
-        <a href="http://127.0.0.1:8000/api/auth/google">Login with Google</a>
-
-        <!-- Hiển thị thông tin user sau khi đăng nhập -->
-        <div v-if="user">
-            <p>Welcome, {{ user.name }}</p>
-            <img :src="user.avatar" alt="User Avatar" />
-        </div>
-
-        <!-- Hiển thị lỗi nếu có -->
-        <div v-if="error" class="error">{{ error }}</div>
-    </div>
-</template>
-
 <script>
-import axios from "axios";
-import baseRequestUser from "../core/baseRequestUser";
+import baseRequestUser from '../core/baseRequestUser';
 
 export default {
     data() {
         return {
-            user: null,
-            error: null,
+            status: "loading",
         };
     },
+    mounted() {
+        this.getQRThanhToan();
+    },
     methods: {
-        async handleGoogleLogin() {
-            try {
-                const response = await axios.get("http://127.0.0.1:8000/api/auth/google", {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
-                    }
-                })
-                this.user = response.data.user; // Lưu thông tin user trả về
-                this.$router.push('/'); // Chuyển hướng đến dashboard hoặc view khác
-            } catch (error) {
-                if (error.response && error.response.data) {
-                    this.error = error.response.data.error || "Something went wrong.";
-                } else {
-                    this.error = "Unable to connect to the server.";
-                }
-            }
+        handleRefresh() {
+            this.status = "loading";
+            setTimeout(() => {
+                this.status = "scanned";
+            }, 2000);
         },
+        getQRThanhToan() {
+            var payload = {
+                id_goi: this.$route.params.id_goi
+            }
+            baseRequestUser
+                .post('khach-hang/check-out/qr-payment', payload)
+                .then((res) => {
+                    this.status = "true";
 
-
+                    // if (res.data.status == true) {
+                    //     // this.$store.dispatch('showSuccess', { description: res.data.message, });
+                    //     this.obj_user = res.data.user;
+                    //     this.obj_hoa_don = res.data.hoaDon;
+                    //     this.linkQR = res.data.link;
+                    // } else {
+                    //     this.$store.dispatch('showError', { description: res.data.message, });
+                    //     this.$router.push('/login');
+                    // }
+                });
+        },
     },
 };
 </script>
+
+<template>
+    <a-qrcode value="https://img.vietqr.io/image/mb-0708585120-compact2.jpg?amount=5000&addInfo=HDbf304&accountName=VO_VAN_VIET" :status="status" @refresh="handleRefresh" />
+</template>
+
+

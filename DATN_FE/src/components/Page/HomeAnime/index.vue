@@ -401,6 +401,10 @@ export default {
 };
 </script>
 <style scoped>
+button.carousel__prev.carousel__navigation {
+    background-color: red !important;
+}
+
 .carousel__item {
     display: flex;
     align-items: center;
@@ -476,7 +480,7 @@ export default {
     text-align: justify;
 }
 
-.hero__text a{
+.hero__text a {
     opacity: 0.9;
     background-color: #ff4757;
     border: none;

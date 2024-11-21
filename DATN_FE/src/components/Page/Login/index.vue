@@ -4,9 +4,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="normal__breadcrumb__text">
-                        <h2>Đăng nhập</h2>
-                        <p>Chào mừng đến với WPHIM</p>
+                    <div class="normal__breadcrumb__text" style="
+                        font-family: 'Baloo Da 2', cursive;
+                        font-weight: 600;
+                        font-size: 36px;
+                        line-height: 1.2;
+                        color: #fff;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    ">
+                        <h2>ĐĂNG NHẬP</h2>
+                        <p style="font-size: 18px;color: #fff;margin-top: 10px;">Chào mừng đến với WOPAI</p>
                     </div>
                 </div>
             </div>
