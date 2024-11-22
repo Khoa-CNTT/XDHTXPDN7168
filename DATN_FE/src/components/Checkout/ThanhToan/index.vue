@@ -136,8 +136,8 @@ export default {
                         this.check = res.data.check;
                         this.$store.dispatch('hideLoader');
                     } else {
-                        this.$store.dispatch('showError', { description: res.data.message, });
-                        this.$router.push('/login');
+                        this.$store.dispatch('showError', { description: 'Chức năng yêu cầu đăngn nhập'});
+                        this.$router.push('/');
                     }
                 });
         },

@@ -54,6 +54,9 @@ export default {
             }
         }
     },
+    formatDate(date, format = 'dd/MM/yyyy') {
+        return moment(date).format(format);
+    },
 
 
 }

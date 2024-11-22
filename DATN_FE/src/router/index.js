@@ -225,21 +225,25 @@ const routes = [
       {
         path: "process/:id_goi",
         component: () => import("../components/Checkout/ThanhToan/index.vue"),
+        beforeEnter: checkUserTerm,
         props: true,
       },
       {
         path: "qrPayment/:id_goi",
         component: () => import("../components/Checkout/qrPayment/index.vue"),
+        beforeEnter: checkUserTerm,
         props: true,
       },
       {
         path: "thanks-payment/:email",
         component: () => import("../components/Checkout/PaymentSucces/index.vue"),
+        beforeEnter: checkUserTerm,
         props: true,
       },
       {
         path: "error-payment/:id_goi",
         component: () => import("../components/Checkout/PaymentErrors/index.vue"),
+        beforeEnter: checkUserTerm,
         props: true,
       },
     ],

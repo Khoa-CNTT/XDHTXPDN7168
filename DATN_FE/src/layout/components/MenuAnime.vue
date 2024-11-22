@@ -51,14 +51,14 @@
                         <div class="dropdown-center">
                             <a class="dropdown-toggle" type="button" data-bs-toggle="modal"
                                 data-bs-target="#modalBuyVip">
-                                <i class="fa-solid fa-gem fa-xl"></i>
+                                <i class="fa-solid fa-gem fa-lg"></i>
                             </a>
                             <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
-                                <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                             </a>
 
                             <a type="button" class=" dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-user fa-xl"></i>
+                                <i class="fa-solid fa-user fa-lg"></i>
                             </a>
 
                             <ul class="dropdown-menu" style=" background-color: rgba(35, 33, 33, 0.9);">
@@ -76,42 +76,38 @@
                                         <span>Đăng Ký</span>
                                     </router-link>
                                 </li>
-                                <li class="user-avatar">
+                                <li class="user-avatar" style="padding-left: 20px;">
                                     <router-link to="/profile">
                                         <a v-show="is_login" class="dropdown-item text-center  " type="button">
                                             <div class="d-flex align-items-center">
                                                 <div class="chat-user-online">
-                                                    <img v-bind:src="img" width="40" height="40" class="rounded-circle"
+                                                    <img v-bind:src="img" width="30" height="30" class="rounded-circle"
                                                         alt="">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <b class="mb-0">Profile</b>
                                                 </div>
                                             </div>
-                                            <!-- <div class="row">
-                                                    <div class="col">
-                                                        <img style="width: 40px; height: 40px; margin: 0;" v-bind:src="img"
-                                                            class="user-img " alt="user avatar">
-                                                    </div>
-                                                    <div class="col">
-                                                        <span> </span>
-                                                    </div>
-                                                </div> -->
-
                                         </a>
                                     </router-link>
-
+                                </li>
+                                <li v-show="is_login" class="user-avatar mt-2">
+                                    <a  class="dropdown-item d-flex align-items-center gap-2"
+                                        data-bs-toggle="modal" type="button" data-bs-target="#modalGiaoDich">
+                                        <i class="fa-solid fa-receipt fa-lg me-3 ms-1"></i>
+                                        <span>Hoá đơn</span>
+                                    </a>
                                 </li>
                                 <li class="user-avatar mt-2">
                                     <a v-show="is_login" class="dropdown-item" data-bs-toggle="modal" type="button"
                                         @click="laydataYeuThich()" data-bs-target="#DanhSachYT"><i
-                                            class="fa-solid fa-heart fa-xl me-3 ms-1"></i><span>Yêu thích</span></a>
+                                            class="fa-solid fa-heart fa-lg me-3 ms-1"></i><span>Yêu thích</span></a>
                                 </li>
 
                                 <li class="user-avatar mt-2 ">
                                     <router-link to="/" v-show="is_login" class="with-100">
                                         <a @click="removeToken()" class="dropdown-item"><i
-                                                class="fa-solid fa-power-off fa-xl me-3 ms-1"></i><span>Đăng
+                                                class="fa-solid fa-power-off fa-lg me-3 ms-1"></i><span>Đăng
                                                 xuất</span></a>
                                     </router-link>
                                 </li>
@@ -280,8 +276,17 @@
                                                                     chứa quảng
                                                                     cáo
                                                                 </p>
-                                                                <a :href="`/platform/checkout/process/${value.id}`"
+                                                                <a v-if="is_login"
+                                                                    :href="`/platform/checkout/process/${value.id}`"
                                                                     class="btn btn-primary"
+                                                                    style="font-weight: bold; transition: background-color 0.3s;"
+                                                                    onmouseover="this.style.backgroundColor='#004085';"
+                                                                    onmouseout="this.style.backgroundColor='#007bff';">
+                                                                    Mua ngay <i class="fa fa-shopping-cart"></i>
+                                                                </a>
+                                                                <a v-else
+                                                                    @click="$store.dispatch('showError', { description: 'Chức năng này yêu cầu đăng nhập', })"
+                                                                    class="btn btn-primary text-white"
                                                                     style="font-weight: bold; transition: background-color 0.3s;"
                                                                     onmouseover="this.style.backgroundColor='#004085';"
                                                                     onmouseout="this.style.backgroundColor='#007bff';">
@@ -292,6 +297,84 @@
                                                     </div>
 
                                                 </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Đóng</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Thông Tin Giao Dichj -->
+                    <div class="modal fade" id="modalGiaoDich" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="modalGiaoDichLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div style="background-color: rgba(35, 33, 33, 0.8);" class="modal-content">
+                                <div class="modal-body ">
+                                    <div class="product__sidebar__comment">
+                                        <div class="section-title ">
+                                            <h5>Danh sách giao dịch</h5>
+                                        </div>
+                                        <div class="container">
+                                            <div class="row text-center  sctrollspy-example" data-bs-spy="sctroll">
+                                                <div class="table-responsive">
+                                                    <template v-if="check_giao_dich">
+                                                        <table style="background-color: rgba(255, 255, 255, 0.7);"
+                                                            class="table table-bordered">
+                                                            <thead class="table-dark">
+                                                                <tr>
+                                                                    <th>Mã hóa đơn</th>
+                                                                    <th>Tên gói</th>
+                                                                    <th>Tổng tiền</th>
+                                                                    <th>Trạng thái</th>
+                                                                    <th>Ngày khởi tạo</th>
+                                                                    <th>Ngày hết hạn</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr v-for="(value, key) in list_giao_dich" :key="key">
+                                                                    <th>{{ value.ma_hoa_don }}</th>
+                                                                    <th>{{ value.ten_goi }}</th>
+                                                                    <th>{{ value.tong_tien }} VND</th>
+                                                                    <th
+                                                                        :class="(value.trang_thai === 0) ? 'text-secondary' : 'text-success'">
+                                                                        {{
+                                                                            (value.trang_thai === 0) ?
+                                                                                'Đang xử lý' : 'Đã thanh toán' }}</th>
+                                                                    <th>{{ new
+                                                                        Date(value.ngay_bat_dau).toLocaleString('en-GB',
+                                                                            {
+                                                                                year:
+                                                                                    'numeric', month: '2-digit', day: '2-digit'
+                                                                            }) }}
+                                                                    </th>
+                                                                    <th>{{ new
+                                                                        Date(value.ngay_ket_thuc).toLocaleString('en-GB',
+                                                                            {
+                                                                                year:
+                                                                                    'numeric', month: '2-digit', day: '2-digit'
+                                                                            }) }}
+                                                                    </th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </template>
+                                                    <template v-else>
+                                                        <div class="d-flex justify-content-center mt-5">
+                                                            <div class="text-center">
+                                                                <h4 class="display-5 text-light fw-bolder">¯\_( ͡° ͜ʖ
+                                                                    ͡°)_/¯</h4>
+                                                                <br />
+                                                                <h5 class="display-6 text-light fw-bolder">BẠN CHƯA CÓ
+                                                                    GIAO DỊCH NÀO...</h5>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -365,11 +448,13 @@ export default {
             list_yeu_thich: [],
             list_phim_search: [],
             list_danh_muc: [],
+            list_giao_dich: [],
             list_goi_vip: [],
             list_phim: [],
             key_tim: {},
             timeout: null,
             is_login: false,
+            check_giao_dich: false,
             user_name: {},
             id_user: {},
             img: 'https://static.vecteezy.com/system/resources/thumbnails/007/407/996/small/user-icon-person-icon-client-symbol-login-head-sign-icon-design-vector.jpg',
@@ -388,6 +473,7 @@ export default {
         this.user_name = localStorage.getItem('ho_ten_user');
         this.id_user = localStorage.getItem('id_user');
         this.loadDataMenu();
+        this.loadDataGiaoDich();
         this.checkToken();
         this.laydataYeuThich();
         this.goiVipOpen();
@@ -413,17 +499,7 @@ export default {
                     this.list_yeu_thich = res.data.yeu_thich;
                 });
         },
-        // laydataTheoTheLoai(id_the_loai) {
-        //     axios
-        //         .get("http://127.0.0.1:8000/api/lay-data-theo-the-loai", {
-        //             params: {
-        //                 id_tl: id_the_loai,
-        //             }
-        //         })
-        //         .then((res) => {
-        //             this.list_phim = res.data.phim;
-        //         });
-        // },
+
         goiVipOpen() {
             baseRequest
                 .get("lay-data-goi-vip-open")
@@ -439,6 +515,20 @@ export default {
                 .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_danh_muc = res.data.danh_muc_webs;
+
+                });
+        },
+        loadDataGiaoDich() {
+            baseRequest
+                .get("get-data-transaction-open")
+                .then((res) => {
+                    if (res.data.status) {
+                        this.list_giao_dich = res.data.data;
+                        this.check_giao_dich = true;
+                    } else {
+                        this.check_giao_dich = false;
+
+                    }
 
                 });
         },
@@ -575,7 +665,6 @@ li a.arrow_carrot-down {
 /* Hover cho thẻ a có class arrow_carrot-down */
 li:hover a.arrow_carrot-down {
     color: #000;
-    /* Màu chữ khi hover (màu đen) */
 }
 
 .with-100 {
