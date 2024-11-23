@@ -117,7 +117,7 @@
                                             </template>
                                         </ul>
                                         <h5>
-                                            <router-link  :to="`${v.slug_phim}`">
+                                            <router-link :to="`${v.slug_phim}`">
                                                 {{ v.ten_phim }}
                                             </router-link>
                                         </h5>
@@ -146,7 +146,12 @@ const toaster = createToaster({
 });
 
 export default {
-    props: ['slug'],
+    // props: {
+    //     slug: {
+    //         type: String,
+    //         required: true, // Hoặc true nếu bắt buộc
+    //     },
+    // },
     data() {
         return {
             // id: this.$route.params.id,
@@ -204,6 +209,10 @@ export default {
             axios
                 .get('http://127.0.0.1:8000/api/the-loai/lay-du-lieu/' + this.slug + '?page=' + page, {})
                 .then((res) => {
+                    if (res.data.status == false) {
+                        this.$router.push('/');
+                        this.$store.dispatch('error', {description: res.data.message});
+                    }
                     this.the_loai = res.data.the_loai;
                     this.list_9_phim = res.data.phim_9_obj;
                     this.pagination = res.data.phim.pagination;

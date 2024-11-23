@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="anime__video__player" style="margin-bottom: 30px;">
+                    <div class="    " style="margin-bottom: 30px;">
                         <!-- Sử dụng `v-bind` để thêm hình nền và URL video từ `obj_tap_phim` -->
                         <iframe width="1140px" height="654px" :src="obj_tap_phim.url" frameborder="0" allow="autoplay"
                             allowfullscreen>
@@ -153,7 +153,7 @@ const toaster = createToaster({
     position: "top-right",
 });
 export default {
-    props: ["slugMovie", "slugEpisode"],
+    // props: ["slugMovie", "slugEpisode"],
     beforeRouteUpdate(to, from, next) {
         this.slugMovie = to.params.slugMovie;
         this.slugEpisode = to.params.slugEpisode;

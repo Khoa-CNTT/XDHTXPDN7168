@@ -4,7 +4,10 @@ import store from "./store";
 import axios from "axios";
 import Toaster from "@meforma/vue-toaster";
 import router from "./router";
-import $ from "jquery";
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap';
+
+// import $ from "jquery";
 import "ant-design-vue/dist/reset.css";
 import { Tree, notification,QRCode} from "ant-design-vue";
 notification.config({
@@ -17,6 +20,6 @@ app.config.globalProperties.$notification = notification;
 
 app.use(store);
 app.use(QRCode);
-app.use(router, axios, Toaster, $);
+app.use(router, axios, Toaster);
 app.use(Tree);
 app.mount("#app");

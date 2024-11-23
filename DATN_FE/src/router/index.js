@@ -65,25 +65,25 @@ const routes = [
         path: "the-loai/:slug",
         component: () => import("../components/Page/PageList/index.vue"),
         name: "PageList",
-        props: (route) => ({ slug: route.params.slug }),
+        // props: (route) => ({ slug: route.params.slug }),
       },
       {
         path: ":slug",
         component: () => import("../components/Page/PageDelist/index.vue"),
         name: "PageDelist",
-        props: true,
+        // props: true,
       },
       {
         path: ":slugMovie/:slugEpisode",
         component: () => import("../components/Page/PageWatch/index.vue"),
-        props: true,
+        // props: true,
         beforeEnter: checkUserTerm,
       },
       {
         path: "loai-phim/:slug",
         component: () => import("../components/Page/PageLoaiPhim/index.vue"),
         name: "PageLoaiPhim",
-        props: (route) => ({ id: route.params.id, slug: route.params.slug }),
+        // props: (route) => ({ id: route.params.id, slug: route.params.slug }),
       },
       {
         path: "tim-kiem/:id",
@@ -225,19 +225,19 @@ const routes = [
       {
         path: "process/:id_goi",
         component: () => import("../components/Checkout/ThanhToan/index.vue"),
-        beforeEnter: checkUserTerm,
+        // beforeEnter: checkUserTerm,
         props: true,
       },
       {
         path: "qrPayment/:id_goi",
         component: () => import("../components/Checkout/qrPayment/index.vue"),
-        beforeEnter: checkUserTerm,
+        // beforeEnter: checkUserTerm,
         props: true,
       },
       {
         path: "thanks-payment/:email",
         component: () => import("../components/Checkout/PaymentSucces/index.vue"),
-        beforeEnter: checkUserTerm,
+        // beforeEnter: checkUserTerm,
         props: true,
       },
       {

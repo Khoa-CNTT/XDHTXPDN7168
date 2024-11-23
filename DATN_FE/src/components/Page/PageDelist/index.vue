@@ -387,7 +387,7 @@ const toaster = createToaster({
 });
 
 export default {
-    props: ["slug"],
+    // props: ["slug"],
     beforeRouteUpdate(to, from, next) {
         this.limit = 5;    // Số lượng bình luận muốn tải mỗi lần
         this.slug = to.params.slug;
@@ -446,14 +446,14 @@ export default {
         convertToIframeUrl(youTubeUrl) {
             // Regular expression to extract videoId from URL
             const regex = /(?:https?:\/\/)?(?:www\.)?youtu(?:be\.com\/(?:watch\?v=|embed\/)|\.be\/)([\w\-]{11})/;
-            console.log(youTubeUrl);
+            // console.log(youTubeUrl);
 
             // Check if youTubeUrl is a string and extract videoId from URL
             if (typeof youTubeUrl === 'string') {
                 const matches = youTubeUrl.match(regex);
                 if (matches && matches[1]) {
                     // Return the corresponding embed URL
-                    console.log(`https://www.youtube.com/embed/${matches[1]}`);
+                    // console.log(`https://www.youtube.com/embed/${matches[1]}`);
 
                     return `https://www.youtube.com/embed/${matches[1]}`;
                 }
@@ -479,7 +479,7 @@ export default {
         },
         checkUserTerm() {
             baseRequest
-                .post("check-user-term")
+                .get("check-user-term")
                 .then((res) => {
                     if (res.data.status === 0) {
                         this.$store.dispatch('showError', { description: res.data.message, });

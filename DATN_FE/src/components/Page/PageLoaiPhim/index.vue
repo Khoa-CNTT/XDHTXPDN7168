@@ -148,7 +148,7 @@ const toaster = createToaster({
 });
 
 export default {
-    props: ['slug'],
+    // props: ['slug'],
     data() {
         return {
             // id: this.$route.params.id,
@@ -168,8 +168,6 @@ export default {
                 to: "",
             },
             check_page: 0,
-
-
         };
     },
     computed: {

@@ -218,8 +218,6 @@ export default {
                         toaster.success(res.data.message);
                         var arr = res.data.token.split("|");
                         localStorage.setItem("token", arr[1]);
-                        // localStorage.setItem('avatar_admin',res.data.hinh_anh);
-                        // localStorage.setItem('avatar_admin', res.data.hinh_anh);
                         localStorage.setItem("avt_admin", res.data.avt_admin);
                         localStorage.setItem("name_admin", res.data.name_admin);
                         localStorage.setItem("ten_chuc_vu", res.data.chuc_vu);

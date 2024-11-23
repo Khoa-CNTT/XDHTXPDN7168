@@ -4,9 +4,8 @@ import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({ position: "top-right" });
 export default function (to, from, next) {
   axios
-    .post(
+    .get(
       "http://127.0.0.1:8000/api/check-user-term",
-      {},
       {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token_user"),
@@ -14,9 +13,9 @@ export default function (to, from, next) {
       }
     )
     .then((res) => {
-      if (res.data.status === 1) {
+      if (res.data.status == 1) {
         next();
-      } else if (res.data.status === 0) {
+      } else if (res.data.status == 0) {
         this.$store.dispatch("showError", { description: res.data.message });
         next("/");
       } else {
