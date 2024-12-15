@@ -1,25 +1,26 @@
 <template>
     <!-- Normal Breadcrumb Begin -->
-    <section class="normal-breadcrumb set-bg" data-setbg="../../../assets/assets_Anime/img/hero/hero-1.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="normal__breadcrumb__text" style="
-                        font-family: 'Baloo Da 2', cursive;
-                        font-weight: 600;
-                        font-size: 36px;
-                        line-height: 1.2;
-                        color: #fff;
-                        text-transform: uppercase;
-                        letter-spacing: 1px;
-                    ">
-                        <h2>ĐĂNG ký</h2>
-                        <p style="font-size: 18px;color: #fff;margin-top: 10px;">Chào mừng đến với WOPAI</p>
-                    </div>
+    <section class="normal-breadcrumb set-bg" data-setbg="../../../assets/assets_Anime/img/normal-breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="normal__breadcrumb__text" style="
+                    font-family: 'Baloo Da 2', cursive;
+                    font-weight: 600;
+                    font-size: 36px;
+                    line-height: 1.2;
+                    color: #fff;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                ">
+                    <h2>ĐĂNG ký</h2>
+                    <p style="font-size: 18px;color: #fff;margin-top: 10px;">Chào mừng đến với WOPAI</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
     <!-- Normal Breadcrumb End -->
 
     <!-- Login Section Begin -->
@@ -28,7 +29,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
-                        <h3>Đăng nhập</h3>
+                        <h3>Đăng Ký</h3>
                         <form action="#">
                             <div class="input__item">
                                 <input type="text" placeholder="Nhập email" v-model="dang_ky.email">

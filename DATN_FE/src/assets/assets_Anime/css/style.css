@@ -1390,16 +1390,14 @@ ol {
 -----------------------*/
 
 .normal-breadcrumb {
-	height: 160px;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../../assets/assets_Anime/img/normal-breadcrumb.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .normal__breadcrumb__text h2 {

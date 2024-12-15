@@ -42,6 +42,12 @@
                                         </ul>
                                     </li>
                                 </template>
+                                <li class="menu">
+                                    <a class="dropdown-toggle" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#modalAi"><i class="fa-solid fa-robot fa-lg"></i> <span>Hỏi
+                                            AI</span>
+                                    </a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -53,9 +59,7 @@
                                 data-bs-target="#modalBuyVip">
                                 <i class="fa-solid fa-gem fa-lg"></i>
                             </a>
-                            <a href="/chat-box" class="dropdown-toggle" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modalAi"><i class="fa-solid fa-robot fa-lg"></i>
-                            </a>
+
                             <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
                                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                             </a>
@@ -188,46 +192,42 @@
                     <div class="modal fade" id="TimKiem" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="DTimKiemLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                            <div style="background-color: rgba(35, 33, 33, 0.9);" class="modal-content">
-                                <div class="modal-body ">
+                            <div class="modal-content" style="background-color: rgba(35, 33, 33, 0.9); border-radius: 10px;">
+                                <div class="modal-body p-4">
                                     <div class="product__sidebar__comment">
-                                        <div class="section-title ">
-                                            <div class="input-group mb-3">
+                                        <div class="section-title mb-4">
+                                            <div class="input-group">
                                                 <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
-                                                    class="form-control" placeholder="Tìm kiếm phim..">
+                                                    class="form-control" placeholder="Tìm kiếm phim.." style="border-radius: 5px;">
                                                 <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
-                                                    class="input-group-text serch bg-primary">
-                                                    <i class="fa-solid fa-magnifying-glass"></i></a>
+                                                    class="input-group-text serch bg-primary text-white" style="border-radius: 5px;">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="row sctrollspy-example" data-bs-spy="sctroll">
+                                        <div class="row overflow-auto" style="max-height: 400px;" data-bs-spy="sctroll">
                                             <template v-for="(v, k) in list_phim_search" :key="k">
-                                                <div class="row ">
+                                                <div class="row mb-3">
                                                     <div class="col-10">
-                                                        <div class="product__sidebar__comment__item">
-
+                                                        <div class="product__sidebar__comment__item d-flex align-items-center">
                                                             <a v-bind:href="v.slug_phim">
-                                                                <div class="product__sidebar__comment__item__pic">
-                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px"
-                                                                        alt="" />
+                                                                <div class="product__sidebar__comment__item__pic me-3">
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px; border-radius: 5px;" alt="" />
                                                                 </div>
                                                             </a>
-                                                            <div style="" class="product__sidebar__comment__item__text">
-                                                                <ul>
-                                                                    <li>{{ v.ten_loai_phim }}</li>
-                                                                    <!-- <li >{{ v.ten_loai_phim }}</li> -->
-                                                                    <template v-for="(value, key) in v.ten_the_loais"
-                                                                        :key="key">
-                                                                        <li>{{ value }}</li>
+                                                            <div class="product__sidebar__comment__item__text">
+                                                                <ul class="list-inline mb-2">
+                                                                    <li class="list-inline-item">{{ v.ten_loai_phim }}</li>
+                                                                    <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                                                        <li class="list-inline-item">{{ value }}</li>
                                                                     </template>
                                                                 </ul>
-                                                                <h5>
-                                                                    <a v-bind:href="v.slug_phim">
+                                                                <h5 class="mb-1">
+                                                                    <a v-bind:href="v.slug_phim" class="text-decoration-none text-white">
                                                                         {{ v.ten_phim }}
                                                                     </a>
-
                                                                 </h5>
-                                                                <div style="color: #b7b7b7">
+                                                                <div class="text-muted">
                                                                     Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
                                                                 </div>
                                                             </div>
@@ -326,53 +326,57 @@
                     <div class="modal fade" id="modalAi" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="DTimKiemLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                            <div style="background-color: rgba(35, 33, 33, 0.9);" class="modal-content">
-                                <div class="modal-body ">
+                            <div class="modal-content" style="background-color: #f8f9fa; border-radius: 10px;">
+                                <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+                                    <!-- Chat Section -->
                                     <div class="product__sidebar__comment">
-                                        <div class="section-title ">
-                                            <div class="input-group mb-3">
-                                                <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
-                                                    class="form-control" placeholder="Tìm kiếm phim..">
-                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
-                                                    class="input-group-text serch bg-primary">
-                                                    <i class="fa-solid fa-magnifying-glass"></i></a>
-                                            </div>
+                                        <div class="section-title text-center">
+                                            <h5 style="font-size: 20px; font-weight: 600; color: #000;">Chúng tôi có thể
+                                                hỗ trợ bạn như thế
+                                                nào?</h5>
+                                            <p style="font-size: 16px;">Vui lòng nhập câu hỏi của bạn dưới đây, chúng
+                                                tôi sẽ hỗ trợ bạn.</p>
                                         </div>
-                                        <div class="row sctrollspy-example" data-bs-spy="sctroll">
-                                            <template v-for="(v, k) in list_phim_search" :key="k">
-                                                <div class="row ">
-                                                    <div class="col-10">
-                                                        <div class="product__sidebar__comment__item">
-
-                                                            <a v-bind:href="v.slug_phim">
-                                                                <div class="product__sidebar__comment__item__pic">
-                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px"
-                                                                        alt="" />
-                                                                </div>
-                                                            </a>
-                                                            <div style="" class="product__sidebar__comment__item__text">
-                                                                <ul>
-                                                                    <li>{{ v.ten_loai_phim }}</li>
-                                                                    <!-- <li >{{ v.ten_loai_phim }}</li> -->
-                                                                    <template v-for="(value, key) in v.ten_the_loais"
-                                                                        :key="key">
-                                                                        <li>{{ value }}</li>
-                                                                    </template>
-                                                                </ul>
-                                                                <h5>
-                                                                    <a v-bind:href="v.slug_phim">
-                                                                        {{ v.ten_phim }}
-                                                                    </a>
-
-                                                                </h5>
-                                                                <div style="color: #b7b7b7">
-                                                                    Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </template>
+                                        <!-- Search Input Area -->
+                                        <div class="input-group mb-3">
+                                            <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
+                                                class="form-control" placeholder="Hỏi một câu hỏi..."
+                                                style="font-size: 16px; border-radius: 10px;">
+                                            <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
+                                                class="input-group-text serch bg-primary text-white"
+                                                style="border-radius: 10px;">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </a>
+                                        </div>
+                                        <!-- Example Suggestions List (Similar to the image) -->
+                                        <div class="suggestions-list">
+                                            <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                                <li class="suggestion-item"
+                                                    style="font-size: 14px; padding: 5px 0; border-radius: 10px;">
+                                                    <a href="#">Làm thế nào để cài đặt Appsmith sử dụng Docker?</a>
+                                                </li>
+                                                <li class="suggestion-item"
+                                                    style="font-size: 14px; padding: 5px 0; border-radius: 10px;">
+                                                    <a href="#">Làm thế nào để kết nối với cơ sở dữ liệu PostgreSQL của
+                                                        tôi?</a>
+                                                </li>
+                                                <li class="suggestion-item"
+                                                    style="font-size: 14px; padding: 5px 0; border-radius: 10px;">
+                                                    <a href="#">Làm thế nào để truyền đầu vào từ widget đến một truy
+                                                        vấn?</a>
+                                                </li>
+                                                <li class="suggestion-item"
+                                                    style="font-size: 14px; padding: 5px 0; border-radius: 10px;">
+                                                    <a href="#">Làm thế nào để kích hoạt nhiều truy vấn có điều
+                                                        kiện?</a>
+                                                </li>
+                                                <li class="suggestion-item"
+                                                    style="font-size: 14px; padding: 5px 0; border-radius: 10px;">
+                                                    <a href="#">Làm thế nào để sửa lỗi: Giá trị này không đánh giá thành
+                                                        kiểu
+                                                        Array?</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
