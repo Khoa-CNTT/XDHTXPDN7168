@@ -53,6 +53,7 @@
                                 data-bs-target="#modalBuyVip">
                                 <i class="fa-solid fa-gem fa-lg"></i>
                             </a>
+
                             <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
                                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                             </a>
@@ -76,13 +77,12 @@
                                         <span>Đăng Ký</span>
                                     </router-link>
                                 </li>
-                                <li class="user-avatar" style="padding-left: 20px;">
+                                <li class="user-avatar" :style="is_login ? 'padding-left: 20px; border-bottom: 1px solid #4e5155;' : ''">
                                     <router-link to="/profile">
-                                        <a v-show="is_login" class="dropdown-item text-center  " type="button">
+                                        <a v-show="is_login" class="dropdown-item text-center" type="button">
                                             <div class="d-flex align-items-center">
                                                 <div class="chat-user-online">
-                                                    <img v-bind:src="img" width="30" height="30" class="rounded-circle"
-                                                        alt="">
+                                                    <img v-bind:src="img" width="30" height="30" class="rounded-circle" alt="">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <b class="mb-0">Profile</b>
@@ -92,8 +92,8 @@
                                     </router-link>
                                 </li>
                                 <li v-show="is_login" class="user-avatar mt-2">
-                                    <a  class="dropdown-item d-flex align-items-center gap-2"
-                                        data-bs-toggle="modal" type="button" data-bs-target="#modalGiaoDich">
+                                    <a class="dropdown-item d-flex align-items-center gap-2" data-bs-toggle="modal"
+                                        type="button" data-bs-target="#modalGiaoDich">
                                         <i class="fa-solid fa-receipt fa-lg me-3 ms-1"></i>
                                         <span>Hoá đơn</span>
                                     </a>
@@ -125,7 +125,7 @@
                                         <div class="section-title ">
                                             <h5>Danh Sách Phim Yêu Thích Của Bạn</h5>
                                         </div>
-                                        <div class="row sctrollspy-example" data-bs-spy="sctroll">
+                                        <div v-if="list_yeu_thich.length > 0" class="row sctrollspy-example" data-bs-spy="sctroll">
                                             <template v-for="(v, k) in list_yeu_thich" :key="k">
                                                 <div v-if="v.id_khach_hang == id_user" class="row ">
                                                     <div class="col-10">
@@ -160,6 +160,14 @@
                                                     </div>
                                                 </div>
                                             </template>
+                                        </div>
+                                        <div v-else class="d-flex justify-content-center mt-5">
+                                            <div class="text-center">
+                                                <h4 class="display-5 text-light fw-bolder">¯\_( ͡° ͜ʖ
+                                                    ͡°)_/¯</h4>
+                                                <br />
+                                                <h5 class="display-6 text-light fw-bolder">BẠN CHƯA CÓ PHIM YÊU THÍCH NÀO!...</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -496,7 +504,7 @@ export default {
             baseRequest
                 .get("khach-hang/yeu-thich/lay-du-lieu")
                 .then((res) => {
-                    this.list_yeu_thich = res.data.yeu_thich;
+                    this.list_yeu_thich = res.data.yeu_thich || [];
                 });
         },
 

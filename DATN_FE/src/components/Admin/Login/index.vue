@@ -133,9 +133,9 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="border p-4 rounded">
+                    <div class="border p-4 rounded shadow-sm">
                         <div class="text-center">
-                            <h3 class="mb-3">Đăng Nhập</h3>
+                            <h3 class="mb-3">ĐĂNG NHẬP ADMIN</h3>
                             <!-- <p>Bạn đã có tài khoản? -->
                             <!-- <router-link to="register">
 
@@ -151,7 +151,7 @@
                                     <input type="text" v-model="dang_nhap.email" placeholder="Nhập Email" :class="[
                                         'form-control',
                                         check_validate ? 'is-invalid' : '',
-                                    ]"  />
+                                    ]" />
                                     <div class="invalid-feedback">{{ errors.email }}</div>
                                 </div>
                                 <div class="col-12">
@@ -159,20 +159,7 @@
                                     <input v-on:keyup.enter="dangNhap()" type="password" v-model="dang_nhap.password"
                                         class="form-control" placeholder="Nhập Mật Khẩu" />
                                 </div>
-                                <div class="col-md-6 text-end">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox"  />
-                                        <label class="form-check-label" >Nhớ Mật
-                                            Khẩu</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 text-end">
-                                    <router-link to="">
-                                        <a href="authentication-forgot-password.html">Forgot Password ?
-                                        </a>
-                                    </router-link>
-                                </div>
-                                <div class="col-12">
+                                <div class="col-12 mt-4">
                                     <div class="d-grid">
                                         <button type="button" @:click="dangNhap()" class="btn btn-primary">
                                             <i class="bx bxs-lock-open"></i>Đăng Nhập

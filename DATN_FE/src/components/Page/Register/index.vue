@@ -115,8 +115,6 @@ export default {
                 .post("khach-hang/register", this.dang_ky)
                 .then((res) => {
                     this.kichHoatTK();
-                    this.dang_ky = {};
-                    //   this.$router.push('/login');
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
@@ -124,6 +122,7 @@ export default {
                 });
         },
         checkToken() {
+            this.$store.dispatch('showLoader');
             axios
                 .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
                     headers: {
@@ -137,12 +136,17 @@ export default {
                     if (res.status === 200) {
                         this.is_login = true;
                         this.list_token = res.data.list;
+                        this.dang_ky = {};
                         this.$router.push('/');
                     }
+                    this.$store.dispatch('hideLoader');
+
 
                 })
                 .catch(() => {
                     this.is_login = false;
+                    this.$store.dispatch('hideLoader');
+
                 });
         },
         // handleFileUpload(event) {
