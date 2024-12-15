@@ -53,7 +53,9 @@
                                 data-bs-target="#modalBuyVip">
                                 <i class="fa-solid fa-gem fa-lg"></i>
                             </a>
-
+                            <a href="/chat-box" class="dropdown-toggle" type="button" data-bs-toggle="modal"
+                                data-bs-target="#modalAi"><i class="fa-solid fa-robot fa-lg"></i>
+                            </a>
                             <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
                                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                             </a>
@@ -77,12 +79,14 @@
                                         <span>Đăng Ký</span>
                                     </router-link>
                                 </li>
-                                <li class="user-avatar" :style="is_login ? 'padding-left: 20px; border-bottom: 1px solid #4e5155;' : ''">
+                                <li class="user-avatar"
+                                    :style="is_login ? 'padding-left: 20px; border-bottom: 1px solid #4e5155;' : ''">
                                     <router-link to="/profile">
                                         <a v-show="is_login" class="dropdown-item text-center" type="button">
                                             <div class="d-flex align-items-center">
                                                 <div class="chat-user-online">
-                                                    <img v-bind:src="img" width="30" height="30" class="rounded-circle" alt="">
+                                                    <img v-bind:src="img" width="30" height="30" class="rounded-circle"
+                                                        alt="">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
                                                     <b class="mb-0">Profile</b>
@@ -125,7 +129,8 @@
                                         <div class="section-title ">
                                             <h5>Danh Sách Phim Yêu Thích Của Bạn</h5>
                                         </div>
-                                        <div v-if="list_yeu_thich.length > 0" class="row sctrollspy-example" data-bs-spy="sctroll">
+                                        <div v-if="list_yeu_thich.length > 0" class="row sctrollspy-example"
+                                            data-bs-spy="sctroll">
                                             <template v-for="(v, k) in list_yeu_thich" :key="k">
                                                 <div v-if="v.id_khach_hang == id_user" class="row ">
                                                     <div class="col-10">
@@ -166,7 +171,8 @@
                                                 <h4 class="display-5 text-light fw-bolder">¯\_( ͡° ͜ʖ
                                                     ͡°)_/¯</h4>
                                                 <br />
-                                                <h5 class="display-6 text-light fw-bolder">BẠN CHƯA CÓ PHIM YÊU THÍCH NÀO!...</h5>
+                                                <h5 class="display-6 text-light fw-bolder">BẠN CHƯA CÓ PHIM YÊU THÍCH
+                                                    NÀO!...</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -316,6 +322,64 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Modal Hỏi AI-->
+                    <div class="modal fade" id="modalAi" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="DTimKiemLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div style="background-color: rgba(35, 33, 33, 0.9);" class="modal-content">
+                                <div class="modal-body ">
+                                    <div class="product__sidebar__comment">
+                                        <div class="section-title ">
+                                            <div class="input-group mb-3">
+                                                <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
+                                                    class="form-control" placeholder="Tìm kiếm phim..">
+                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
+                                                    class="input-group-text serch bg-primary">
+                                                    <i class="fa-solid fa-magnifying-glass"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="row sctrollspy-example" data-bs-spy="sctroll">
+                                            <template v-for="(v, k) in list_phim_search" :key="k">
+                                                <div class="row ">
+                                                    <div class="col-10">
+                                                        <div class="product__sidebar__comment__item">
+
+                                                            <a v-bind:href="v.slug_phim">
+                                                                <div class="product__sidebar__comment__item__pic">
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px"
+                                                                        alt="" />
+                                                                </div>
+                                                            </a>
+                                                            <div style="" class="product__sidebar__comment__item__text">
+                                                                <ul>
+                                                                    <li>{{ v.ten_loai_phim }}</li>
+                                                                    <!-- <li >{{ v.ten_loai_phim }}</li> -->
+                                                                    <template v-for="(value, key) in v.ten_the_loais"
+                                                                        :key="key">
+                                                                        <li>{{ value }}</li>
+                                                                    </template>
+                                                                </ul>
+                                                                <h5>
+                                                                    <a v-bind:href="v.slug_phim">
+                                                                        {{ v.ten_phim }}
+                                                                    </a>
+
+                                                                </h5>
+                                                                <div style="color: #b7b7b7">
+                                                                    Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <!-- Modal Thông Tin Giao Dichj -->
                     <div class="modal fade" id="modalGiaoDich" data-bs-keyboard="false" tabindex="-1"
