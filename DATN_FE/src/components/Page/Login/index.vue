@@ -1,4 +1,5 @@
 <template>
+
     <!-- Normal Breadcrumb Begin -->
     <section class="normal-breadcrumb set-bg" data-setbg="../../../assets/assets_Anime/img/hero/hero-1.jpg">
         <div class="container">
