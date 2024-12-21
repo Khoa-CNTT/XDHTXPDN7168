@@ -1,16 +1,15 @@
 <template>
-    <div class="row">
-        <div class="card">
-            <div class="card-header">
+    <div class="row justify-content-center">
+        <div class="card shadow-sm">
+            <div class="card-header text-white">
                 <div class="row">
-                    <div class="col">
-                        Thống Kê Số Tập Theo Loại Phim
+                    <div class="col text-center">
+                        <h5><b>THỐNG KÊ SỐ TẬP THEO LOẠI PHIM</b></h5>
                     </div>
-
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
+                <!-- <div class="row mb-3">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-1 text-end">
                         <p class="mt-2">Từ Ngày:</p>
@@ -27,7 +26,7 @@
                     <div class="col-lg-2">
                         <button @click="loadData()" class="btn btn-primary">Thống Kê</button>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-lg-2"></div>
                     <div class="col-lg-8">
@@ -40,7 +39,7 @@
     </div>
 </template>
 <script>
-import baseRequest from '../../../core/baseRequest';
+import baseRequest from '../../../../core/baseRequest';
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)

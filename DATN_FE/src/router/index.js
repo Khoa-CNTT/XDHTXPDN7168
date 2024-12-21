@@ -194,8 +194,12 @@ const routes = [
         component: () => import("../components/Admin/TapPhim/index.vue"),
       },
       {
-        path: "thong-ke",
-        component: () => import("../components/Admin/ThongKe/index.vue"),
+        path: "thong-ke/loai-phim",
+        component: () => import("../components/Admin/ThongKe/LoaiPhim/index.vue"),
+      },
+      {
+        path: "thong-ke/doanh-thu",
+        component: () => import("../components/Admin/ThongKe/DoanhthuGoi/index.vue"),
       },
       {
         path: "quan-li-thanh-toan",

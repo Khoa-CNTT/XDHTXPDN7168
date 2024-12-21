@@ -133,13 +133,25 @@
                     <div class="menu-title">Phân quyền</div>
                 </router-link>
             </li>
-            <li>
-                <router-link to="/admin/thong-ke" class="nav-link">
+            <li class="nav-item dropdown">
+                <router-link to="" class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown" >
                     <div class="parent-icon">
                         <i class="fa-solid fa-chart-simple fa-sm"></i>
                     </div>
-                    <div class="menu-title">Thống kế</div>
+                    <div class="menu-title">Thống kê</div>
                 </router-link>
+                <ul class="dropdown-menu">
+                    <li>
+                        <router-link to="/admin/thong-ke/doanh-thu" class="dropdown-item">
+                            <div class="menu-title">Doanh thu theo gói</div>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/admin/thong-ke/loai-phim" class="dropdown-item">
+                            <div class="menu-title">Phim theo loại phim</div>
+                        </router-link>
+                    </li>
+                </ul>
             </li>
             <li class="menu-label">Quản lý Leech Phim</li>
             <li>
