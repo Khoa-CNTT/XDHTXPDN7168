@@ -3,9 +3,6 @@
         <div class="container-floid" >
             <router-view></router-view >
         </div>
-
-   
-
     <FooterAnime></FooterAnime>
 </template>
 <script>
@@ -20,6 +17,9 @@ import '../../assets/assets_Anime/js/jquery.slicknav.js';
 import '../../assets/assets_Anime/js/owl.carousel.min.js';
 import '../../assets/assets_Anime/js/main.js';
 
+import '../../assets/assets_Rocker/js/bootstrap.bundle.min.js';
+
+
 /// Newws
 
 
@@ -32,6 +32,9 @@ export default {
 }
 </script>
 <style >
+@import '../../assets/assets_Rocker/css/bootstrap.min.css';
+
+
 @import '../../assets/assets_Anime/css/bootstrap.min.css';
 @import '../../assets/assets_Anime/css/font-awesome.min.css';
 @import '../../assets/assets_Anime/css/elegant-icons.css';
@@ -41,5 +44,6 @@ export default {
 @import '../../assets/assets_Anime/css/slicknav.min.css';
 @import '../../assets/assets_Anime/css/style.css';
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/cloudinary-core/2.11.0/cloudinary-core-shrinkwrap.min.js');
 </style>

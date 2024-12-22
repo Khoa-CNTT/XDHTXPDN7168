@@ -1,134 +1,211 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
 import checkLogin from "./checkLoginAdmin";
-import checkLoginAnime from "./checkLoginAnime";
 const routes = [
-    // Page Anime
-    {
-        path : '/',
-        component: ()=>import('../components/Page/HomeAnime/index.vue'),
+  {
+    path: "/home",
+    component: () => import("../layout/wrapper/MasterAnimeLogin.vue"),
+    children: [
+      {
+        path: "login",
+        component: () => import("../components/Page/Login/index.vue"),
+      },
+      {
+        path: "forget-password",
+        component: () => import("../components/Page/QuenMatKhau/index.vue"),
+      },
+      {
+        path: "reset-password/:hash",
+        component: () => import("../components/Page/DatLaiMatKhau/index.vue"),
+      },
+      {
+        path: "kich-hoat-email/:hash",
+        component: () => import("../components/Page/XacThucEmail/index.vue"),
+      },
+      {
+        path: "register",
+        component: () => import("../components/Page/Register/index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/",
+    component: () => import("../layout/wrapper/MasterAnime.vue"),
+    children: [
+      // {
+      //     path: "test",
+      //     component: () => import("../components/Page/t"),
+      //   },
+      // Page thanh toan
+      {
+        path: "thanh-toan",
+        component: () => import("../components/Page/MuaVip/index.vue"),
+      },
+      // Page Anime
+      {
+        path: "",
+        component: () => import("../components/Page/HomeAnime/index.vue"),
+      },
 
-    },
-    {
-        path : '/login',
-        component: ()=>import('../components/Page/Login/index.vue'),
-        meta : {layout : 'loginanime'} ,
+      {
+        path: "list-phim",
+        component: () => import("../components/Page/ListPhim/index.vue"),
+      },
+      {
+        path: "the-loai/:slug",
+        component: () => import("../components/Page/PageList/index.vue"),
+        name: "PageList",
+        props: (route) => ({ id: route.params.id, slug: route.params.slug }),
+      },
+      {
+        path: "de-list/:slug",
+        component: () => import("../components/Page/PageDelist/index.vue"),
+        name: "PageDelist",
+        props: (route) => ({ id: route.params.id, slug: route.params.slug }),
+      },
+      {
+        path: "watching/:slug",
+        component: () => import("../components/Page/PageWatch/index.vue"),
+      },
+      {
+        path: "loai-phim/:slug",
+        component: () => import("../components/Page/PageLoaiPhim/index.vue"),
+        name: "PageLoaiPhim",
+        props: (route) => ({ id: route.params.id, slug: route.params.slug }),
+      },
+      {
+        path: "tim-kiem/:id",
+        component: () => import("../components/Page/PageSearch/index.vue"),
+      },
+      {
+        path: "profile",
+        component: () => import("../components/Page/PageProfile/index.vue"),
+      },
+      //Page Blog
+      {
+        path: "bai-viet",
+        component: () => import("../components/Page/BlogList/index.vue"),
+      },
+      {
+        path: "blog/:slug",
+        component: () => import("../components/Page/BlogDelist/index.vue"),
+      },
+    ],
+  },
 
-    },
-    {
-        path : '/register',
-        component: ()=>import('../components/Page/Register/index.vue'),
-        meta : {layout : 'loginanime'} ,
+  /// Admin
+  {
+    path: "/admin",
+    component: () => import("../layout/wrapper/MasterRocker.vue"),
+    beforeEnter: checkLogin,
+    children: [
+      {
+        path: "danh-muc",
+        component: () => import("../components/Admin/DanhMuc/index.vue"),
 
+      },
+      {
+        path: "goi-vip",
+        component: () => import("../components/Admin/GoiVip/index.vue"),
 
-    },
-    
-    {
-        path : '/index1/:id',
-        component: ()=>import('../components/Page/PageList/index.vue'),
+      },
+      {
+        path: "profile",
+        component: () => import("../components/Admin/ProfileAdmin/index.vue"),
 
-    }, 
-    {
-        path : '/index2/:id',
-        component: ()=>import('../components/Page/PageDelist/index.vue'),
+      },
+      {
+        path: "the-loai",
+        component: () => import("../components/Admin/TheLoai/index.vue"),
 
-    },
-    {
-        path : '/index3/:id',
-        component: ()=>import('../components/Page/PageWatch/index.vue'),
+      },
+      {
+        path: "tk-admin",
+        component: () => import("../components/Admin/AdminAnime/index.vue"),
 
-    }, 
-    {
-        path : '/index6/:id',
-        component: ()=>import('../components/Page/PageLoaiPhim/index.vue'),
+      },
+      {
+        path: "chuc-vu",
+        component: () => import("../components/Admin/ChucVu/index.vue"),
 
-    },
-    //Page Blog
-    {
-        path : '/index4',
-        component: ()=>import('../components/Page/BlogList/index.vue'),
+      },
+      //   {
+      //     path: "khach-hang",
+      //     component: () => import("../components/Admin/KhachHang/index.vue"),
+      //
+      //   },
+      {
+        path: "khach-hang",
+        component: () => import("../components/Admin/KhachHang/index.vue"),
 
-    }, 
-    {
-        path : '/index5/:id',
-        component: ()=>import('../components/Page/BlogDelist/index.vue'),
+      },
+      {
+        path: "bai-viet",
+        component: () => import("../components/Admin/BaiViet/index.vue"),
 
-    }, 
-    
-    /// Admin
-    {
-        path : '/admin/the-loai',
-        component: ()=>import('../components/Admin/TheLoai/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'} ,
-    },
-    {
-        path : '/admin/tk-admin',
-        component: ()=>import('../components/Admin/AdminAnime/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'} ,
-    },
-    {
-        path : '/admin/khach-hang',
-        component: ()=>import('../components/Admin/KhachHang/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'} ,
-    },
-    {
-        path : '/admin/khach-hang',
-        component: ()=>import('../components/Admin/KhachHang/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'} ,
-    },
-    {
-        path : '/admin/bai-viet',
-        component: ()=>import('../components/Admin/BaiViet/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'} ,
-    },
-    {
-        path : '/admin/chuyen-muc',
-        component: ()=>import('../components/Admin/ChuyenMucBlog/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'} ,
-    },
-   
-    {
-        path : '/admin/loai-phim',
-        component: ()=>import('../components/Admin/LoaiAnime/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'}
+      },
+      {
+        path: "chuyen-muc",
+        component: () => import("../components/Admin/ChuyenMucBlog/index.vue"),
 
-    },
-    {
-        path : '/admin/tac-gia',
-        component: ()=>import('../components/Admin/TacGia/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'}
+      },
 
-    },
-     {
-        path : '/admin/anime',
-        component: ()=>import('../components/Admin/Phim/index.vue'),
-        beforeEnter: checkLogin,
-        meta : {layout : 'new'}
-    },
-    {
-        path : '/admin/login',
-        component: ()=>import('../components/Admin/Login/index.vue'),
-        meta : {layout : 'login'}
-    },
-    {
-        path : '/admin/register',
-        component: ()=>import('../components/Admin/Register/index.vue'),
-        meta : {layout : 'login'}
-    },
-    
-    
-]
+      {
+        path: "loai-phim",
+        component: () => import("../components/Admin/LoaiAnime/index.vue"),
+
+      },
+      {
+        path: "dien-vien",
+        component: () => import("../components/Admin/DienVien/index.vue"),
+
+      },
+      {
+        path: "tac-gia",
+        component: () => import("../components/Admin/TacGia/index.vue"),
+
+      },
+      {
+        path: "anime",
+        component: () => import("../components/Admin/Phim/index.vue"),
+
+      },
+      {
+        path: "phan-quyen",
+        component: () => import("../components/Admin/PhanQuyen/index.vue"),
+
+      },
+      {
+        path: "tap-phim",
+        component: () => import("../components/Admin/TapPhim/index.vue"),
+
+      },
+      {
+        path: "thong-ke",
+        component: () => import("../components/Admin/ThongKe/index.vue"),
+
+      },
+    ],
+  },
+  //login admin
+  {
+    path: "/admin",
+    component: () => import("../layout/wrapper/MasterRockerLogin.vue"),
+    children: [
+      {
+        path: "login",
+        component: () => import("../components/Admin/Login/index.vue"),
+      },
+      {
+        path: "register",
+        component: () => import("../components/Admin/Register/index.vue"),
+      },
+    ],
+  },
+];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes: routes
-})
+  history: createWebHistory(),
+  routes: routes,
+});
 
-export default router
+export default router;

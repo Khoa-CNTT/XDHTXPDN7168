@@ -10,8 +10,6 @@ export default function(to, from, next) {
             }}
         )
         .then((res) => {
-            localStorage.setItem('ho_ten', res.data.ho_ten);
-            localStorage.setItem('hinh_anh', res.data.hinh_anh);
             if(res.status === 200) {
                 next();
             } else {

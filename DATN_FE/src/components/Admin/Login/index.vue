@@ -129,49 +129,55 @@
     <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
         <div class="col mx-auto">
             <div class="mb-4 text-center">
-                <img src="../../assets/assets_rocker/images/logo-img.png" width="180" alt="" />
+                <!-- <img src="../../assets/assets_rocker/images/logo-img.png" width="180" alt="" /> -->
             </div>
             <div class="card">
                 <div class="card-body">
                     <div class="border p-4 rounded">
                         <div class="text-center">
-                            <h3 class="">Đăng Nhập</h3>
-                            <p>Bạn đã có tài khoản?
-                                <router-link to="register">
+                            <h3 class="mb-3">Đăng Nhập</h3>
+                            <!-- <p>Bạn đã có tài khoản? -->
+                            <!-- <router-link to="register">
 
                                     <a href="admin/registerl">Đăng ký?</a>
-                                </router-link>
-                            </p>
+                                </router-link> -->
+                            <!-- </p> -->
                         </div>
-                       
+
                         <div class="form-body">
-                            <form class="row g-3">
+                            <form class="row g-3 needs-validation">
                                 <div class="col-12">
-                                    <label for="inputEmailAddress" class="form-label">Địa Chỉ Email</label>
-                                    <input type="email" v-model="dang_nhap.email" class="form-control"
-                                        id="inputEmailAddress" placeholder="Nhập Email">
+                                    <label class="form-label">Địa Chỉ Email</label>
+                                    <input type="text" v-model="dang_nhap.email" placeholder="Nhập Email" :class="[
+                                        'form-control',
+                                        check_validate ? 'is-invalid' : '',
+                                    ]" id="validationCustom03" required="" />
+                                    <div class="invalid-feedback">{{ errors.email }}</div>
                                 </div>
                                 <div class="col-12">
                                     <label for="inputChoosePassword" class="form-label">Mật Khẩu</label>
-                                    <input type="password" v-model="dang_nhap.password" class="form-control"
-                                        id="inputEmailAddress" placeholder="Nhập Mật Khẩu">
+                                    <input v-on:keyup.enter="dangNhap()" type="password" v-model="dang_nhap.password"
+                                        class="form-control" placeholder="Nhập Mật Khẩu" />
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ Mật Khẩu</label>
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                                            checked />
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ Mật
+                                            Khẩu</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <router-link to="">
-                                        <a href="authentication-forgot-password.html">Forgot
-                                            Password ?
+                                        <a href="authentication-forgot-password.html">Forgot Password ?
                                         </a>
                                     </router-link>
                                 </div>
                                 <div class="col-12">
                                     <div class="d-grid">
-                                        <button type="button" @:click="dangNhap()" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Đăng Nhập</button>
+                                        <button type="button" @:click="dangNhap()" class="btn btn-primary">
+                                            <i class="bx bxs-lock-open"></i>Đăng Nhập
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -183,8 +189,9 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
+import axios from "axios";
 import { createToaster } from "@meforma/vue-toaster";
+import functionBasic from "../../../core/functionBasic";
 const toaster = createToaster({ position: "top-right" });
 export default {
     data() {
@@ -195,52 +202,58 @@ export default {
             is_login: true,
             list_token: [],
             remove_token: {},
-        }
+            check_validate: false,
+            errors: {},
+        };
     },
     mounted() {
         // this.is_login = false;
         this.checkToken();
     },
     methods: {
-        dangKy() {
-            axios
-                .post('http://127.0.0.1:8000/api/register', this.dang_ky)
-                .then((res) => {
-                    toaster.success('Thông báo<br>' + res.data.message);
-                });
-        },
         dangNhap() {
             axios
-                .post('http://127.0.0.1:8000/api/login', this.dang_nhap)
+                .post("http://127.0.0.1:8000/api/login", this.dang_nhap)
                 .then((res) => {
-                    if (res.data.status) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                    if (res.data.status == true) {
+                        toaster.success(res.data.message);
                         var arr = res.data.token.split("|");
-                        localStorage.setItem('token', arr[1]);
-                        console.log(arr[1]);
+                        localStorage.setItem("token", arr[1]);
+                        // localStorage.setItem('avatar_admin',res.data.hinh_anh);
+                        // localStorage.setItem('avatar_admin', res.data.hinh_anh);
+                        localStorage.setItem("avt_admin", res.data.avt_admin);
+                        localStorage.setItem("name_admin", res.data.name_admin);
+                        localStorage.setItem("ten_chuc_vu", res.data.chuc_vu);
+                        // console.log(arr[1]);
                         this.checkToken();
                     } else {
-                        toaster.error('Thông báo<br>' + res.data.message);
+                        toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    this.check_validate = true;
+                    this.errors = res.response.data.errors;
+                    // errors.forEach(function(v,k){
+                    //         toaster.error(v[0]);
+                    // });
                 });
         },
         checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/check', {}, {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                .post(
+                    "http://127.0.0.1:8000/api/check",
+                    {},
+                    {
+                        headers: {
+                            Authorization: "Bearer " + localStorage.getItem("token"),
+                        },
                     }
-                })
+                )
                 .then((res) => {
-                    console.log(res.data);
-                    localStorage.setItem('ho_ten', res.data.ho_ten);
-                    localStorage.setItem('hinh_anh', res.data.hinh_anh);
                     if (res.status === 200) {
                         this.is_login = true;
-                        this.list_token = res.data.list;
-                        this.$router.push('/admin/anime');
+                        this.$router.push("/admin/anime");
                     }
-
                 })
                 .catch(() => {
                     this.is_login = false;
@@ -248,41 +261,42 @@ export default {
         },
         removeToken() {
             axios
-                .delete('http://127.0.0.1:8000/api/thong-tin-xoa/'+ this.remove_token.id)
+                .delete(
+                    "http://127.0.0.1:8000/api/thong-tin-xoa/" + this.remove_token.id
+                )
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
-                        this.list_token = [],
-                            this.checkToken();
+                        toaster.success(res.data.message);
+                        (this.list_token = []), this.checkToken();
                     }
-                })
+                });
         },
         /// file base 64
-      async imageToBase64(file) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-  
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = (error) => reject(error);
-        });
-      },
-  
-      async handleFileChange(event) {
-        const file = event.target.files[0];
-  
-        if (file) {
-          try {
-            const base64Data = await this.imageToBase64(file);
-            console.log('Base64 Data:', base64Data);
-            this.dang_ky.hinh_anh = base64Data;
-            // Thực hiện các hành động khác với base64Data ở đây
-          } catch (error) {
-            console.error('Error converting image to base64:', error);
-          }
-        }
-      },
+        async imageToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = (error) => reject(error);
+            });
+        },
+
+        async handleFileChange(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                try {
+                    const base64Data = await this.imageToBase64(file);
+                    console.log("Base64 Data:", base64Data);
+                    this.dang_ky.hinh_anh = base64Data;
+                    // Thực hiện các hành động khác với base64Data ở đây
+                } catch (error) {
+                    console.error("Error converting image to base64:", error);
+                }
+            }
+        },
     },
-}
+};
 </script>
 <style></style>

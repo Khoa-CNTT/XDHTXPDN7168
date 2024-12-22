@@ -6,21 +6,42 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="login__form">
-                        <h3>Đăng Nhập</h3>
+                        <div class="row">
+                            <div class="col-6">
+                               <h3>Đăng Nhập</h3>
+                            </div>
+                            <div class="col-6">
+                                <router-link to="/home/register" >
+                                    <a > <h3 style="color: #17a2b8" >Đăng Ký <i class="fa-solid fa-caret-right"></i></h3></a>
+
+                                </router-link>
+                            </div>
+                        </div>
                         <div >
                             <div class="input__item">
                                 <input v-model="dang_nhap.email" type="text" placeholder="Địa chỉ email">
                                 <span class="icon_mail"></span>
                             </div>
                             <div class="input__item">
-                                <input v-model="dang_nhap.password" type="password" >
+                                <input v-model="dang_nhap.password" placeholder="Nhập mật khẩu" type="password" >
                                 <span class="icon_lock"></span>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-md-6">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="gridCheck3">
+											<label class="form-check-label" for="gridCheck3">Check me out</label>
+										</div>
+							</div>
+                            <div class="col-md-6 text-end">	<a href="javascript:;">Forgot Password ?</a>
+							</div>
+                            </div> -->
                             <button @click="dangNhap()" class="site-btn">Đăng Nhập</button>
                         </div>
-                                <router-link to="/register">
-                                    <a href="#" class="forget_pass">Đăng Ký?</a>
+                                <router-link to="/home/forget-password">
+                                    <a  type="button" class="forget_pass ">Quên mật khẩu?</a>
                                 </router-link>
+
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -37,13 +58,13 @@
                                 </li>
                             </ul>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
     </section>
-  
+
 
 
 </template>
@@ -54,7 +75,7 @@ const toaster = createToaster({ position: "top-right" });
 export default {
     data() {
         return {
-            dang_ky: {},
+            dang_ky: {is_done : 0,},
             dang_nhap: {},
             check_token: {},
             is_login: true,
@@ -87,6 +108,12 @@ export default {
                     } else {
                         toaster.error( res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors  = Object.values(res.response.data.errors);
+                    errors.forEach(function(v,k){
+                            toaster.error(v[0]);
+                    });
                 });
         },
         checkToken() {
@@ -129,15 +156,15 @@ export default {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.readAsDataURL(file);
-  
+
           reader.onload = () => resolve(reader.result);
           reader.onerror = (error) => reject(error);
         });
       },
-  
+
       async handleFileChange(event) {
         const file = event.target.files[0];
-  
+
         if (file) {
           try {
             const base64Data = await this.imageToBase64(file);
