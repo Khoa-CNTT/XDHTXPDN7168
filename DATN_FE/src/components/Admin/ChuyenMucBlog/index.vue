@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-3">
+        <div class="col-4">
             <div class="card border-5 border-primary border-top">
                 <div class="card-header">
                     <b>THÊM CHUYÊN MỤC</b>
@@ -273,6 +273,10 @@ export default {
                         toaster.error(res.data.message);
                         this.is_create = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -293,6 +297,10 @@ export default {
                         this.is_update = 0;
 
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loaddataChuyenMuc(page) {
@@ -301,6 +309,10 @@ export default {
                 .then((res) => {
                     this.list_chuyen_muc = res.data.chuyen_muc_admin.dataAdmin.data;
                     this.pagination = res.data.chuyen_muc_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataChuyenMuc() {
@@ -317,6 +329,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchChuyenMuc(page) {
@@ -326,6 +342,10 @@ export default {
                 .then((res) => {
                     this.list_chuyen_muc = res.data.chuyen_muc_admin.dataAdmin.data;
                     this.pagination = res.data.chuyen_muc_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteTheLoai() {
@@ -339,6 +359,10 @@ export default {
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateTheLoai() {
@@ -351,6 +375,10 @@ export default {
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -364,6 +392,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         }
     },

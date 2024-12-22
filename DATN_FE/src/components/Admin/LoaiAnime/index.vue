@@ -22,16 +22,6 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label mb-1 mt-1">
-                            <b>Danh Mục</b>
-                        </label>
-                        <select v-model="obj_add_loai_phim.id_danh_muc" name="" id="" class="form-control">
-                            <template v-for="(v,k) in list_danh_muc" :key="k">
-                                <option v-bind:value="v.id">{{ v.ten_danh_muc }}</option>
-                            </template>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label mb-1 mt-1">
                             <b>Tình Trạng</b>
                         </label>
                         <select v-model="obj_add_loai_phim.tinh_trang" name="" id="" class="form-control">
@@ -59,8 +49,8 @@
                                 <tr>
                                     <th colspan="100%">
                                         <div class="input-group mb-3">
-                                            <input v-on:keyup.enter="searchLoaiPhim(1)" v-model="key_tim.key" type="text"
-                                                class="form-control" placeholder="Nhập thông tin cần tìm">
+                                            <input v-on:keyup.enter="searchLoaiPhim(1)" v-model="key_tim.key"
+                                                type="text" class="form-control" placeholder="Nhập thông tin cần tìm">
                                             <button class="btn btn-primary" v-on:click="searchLoaiPhim(1)">
                                                 <i class="fa-solid fa-magnifying-glass"></i>
                                             </button>
@@ -70,7 +60,6 @@
                                 <tr class="text-center">
                                     <th class="text-center align-middle text-nowrap">#</th>
                                     <th class="text-center align-middle text-nowrap">Tên Loại Phim</th>
-                                    <th class="text-center align-middle text-nowrap">Danh Mục</th>
                                     <th class="text-center align-middle text-nowrap">Slug Loại Phim</th>
                                     <th class="text-center align-middle text-nowrap">Tình Trạng</th>
                                     <th class="text-center align-middle text-nowrap">Action</th>
@@ -80,22 +69,24 @@
                                 <tr v-for="(v, k) in list_loai_phim" :key="k">
                                     <td class=" align-middle text-nowrap">{{ k + 1 }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.ten_loai_phim }}</td>
-                                    <td class=" align-middle text-nowrap">{{ v.ten_danh_muc }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.slug_loai_phim }}</td>
 
                                     <td class="text-center align-middle text-nowrap text-center">
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
-                                            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3" style="border: none;">
+                                            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"
+                                            style="border: none;">
                                             Hoạt Động
                                         </button>
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 0"
-                                            class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3" style="border: none;">
+                                            class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3"
+                                            style="border: none;">
                                             Tạm Dừng
                                         </button>
                                     </td>
                                     <td class=" align-middle text-nowrap text-center">
                                         <button @click="Object.assign(obj_update_loai_phim, v)" type="button"
-                                            class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#ThemMoi">
+                                            class="btn btn-success me-1" data-bs-toggle="modal"
+                                            data-bs-target="#ThemMoi">
                                             Chỉnh Sửa
                                         </button>
 
@@ -154,18 +145,6 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label mb-1 mt-1">
-                                            <b>Loại Danh Mục</b>
-                                        </label>
-                                        <select v-model="obj_update_loai_phim.id_danh_muc" name="" id=""
-                                            class="form-control">
-                                            <!-- <template v-for="(v,k) in list_loai_phim" :key="k" >
-                                                <option value="0">Tạm Dừng</option>
-                                            </template> -->
-
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label mb-1 mt-1">
                                             <b>Tình Trạng</b>
                                         </label>
                                         <select v-model="obj_update_loai_phim.tinh_trang" name="" id=""
@@ -180,7 +159,8 @@
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
                                     </button>
                                     <button v-if="is_update == 0" disabled class="btn btn-danger">Xong</button>
-                                    <button v-else v-on:click="updateLoaiPhim()" data-bs-dismiss="modal" class="btn btn-primary">Xong</button>
+                                    <button v-else v-on:click="updateLoaiPhim()" data-bs-dismiss="modal"
+                                        class="btn btn-primary">Xong</button>
                                 </div>
                             </div>
                         </div>
@@ -299,6 +279,10 @@ export default {
                         toaster.error(res.data.message);
                         this.is_create = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -319,6 +303,10 @@ export default {
                         this.is_update = 0;
 
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         laydataLoaiPhim(page) {
@@ -327,7 +315,10 @@ export default {
                 .then((res) => {
                     this.list_loai_phim = res.data.loai_phim_admin.dataAdmin.data;
                     this.pagination = res.data.loai_phim_admin.pagination;
-                    this.list_danh_muc = res.data.list_danh_muc;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataLoaiPhim() {
@@ -344,6 +335,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchLoaiPhim(page) {
@@ -353,6 +348,10 @@ export default {
                 .then((res) => {
                     this.list_loai_phim = res.data.loai_phim_admin.dataAdmin.data;
                     this.pagination = res.data.loai_phim_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteLoaiPhim() {
@@ -360,12 +359,16 @@ export default {
                 .delete('admin/loai-phim/thong-tin-xoa/' + this.obj_delete_loai_phim.id)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success( res.data.message);
                         this.laydataLoaiPhim(this.pagination.last_page);
                     }
                     else {
-                        toaster.danger('Thông báo<br>' + res.data.message);
+                        toaster.danger( res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateLoaiPhim() {
@@ -373,11 +376,15 @@ export default {
                 .put('admin/loai-phim/thong-tin-cap-nhat', this.obj_update_loai_phim)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success( res.data.message);
                         this.laydataLoaiPhim(1);
                     } else {
-                        toaster.danger('Thông báo<br>' + res.data.message);
+                        toaster.danger( res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -386,11 +393,15 @@ export default {
                 .put('admin/loai-phim/thong-tin-thay-doi-trang-thai', xyz)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                        toaster.success( res.data.message);
                         this.laydataLoaiPhim(1);
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         }
     },

@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="login__register">
-                            <router-link to="/home/login">
+                            <router-link to="/login">
                                 <a href="#" class="btn btn-sm  text-info"><i class="fa-solid fa-left-long"></i>Đăng Nhập</a>
                             </router-link>
                     </div>
@@ -69,7 +69,6 @@ export default {
     },
     mounted() {
         this.checkHashPass();
-        console.log(this.hash);
     },
     methods: {
         checkHashPass() {
@@ -78,10 +77,10 @@ export default {
                 .post('kiem-tra-quen-hash-pass', this.doi_mat_khau)
                 .then((res) =>  {
                     if(res.data.status == true) {
-                        toaster.success(res.data.message);
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
                     } else {
-                        toaster.error(res.data.message);
-                        this.$router.push('/home/login');
+                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$router.push('/login');
                     }
                 });
         },
@@ -90,11 +89,11 @@ export default {
                 .post('dat-lai-mat-khau', this.doi_mat_khau)
                 .then((res) =>  {
                     if(res.data.status == true) {
-                        toaster.success( res.data.message);
-                        this.$router.push('/home/login');
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$router.push('/login');
                     } else {
-                        toaster.error( res.data.message);
-                        this.$router.push('/home/login');
+                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$router.push('/login');
                     }
                 });
         }

@@ -49,10 +49,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Thoát
                     </button>
-                    <button v-if="is_create == 0" disabled class="btn btn-danger">
-                        Thêm Mới
-                    </button>
-                    <button v-else v-on:click="taodataGoiVip()" class="btn btn-primary" data-bs-dismiss="modal">
+                    <button v-on:click="taodataGoiVip()" class="btn btn-primary" data-bs-dismiss="modal">
                         Thêm Mới
                     </button>
                 </div>
@@ -121,15 +118,17 @@
                                 </td>
 
                                 <td class="text-center align-middle text-nowrap text-center">
-                                        <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
-                                            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3" style="border: none;">
-                                            Hoạt Động
-                                        </button>
-                                        <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 0"
-                                            class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3" style="border: none;">
-                                            Tạm Dừng
-                                        </button>
-                                    </td>
+                                    <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
+                                        class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"
+                                        style="border: none;">
+                                        Hoạt Động
+                                    </button>
+                                    <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 0"
+                                        class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3"
+                                        style="border: none;">
+                                        Tạm Dừng
+                                    </button>
+                                </td>
                                 <td class="text-center align-middle text-nowrap">
                                     <button @click="Object.assign(obj_update_goi_vip, v)" type="button"
                                         class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#Chinhsua">
@@ -156,44 +155,46 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                        <div class="mb-3 mt-1">
-                                            <label for="" class="form-label mb-1 mt-1">
-                                                <b>Tên Gói Vip</b>
-                                            </label>
-                                            <input v-model="obj_update_goi_vip.ten_goi" v-on:keyup="addSlug()" v-on:change="kiemTraSlug()"
-                                                type="text" class="form-control" placeholder="nhập gói vip..." />
-                                        </div>
-                                        <div class="mb-3 mt-1">
-                                            <label for="" class="form-label mb-1 mt-1">
-                                                <b>Thời hạn (Tính theo tháng)</b>
-                                            </label>
-                                            <input v-model="obj_update_goi_vip.thoi_han" type="number" class="form-control"
-                                                placeholder="nhập thời hạn..." />
-                                        </div>
-                                        <div class="mb-3 mt-1">
-                                            <label for="" class="form-label mb-1 mt-1">
-                                                <b>Tiền gốc</b>
-                                            </label>
-                                            <input v-model="obj_update_goi_vip.tien_goc" type="number" class="form-control"
-                                                placeholder="nhập giá gốc ..." />
-                                        </div>
-                                        <div class="mb-3 mt-1">
-                                            <label for="" class="form-label mb-1 mt-1">
-                                                <b>Tiền Sale</b>
-                                            </label>
-                                            <input v-model="obj_update_goi_vip.tien_sale" type="number" class="form-control"
-                                                placeholder="nhập giá sale ..." />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label mb-1 mt-1">
-                                                <b>Tình Trạng</b>
-                                            </label>
-                                            <select v-model="obj_update_goi_vip.tinh_trang" name="" id="" class="form-control">
-                                                <option value="0">Tạm Dừng</option>
-                                                <option value="1">Hoạt động</option>
-                                            </select>
-                                        </div>
+                                    <div class="mb-3 mt-1">
+                                        <label for="" class="form-label mb-1 mt-1">
+                                            <b>Tên Gói Vip</b>
+                                        </label>
+                                        <input v-model="obj_update_goi_vip.ten_goi" v-on:keyup="addSlugUpdate()"
+                                            v-on:change="kiemTraSlugUpdate()" type="text" class="form-control"
+                                            placeholder="nhập gói vip..." />
                                     </div>
+                                    <div class="mb-3 mt-1">
+                                        <label for="" class="form-label mb-1 mt-1">
+                                            <b>Thời hạn (Tính theo tháng)</b>
+                                        </label>
+                                        <input v-model="obj_update_goi_vip.thoi_han" type="number" class="form-control"
+                                            placeholder="nhập thời hạn..." />
+                                    </div>
+                                    <div class="mb-3 mt-1">
+                                        <label for="" class="form-label mb-1 mt-1">
+                                            <b>Tiền gốc</b>
+                                        </label>
+                                        <input v-model="obj_update_goi_vip.tien_goc" type="number" class="form-control"
+                                            placeholder="nhập giá gốc ..." />
+                                    </div>
+                                    <div class="mb-3 mt-1">
+                                        <label for="" class="form-label mb-1 mt-1">
+                                            <b>Tiền Sale</b>
+                                        </label>
+                                        <input v-model="obj_update_goi_vip.tien_sale" type="number" class="form-control"
+                                            placeholder="nhập giá sale ..." />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label mb-1 mt-1">
+                                            <b>Tình Trạng</b>
+                                        </label>
+                                        <select v-model="obj_update_goi_vip.tinh_trang" name="" id=""
+                                            class="form-control">
+                                            <option value="0">Tạm Dừng</option>
+                                            <option value="1">Hoạt động</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                                         Đóng
@@ -266,7 +267,7 @@ export default {
     },
     methods: {
         convertToVnd(money) {
-            return  money.toLocaleString('en-US', {style : 'currency', currency : 'VND'});
+            return money.toLocaleString('en-US', { style: 'currency', currency: 'VND' });
         },
         convertToSlug(str) {
             str = str.toLowerCase();
@@ -302,7 +303,11 @@ export default {
                     toaster.error(res.data.message);
                     this.is_create = 0;
                 }
-            });
+            })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
 
         kiemTraSlugUpdate() {
@@ -318,13 +323,21 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loaddataGoiVip() {
             baseRequest.get("admin/goi-vip/lay-du-lieu").then((res) => {
                 this.list_goi_vip = res.data.goi_vips.dataAdmin.data;
                 this.pagination = res.data.goi_vips.pagination;
-            });
+            })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
         taodataGoiVip() {
             baseRequest
@@ -338,6 +351,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchGoiVip() {
@@ -346,6 +363,10 @@ export default {
                 .then((res) => {
                     this.list_goi_vip = res.data.goi_vips.dataAdmin.data;
                     this.pagination = res.data.goi_vips.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteGoiVip() {
@@ -358,6 +379,10 @@ export default {
                     } else {
                         toaster.danger("Thông báo<br>" + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateGoiVip() {
@@ -370,6 +395,10 @@ export default {
                     } else {
                         toaster.danger("Thông báo<br>" + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -383,6 +412,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
     },

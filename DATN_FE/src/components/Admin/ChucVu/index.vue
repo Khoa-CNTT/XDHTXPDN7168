@@ -73,17 +73,20 @@
 
                                     <td class="text-center align-middle text-nowrap text-center">
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
-                                            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3" style="border: none;">
+                                            class="badge rounded-pill text-success bg-light-success p-2 text-uppercase px-3"
+                                            style="border: none;">
                                             Hoạt Động
                                         </button>
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 0"
-                                            class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3" style="border: none;">
+                                            class="badge rounded-pill text-warning bg-light-success p-2 text-uppercase px-3"
+                                            style="border: none;">
                                             Tạm Dừng
                                         </button>
                                     </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button @click="Object.assign(obj_update_chuc_vu, v)" type="button"
-                                            class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#Chinhsua">
+                                            class="btn btn-success me-1" data-bs-toggle="modal"
+                                            data-bs-target="#Chinhsua">
                                             Chỉnh Sửa
                                         </button>
 
@@ -156,7 +159,8 @@
                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng
                                     </button>
                                     <button v-if="is_update == 0" disabled class="btn btn-danger">Xong</button>
-                                    <button v-else v-on:click="updateChucVu()" class="btn btn-primary" data-bs-dismiss="modal">Xong</button>
+                                    <button v-else v-on:click="updateChucVu()" class="btn btn-primary"
+                                        data-bs-dismiss="modal">Xong</button>
                                 </div>
                             </div>
                         </div>
@@ -290,6 +294,9 @@ export default {
                         this.is_update = 0;
 
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loaddataChucVu(page) {
@@ -298,6 +305,9 @@ export default {
                 .then((res) => {
                     this.list_chuc_vu = res.data.chuc_vu_admin.dataAdmin.data;
                     this.pagination = res.data.chuc_vu_admin.pagination;
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taodataChucVu() {
@@ -314,6 +324,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchChucVu(page) {
@@ -323,6 +336,9 @@ export default {
                 .then((res) => {
                     this.list_chuc_vu = res.data.chuc_vu_admin.dataAdmin.data;
                     this.pagination = res.data.chuc_vu_admin.pagination;
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteChucVu() {
@@ -336,6 +352,9 @@ export default {
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateChucVu() {
@@ -348,6 +367,9 @@ export default {
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -361,6 +383,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         }
     },

@@ -25,7 +25,7 @@
                 <div class="user-box dropdown">
                     <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img v-bind:src="img_admin" class="user-img" alt="user avatar">
+                        <img v-bind:src="avatarUrl" class="user-img" alt="user avatar">
                         <div class="user-info ps-3">
                             <p class="user-name mb-0">{{ user }}</p>
 
@@ -33,12 +33,12 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <router-link to="/admin/profile">
-                            <li><a type="button"  class="dropdown-item" ><i
-                                          class='bx bx-user'></i><span>Profile</span></a>
+                            <li><a type="button" class="dropdown-item"><i class='bx bx-user'></i><span>Trang cá
+                                        nhân</span></a>
                             </li>
                         </router-link>
-                        <li><a type="button" @click="logout()" class="dropdown-item" ><i
-                                      class='bx bx-log-out-circle'></i><span>Logout</span></a>
+                        <li><a type="button" @click="logout()" class="dropdown-item"><i
+                                    class='bx bx-log-out-circle'></i><span>Đăng xuất</span></a>
                         </li>
                     </ul>
                 </div>
@@ -48,6 +48,7 @@
 
 </template>
 <script>
+import { mapState } from 'vuex';
 import axios from "axios";
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({ position: "top-right" });
@@ -59,6 +60,11 @@ export default {
             img_admin: 'https://www.vecteezy.com/free-vector/default-user',
         }
     },
+    computed: {
+        ...mapState({
+            avatarUrl: (state) => state.avatarUrl, // Lấy avatar từ Vuex
+        }),
+    },
     mounted() {
         this.user = localStorage.getItem('name_admin');
         this.img_admin = localStorage.getItem('avt_admin');
@@ -66,7 +72,7 @@ export default {
     methods: {
         logout() {
             axios
-                .post('http://127.0.0.1:8000/api/logout',{}, {
+                .post('http://127.0.0.1:8000/api/logout', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
@@ -78,7 +84,7 @@ export default {
                         localStorage.removeItem('token_admin');
                         localStorage.removeItem('name_admin');
                         localStorage.removeItem('ten_chuc_vu');
-                         this.$router.push('/admin/login');
+                        this.$router.push('/admin/login');
 
                     }
                     else {

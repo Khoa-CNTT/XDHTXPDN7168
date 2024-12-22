@@ -1,13 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="https://vuighe2.com/favicon.ico">
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="src/assets/assets_Anime/img/logo.png"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WAnime</title>
+    <title>WOPAI</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
+    <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.1.0-beta.0/libs/oversea/index.js"></script>
+    <script>
+      new CozeWebSDK.WebChatClient({
+        config: {
+          bot_id: "7449442397131751442",
+          language: "vi",
+          theme: {
+            color: "#00796b",
+            bubble: {
+              user: {
+                background: "#4caf50",
+                color: "#fff",
+              },
+              bot: {
+                background: "#e0f7fa",
+                color: "#000",
+              },
+            },
+          },
+        },
+        ui: {
+          base: {
+            icon: "https://pics.craiyon.com/2023-06-08/8f12f7763653463289268bdca7185690.webp",
+            layout: "pc",
+            zIndex: 1000,
+          },
+          footer: {
+
+            isShow: true,
+            expressionText: "Powered by {{name}}",
+            linkvars: {
+              name: {
+                text: "vietdev216",
+                link: "https://github.com/vietvo371",
+              },
+            },
+          },
+
+        },
+
+        componentProps: {
+          title: "Trợ Lý WOPAI AI",
+          avatar:
+            "https://pics.craiyon.com/2023-06-08/8f12f7763653463289268bdca7185690.webp",
+          welcomeMessage: "Xin chào! Hãy cho tôi biết bạn cần hỗ trợ gì.",
+        },
+      });
+    </script>
+
+    <!-- <script src="https://messenger.svc.chative.io/static/v1.0/channels/s09331589-91d2-41ee-ae2c-44b55064a9d0/messenger.js?mode=livechat" defer="defer"></script> -->
   </body>
 </html>

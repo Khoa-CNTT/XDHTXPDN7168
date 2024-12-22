@@ -101,7 +101,7 @@
                                     <td class=" align-middle text-nowrap">{{ v.so_dien_thoai }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.ten_chuc_vu }}</td>
                                     <td style="text-align: center; vertical-align: middle;">
-                                        <img v-bind:src="v.hinh_anh" class="product-img-2 "
+                                        <img v-bind:src="v.hinh_anh" class="product-img-2 rounded-circle"
                                             style="display: inline-block;" alt="no-image">
                                     </td>
                                     <td class="text-center align-middle text-nowrap text-center">
@@ -173,7 +173,7 @@
 
                                         <div class="col-12">
                                             <label class="form-label">Email</label>
-                                            <input type="email" v-model="obj_update_admin.email" class="form-control"
+                                            <input disabled type="email" v-model="obj_update_admin.email" class="form-control"
                                                 placeholder="example@user.com">
                                         </div>
                                         <div class="col-12">
@@ -223,7 +223,7 @@
                                             <input type="password" v-model="obj_doi_pass.password" class="form-control"
                                                 placeholder="Nhập mật khẩu">
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 mt-2">
                                             <label class="form-label">Nhập lại mật khẩu</label>
                                             <input type="password" v-model="obj_doi_pass.re_password"
                                                 class="form-control" placeholder="Nhập lại mật khẩu">
@@ -349,6 +349,9 @@ export default {
                     this.list_admin = res.data.admin.dataAdmin.data;
                     this.pagination = res.data.admin.pagination;
                     this.list_chuc_vu = res.data.chuc_vu_admin;
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataAdmin() {
@@ -368,6 +371,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchAdmin(page) {
@@ -378,6 +384,9 @@ export default {
                     this.list_admin = res.data.admin.dataAdmin.data;
                     this.pagination = res.data.admin.pagination;
                     this.list_chuc_vu = res.data.chuc_vu_admin;
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteAdmin() {
@@ -391,6 +400,9 @@ export default {
                     else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateAdmin() {
@@ -409,6 +421,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -422,6 +437,9 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                }).catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         DoiPass() {

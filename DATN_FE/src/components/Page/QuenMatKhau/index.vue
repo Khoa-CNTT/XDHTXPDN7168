@@ -29,12 +29,12 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <router-link to="/home/login">
+                                <router-link to="/login">
                                      <button  style="width: 100%; background: rgb(223, 68, 68); " class="site-btn btn">Đăng nhập</button>
                                 </router-link>
                             </div>
                             <div class="col-6">
-                                <router-link to="/home/register">
+                                <router-link to="/register">
                                      <button  style="width: 100%; background: rgb(75, 46, 207); " class="site-btn btn">Đăng ký</button>
                                 </router-link>
                             </div>
@@ -92,17 +92,15 @@ export default {
                 .post('quen-mat-khau', payload)
                 .then((res) =>  {
                     if(res.data.status == true) {
-                        toaster.success( res.data.message);
-                        this.$router.push('/home/login');
+                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$router.push('/login');
                     } else {
-                        toaster.error( res.data.message);
+                        this.$store.dispatch('showError', {description: res.data.message,});
                     }
                 })
                 .catch((res) => {
                     var errors  = Object.values(res.response.data.errors);
-                    errors.forEach(function(v,k){
-                            toaster.error(v[0]);
-                    });
+                    this.$store.dispatch('showError', {description: errors[0],});
                 });
         }
     }

@@ -469,6 +469,10 @@ export default {
                         toaster.error(res.data.message);
                         this.is_create = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -487,6 +491,10 @@ export default {
                         toaster.error(res.data.message);
                         this.is_update = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         laydataBaiViet(page) {
@@ -496,6 +504,10 @@ export default {
                     this.list_bai_viet = res.data.bai_viet_admin.dataAdmin.data;
                     this.pagination = res.data.bai_viet_admin.pagination;
                     this.list_chuyen_muc = res.data.chuyen_muc_admin;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataBaiViet() {
@@ -517,6 +529,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchBaiViet(page) {
@@ -526,6 +542,10 @@ export default {
                 .then((res) => {
                     this.list_bai_viet = res.data.bai_viet_admin.dataAdmin.data;
                     this.pagination = res.data.bai_viet_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteBaiViet() {
@@ -541,6 +561,10 @@ export default {
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateBaiViet() {
@@ -559,6 +583,10 @@ export default {
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -572,6 +600,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         //

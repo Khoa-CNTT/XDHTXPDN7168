@@ -269,6 +269,10 @@ export default {
                         toaster.error(res.data.message);
                         this.is_create = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -289,6 +293,10 @@ export default {
                         this.is_update = 0;
 
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loaddataTacGia(page) {
@@ -297,6 +305,10 @@ export default {
                 .then((res) => {
                     this.list_tac_gia = res.data.tac_gia_admin.dataAdmin.data;
                     this.pagination = res.data.tac_gia_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataTacGia() {
@@ -313,6 +325,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchTacGia(page) {
@@ -322,6 +338,10 @@ export default {
                 .then((res) => {
                     this.list_tac_gia = res.data.tac_gia_admin.dataAdmin.data;
                     this.pagination = res.data.tac_gia_admin.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteTacGia() {
@@ -335,6 +355,10 @@ export default {
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateTacGia() {
@@ -347,6 +371,10 @@ export default {
                     } else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -360,6 +388,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         }
     },

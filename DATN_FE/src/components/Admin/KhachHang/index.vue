@@ -96,7 +96,7 @@
                                     <td class=" align-middle text-nowrap">{{ v.email }}</td>
                                     <td class=" align-middle text-nowrap">{{ v.so_dien_thoai }}</td>
                                     <td style="text-align: center; vertical-align: middle;">
-                                        <img v-bind:src="v.avatar" class="product-img-2 "
+                                        <img v-bind:src="v.avatar" class="product-img-2 rounded-circle"
                                             style="display: inline-block;" alt="no-image">
                                     </td>
                                     <td class="text-center align-middle text-nowrap text-center">
@@ -174,7 +174,7 @@
 
                                             <div class="col-12 mb-2">
                                                 <label  class="form-label">Email</label>
-                                                <input type="email" v-model="obj_update_user.email" class="form-control"
+                                                <input type="email" disabled v-model="obj_update_user.email" class="form-control"
                                                     placeholder="example@user.com">
                                             </div>
                                             <div class="col-12 mb-2">
@@ -304,6 +304,10 @@ export default {
                 .then((res) => {
                     this.list_khach_khach = res.data.khach_hang.dataAdmin.data;
                     this.pagination = res.data.khach_hang.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         taoDataUser() {
@@ -323,6 +327,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchAdmin(page) {
@@ -332,6 +340,10 @@ export default {
                 .then((res) => {
                     this.list_khach_khach = res.data.khach_hang.dataAdmin.data;
                     this.pagination = res.data.khach_hang.pagination;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteAdmin() {
@@ -345,6 +357,10 @@ export default {
                     else {
                         toaster.danger('Thông báo<br>' + res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateAdmin() {
@@ -361,7 +377,11 @@ export default {
                         } else {
                             toaster.danger('Thông báo<br>' + res.data.message);
                         }
-                    });
+                    })
+                    .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
             },
         doiTrangThai(xyz) {
             baseRequest
@@ -373,6 +393,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         kichHoat(xyz) {
@@ -385,6 +409,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 

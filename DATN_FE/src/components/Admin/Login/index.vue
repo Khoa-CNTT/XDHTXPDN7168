@@ -133,9 +133,9 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="border p-4 rounded">
+                    <div class="border p-4 rounded shadow-sm">
                         <div class="text-center">
-                            <h3 class="mb-3">Đăng Nhập</h3>
+                            <h3 class="mb-3">ĐĂNG NHẬP ADMIN</h3>
                             <!-- <p>Bạn đã có tài khoản? -->
                             <!-- <router-link to="register">
 
@@ -151,29 +151,15 @@
                                     <input type="text" v-model="dang_nhap.email" placeholder="Nhập Email" :class="[
                                         'form-control',
                                         check_validate ? 'is-invalid' : '',
-                                    ]" id="validationCustom03" required="" />
+                                    ]" />
                                     <div class="invalid-feedback">{{ errors.email }}</div>
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputChoosePassword" class="form-label">Mật Khẩu</label>
+                                    <label  class="form-label">Mật Khẩu</label>
                                     <input v-on:keyup.enter="dangNhap()" type="password" v-model="dang_nhap.password"
                                         class="form-control" placeholder="Nhập Mật Khẩu" />
                                 </div>
-                                <div class="col-md-6 text-end">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
-                                            checked />
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">Nhớ Mật
-                                            Khẩu</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 text-end">
-                                    <router-link to="">
-                                        <a href="authentication-forgot-password.html">Forgot Password ?
-                                        </a>
-                                    </router-link>
-                                </div>
-                                <div class="col-12">
+                                <div class="col-12 mt-4">
                                     <div class="d-grid">
                                         <button type="button" @:click="dangNhap()" class="btn btn-primary">
                                             <i class="bx bxs-lock-open"></i>Đăng Nhập
@@ -219,8 +205,6 @@ export default {
                         toaster.success(res.data.message);
                         var arr = res.data.token.split("|");
                         localStorage.setItem("token", arr[1]);
-                        // localStorage.setItem('avatar_admin',res.data.hinh_anh);
-                        // localStorage.setItem('avatar_admin', res.data.hinh_anh);
                         localStorage.setItem("avt_admin", res.data.avt_admin);
                         localStorage.setItem("name_admin", res.data.name_admin);
                         localStorage.setItem("ten_chuc_vu", res.data.chuc_vu);
@@ -252,7 +236,7 @@ export default {
                 .then((res) => {
                     if (res.status === 200) {
                         this.is_login = true;
-                        this.$router.push("/admin/anime");
+                        this.$router.push("/admin");
                     }
                 })
                 .catch(() => {

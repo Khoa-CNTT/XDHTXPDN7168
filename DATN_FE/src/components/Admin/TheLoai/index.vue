@@ -23,16 +23,6 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label mb-1 mt-1">
-                            <b>Danh Mục</b>
-                        </label>
-                        <select v-model="obj_add_the_loai.id_danh_muc" name="" id="" class="form-control">
-                            <template v-for="(v,k) in list_danh_muc" :key="k">
-                                <option v-bind:value="v.id">{{ v.ten_danh_muc }}</option>
-                            </template>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label mb-1 mt-1">
                             <b>Tình Trạng</b>
                         </label>
                         <select v-model="obj_add_the_loai.tinh_trang" name="" id="" class="form-control">
@@ -76,9 +66,6 @@
                                         Slug Thể Loại
                                     </th>
                                     <th class="text-center align-middle text-nowrap">
-                                        Danh Mục
-                                    </th>
-                                    <th class="text-center align-middle text-nowrap">
                                         Tình Trạng
                                     </th>
                                     <th class="text-center align-middle text-nowrap">Action</th>
@@ -94,9 +81,6 @@
                                     </td>
                                     <td class="text-center align-middle text-nowrap">
                                         {{ v.slug_the_loai }}
-                                    </td>
-                                    <td class="text-center align-middle text-nowrap">
-                                        {{ v.ten_danh_muc }}
                                     </td>
                                     <td class="text-center align-middle text-nowrap text-center">
                                         <button @click="doiTrangThai(v)" v-if="v.tinh_trang == 1"
@@ -326,14 +310,21 @@ export default {
                         toaster.error(res.data.message);
                         this.is_update = 0;
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         loaddataTheLoai(page) {
             baseRequest.get("admin/the-loai/lay-du-lieu?page=" + page).then((res) => {
                 this.list_the_loai = res.data.the_loai.dataAdmin.data;
                 this.pagination = res.data.the_loai.pagination;
-                this.list_danh_muc = res.data.list_danh_muc;
-            });
+            })
+            .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
+                });
         },
         taoDataTheLoai() {
             baseRequest
@@ -346,6 +337,10 @@ export default {
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         searchTheLoai(page) {
@@ -356,6 +351,10 @@ export default {
                     this.list_the_loai = res.data.the_loai.dataAdmin.data;
                     this.pagination = res.data.the_loai.pagination;
                     this.list_danh_muc = res.data.list_danh_muc;
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         deleteTheLoai() {
@@ -363,11 +362,15 @@ export default {
                 .delete("admin/the-loai/thong-tin-xoa/" + this.obj_delete_the_loai.id)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success("Thông báo<br>" + res.data.message);
+                        toaster.success( res.data.message);
                         this.changPage(this.pagination.current_page);
                     } else {
-                        toaster.danger("Thông báo<br>" + res.data.message);
+                        toaster.danger( res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
         updateTheLoai() {
@@ -375,11 +378,15 @@ export default {
                 .put("admin/the-loai/thong-tin-cap-nhat", this.obj_update_the_loai)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success("Thông báo<br>" + res.data.message);
+                        toaster.success( res.data.message);
                         this.changPage(this.pagination.current_page);
                     } else {
-                        toaster.danger("Thông báo<br>" + res.data.message);
+                        toaster.danger( res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
 
@@ -388,11 +395,15 @@ export default {
                 .put("admin/the-loai/thong-tin-thay-doi-trang-thai", xyz)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success("Thông báo<br>" + res.data.message);
+                        toaster.success( res.data.message);
                         this.changPage(this.pagination.current_page);
                     } else {
                         toaster.error(res.data.message);
                     }
+                })
+                .catch((res) => {
+                    var errors = Object.values(res.response.data.errors);
+                    toaster.error(errors[0]);
                 });
         },
     },
