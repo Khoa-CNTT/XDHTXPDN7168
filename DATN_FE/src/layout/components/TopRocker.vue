@@ -72,7 +72,7 @@ export default {
     methods: {
         logout() {
             axios
-                .post('http://127.0.0.1:8000/api/logout', {}, {
+                .post('https://wopai-be.dzfullstack.edu.vn/api/logout', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
@@ -100,7 +100,7 @@ export default {
         },
         checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/admin/check', {}, {
+                .post('https://wopai-be.dzfullstack.edu.vn/api/admin/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }

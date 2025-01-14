@@ -207,7 +207,7 @@ export default {
         },
         loadataLoaiPhimAndPhim(page) {
             axios
-                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show-tat-ca/" + this.slug + '?page=' + page, {})
+                .get("https://wopai-be.dzfullstack.edu.vn/api/loai-phim/lay-du-lieu-show-tat-ca/" + this.slug + '?page=' + page, {})
                 .then((res) => {
                     this.loai_phim = res.data.loai_phim;
                     this.list_phim = res.data.phim.dataPhim.data;
@@ -228,7 +228,7 @@ export default {
         Sapxep(page) {
             this.check_page = 1;
             axios
-                .get("http://127.0.0.1:8000/api/loai-phim/sap-xep/" + this.loai_phim.slug_loai_phim + "/" + this.bien + '?page=' + page, {})
+                .get("https://wopai-be.dzfullstack.edu.vn/api/loai-phim/sap-xep/" + this.loai_phim.slug_loai_phim + "/" + this.bien + '?page=' + page, {})
                 .then((res) => {
                     this.list_phim = res.data.phim.dataPhim.data;
                     this.pagination = res.data.phim.pagination;
@@ -244,7 +244,7 @@ export default {
 
         laydataLoaiPhim() {
             axios
-                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+                .get("https://wopai-be.dzfullstack.edu.vn/api/loai-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_loai_phim = res.data.loai_phim;
                 });

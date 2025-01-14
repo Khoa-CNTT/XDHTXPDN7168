@@ -343,7 +343,7 @@ export default {
             return tenphim.length > 42 ? tenphim.substring(0, 42) + '...' : tenphim;
         },
         async getdataSlide() {
-            const res = await axios.get("http://127.0.0.1:8000/api/lay-data-slide-homepage");
+            const res = await axios.get("https://wopai-be.dzfullstack.edu.vn/api/lay-data-slide-homepage");
             this.list_slide = res.data.data.map(slide => {
                 slide.mo_ta = slide.mo_ta.length > 150 ? slide.mo_ta.substring(0, 150) + '...' : slide.mo_ta;
                 slide.ten_phim = slide.ten_phim.length > 25 ? slide.ten_phim.substring(0, 25) + '...' : slide.ten_phim;
@@ -355,7 +355,7 @@ export default {
         },
         laydataPhim() {
             axios
-                .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
+                .get("https://wopai-be.dzfullstack.edu.vn/api/phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_hot_trong_thang = res.data.top_view_thang;
                     this.tat_ca_phim = res.data.tat_ca_phim;
@@ -384,14 +384,14 @@ export default {
         },
         laydataLoaiPhim() {
             axios
-                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+                .get("https://wopai-be.dzfullstack.edu.vn/api/loai-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_loai_phim = res.data.loai_phim;
                 });
         },
         loaddataTheLoai() {
             axios
-                .get("http://127.0.0.1:8000/api/the-loai/lay-du-lieu-show")
+                .get("https://wopai-be.dzfullstack.edu.vn/api/the-loai/lay-du-lieu-show")
                 .then((res) => {
                     this.list_the_loai = res.data.the_loai;
                     this.list_phim = res.data.phim_theo_the_loai;

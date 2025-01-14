@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         async checkHashLogin() {
-            const response = await axios.get("http://127.0.0.1:8000/api/kiem-tra-login-google", {
+            const response = await axios.get("https://wopai-be.dzfullstack.edu.vn/api/kiem-tra-login-google", {
                 headers: {
                     Authorization: 'Bearer ' + this.$route.params.token
                 }

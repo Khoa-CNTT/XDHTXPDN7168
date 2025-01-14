@@ -588,7 +588,7 @@ export default {
         },
         loadDataMenu() {
             axios
-                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+                .get("https://wopai-be.dzfullstack.edu.vn/api/loai-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_danh_muc = res.data.danh_muc_webs;
 
@@ -627,7 +627,7 @@ export default {
         },
         checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
+                .post('https://wopai-be.dzfullstack.edu.vn/api/khach-hang/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token_user')
                     }
@@ -668,7 +668,7 @@ export default {
         },
         searchPhim() {
             axios
-                .post("http://127.0.0.1:8000/api/phim/thong-tin-tim", this.key_tim)
+                .post("https://wopai-be.dzfullstack.edu.vn/api/phim/thong-tin-tim", this.key_tim)
                 .then((res) => {
                     this.list_phim_search = res.data.phim;
                     this.list_phim_search.forEach((value, index) => {

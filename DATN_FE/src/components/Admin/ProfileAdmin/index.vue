@@ -218,7 +218,7 @@ export default {
     methods: {
         laydataAdmin() {
             axios
-                .get("http://127.0.0.1:8000/api/admin/admin/lay-du-lieu-profile", {
+                .get("https://wopai-be.dzfullstack.edu.vn/api/admin/admin/lay-du-lieu-profile", {
                     headers: {
                         Authorization: "Bearer " + localStorage.getItem("token"),
                     },
