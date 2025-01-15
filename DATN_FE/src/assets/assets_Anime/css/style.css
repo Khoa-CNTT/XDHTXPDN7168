@@ -2416,3 +2416,380 @@ ol {
 		padding: 18px 20px 20px;
 	}
 }
+
+/* Mobile Menu Styles */
+@media only screen and (max-width: 767px) {
+  .header {
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #070720;
+  }
+
+  .header .container {
+    position: relative;
+  }
+
+  .header__logo {
+    padding: 5px 0;
+  }
+
+  .header__logo img {
+    max-width: 120px;
+  }
+
+  /* Ẩn menu desktop trên mobile */
+  .header__menu {
+    display: none;
+  }
+
+  .header__right {
+    position: absolute;
+    right: 50px; /* Điều chỉnh để không bị chồng lên nút toggle */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .header__right a {
+    font-size: 18px;
+    margin-right: 0;
+    color: #ffffff;
+  }
+
+  /* Mobile menu toggle button */
+  .mobile-menu-toggle {
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 30px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    padding: 0;
+    background: transparent;
+    border: none;
+  }
+
+  .mobile-menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    margin: 5px 0;
+    transition: 0.4s;
+    position: relative;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(-45deg);
+    top: 7px;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(45deg);
+    top: -7px;
+  }
+
+  /* Mobile menu wrap */
+  .mobile-menu-wrap {
+    position: fixed;
+    top: 70px; /* Chiều cao của header */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: rgba(7, 7, 32, 0.95);
+    padding: 20px 0;
+    display: none;
+    overflow-y: auto;
+    z-index: 999;
+  }
+
+  .mobile-menu-wrap.active {
+    display: block;
+  }
+
+  .mobile-menu {
+    padding: 0 15px;
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-menu ul li {
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-menu ul li:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-menu ul li a {
+    display: block;
+    padding: 15px 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .mobile-menu ul li .dropdown {
+    display: none;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px 15px;
+  }
+
+  .mobile-menu ul li.active .dropdown {
+    display: block;
+  }
+
+  .mobile-menu ul li .arrow_carrot-down {
+    position: absolute;
+    right: 0;
+    top: 15px;
+    transition: transform 0.3s;
+  }
+
+  .mobile-menu ul li.active .arrow_carrot-down {
+    transform: rotate(180deg);
+  }
+
+  /* Điều chỉnh dropdown menu user */
+  .dropdown-menu {
+    position: absolute !important;
+    min-width: 200px;
+    background: rgba(35, 33, 33, 0.95) !important;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px !important;
+  }
+
+  .dropdown-menu .user-avatar {
+    padding: 8px 15px;
+  }
+
+  .dropdown-menu .user-avatar a {
+    font-size: 14px;
+    color: #ffffff;
+  }
+
+  /* Fix modal styles */
+  .modal-dialog {
+    margin: 10px;
+  }
+
+  .modal-content {
+    background: rgba(35, 33, 33, 0.95);
+    border-radius: 10px;
+  }
+
+  #TimKiem .modal-dialog {
+    margin: 10px;
+    max-width: calc(100% - 20px);
+  }
+
+  /* Thêm padding-top cho content để tránh bị header fixed đè lên */
+  .hero, .normal-breadcrumb {
+    margin-top: 70px;
+  }
+}
+
+/* Desktop styles - đảm bảo menu desktop hoạt động bình thường */
+@media only screen and (min-width: 768px) {
+  .mobile-menu-wrap,
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .header__menu {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  /* Ẩn header right trên mobile */
+  .header__right {
+    display: none;
+  }
+
+  /* Style cho mobile menu icons */
+  .mobile-menu__icons {
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .mobile-menu__icons a {
+    color: #ffffff;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mobile-menu__icons a i {
+    font-size: 20px;
+  }
+
+  .mobile-menu__icons a span {
+    font-size: 16px;
+  }
+
+  /* Điều chỉnh dropdown trong mobile menu */
+  .mobile-menu .dropdown-menu {
+    position: static !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    margin-top: 0 !important;
+    border-radius: 0;
+    padding: 10px;
+  }
+}
+
+/* Thêm các styles responsive cho carousel */
+@media only screen and (max-width: 768px) {
+  .carousel__item {
+    height: 300px; /* Giảm chiều cao trên mobile */
+  }
+
+  .hero__text {
+    max-width: 100%;
+    padding: 0 20px;
+    bottom: 20px;
+  }
+
+  .hero__text h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .hero__text p {
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 15px;
+  }
+
+  .hero__text a {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .carousel__navigation button {
+    width: 35px;
+    height: 35px;
+  }
+
+  .carousel__navigation .prev {
+    left: 10px;
+  }
+
+  .carousel__navigation .next {
+    right: 10px;
+  }
+}
+
+/* Điều chỉnh grid layout cho các phần phim */
+@media only screen and (max-width: 991px) {
+  .product .col-lg-8 {
+    /* margin-bottom: 50px; */
+  }
+
+  .product__sidebar {
+    padding-top: 0;
+  }
+
+  .product__sidebar__view {
+    margin-bottom: 30px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .product__item {
+    margin-bottom: 15px;
+  }
+
+  .product__item__pic {
+    height: 250px; /* Giảm chiều cao ảnh */
+  }
+
+  .product__item__pic img {
+    width: 100% !important; /* Đảm bảo ảnh full width */
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  .product__item__text ul li {
+    font-size: 10px;
+    padding: 2px 8px;
+  }
+
+  .product__item__text h5 a {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  /* Điều chỉnh sidebar */
+  .product__sidebar__view__item {
+    height: 150px;
+    margin-bottom: 15px;
+  }
+
+  .product__sidebar__comment__item__pic {
+    width: 80px;
+    margin-right: 15px;
+  }
+
+  .product__sidebar__comment__item__text h5 {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+/* Điều chỉnh spacing và layout */
+@media only screen and (max-width: 575px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .section-title h4,
+  .section-title h5 {
+    font-size: 18px;
+  }
+
+  .btn__all {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .product {
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+
+  .product .row > [class*="col-"] {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .btn__all {
+    display: none;
+  }
+}
