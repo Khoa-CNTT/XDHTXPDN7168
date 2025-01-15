@@ -152,7 +152,7 @@ export default {
             });
             myModal.show();
             try {
-                const res = await axios.get("http://127.0.0.1:8000/api/transation");
+                const res = await axios.get("https://wopai-be.dzfullstack.edu.vn/api/transation");
                 if (res.data.status == true) {
                     myModal.hide();
                     this.$router.push('/platform/checkout/thanks-payment/' + this.obj_user.email);

@@ -199,7 +199,7 @@ export default {
     methods: {
         dangNhap() {
             axios
-                .post("http://127.0.0.1:8000/api/login", this.dang_nhap)
+                .post("https://wopai-be.dzfullstack.edu.vn/api/login", this.dang_nhap)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
@@ -225,7 +225,7 @@ export default {
         checkToken() {
             axios
                 .post(
-                    "http://127.0.0.1:8000/api/check",
+                    "https://wopai-be.dzfullstack.edu.vn/api/check",
                     {},
                     {
                         headers: {
@@ -246,7 +246,7 @@ export default {
         removeToken() {
             axios
                 .delete(
-                    "http://127.0.0.1:8000/api/thong-tin-xoa/" + this.remove_token.id
+                    "https://wopai-be.dzfullstack.edu.vn/api/thong-tin-xoa/" + this.remove_token.id
                 )
                 .then((res) => {
                     if (res.data.status == true) {
