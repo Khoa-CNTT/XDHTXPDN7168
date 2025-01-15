@@ -49,7 +49,7 @@
                         </div>
                         <div class="row">
                             <template v-for="(v, k) in list_phim" :key="k">
-                                <div v-show="v.tong_tap > 0" class="col-lg-4 col-md-6 col-sm-6">
+                                <div v-show="v.tong_tap > 0" class="col-lg-4 col-md-4 col-6">
                                     <router-link :to="v.slug_phim">
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg"

@@ -308,10 +308,125 @@ export default {
 <style>
 .textwrap {
     word-wrap: break-word;
-    /* Tự động xuống dòng khi từ quá dài */
     word-break: break-word;
-    /* Cắt từ khi cần thiết để không tràn khỏi vùng chứa */
     white-space: normal;
-    /* Cho phép xuống hàng tự động */
+}
+
+/* Video container styles */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    margin-bottom: 30px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Episode navigation */
+.anime__details__episodes {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.anime__details__episodes a {
+    display: inline-block;
+    padding: 8px 20px;
+    margin: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.anime__details__episodes a:hover,
+.anime__details__episodes a.bg-secondary {
+    background: #e53637 !important;
+}
+
+/* Comments section */
+.anime__details__review {
+    margin-top: 40px;
+}
+
+.anime__review__item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.anime__review__item__pic img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Comment form */
+.anime__details__form {
+    margin-top: 30px;
+}
+
+.anime__details__form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 991px) {
+    .anime__details__episodes a {
+        padding: 6px 15px;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .video-container {
+        margin-bottom: 20px;
+    }
+
+    .anime__details__episodes {
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .anime__review__item {
+        padding: 15px;
+    }
+
+    .anime__review__item__text h6 {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .anime__details__episodes a {
+        padding: 5px 12px;
+        font-size: 13px;
+        margin: 3px;
+    }
+
+    .anime__review__item__pic img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .anime__details__form textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
 }
 </style>

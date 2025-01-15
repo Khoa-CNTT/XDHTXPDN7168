@@ -713,63 +713,137 @@ export default {
 };
 </script>
 <style>
-/* Container for the anime details picture */
-.anime__details__pic {
-    position: relative;
-    width: 100%;
-    padding-top: 150%;
-    /* Adjusts the aspect ratio of the image container */
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    /* Optional: for rounded corners */
-    overflow: hidden;
-    transition: transform 0.3s ease;
+/* Base styles */
+.anime__details__content {
+    margin-bottom: 50px;
 }
 
-/* Overlay for the play button */
+/* Image and play button styles */
+.anime__details__pic {
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 440px;
+    background-size: cover;
+    background-position: center;
+}
+
 .play-button-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    /* Semi-transparent black overlay */
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 8px;
-    /* Match the corners */
+    transition: all 0.3s ease;
 }
 
-/* Styling for the play icon */
-.play-icon {
-    font-size: 50px;
-    /* Adjust size as needed */
-    color: red;
-    transition: transform 0.3s ease;
+/* Text content styles */
+.anime__details__text {
+    padding: 20px;
 }
 
-/* Hover effects */
-.anime__details__pic:hover .play-button-overlay {
-    opacity: 1;
-    /* Show the overlay on hover */
+.anime__details__title {
+    margin-bottom: 20px;
 }
 
-.anime__details__pic:hover {
-    transform: scale(1.05);
-    /* Slight zoom-in effect */
-    cursor: pointer;
+.anime__details__title h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    line-height: 1.4;
 }
 
-.anime__details__pic:hover .play-icon {
-    transform: scale(1.2);
-    /* Slightly enlarge play icon on hover */
+/* Rating styles */
+.anime__details__rating {
+    margin-bottom: 20px;
 }
 
+.rating a {
+    margin-right: 5px;
+    font-size: 18px;
+    color: #e53637;
+}
+
+/* Comments section */
+.anime__details__review {
+    margin-top: 40px;
+}
+
+.anime__review__item {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 1200px) {
+    .anime__details__pic {
+        height: 380px;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .anime__details__pic {
+        height: 320px;
+        margin-bottom: 30px;
+    }
+
+    .anime__details__title h3 {
+        font-size: 24px;
+        padding-right: 0;
+    }
+
+    .anime__details__widget {
+        margin-top: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .anime__details__content {
+        margin-bottom: 30px;
+    }
+
+    .anime__details__text {
+        padding: 15px 0;
+    }
+
+    .anime__details__title h3 {
+        font-size: 20px;
+    }
+
+    .anime__details__widget ul li {
+        font-size: 14px;
+    }
+
+    .anime__review__item {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .anime__details__pic {
+        height: 280px;
+    }
+
+    .anime__details__title h3 {
+        font-size: 18px;
+    }
+
+    .anime__details__btn a {
+        padding: 8px 20px;
+        font-size: 13px;
+    }
+
+    .anime__review__item__text p {
+        font-size: 14px;
+    }
+}
 
 .product__sidebar__comment__item__text h5 {
     display: -webkit-box;
@@ -793,7 +867,6 @@ export default {
     word-wrap: break-word;
     white-space: normal;
 }
-
 
 .rating-container {
     display: inline-block;

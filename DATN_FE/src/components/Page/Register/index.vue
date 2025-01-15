@@ -390,4 +390,71 @@ export default {
     margin: 0;
     text-align: center;
 }
+
+@media only screen and (max-width: 991px) {
+    .login__form {
+        padding-left: 0;
+        margin-bottom: 40px;
+    }
+
+    .login__form:after {
+        display: none;
+    }
+
+    .login__form form .input__item {
+        width: 100%;
+        max-width: 370px;
+        margin: 0 auto 20px;
+    }
+
+    .login__register {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .login__social {
+        padding-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .signup {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+    .login__social__links ul li a {
+        width: 100%;
+        max-width: 460px;
+    }
+
+    .normal__breadcrumb__text h2 {
+        font-size: 30px;
+    }
+
+    .normal__breadcrumb__text p {
+        font-size: 16px;
+    }
+
+    .login__form h5 {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .login__social__links ul li a {
+        font-size: 12px;
+        padding: 12px 0;
+    }
+
+    .login__social__links ul li a i {
+        font-size: 16px;
+        left: 20px;
+        top: 12px;
+    }
+
+    .login__form form .input__item input {
+        padding-left: 55px;
+    }
+}
 </style>
