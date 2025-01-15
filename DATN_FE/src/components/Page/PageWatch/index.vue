@@ -19,9 +19,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="    " style="margin-bottom: 30px;">
+                    <div class="video-container">
                         <!-- Sử dụng `v-bind` để thêm hình nền và URL video từ `obj_tap_phim` -->
-                        <iframe width="1140px" height="654px" :src="obj_tap_phim.url" frameborder="0" allow="autoplay"
+                        <iframe :src="obj_tap_phim.url" frameborder="0" allow="autoplay; fullscreen"
                             allowfullscreen>
                         </iframe>
                     </div>
@@ -316,8 +316,12 @@ export default {
 .video-container {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (9/16 = 0.5625) */
     margin-bottom: 30px;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .video-container iframe {
@@ -326,7 +330,37 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border: none;
+}
+
+/* Custom styles for mobile */
+@media only screen and (max-width: 991px) {
+    .video-container {
+        padding-top: 60%; /* Slightly taller ratio for better mobile viewing */
+        margin: 0 -15px 20px;
+        border-radius: 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .video-container {
+        padding-top: 65%; /* Even taller ratio for smaller screens */
+    }
+    
+    .anime-details.spad {
+        padding-top: 0; /* Remove top padding on mobile */
+    }
+    
+    .container {
+        padding: 0; /* Full width container on mobile */
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .video-container {
+        padding-top: 75%; /* Maximum height ratio for smallest screens */
+        margin: 0 0 15px;
+    }
 }
 
 /* Episode navigation */
@@ -335,15 +369,21 @@ export default {
     padding: 20px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 0; /* Remove top margin since video container has bottom margin */
 }
 
 .anime__details__episodes a {
     display: inline-block;
     padding: 8px 20px;
-    margin: 5px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
     transition: all 0.3s ease;
+    min-width: 80px;
+    text-align: center;
 }
 
 .anime__details__episodes a:hover,
@@ -357,6 +397,8 @@ export default {
 }
 
 .anime__review__item {
+    display: flex;
+    gap: 15px;
     background: rgba(255, 255, 255, 0.05);
     padding: 20px;
     border-radius: 10px;
@@ -383,6 +425,8 @@ export default {
     padding: 15px;
     color: #fff;
     margin-bottom: 20px;
+    resize: vertical;
+    min-height: 100px;
 }
 
 /* Responsive styles */
@@ -390,12 +434,21 @@ export default {
     .anime__details__episodes a {
         padding: 6px 15px;
         font-size: 14px;
+        min-width: 70px;
     }
 }
 
 @media only screen and (max-width: 768px) {
     .video-container {
-        margin-bottom: 20px;
+        padding-top: 65%; /* Even taller ratio for smaller screens */
+    }
+    
+    .anime-details.spad {
+        padding-top: 0; /* Remove top padding on mobile */
+    }
+    
+    .container {
+        padding: 0; /* Full width container on mobile */
     }
 
     .anime__details__episodes {
@@ -410,23 +463,33 @@ export default {
     .anime__review__item__text h6 {
         font-size: 14px;
     }
+
+    .anime__review__item {
+        flex-direction: column;
+    }
+
+    .anime__review__item__pic {
+        margin-bottom: 10px;
+    }
+
+    .anime__details__form textarea {
+        min-height: 80px;
+    }
 }
 
 @media only screen and (max-width: 576px) {
     .anime__details__episodes a {
         padding: 5px 12px;
         font-size: 13px;
-        margin: 3px;
+        min-width: 60px;
     }
 
-    .anime__review__item__pic img {
-        width: 40px;
-        height: 40px;
+    .anime__details__episodes {
+        padding: 15px 10px;
     }
 
-    .anime__details__form textarea {
-        padding: 12px;
-        font-size: 14px;
+    .anime__review__item {
+        padding: 15px;
     }
 }
 </style>
