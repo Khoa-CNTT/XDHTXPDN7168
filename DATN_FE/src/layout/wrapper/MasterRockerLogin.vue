@@ -10,17 +10,34 @@
     </body>
 </template>
 <script>
-import '../../assets/assets_Rocker/js/bootstrap.bundle.min.js';
-import '../../assets/assets_Rocker/js/jquery.min.js';
-import '../../assets/assets_Rocker/plugins/simplebar/js/simplebar.min.js';
-import '../../assets/assets_Rocker/plugins/metismenu/js/metisMenu.min.js';
-import '../../assets/assets_Rocker/plugins/perfect-scrollbar/js/perfect-scrollbar.js';
-import '../../assets/assets_Rocker/js/index.js';
-import '../../assets/assets_Rocker/js/app.js';
 export default {
     name: 'app',
     components: {
     },
+    created() {
+        this.loadScripts();
+    },
+    methods: {
+        loadScripts() {
+            const scripts = [
+                'https://code.jquery.com/jquery-3.3.1.min.js',
+                '/assets/assets_Rocker/js/bootstrap.bundle.min.js',
+                '/assets/assets_Rocker/js/jquery.min.js',
+                '/assets/assets_Rocker/plugins/simplebar/js/simplebar.min.js',
+                '/assets/assets_Rocker/plugins/metismenu/js/metisMenu.min.js',
+                '/assets/assets_Rocker/plugins/perfect-scrollbar/js/perfect-scrollbar.js',
+                '/assets/assets_Rocker/js/index.js',
+                '/assets/assets_Rocker/js/app.js'
+            ];
+            
+            scripts.forEach(src => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.async = true;
+                document.head.appendChild(script);
+            });
+        }
+    }
 }
 </script>
 <style>

@@ -17,13 +17,7 @@
 import FooterRocker from "../components/FooterRocker.vue";
 import MenuRocker from "../components/MenuRocker.vue";
 import TopRocker from "../components/TopRocker.vue";
-import "../../assets/assets_Rocker/js/bootstrap.bundle.min.js";
-import "../../assets/assets_Rocker/js/jquery.min.js";
-import "../../assets/assets_Rocker/plugins/simplebar/js/simplebar.min.js";
-import "../../assets/assets_Rocker/plugins/metismenu/js/metisMenu.min.js";
-import "../../assets/assets_Rocker/plugins/perfect-scrollbar/js/perfect-scrollbar.js";
-import "../../assets/assets_Rocker/js/index.js";
-import "../../assets/assets_Rocker/js/app.js";
+
 export default {
   name: "app",
   components: {
@@ -31,6 +25,64 @@ export default {
     MenuRocker,
     TopRocker,
   },
+  created() {
+    this.loadScripts();
+  },
+  methods: {
+    loadScripts() {
+        const scripts = [
+            'https://code.jquery.com/jquery-3.3.1.min.js',
+            '/assets/assets_Rocker/js/bootstrap.bundle.min.js'
+        ];
+        
+        let loadedCount = 0;
+        const totalScripts = scripts.length;
+        
+        scripts.forEach((src, index) => {
+            const script = document.createElement('script');
+            script.src = src;
+            
+            script.onload = () => {
+                loadedCount++;
+                if (loadedCount === totalScripts) {
+                    this.loadSecondaryScripts();
+                }
+            };
+            
+            document.head.appendChild(script);
+        });
+    },
+    
+    loadSecondaryScripts() {
+        const secondaryScripts = [
+            '/assets/assets_Rocker/plugins/simplebar/js/simplebar.min.js',
+            '/assets/assets_Rocker/plugins/metismenu/js/metisMenu.min.js',
+            '/assets/assets_Rocker/plugins/perfect-scrollbar/js/perfect-scrollbar.js',
+            '/assets/assets_Rocker/js/index.js',
+            '/assets/assets_Rocker/js/app.js'
+        ];
+        
+        secondaryScripts.forEach(src => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.async = true;
+            document.head.appendChild(script);
+        });
+        
+        // Initialize Bootstrap components
+        setTimeout(() => {
+            if (typeof bootstrap !== 'undefined') {
+                // Initialize all dropdowns
+                const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+                const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl));
+                
+                // Initialize all tooltips
+                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+            }
+        }, 1000);
+    }
+  }
 };
 </script>
 <style>

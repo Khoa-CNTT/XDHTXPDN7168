@@ -11,16 +11,7 @@
 <script>
 import FooterAnime from '../components/FooterAnime.vue';
 import MenuAnime from '../components/MenuAnime.vue';
-import '../../assets/assets_Anime/js/jquery-3.3.1.min.js';
-import '../../assets/assets_Anime/js/bootstrap.min.js';
-import '../../assets/assets_Anime/js/player.js';
-import '../../assets/assets_Anime/js/jquery.nice-select.min.js';
-import '../../assets/assets_Anime/js/mixitup.min.js';
-import '../../assets/assets_Anime/js/jquery.slicknav.js';
-import '../../assets/assets_Anime/js/owl.carousel.min.js';
-import '../../assets/assets_Anime/js/main.js';
-import '../../assets/assets_Rocker/js/bootstrap.bundle.min.js';
-import { mapState } from 'vuex'; // Thêm import này
+import { mapState } from 'vuex';
 
 export default {
     name: "app",
@@ -29,24 +20,102 @@ export default {
         FooterAnime
     },
     computed: {
-        ...mapState(['isLoading']), // Lấy isLoading từ store
+        ...mapState(['isLoading']),
     },
     created() {
+        this.loadScripts();
+        
         this.$router.beforeEach((to, from, next) => {
-            this.$store.dispatch('showLoader'); // Hiển thị loader khi chuyển trang
+            this.$store.dispatch('showLoader');
             next();
         });
 
         this.$router.afterEach(() => {
-            this.$store.dispatch('hideLoader'); // Ẩn loader sau khi trang đã tải
+            this.$store.dispatch('hideLoader');
         });
     },
+    mounted() {
+        this.$nextTick(() => {
+            this.initializeBootstrapComponents();
+        });
+    },
+    methods: {
+        loadScripts() {
+            const scripts = [
+                'https://code.jquery.com/jquery-3.3.1.min.js',
+                '/assets/assets_Anime/js/bootstrap.min.js',
+                '/assets/assets_Rocker/js/bootstrap.bundle.min.js'
+            ];
+            
+            let loadedCount = 0;
+            const totalScripts = scripts.length;
+            
+            const loadScript = (index) => {
+                if (index >= scripts.length) {
+                    this.loadSecondaryScripts();
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = scripts[index];
+                
+                script.onload = () => {
+                    loadedCount++;
+                    if (loadedCount === totalScripts) {
+                        this.loadSecondaryScripts();
+                    }
+                    loadScript(index + 1);
+                };
+                
+                document.head.appendChild(script);
+            };
+
+            loadScript(0);
+        },
+        
+        loadSecondaryScripts() {
+            const secondaryScripts = [
+                '/assets/assets_Anime/js/player.js',
+                '/assets/assets_Anime/js/jquery.nice-select.min.js',
+                '/assets/assets_Anime/js/mixitup.min.js',
+                '/assets/assets_Anime/js/jquery.slicknav.js',
+                '/assets/assets_Anime/js/owl.carousel.min.js',
+                '/assets/assets_Anime/js/main.js'
+            ];
+            
+            secondaryScripts.forEach(src => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.async = true;
+                document.head.appendChild(script);
+            });
+
+            // Initialize Bootstrap components
+            this.$nextTick(() => {
+                this.initializeBootstrapComponents();
+            });
+        },
+
+        initializeBootstrapComponents() {
+            // Ensure Bootstrap is loaded
+            if (typeof bootstrap !== 'undefined') {
+                // Initialize all dropdowns
+                document.querySelectorAll('.dropdown-toggle').forEach(dropdownToggle => {
+                    new bootstrap.Dropdown(dropdownToggle, {
+                        autoClose: true
+                    });
+                });
+            } else {
+                console.warn('Bootstrap is not loaded');
+                // Retry after a short delay
+                setTimeout(() => this.initializeBootstrapComponents(), 500);
+            }
+        }
+    }
 }
 </script>
 <style>
 @import '../../assets/assets_Rocker/css/bootstrap.min.css';
-
-
 @import '../../assets/assets_Anime/css/bootstrap.min.css';
 @import '../../assets/assets_Anime/css/font-awesome.min.css';
 @import '../../assets/assets_Anime/css/elegant-icons.css';

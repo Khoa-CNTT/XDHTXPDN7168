@@ -4,22 +4,34 @@
     </div>
 </template>
 <script>
-import '../../assets/assets_Anime/js/jquery-3.3.1.min.js';
-import '../../assets/assets_Anime/js/bootstrap.min.js';
-import '../../assets/assets_Anime/js/player.js';
-import '../../assets/assets_Anime/js/jquery.nice-select.min.js';
-import '../../assets/assets_Anime/js/mixitup.min.js';
-import '../../assets/assets_Anime/js/jquery.slicknav.js';
-import '../../assets/assets_Anime/js/owl.carousel.min.js';
-import '../../assets/assets_Anime/js/main.js';
-
-/// Newws
-
-
 export default {
-name: "app",
-components: {
-},
+    name: "app",
+    components: {
+    },
+    created() {
+        this.loadScripts();
+    },
+    methods: {
+        loadScripts() {
+            const scripts = [
+                'https://code.jquery.com/jquery-3.3.1.min.js',
+                '/assets/assets_Anime/js/bootstrap.min.js',
+                '/assets/assets_Anime/js/player.js',
+                '/assets/assets_Anime/js/jquery.nice-select.min.js',
+                '/assets/assets_Anime/js/mixitup.min.js',
+                '/assets/assets_Anime/js/jquery.slicknav.js',
+                '/assets/assets_Anime/js/owl.carousel.min.js',
+                '/assets/assets_Anime/js/main.js'
+            ];
+            
+            scripts.forEach(src => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.async = true;
+                document.head.appendChild(script);
+            });
+        }
+    }
 }
 </script>
 <style >
