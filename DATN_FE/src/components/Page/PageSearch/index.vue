@@ -131,7 +131,7 @@ export default {
         },
         searchPhim(page) {
             axios
-                .post("https://wopai-be.dzfullstack.edu.vn/api/phim/load-thong-tin-tim/?page=" + page, this.key_tim)
+                .post("http://127.0.0.1:8000/api/phim/load-thong-tin-tim/?page=" + page, this.key_tim)
                 .then((res) => {
                     // this.list_9_phim = res.data.phim_9_obj;
                     this.pagination = res.data.phim.pagination;

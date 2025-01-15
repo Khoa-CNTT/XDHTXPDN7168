@@ -207,7 +207,7 @@ export default {
         },
         loadataTheLoaiAndPhim(page) {
             axios
-                .get('https://wopai-be.dzfullstack.edu.vn/api/the-loai/lay-du-lieu/' + this.slug + '?page=' + page, {})
+                .get('http://127.0.0.1:8000/api/the-loai/lay-du-lieu/' + this.slug + '?page=' + page, {})
                 .then((res) => {
                     if (res.data.status == false) {
                         this.$router.push('/');
@@ -239,7 +239,7 @@ export default {
         Sapxep(page) {
             this.check_page = 1;
             axios
-                .get("https://wopai-be.dzfullstack.edu.vn/api/the-loai/sap-xep/" + this.the_loai.slug_the_loai + "/" + this.bien + '?page=' + page)
+                .get("http://127.0.0.1:8000/api/the-loai/sap-xep/" + this.the_loai.slug_the_loai + "/" + this.bien + '?page=' + page)
                 .then((res) => {
                     this.list_phim = res.data.phim.dataPhim.data;
                     this.list_phim.forEach((value, index) => {

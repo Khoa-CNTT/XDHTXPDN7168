@@ -5,7 +5,7 @@ const toaster = createToaster({ position: "top-right" });
 export default function (to, from, next) {
   axios
     .post(
-      "https://wopai-be.dzfullstack.edu.vn/api/khach-hang/check",
+      "http://127.0.0.1:8000/api/khach-hang/check",
       {},
       {
         headers: {
