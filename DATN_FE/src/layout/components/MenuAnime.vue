@@ -42,12 +42,12 @@
                                         </ul>
                                     </li>
                                 </template>
-                                <li class="menu">
+                                <!-- <li class="menu">
                                     <a class="dropdown-toggle" type="button" data-bs-toggle="modal"
                                         data-bs-target="#modalAi"><i class="fa-solid fa-robot fa-lg"></i> <span>Tìm phim theo
                                             AI</span>
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                         </nav>
                     </div>

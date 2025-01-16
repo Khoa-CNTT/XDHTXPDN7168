@@ -198,7 +198,7 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="anime__details__sidebar">
                         <div class="section-title">
-                            <h5>hot phim</h5>
+                            <h5>CÁC PHIM LIÊN QUAN</h5>
                         </div>
                         <template v-for="(v, k) in list_5_phim" :key="k">
                             <div class="product__sidebar__comment__item">
