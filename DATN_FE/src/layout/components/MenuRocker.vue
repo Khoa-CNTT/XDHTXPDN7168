@@ -134,7 +134,7 @@
                 </router-link>
             </li>
             <li class="nav-item dropdown">
-                <router-link to="" class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown" >
+                <router-link to="" class="nav-link dropdown-toggle dropdown-toggle-nocaret" data-bs-toggle="dropdown">
                     <div class="parent-icon">
                         <i class="fa-solid fa-chart-simple fa-sm"></i>
                     </div>
@@ -149,6 +149,22 @@
                     <li>
                         <router-link to="/admin/thong-ke/loai-phim" class="dropdown-item">
                             <div class="menu-title">Phim theo loại phim</div>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/admin/thong-ke/luot-xem" class="dropdown-item">
+                            <div class="menu-title">Lượt xem</div>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/admin/thong-ke/yeu-thich" class="dropdown-item">
+                            <div class="menu-title">Yêu thích</div>
+                        </router-link>
+                    </li>
+
+                    <li>
+                        <router-link to="/admin/thong-ke/binh-luan" class="dropdown-item">
+                            <div class="menu-title">Đánh giá phim</div>
                         </router-link>
                     </li>
                 </ul>

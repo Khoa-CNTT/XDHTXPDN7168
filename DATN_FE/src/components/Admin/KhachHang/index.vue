@@ -20,21 +20,21 @@
                             <div class="col-12 mb-2">
                                 <label for="inputFirstName" class="form-label">Họ Và Tên</label>
                                 <input type="text" v-model="obj_add_user.ho_va_ten" class="form-control"
-                                     placeholder="Họ Và Tên">
+                                    placeholder="Họ Và Tên">
                             </div>
 
                             <div class="col-12 mb-2">
-                                <label  class="form-label">Email</label>
+                                <label class="form-label">Email</label>
                                 <input type="email" v-model="obj_add_user.email" class="form-control"
                                     placeholder="example@user.com">
                             </div>
                             <div class="col-12 mb-2">
-                                <label  class="form-label">Số điện thoại</label>
+                                <label class="form-label">Số điện thoại</label>
                                 <input type="text" v-model="obj_add_user.so_dien_thoai" class="form-control"
-                                     placeholder="Số điện thoại">
+                                    placeholder="Số điện thoại">
                             </div>
                             <div class="col-12 mb-2">
-                                <label  class="form-label">Password</label>
+                                <label class="form-label">Password</label>
                                 <input type="Password" v-model="obj_add_user.password" class="form-control"
                                     placeholder="Password">
                             </div>
@@ -169,19 +169,18 @@
                                             <div class="col-12 mb-2">
                                                 <label for="inputFirstName" class="form-label">Họ Và Tên</label>
                                                 <input type="text" v-model="obj_update_user.ho_va_ten"
-                                                    class="form-control"  placeholder="Họ Và Tên">
+                                                    class="form-control" placeholder="Họ Và Tên">
                                             </div>
 
                                             <div class="col-12 mb-2">
-                                                <label  class="form-label">Email</label>
-                                                <input type="email" disabled v-model="obj_update_user.email" class="form-control"
-                                                    placeholder="example@user.com">
+                                                <label class="form-label">Email</label>
+                                                <input type="email" disabled v-model="obj_update_user.email"
+                                                    class="form-control" placeholder="example@user.com">
                                             </div>
                                             <div class="col-12 mb-2">
-                                                <label  class="form-label">Số điện thoại</label>
+                                                <label class="form-label">Số điện thoại</label>
                                                 <input type="email" v-model="obj_update_user.so_dien_thoai"
-                                                    class="form-control"
-                                                    placeholder="Số điện thoại">
+                                                    class="form-control" placeholder="Số điện thoại">
                                             </div>
                                             <div class="col-12">
                                                 <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
@@ -245,7 +244,7 @@ export default {
     data() {
         return {
             list_khach_khach: [],
-            obj_add_user: { },
+            obj_add_user: {},
             key_tim: {},
             obj_update_user: {},
             obj_delete_user: {},
@@ -270,6 +269,13 @@ export default {
         },
     },
     methods: {
+        changPage(page) {
+            if (this.check_page == 0) {
+                this.laydataUser(page);
+            } else if (this.check_page == 1) {
+                this.searchAdmin(page);
+            }
+        },
         handleFile(e, isCreate) {
             let files = e.target.files || e.dataTransfer.files;
             this.file = files;
@@ -368,27 +374,27 @@ export default {
             for (let key in this.obj_update_user) {
                 formData.append(key, this.obj_update_user[key]);
             }
-                baseRequest
-                    .post('admin/khach-hang/thong-tin-cap-nhat', formData)
-                    .then((res) => {
-                        if (res.data.status == true) {
-                            toaster.success('Thông báo<br>' + res.data.message);
-                            this.laydataUser(1);
-                        } else {
-                            toaster.danger('Thông báo<br>' + res.data.message);
-                        }
-                    })
-                    .catch((res) => {
+            baseRequest
+                .post('admin/khach-hang/thong-tin-cap-nhat', formData)
+                .then((res) => {
+                    if (res.data.status == true) {
+                        toaster.success('Thông báo<br>' + res.data.message);
+                        this.laydataUser(1);
+                    } else {
+                        toaster.danger('Thông báo<br>' + res.data.message);
+                    }
+                })
+                .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
                     toaster.error(errors[0]);
                 });
-            },
+        },
         doiTrangThai(xyz) {
             baseRequest
                 .post('admin/khach-hang/thong-tin-thay-doi-trang-thai', xyz)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success( res.data.message);
+                        toaster.success(res.data.message);
                         this.laydataUser(1);
                     } else {
                         toaster.error(res.data.message);
@@ -404,7 +410,7 @@ export default {
                 .post('admin/khach-hang/kich-hoat-tai-khoan', xyz)
                 .then((res) => {
                     if (res.data.status == true) {
-                        toaster.success( res.data.message);
+                        toaster.success(res.data.message);
                         this.laydataUser(1);
                     } else {
                         toaster.error(res.data.message);
@@ -416,8 +422,8 @@ export default {
                 });
         },
 
-        },
+    },
 
-    };
+};
 </script>
 <style lang=""></style>
