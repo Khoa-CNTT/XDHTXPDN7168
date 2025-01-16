@@ -254,7 +254,7 @@
                             </div>
                             <div class="product__sidebar__comment">
                                 <div class="section-title">
-                                    <h5>Hot trong tuần</h5>
+                                    <h5>ĐỀ XUẤT CHO BẠN</h5>
                                 </div>
                                 <template v-for="(v, k) in phim_hot" :key="k">
                                     <div class="product__sidebar__comment__item">
@@ -355,7 +355,11 @@ export default {
         },
         laydataPhim() {
             axios
-                .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show")
+                .get("http://127.0.0.1:8000/api/phim/lay-du-lieu-show", {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("token_user"),
+                    },
+                })
                 .then((res) => {
                     this.list_hot_trong_thang = res.data.top_view_thang;
                     this.tat_ca_phim = res.data.tat_ca_phim;
