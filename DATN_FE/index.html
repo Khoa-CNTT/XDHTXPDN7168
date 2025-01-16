@@ -15,7 +15,7 @@
     <script type="module" src="/src/main.js"></script>
     <script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/1.1.0-beta.0/libs/oversea/index.js"></script>
     <script>
-      new CozeWebSDK.WebChatClient({
+      const client = new CozeWebSDK.WebChatClient({
         config: {
           bot_id: "7449442397131751442",
           language: "vi",
@@ -40,7 +40,6 @@
             zIndex: 1000,
           },
           footer: {
-
             isShow: true,
             expressionText: "Powered by {{name}}",
             linkvars: {
@@ -50,16 +49,17 @@
               },
             },
           },
-
         },
-
         componentProps: {
-          title: "Trợ Lý WOPAI AI",
+          title: "WOPAI AI GỢI Ý TÌM KIẾM PHIM",
+          layout: "pc",
+          // width: "800px",
           avatar:
             "https://pics.craiyon.com/2023-06-08/8f12f7763653463289268bdca7185690.webp",
           welcomeMessage: "Xin chào! Hãy cho tôi biết bạn cần hỗ trợ gì.",
         },
       });
+      // client.destroy();
     </script>
 
     <!-- <script src="https://messenger.svc.chative.io/static/v1.0/channels/s09331589-91d2-41ee-ae2c-44b55064a9d0/messenger.js?mode=livechat" defer="defer"></script> -->
