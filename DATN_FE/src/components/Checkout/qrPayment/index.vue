@@ -134,6 +134,32 @@ export default {
                     this.isLoading = false;
                 });
         },
+        async checkThanhToan() {
+            var myModal = new bootstrap.Modal(document.getElementById('loadingModal'), {
+                keyboard: false,
+                backdrop: 'static'
+            });
+            myModal.show();
+
+            // Thêm setTimeout 10 giây
+            await new Promise(resolve => setTimeout(resolve, 10000)); // đợi 10 giây
+
+            try {
+                const res = await axios.post("http://127.0.0.1:8000/api/transation/set-status" , this.obj_hoa_don);
+                if (res.data.status == true) {
+                    myModal.hide();
+                    this.$router.push('/platform/checkout/thanks-payment/' + this.obj_user.email);
+                } else {
+                    this.$store.dispatch('showError', { description: "Đã xảy ra lỗi", });
+                    myModal.hide();
+                    this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
+                }
+            } catch (error) {
+                myModal.hide();
+                this.$store.dispatch('showError', { description: 'Đã xảy ra lỗi khi tải dữ liệu!' });
+                this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
+            }
+        },
         // showModal() {
         //     var myModal = new bootstrap.Modal(document.getElementById('loadingModal'), {
         //         keyboard: false,
@@ -145,33 +171,6 @@ export default {
         //         myModal.hide();
         //     }, 10000);
         // },
-        async checkThanhToan() {
-            var myModal = new bootstrap.Modal(document.getElementById('loadingModal'), {
-                keyboard: false,
-                backdrop: 'static'
-            });
-            myModal.show();
-            try {
-                const res = await axios.post("http://127.0.0.1:8000/api/transation/set-status" , this.obj_hoa_don);
-                if (res.data.status == true) {
-                    myModal.hide();
-                    this.$router.push('/platform/checkout/thanks-payment/' + this.obj_user.email);
-
-                } else {
-
-                    this.$store.dispatch('showError', { description: "Đã xảy ra lỗi", });
-                    myModal.hide();
-                    this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
-                }
-            } catch (error) {
-                myModal.hide();
-                this.$store.dispatch('showError', { description: 'Đã xảy ra lỗi khi tải dữ liệu!' });
-                this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
-
-            }
-
-        }
-
     },
 };
 </script>

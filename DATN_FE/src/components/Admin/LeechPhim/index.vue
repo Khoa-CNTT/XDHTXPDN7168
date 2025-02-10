@@ -2,10 +2,30 @@
     <div class="row mt-1">
         <div class="col-12">
             <div class="card border-5 border-primary border-top">
-                <div class="card-header d-flex justify-content-between">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5><b>DANH SÁCH PHIM CẦN LEECH TRÊN OPHIM</b></h5>
-                    <div></div>
-                    <h5><b>Tổng phim:</b> <span class="text-danger">{{ pagination.totalItems }}</span></h5>
+                    <div class="d-flex gap-2">
+                        <button @click="autoLeechPhim" 
+                                class="btn btn-success btn-sm d-flex align-items-center" 
+                                :class="{'disabled': isAutoLeeching}"
+                                :disabled="isAutoLeeching">
+                            <i class="fas fa-sync-alt me-2"></i>
+                            <span>Thêm tự động</span>
+                            <span v-if="processedMovies > 0" class="badge bg-light text-success ms-2">
+                                {{ processedMovies }}/{{ totalMovies }}
+                            </span>
+                        </button>
+                        <button v-if="isAutoLeeching" 
+                                @click="stopAutoLeech" 
+                                class="btn btn-danger btn-sm d-flex align-items-center">
+                            <i class="fas fa-stop me-2"></i>
+                            <span>Dừng</span>
+                        </button>
+                    </div>
+                    <h5 class="mb-0">
+                        <b>Tổng phim:</b> 
+                        <span class="badge bg-primary ms-1">{{ pagination.totalItems }}</span>
+                    </h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -24,15 +44,20 @@
                             <tbody>
                                 <tr v-for="(v, k) in list_phim" :key="k">
                                     <td class="text-center align-middle text-nowrap">
-                                        <button v-if="v.is_check == false" @click="leechStore(v.slug)"
-                                            class="btn btn-primary btn-sm radius-30 px-4 ms-2" type="button">Thêm
-                                            phim</button>
-                                        <button v-else class="btn btn-secondary btn-sm radius-30 px-4 ms-2"
-                                            type="button" data-bs-toggle="modal" data-bs-target="#XoaPhim">Đã
-                                            Thêm</button>
-                                        <!-- <button v-else @click="Object.assign(obj_delete_phim, v)"
-                                            class="btn btn-danger btn-sm radius-30 px-4 ms-2" type="button"
-                                            data-bs-toggle="modal" data-bs-target="#XoaPhim">Xoá phim</button> -->
+                                        <button v-if="v.is_check == false" 
+                                                @click="leechStore(v.slug)"
+                                                class="btn btn-primary btn-sm d-inline-flex align-items-center px-3" 
+                                                type="button">
+                                            <i class="fas fa-plus-circle me-2"></i>
+                                            Thêm phim
+                                        </button>
+                                        <button v-else 
+                                                class="btn btn-light btn-sm d-inline-flex align-items-center px-3" 
+                                                type="button" 
+                                                disabled>
+                                            <i class="fas fa-check-circle me-2 text-success"></i>
+                                            Đã thêm
+                                        </button>
                                     </td>
                                     <td class="align-middle text-wrap">{{ v.name }}</td>
                                     <td class="text-center align-middle">
@@ -45,15 +70,24 @@
                                     </td>
                                     <td class="align-middle text-wrap text-center">{{ convertDate(v.modified.time) }}
                                     </td>
-                                    <td class="text-center align-middle text-wrap d-flex flex-column">
-                                        <button @click="laydelistPhim(v.slug)" class="btn btn-info btn-sm  mb-2"
-                                            type="button" data-bs-toggle="modal" data-bs-target="#ChiTiet">Chi
-                                            tiết</button>
-                                        <button v-show="v.is_check == true" @click="laytapPhim(v.slug)"
-                                            data-bs-toggle="modal" data-bs-target="#ThemTap"
-                                            class="btn btn-danger btn-sm  " type="button">Thêm
-                                            Tập</button>
-
+                                    <td class="text-center align-middle text-wrap d-flex gap-2 justify-content-center">
+                                        <button @click="laydelistPhim(v.slug)" 
+                                                class="btn btn-info btn-sm d-inline-flex align-items-center" 
+                                                type="button" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#ChiTiet">
+                                            <i class="fas fa-info-circle me-2"></i>
+                                            Chi tiết
+                                        </button>
+                                        <button v-show="v.is_check == true" 
+                                                @click="laytapPhim(v.slug)"
+                                                class="btn btn-danger btn-sm d-inline-flex align-items-center" 
+                                                type="button" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#ThemTap">
+                                            <i class="fas fa-film me-2"></i>
+                                            Thêm tập
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -332,7 +366,12 @@ export default {
             },
             check_page: 0,
             maxChars: 30,
-            pathImage: ""
+            pathImage: "",
+            isAutoLeeching: false,
+            autoLeechInterval: null,
+            currentAutoLeechPage: 1,
+            processedMovies: 0,
+            totalMovies: 0,
         };
     },
     computed: {
@@ -510,43 +549,52 @@ export default {
             }
         },
 
-        async leechStore(slug) {
+        async leechStore(slug, isAuto = false) {
             try {
                 const payload = { slug };
                 const res = await baseRequest.post("admin/leech-phim/store", payload);
-
+                
                 if (res.data.status) {
-                    toaster.success(res.data.message);
+                    if (!isAuto) {
+                        toaster.success(res.data.message);
+                        await this.laydataPhimCheck();
+                        await this.laydataPhim(this.pagination.currentPage);
+                    }
+                    return true;
+                } else {
+                    throw new Error(res.data.message);
+                }
+            } catch (error) {
+                if (!isAuto) {
+                    const errors = Object.values(error.response?.data?.errors || []);
                     await this.laydataPhimCheck();
                     await this.laydataPhim(this.pagination.currentPage);
-                } else {
-                    toaster.error(res.data.message);
-
+                    toaster.error(errors[0] || "Lỗi không xác định.");
                 }
-
-            } catch (error) {
-                const errors = Object.values(error.response?.data?.errors || []);
-                await this.laydataPhimCheck();
-                await this.laydataPhim(this.pagination.currentPage);
-                toaster.error(errors[0] || "Lỗi không xác định.");
+                throw error;
             }
         },
 
-        async leechTapStore(slug) {
+        async leechTapStore(slug, isAuto = false) {
             try {
                 const payload = { slug };
                 const res = await baseRequest.post("admin/leech-phim/store-tap-phim", payload);
-
+                
                 if (res.data.status) {
-                    toaster.success(res.data.message);
-                    await this.laydataPhim(this.pagination.currentPage);
+                    if (!isAuto) {
+                        toaster.success(res.data.message);
+                        await this.laydataPhim(this.pagination.currentPage);
+                    }
+                    return true;
                 } else {
-                    toaster.error(res.data.message);
+                    throw new Error(res.data.message);
                 }
-
             } catch (error) {
-                const errors = Object.values(error.response?.data?.errors || []);
-                toaster.error(errors[0] || "Lỗi không xác định.");
+                if (!isAuto) {
+                    const errors = Object.values(error.response?.data?.errors || []);
+                    toaster.error(errors[0] || "Lỗi không xác định.");
+                }
+                throw error;
             }
         },
 
@@ -563,7 +611,157 @@ export default {
                 });
         },
 
+        async autoLeechPhim() {
+            if (this.isAutoLeeching) return;
+            
+            this.isAutoLeeching = true;
+            this.processedMovies = 0;
+            
+            try {
+                // Lấy tổng số phim cần xử lý
+                const res = await axios.get('https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=1');
+                this.totalMovies = res.data.pagination.totalItems;
+                
+                this.autoLeechInterval = setInterval(async () => {
+                    await this.processNextMovie();
+                }, 2000); // Delay 2 giây giữa mỗi lần xử lý
+                
+                toaster.success("Bắt đầu thêm phim tự động");
+            } catch (error) {
+                toaster.error("Không thể bắt đầu thêm phim tự động");
+                this.stopAutoLeech();
+            }
+        },
+
+        stopAutoLeech() {
+            if (this.autoLeechInterval) {
+                clearInterval(this.autoLeechInterval);
+                this.autoLeechInterval = null;
+            }
+            this.isAutoLeeching = false;
+            toaster.info("Đã dừng thêm phim tự động");
+        },
+
+        async processNextMovie() {
+            try {
+                const res = await axios.get(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=${this.currentAutoLeechPage}`);
+                const movies = res.data.items;
+
+                if (movies.length === 0) {
+                    this.stopAutoLeech();
+                    toaster.success("Đã hoàn thành thêm tất cả phim");
+                    return;
+                }
+
+                const checkedSlugs = new Set(this.list_phim_check.map(item => item.slug_phim));
+                const movieToAdd = movies.find(movie => !checkedSlugs.has(movie.slug));
+
+                if (movieToAdd) {
+                    await this.leechStore(movieToAdd.slug, true);
+                    
+                    await this.leechTapStore(movieToAdd.slug, true);
+                    
+                    this.processedMovies++;
+                    toaster.success(`Đã thêm phim: ${movieToAdd.name} (${this.processedMovies}/${this.totalMovies})`);
+                    
+                    await this.laydataPhimCheck();
+                    await this.laydataPhim(this.pagination.currentPage);
+                } else {
+                    this.currentAutoLeechPage++;
+                }
+
+                if (this.processedMovies >= this.totalMovies) {
+                    this.stopAutoLeech();
+                    toaster.success("Đã hoàn thành thêm tất cả phim");
+                }
+
+            } catch (error) {
+                toaster.error(`Lỗi khi xử lý phim: ${error.message}`);
+                this.stopAutoLeech();
+            }
+        },
+
     },
 };
 </script>
-<style></style>
+<style scoped>
+.btn {
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border-radius: 6px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn i {
+    font-size: 0.875rem;
+}
+
+.btn.disabled,
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.badge {
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.gap-2 {
+    gap: 0.5rem !important;
+}
+
+/* Animation cho icon sync khi đang chạy tự động */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.isAutoLeeching .fa-sync-alt {
+    animation: spin 2s linear infinite;
+}
+
+/* Hiệu ứng hover cho các nút */
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+/* Style cho badge trong nút */
+.btn .badge {
+    position: relative;
+    top: -1px;
+}
+</style>

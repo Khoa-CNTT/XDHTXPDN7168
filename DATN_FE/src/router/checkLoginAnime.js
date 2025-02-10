@@ -14,8 +14,8 @@ export default function (to, from, next) {
       }
     )
     .then((res) => {
-      localStorage.setItem("ho_ten_user", res.data.ho_ten);
-      localStorage.setItem("hinh_anh_user", res.data.hinh_anh);
+      // localStorage.setItem("ho_ten_user", res.data.ho_ten);
+      // localStorage.setItem("hinh_anh_user", res.data.hinh_anh);
       if (res.status === 200) {
         next();
       } else {

@@ -97,7 +97,6 @@ const routes = [
         path: "profile",
         component: () => import("../components/Page/PageProfile/index.vue"),
         beforeEnter: checkloginAdmin,
-
       },
       //Page Blog
       {
@@ -107,6 +106,12 @@ const routes = [
       {
         path: "blog/:slug",
         component: () => import("../components/Page/BlogDelist/index.vue"),
+      },
+      {
+        path: "lich-su-xem",
+        name: "LichSuXem", 
+        component: () => import("../components/User/LichSuXem/index.vue"),
+        beforeEnter: checkLoginUser,
       },
     ],
   },

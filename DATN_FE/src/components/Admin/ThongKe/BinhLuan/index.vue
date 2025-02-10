@@ -64,6 +64,7 @@
                                                     <th>Phim</th>
                                                     <th>Nội Dung</th>
                                                     <th>Thời Gian</th>
+                                                    <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -72,6 +73,7 @@
                                                     <td>{{ comment.ten_phim }}</td>
                                                     <td>{{ comment.noi_dung }}</td>
                                                     <td>{{ formatDate(comment.created_at) }}</td>
+                                                    <td class="text-center"><button class="btn btn-danger btn-sm">Xóa</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
