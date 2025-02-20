@@ -96,7 +96,7 @@ const routes = [
       {
         path: "profile",
         component: () => import("../components/Page/PageProfile/index.vue"),
-        beforeEnter: checkUserTerm,
+        beforeEnter: checkLoginUser,
 
       },
       //Page Blog

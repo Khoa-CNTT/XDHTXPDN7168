@@ -23,22 +23,29 @@
                     </ul>
                 </div>
                 <div class="user-box dropdown">
-                    <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
-                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img v-bind:src="avatarUrl" class="user-img" alt="user avatar">
+                    <a class="d-flex align-items-center nav-link dropdown-toggle" 
+                       href="#" 
+                       role="button" 
+                       id="userDropdown"
+                       data-bs-toggle="dropdown" 
+                       aria-expanded="false">
+                        <img :src="avatarUrl" class="user-img" alt="user avatar">
                         <div class="user-info ps-3">
                             <p class="user-name mb-0">{{ user }}</p>
-
                         </div>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <router-link to="/admin/profile">
-                            <li><a type="button" class="dropdown-item"><i class='bx bx-user'></i><span>Trang cá
-                                        nhân</span></a>
-                            </li>
-                        </router-link>
-                        <li><a type="button" @click="logout()" class="dropdown-item"><i
-                                    class='bx bx-log-out-circle'></i><span>Đăng xuất</span></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li>
+                            <router-link to="/admin/profile" class="dropdown-item">
+                                <i class='bx bx-user'></i>
+                                <span>Trang cá nhân</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" @click="logout">
+                                <i class='bx bx-log-out-circle'></i>
+                                <span>Đăng xuất</span>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -120,4 +127,35 @@ export default {
 
 }
 </script>
-<style></style>
+<style scoped>
+.dropdown-menu {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown-item {
+    color: #ffffff;
+    padding: 8px 20px;
+}
+
+.dropdown-item:hover {
+    background: rgba(255,255,255,0.1);
+    color: #e53637;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.dropdown-toggle::after {
+    color: #ffffff;
+}
+</style>

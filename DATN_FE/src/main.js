@@ -5,6 +5,7 @@ import axios from "axios";
 import Toaster from "@meforma/vue-toaster";
 import router from "./router";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // import 'bootstrap';
 
 // import $ from "jquery";
