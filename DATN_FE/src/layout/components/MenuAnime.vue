@@ -258,6 +258,59 @@
                             </div>
                         </div>
                     </div>
+                     <!-- Modal Tìm Kiếm Mobile  -->
+                     <div class="modal fade" id="TimKiemMo" data-bs-keyboard="false" tabindex="-1"
+                        aria-labelledby="DTimKiemLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content" style="background-color: rgba(35, 33, 33, 0.9); border-radius: 10px;">
+                                <div class="modal-body p-4">
+                                    <div class="product__sidebar__comment">
+                                        <div class="section-title mb-4">
+                                            <div class="input-group">
+                                                <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
+                                                    class="form-control" placeholder="Tìm kiếm phim.." style="border-radius: 5px;">
+                                                <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
+                                                    class="input-group-text serch bg-primary text-white" style="border-radius: 5px;">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row overflow-auto" style="max-height: 400px;" data-bs-spy="sctroll">
+                                            <template v-for="(v, k) in list_phim_search" :key="k">
+                                                <div class="row mb-3">
+                                                    <div class="col-10">
+                                                        <div class="product__sidebar__comment__item d-flex align-items-center">
+                                                            <a v-bind:href="v.slug_phim">
+                                                                <div class="product__sidebar__comment__item__pic me-3">
+                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px; border-radius: 5px;" alt="" />
+                                                                </div>
+                                                            </a>
+                                                            <div class="product__sidebar__comment__item__text">
+                                                                <ul class="list-inline mb-2">
+                                                                    <li class="list-inline-item">{{ v.ten_loai_phim }}</li>
+                                                                    <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                                                        <li class="list-inline-item">{{ value }}</li>
+                                                                    </template>
+                                                                </ul>
+                                                                <h5 class="mb-1">
+                                                                    <a v-bind:href="v.slug_phim" class="text-decoration-none text-white">
+                                                                        {{ v.ten_phim }}
+                                                                    </a>
+                                                                </h5>
+                                                                <div class="text-muted">
+                                                                    Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Modal Gói Víp -->
                     <div class="modal fade" id="modalBuyVip" data-bs-keyboard="false" tabindex="-1"
@@ -482,48 +535,116 @@
 
                 </div>
             </div>
-            <div id="mobile-menu-wrap">
-                <div id="mobile-menu-wrap">
-                    <div class="slicknav_menu">
-                        <a href="#" aria-haspopup="true" role="button" tabindex="0" class="slicknav_btn slicknav_open"
-                            style="outline: none;"><span class="slicknav_menutxt">MENU</span><span
-                                class="slicknav_icon"><span class="slicknav_icon-bar"></span><span
-                                    class="slicknav_icon-bar"></span><span class="slicknav_icon-bar"></span></span></a>
-                        <nav style="display: none;" class="slicknav_nav" aria-hidden="false" role="menu">
-                            <ul>
-                                <li class="active"><a href="./index.html" role="menuitem">Homepage</a></li>
-                                <li class="slicknav_collapsed slicknav_parent"><a href="#" role="menuitem"
-                                        aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row"
-                                        style="outline: none;"><a href="./categories.html">Categories <span
-                                                class="arrow_carrot-down"></span></a>
-                                        <span class="slicknav_arrow">►</span></a>
-                                    <ul class="dropdown slicknav_hidden" role="menu" aria-hidden="true"
-                                        style="display: none;">
-                                        <li><a href="./categories.html" role="menuitem" tabindex="-1">Categories</a>
-                                        </li>
-                                        <li><a href="./anime-details.html" role="menuitem" tabindex="-1">Anime
-                                                Details</a></li>
-                                        <li><a href="./anime-watching.html" role="menuitem" tabindex="-1">Anime
-                                                Watching</a></li>
-                                        <li><a href="./blog-details.html" role="menuitem" tabindex="-1">Blog Details</a>
-                                        </li>
-                                        <li><a href="./signup.html" role="menuitem" tabindex="-1">Sign Up</a></li>
-                                        <li><a href="./login.html" role="menuitem" tabindex="-1">Login</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="./blog.html" role="menuitem">Our Blog</a></li>
-                                <li><a href="#" role="menuitem">Contacts</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
         </div>
 
     </header>
 
+    <!-- Add mobile menu toggle button -->
+    <div class="mobile-menu-toggle d-block d-lg-none" @click="toggleMobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
+    <!-- Update mobile menu wrap -->
+    <div class="mobile-menu-wrap" :class="{ 'active': isMobileMenuOpen }">
+        <nav class="mobile-menu">
+            <ul>
+                <template v-for="(item, index) in list_danh_muc" :key="index">
+                    <li v-if="!item.id_danh_muc_cha" 
+                        :class="{ 'active': activeMenuItem === index }"
+                        @click="toggleSubmenu(index)">
+                        <template v-if="hasSubCategories(item)">
+                            <a href="#" @click.prevent>
+                                {{ item.ten_danh_muc }}
+                                <span class="arrow_carrot-down"></span>
+                            </a>
+                            <ul class="dropdown">
+                                <template v-for="(subItem, subIndex) in getSubCategories(item.id)" :key="subIndex">
+                                    <li>
+                                        <router-link 
+                                            :to="{ name: getRouteName(item.slug_danh_muc), params: { slug: subItem.slug_danh_muc } }"
+                                            @click="closeMobileMenu">
+                                            {{ subItem.ten_danh_muc }}
+                                        </router-link>
+                                    </li>
+                                </template>
+                            </ul>
+                        </template>
+                        <router-link v-else :to="item.link" @click="closeMobileMenu">
+                            {{ item.ten_danh_muc }}
+                        </router-link>
+                    </li>
+                </template>
+            </ul>
+            
+            <!-- Add mobile menu icons -->
+            <ul class="mobile-menu__actions">
+                <!-- VIP Button - luôn hiển thị -->
+                <!-- <li>
+                    <a type="button" data-bs-toggle="modal" data-bs-target="#modalBuyVip">
+                        <i class="fa-solid fa-gem fa-lg me-2"></i>
+                        <span>Nâng cấp VIP</span>
+                    </a>
+                </li> -->
 
+                <!-- Search Button - luôn hiển thị -->
+                <li>
+                    <a type="button" class="text-white" data-bs-toggle="modal" data-bs-target="#TimKiemMobile">
+                        <span>Tìm kiếm</span>
+                    </a>
+                </li>
+
+                <!-- Menu khi chưa đăng nhập -->
+                <template v-if="!is_login">
+                    <li>
+                        <router-link to="/login" @click="closeMobileMenu">
+                            <span>Đăng Nhập</span>
+                        </router-link>
+                    </li>
+                    
+                    <li>
+                        <router-link to="/register" @click="closeMobileMenu">
+                            <span>Đăng Ký</span>
+                        </router-link>
+                    </li>
+                </template>
+
+                <!-- Menu khi đã đăng nhập -->
+                <template v-if="is_login">
+                    <li>
+                        <router-link to="/profile" @click="closeMobileMenu">
+                            <div class="d-flex align-items-center">
+                                <img :src="img" width="30" height="30" class="rounded-circle me-2" alt="">
+                                <span>Hồ sơ của tôi</span>
+                            </div>
+                        </router-link>
+                    </li>
+
+                    <li>
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#modalGiaoDich">
+                            <i class="fa-solid fa-receipt fa-lg me-2"></i>
+                            <span>Hoá đơn</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a type="button" data-bs-toggle="modal" @click="laydataYeuThich()" data-bs-target="#DanhSachYT">
+                            <i class="fa-solid fa-heart fa-lg me-2"></i>
+                            <span>Yêu thích</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a @click="removeToken(); closeMobileMenu()">
+                            <i class="fa-solid fa-power-off fa-lg me-2"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </template>
+            </ul>
+        </nav>
+    </div>
 
 </template>
 <script>
@@ -551,6 +672,8 @@ export default {
             user_name: {},
             id_user: {},
             img: 'https://static.vecteezy.com/system/resources/thumbnails/007/407/996/small/user-icon-person-icon-client-symbol-login-head-sign-icon-design-vector.jpg',
+            isMobileMenuOpen: false,
+            activeMenuItem: null,
         };
     },
     beforeRouteUpdate(to, from, next) {
@@ -694,10 +817,27 @@ export default {
                 });
         },
 
+        toggleMobileMenu() {
+            this.isMobileMenuOpen = !this.isMobileMenuOpen;
+            document.querySelector('.mobile-menu-toggle').classList.toggle('active');
+        },
+
+        toggleSubmenu(index) {
+            this.activeMenuItem = this.activeMenuItem === index ? null : index;
+        },
+
+        closeMobileMenu() {
+            this.isMobileMenuOpen = false;
+            this.activeMenuItem = null;
+            document.querySelector('.mobile-menu-toggle').classList.remove('active');
+        }
     },
 
-
-
+    watch: {
+        $route() {
+            this.closeMobileMenu();
+        }
+    }
 };
 </script>
 <style>

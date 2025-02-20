@@ -348,4 +348,109 @@ export default {
 .custom-button:hover {
     opacity: 0.7;
 }
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+/* Profile image styles */
+.profile-image-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.profile-image-container img {
+    border: 3px solid #e53637;
+    transition: all 0.3s ease;
+}
+
+/* Form styles */
+.input__item {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 12px 15px;
+}
+
+.form-control:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Button styles */
+.btn-danger {
+    background-color: #e53637;
+    border: none;
+    padding: 10px 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #d62e2f;
+    transform: translateY(-2px);
+}
+
+/* Modal styles */
+.modal-content {
+    border: none;
+    border-radius: 10px;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 991px) {
+    .card-body {
+        padding: 20px;
+    }
+
+    .profile-image-container img {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .breadcrumb-option {
+        padding: 40px 0;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .btn-danger {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .card-body {
+        padding: 15px;
+    }
+
+    .profile-image-container img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .form-control {
+        font-size: 14px;
+    }
+}
 </style>

@@ -96,7 +96,8 @@ const routes = [
       {
         path: "profile",
         component: () => import("../components/Page/PageProfile/index.vue"),
-        beforeEnter: checkloginAdmin,
+        beforeEnter: checkUserTerm,
+
       },
       //Page Blog
       {

@@ -45,7 +45,7 @@
             </div>
         </section> -->
         <!-- Hero Section End -->
-        <div class="container mt-3">
+        <div class="slide_container container mt-3">
             <Carousel v-bind="config">
                 <Slide v-for="(slide, index) in list_slide" :key="index">
                     <div class="carousel__item" :style="{ backgroundImage: `url(${slide.poster_img})` }">
@@ -73,16 +73,18 @@
         <!-- Product Section Begin -->
         <section class="product spad" style="background-color: #0b0c2a">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
+                <div class="row custom-row">
+                    <div class="col-lg-8 col-md-12">
                         <div class="trending__product">
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="row align-items-center">
+                                <!-- Cột 1 -->
+                                <div class="col-lg-8 col-md-8 col-sm-12">
                                     <div class="section-title">
                                         <h4>Phim Mới Cập Nhật</h4>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                <!-- Cột 2 -->
+                                <div class="col-lg-4 col-md-4 d-none d-md-block text-end">
                                     <div class="btn__all">
                                         <router-link to="/tat-ca-phim">
                                             <a class="primary-btn">View All <span class="arrow_right"></span></a>
@@ -92,7 +94,7 @@
                             </div>
                             <div class="row">
                                 <template v-for="(v, k) in phim_moi_cap_nhats" :key="k">
-                                    <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-6 col-sm-6">
+                                    <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-4 col-sm-6 col-6">
                                         <router-link :to="v.slug_phim">
                                             <div class="product__item">
                                                 <div class="product__item__pic set-bg"
@@ -141,7 +143,7 @@
                             </div>
                             <div class="row">
                                 <template v-for="(v, k) in tat_ca_phim" :key="k">
-                                    <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-6 col-sm-6">
+                                    <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-4 col-sm-6 col-6">
                                         <router-link :to="v.slug_phim">
                                             <div class="product__item">
                                                 <div class="product__item__pic set-bg"
@@ -190,7 +192,7 @@
                             </div>
                             <div class="row">
                                 <template v-for="(v, k) in tat_ca_phim_hoan_thanh" :key="k">
-                                    <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-6 col-sm-6">
+                                    <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-4 col-sm-6 col-6">
                                         <router-link :to="v.slug_phim">
                                             <div class="product__item">
                                                 <div class="product__item__pic set-bg"
@@ -223,8 +225,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="col-lg-4 col-md-12">
                         <div class="product__sidebar">
                             <div class="product__sidebar__view">
                                 <div class="section-title">
@@ -325,6 +326,7 @@ export default {
             phim_moi_cap_nhats: [],
             so_luong_tap: [],
             list_phim: [],
+            windowWidth: window.innerWidth,
 
         };
     },
@@ -532,6 +534,16 @@ button.carousel__prev.carousel__navigation {
     transform: scale(1.1);
 }
 
+.custom-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.custom-row>div {
+    order: 0;
+    /* Thứ tự mặc định */
+}
+
 .carousel__navigation .prev {
     position: absolute;
     left: 20px;
@@ -559,6 +571,73 @@ button.carousel__prev.carousel__navigation {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .carousel__item {
+        margin: 0 -15px;
+        border-radius: 0;
+    }
+
+    .product  {
+        margin-top: 45px;
+    }
+
+    .custom-row>.col-lg-4 {
+        order: -1;
+        /* Đưa col-4 lên trước */
+    }
+
+    .slide_container {
+        display: none;
+    }
+
+    .hero__text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .hero__text h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        padding: 0 10px;
+    }
+
+    .hero__text p {
+        -webkit-line-clamp: 2;
+        margin-bottom: 15px;
+    }
+
+    .product__item {
+        max-width: 300px;
+        margin: 0 auto 20px;
+    }
+
+    .section-title {
+        margin-bottom: 15px;
+    }
+
+    .btn__all {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .product__item:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+    }
+
+    .slide_container {
+        display: none;
+    }
+
+    .product__sidebar__view__item:hover {
+        transform: scale(1.02);
+        transition: transform 0.3s ease;
     }
 }
 </style>

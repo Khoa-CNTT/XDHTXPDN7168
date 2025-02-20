@@ -31,7 +31,7 @@
                     <div class="col-lg-9">
                         <div class="anime__details__text">
                             <div class="anime__details__title mb-4">
-                                <h3 style="padding-right: 168px;">{{ obj_phim.ten_phim }}</h3>
+                                <h3 >{{ obj_phim.ten_phim }}</h3>
                                 <p>
                                     <span>{{ obj_phim.dao_dien }}</span>
                                 </p>
@@ -330,12 +330,13 @@
                                                         <span class="text-success">✓</span> Xem phim không chứa quảng
                                                         cáo
                                                     </p>
-                                                        <a :href="`/platform/checkout/process/${value.id}`" class="btn btn-primary"
-                                                            style="font-weight: bold; transition: background-color 0.3s;"
-                                                            onmouseover="this.style.backgroundColor='#004085';"
-                                                            onmouseout="this.style.backgroundColor='#007bff';">
-                                                            Mua ngay <i class="fa fa-shopping-cart"></i>
-                                                        </a>
+                                                    <a :href="`/platform/checkout/process/${value.id}`"
+                                                        class="btn btn-primary"
+                                                        style="font-weight: bold; transition: background-color 0.3s;"
+                                                        onmouseover="this.style.backgroundColor='#004085';"
+                                                        onmouseout="this.style.backgroundColor='#007bff';">
+                                                        Mua ngay <i class="fa fa-shopping-cart"></i>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -822,5 +823,12 @@ export default {
     /* Cắt từ khi cần thiết để không tràn khỏi vùng chứa */
     white-space: normal;
     /* Cho phép xuống hàng tự động */
+}
+
+@media (max-width: 768px) {
+    .anime__details__title h3 {
+        padding-right: 0;
+        /* Loại bỏ padding trên màn hình nhỏ */
+    }
 }
 </style>
