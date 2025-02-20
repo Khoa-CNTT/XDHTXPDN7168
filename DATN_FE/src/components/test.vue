@@ -32,7 +32,7 @@
 
         // Gửi yêu cầu đến server
         try {
-          const response = await axios.post('https://wopai-be.dzfullstack.edu.vn/api/chat', {
+          const response = await axios.post('http://127.0.0.1:8000/api/chat', {
             message: this.userMessage,
           });
           this.messages.push({ role: 'bot', content: response.data.message });

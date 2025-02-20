@@ -573,7 +573,7 @@ export default {
         },
         laydataCMT() {
             axios
-                .get("https://wopai-be.dzfullstack.edu.vn/api/binh-luan-phim/lay-du-lieu-show", {
+                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show", {
                     params: {
                         limit: this.limit,
                         slug: this.slug,
