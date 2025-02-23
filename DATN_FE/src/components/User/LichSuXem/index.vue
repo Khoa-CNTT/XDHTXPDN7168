@@ -71,8 +71,11 @@ export default {
 
         const fetchWatchHistory = async () => {
             try {
-                const userId = localStorage.getItem('id_user')
-                baseRequest.get(`khach-hang/lich-su-xem/${userId}`)
+                baseRequest.get(`khach-hang/lich-su-xem`, {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("token_user"),
+                    },
+                })
                     .then((res) => {
                         if (res.data.status) {
                             watchHistory.value = res.data.data
@@ -195,4 +198,4 @@ export default {
     background: #e53637;
     content: "";
 }
-</style> 
+</style>
