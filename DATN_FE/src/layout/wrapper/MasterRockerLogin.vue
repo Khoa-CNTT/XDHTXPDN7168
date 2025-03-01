@@ -1,7 +1,8 @@
 <template>
     <body class="bg-login">
         <div class="wrapper">
-            <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0">
+            <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0"
+                style="margin-top: 100px;">
                 <div class="container-fluid">
                     <RouterView></RouterView>
                 </div>

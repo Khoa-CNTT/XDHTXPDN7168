@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from "vue-router"; // cài vue-router:
 import checkLoginUser from "./checkLoginAnime";
 import checkloginAdmin from "./checkLoginAdmin";
 import checkUserTerm from "./checkUserTerm";
-import ThongKeChung from "../components/Admin/ThongKe/ThongKeChung.vue"
-import ThongKeLuotXem from "../components/Admin/ThongKe/LuotXem/index.vue"
-import ThongKeBinhLuan from "../components/Admin/ThongKe/BinhLuan/index.vue"
-import ThongKeYeuThich from "../components/Admin/ThongKe/YeuThich/index.vue"
+import ThongKeChung from "../components/Admin/ThongKe/ThongKeChung.vue";
+import ThongKeLuotXem from "../components/Admin/ThongKe/LuotXem/index.vue";
+import ThongKeBinhLuan from "../components/Admin/ThongKe/BinhLuan/index.vue";
+import ThongKeYeuThich from "../components/Admin/ThongKe/YeuThich/index.vue";
 const routes = [
   {
     path: "/home",
@@ -97,7 +97,6 @@ const routes = [
         path: "profile",
         component: () => import("../components/Page/PageProfile/index.vue"),
         beforeEnter: checkLoginUser,
-
       },
       //Page Blog
       {
@@ -110,7 +109,7 @@ const routes = [
       },
       {
         path: "lich-su-xem",
-        name: "LichSuXem", 
+        name: "LichSuXem",
         component: () => import("../components/User/LichSuXem/index.vue"),
         beforeEnter: checkLoginUser,
       },
@@ -207,36 +206,38 @@ const routes = [
       },
       {
         path: "thong-ke/loai-phim",
-        component: () => import("../components/Admin/ThongKe/LoaiPhim/index.vue"),
+        component: () =>
+          import("../components/Admin/ThongKe/LoaiPhim/index.vue"),
       },
       {
         path: "thong-ke/doanh-thu",
-        component: () => import("../components/Admin/ThongKe/DoanhthuGoi/index.vue"),
+        component: () =>
+          import("../components/Admin/ThongKe/DoanhthuGoi/index.vue"),
       },
       {
         path: "quan-li-thanh-toan",
         component: () => import("../components/Admin/ThanhToan/index.vue"),
       },
       {
-        path: 'thong-ke',
-        name: 'AdminThongKe',
-        component: ThongKeChung
+        path: "thong-ke",
+        name: "AdminThongKe",
+        component: ThongKeChung,
       },
       {
-        path: 'thong-ke/luot-xem',
-        name: 'ThongKeLuotXem',
-        component: ThongKeLuotXem
+        path: "thong-ke/luot-xem",
+        name: "ThongKeLuotXem",
+        component: ThongKeLuotXem,
       },
       {
-        path: 'thong-ke/binh-luan',
-        name: 'ThongKeBinhLuan',
-        component: ThongKeBinhLuan
+        path: "thong-ke/binh-luan",
+        name: "ThongKeBinhLuan",
+        component: ThongKeBinhLuan,
       },
       {
-        path: 'thong-ke/yeu-thich',
-        name: 'ThongKeYeuThich',
-        component: ThongKeYeuThich
-      }
+        path: "thong-ke/yeu-thich",
+        name: "ThongKeYeuThich",
+        component: ThongKeYeuThich,
+      },
     ],
   },
   //login admin
@@ -272,13 +273,15 @@ const routes = [
       },
       {
         path: "thanks-payment/:email",
-        component: () => import("../components/Checkout/PaymentSucces/index.vue"),
+        component: () =>
+          import("../components/Checkout/PaymentSucces/index.vue"),
         // beforeEnter: checkUserTerm,
         props: true,
       },
       {
         path: "error-payment/:id_goi",
-        component: () => import("../components/Checkout/PaymentErrors/index.vue"),
+        component: () =>
+          import("../components/Checkout/PaymentErrors/index.vue"),
         beforeEnter: checkUserTerm,
         props: true,
       },
