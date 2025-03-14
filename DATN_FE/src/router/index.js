@@ -272,9 +272,9 @@ const routes = [
         props: true,
       },
       {
-        path: "thanks-payment/:email",
-        component: () =>
-          import("../components/Checkout/PaymentSucces/index.vue"),
+        path: "thanks-payment",
+        name: "PaymentSuccess",
+        component: () => import("../components/Checkout/PaymentSucces/index.vue"),
         // beforeEnter: checkUserTerm,
         props: true,
       },
