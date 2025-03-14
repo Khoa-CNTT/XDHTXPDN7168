@@ -1,179 +1,92 @@
 <template>
-    <!-- <div class="row">
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    ĐĂNG KÝ
-                </div>
-                <div class="card-body">
-                    <label class="mb-2 mt-1 "><b>Họ Và Tên</b></label>
-                    <input v-model="dang_ky.ho_va_ten" type="text" class="form-control">
-                    <label class="mb-2 mt-1"><b>Email</b></label>
-                    <input v-model="dang_ky.email" type="email" class="form-control">
-                    <label class="mb-2  mt-1"><b>Mật Khẩu</b></label>
-                    <input v-model="dang_ky.password" type="text" class="form-control">
-                    <label for="mb-2 mt-1" class="form-label mb-1 mt-1">
-                        <b>Ảnh Đại Diện</b>
-                    </label>
-                    <input type="file" @change="handleFileChange" class="form-control" />
-                </div>
-                <div class="card-footer text-end">
-                    <button v-on:click="dangKy()" class="btn btn-primary">Đăng Ký</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4" v-if="is_login == false">
-            <div class="card">
-                <div class="card-header">
-                    ĐĂNG NHẬP
-                </div>
-                <div class="card-body">
-                    <label class="mb-2">Email</label>
-                    <input v-model="dang_nhap.email" type="email" class="form-control">
-                    <label class="mb-2">Mật Khẩu</label>
-                    <input v-model="dang_nhap.password" type="text" class="form-control">
-                </div>
-                <div class="card-footer text-end">
-                    <button v-on:click="dangNhap()" class="btn btn-danger">Đăng Nhập</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    CHECK TOKEN
-                </div>
-                <div class="card-body">
-                    <label class="mb-2">Token</label>
-                    <input v-model="check_token.token" type="text" class="form-control">
-                </div>
-                <div class="card-footer text-end">
-                    <button v-on:click="checkToken()" class="btn btn-warning">Check Login</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    DANH SÁCH ABC
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Id</th>
-                                    <th class="text-center">Device</th>
-                                    <th class="text-center">Browser</th>
-                                    <th class="text-center">Ip</th>
-                                    <th class="text-center">Os</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(v, k) in list_token">
-                                    <th class="text-center align-middle">{{ v.id }}</th>
-                                    <td class="align-middle">{{ v.device }}</td>
-                                    <td class="align-middle">{{ v.trinh_duyet }}</td>
-                                    <td class="align-middle">{{ v.ip }}</td>
-                                    <td class="align-middle">{{ v.os }}</td>
-                                    <td class="text-center align-middle">
-                                        <button class="btn btn-danger" @:click="remove_token = v" data-bs-toggle="modal"
-                                            data-bs-target="#xoaModal">Remove</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+    <div class="login-container">
+        <div class="login-wrapper">
+            <div class="card login-card shadow-lg">
+                <div class="card-body p-5">
+                    <div class="text-center mb-5">
+                        <div class="login-logo-container">
+                        </div>
+                        <h3 class="login-title mt-3">ĐĂNG NHẬP ADMIN</h3>
+                        <p class="text-muted">Truy cập hệ thống quản trị</p>
                     </div>
-                    <div class="modal fade" id="xoaModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa Token</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div
-                                        class="alert alert-warning border-0 bg-warning alert-dismissible fade show py-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="font-35 text-dark"><i class="bx bx-info-circle"></i>
-                                            </div>
-                                            <div class="ms-3">
-                                                <h6 class="mb-0 text-dark">Warning</h6>
-                                                <div class="text-dark">
-                                                    <p>Bạn có muốn xóa token <b></b>
-                                                        này không?
-                                                    </p>
-                                                    <p>
-                                                        <b>Lưu ý:</b> Điều này không thể hoàn tác!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Thoát</button>
-                                    <button type="button" class="btn btn-danger" v-on:click="removeToken()"
-                                        data-bs-dismiss="modal">Xóa</button>
+
+                    <form 
+                        class="form-body" 
+                        @submit.prevent="dangNhap"
+                        novalidate
+                    >
+                        <div class="mb-4">
+                            <label class="form-label">Địa Chỉ Email</label>
+                            <div class="input-group input-group-lg has-validation">
+                                <span class="input-group-text bg-transparent">
+                                    <i class="bx bx-envelope"></i>
+                                </span>
+                                <input 
+                                    type="email" 
+                                    v-model="dang_nhap.email" 
+                                    :class="[
+                                        'form-control form-control-lg',
+                                        check_validate && errors.email ? 'is-invalid' : ''
+                                    ]"
+                                    placeholder="Nhập Email" 
+                                    required
+                                />
+                                <div 
+                                    v-if="check_validate && errors.email" 
+                                    class="invalid-feedback"
+                                >
+                                    {{ errors.email }}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
-        <div class="col mx-auto">
-            <div class="mb-4 text-center">
-                <!-- <img src="../../assets/assets_rocker/images/logo-img.png" width="180" alt="" /> -->
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="border p-4 rounded shadow-sm">
-                        <div class="text-center">
-                            <h3 class="mb-3">ĐĂNG NHẬP ADMIN</h3>
-                            <!-- <p>Bạn đã có tài khoản? -->
-                            <!-- <router-link to="register">
 
-                                    <a href="admin/registerl">Đăng ký?</a>
-                                </router-link> -->
-                            <!-- </p> -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label class="form-label">Mật Khẩu</label>
+                                <a 
+                                    href="#" 
+                                    class="forgot-link text-decoration-none"
+                                >
+                                    Quên mật khẩu?
+                                </a>
+                            </div>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-transparent">
+                                    <i class="bx bx-lock"></i>
+                                </span>
+                                <input 
+                                    :type="showPassword ? 'text' : 'password'"
+                                    v-model="dang_nhap.password"
+                                    class="form-control form-control-lg" 
+                                    placeholder="Nhập Mật Khẩu"
+                                    required
+                                />
+                                <button 
+                                    type="button"
+                                    class="input-group-text bg-transparent"
+                                    @click="showPassword = !showPassword"
+                                >
+                                    <i :class="showPassword ? 'bx bx-show' : 'bx bx-hide'"></i>
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="form-body">
-                            <form class="row g-3 needs-validation">
-                                <div class="col-12">
-                                    <label class="form-label">Địa Chỉ Email</label>
-                                    <input type="text" v-model="dang_nhap.email" placeholder="Nhập Email" :class="[
-                                        'form-control',
-                                        check_validate ? 'is-invalid' : '',
-                                    ]" />
-                                    <div class="invalid-feedback">{{ errors.email }}</div>
-                                </div>
-                                <div class="col-12">
-                                    <label  class="form-label">Mật Khẩu</label>
-                                    <input v-on:keyup.enter="dangNhap()" type="password" v-model="dang_nhap.password"
-                                        class="form-control" placeholder="Nhập Mật Khẩu" />
-                                </div>
-                                <div class="col-12 mt-4">
-                                    <div class="d-grid">
-                                        <button type="button" @:click="dangNhap()" class="btn btn-primary">
-                                            <i class="bx bxs-lock-open"></i>Đăng Nhập
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="d-grid">
+                            <button 
+                                type="submit" 
+                                class="btn btn-primary btn-lg login-btn"
+                            >
+                                <i class="bx bxs-lock-open me-2"></i>
+                                Đăng Nhập
+                            </button>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 <script>
 import axios from "axios";
 import { createToaster } from "@meforma/vue-toaster";
@@ -182,6 +95,7 @@ const toaster = createToaster({ position: "top-right" });
 export default {
     data() {
         return {
+            showPassword: false,
             dang_ky: {},
             dang_nhap: {},
             check_token: {},
@@ -236,7 +150,7 @@ export default {
                 .then((res) => {
                     if (res.status === 200) {
                         this.is_login = true;
-                        this.$router.push("/admin");
+                        window.location.href = "/admin";
                     }
                 })
                 .catch(() => {
@@ -283,4 +197,54 @@ export default {
     },
 };
 </script>
-<style></style>
+
+<style scoped>
+.login-container {
+    min-height: 100vh;
+    /* background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-wrapper {
+    width: 100%;
+    max-width: 450px;
+}
+
+.login-card {
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.login-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-logo {
+    max-width: 120px;
+    height: auto;
+}
+
+.login-title {
+    color: #2c3e50;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+</style>

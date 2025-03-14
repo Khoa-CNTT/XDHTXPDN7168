@@ -128,7 +128,7 @@ export default {
 }
 </script>
 <style scoped>
-.dropdown-menu {
+/* .dropdown-menu {
     background: #1a1a1a;
     border: 1px solid rgba(255,255,255,0.1);
 }
@@ -157,5 +157,5 @@ export default {
 
 .dropdown-toggle::after {
     color: #ffffff;
-}
+} */
 </style>

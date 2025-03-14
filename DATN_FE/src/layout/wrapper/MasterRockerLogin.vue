@@ -1,8 +1,7 @@
 <template>
-    <body class="bg-login">
+    <body class="bg-login" >
         <div class="wrapper">
-            <div class="section-authentication-signin d-flex align-items-center justify-content-center my-5 my-lg-0"
-                style="margin-top: 100px;">
+            <div class="section-authentication-signin d-flex align-items-center justify-content-center">
                 <div class="container-fluid">
                     <RouterView></RouterView>
                 </div>
@@ -36,4 +35,20 @@ export default {
 @import '../../assets/assets_Rocker/css/header-colors.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.section-authentication-signin {
+  width: 100%;
+}
+
+.container-fluid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
 </style>
