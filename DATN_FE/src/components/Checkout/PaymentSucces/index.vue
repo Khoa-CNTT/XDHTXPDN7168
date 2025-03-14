@@ -97,7 +97,7 @@ export default {
       // Xử lý response VNPAY
       this.paymentInfo = {
         amount: parseInt(urlParams.get('vnp_Amount')) / 100,
-        orderInfo: urlParams.get('vnp_OrderInfo'),
+        orderInfo: urlParams.get('vnp_TxnRef'),
         transactionNo: urlParams.get('vnp_TransactionNo'),
         paymentType: 'vnpay',
         responseCode: urlParams.get('vnp_ResponseCode'),
