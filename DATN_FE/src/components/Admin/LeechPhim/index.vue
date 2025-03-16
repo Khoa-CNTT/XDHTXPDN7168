@@ -21,6 +21,20 @@
                             <i class="fas fa-stop me-2"></i>
                             <span>Dừng</span>
                         </button>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="time" 
+                                   class="form-control form-control-sm" 
+                                   v-model="scheduledLeech.time"
+                                   :disabled="scheduledLeech.isEnabled">
+                            <button @click="toggleScheduleLeech"
+                                    class="btn btn-sm text-nowrap"
+                                    :class="scheduledLeech.isEnabled ? 'btn-warning' : 'btn-secondary'">
+                                <i class="fas" 
+                                   :class="scheduledLeech.isEnabled ? 'fa-clock' : 'fa-clock-o'">
+                                </i>
+                                {{ scheduledLeech.isEnabled ? 'Tắt lịch' : 'Bật lịch' }}
+                            </button>
+                        </div>
                     </div>
                     <h5 class="mb-0">
                         <b>Tổng phim:</b> 
@@ -28,6 +42,12 @@
                     </h5>
                 </div>
                 <div class="card-body">
+                    <div v-if="scheduledLeech.isEnabled" class="small text-muted mt-2">
+                        Lịch chạy: mỗi ngày lúc {{ scheduledLeech.time }}
+                        <span v-if="scheduledLeech.lastRun">
+                            (Lần cuối: {{ new Date(scheduledLeech.lastRun).toLocaleString() }})
+                        </span>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-responsive">
                             <thead>
@@ -372,6 +392,14 @@ export default {
             currentAutoLeechPage: 1,
             processedMovies: 0,
             totalMovies: 0,
+            movieQueue: [],
+            isProcessingQueue: false,
+            scheduledLeech: {
+                isEnabled: false,
+                time: "00:00", // Thời gian chạy mỗi ngày
+                lastRun: null, // Thời gian chạy lần cuối
+                timer: null, // Timer để kiểm tra lịch
+            },
         };
     },
     computed: {
@@ -436,6 +464,21 @@ export default {
     async mounted() {
         await this.laydataPhimCheck();
         this.laydataPhim(1);
+
+        // Khôi phục cấu hình lịch từ localStorage
+        const savedSchedule = localStorage.getItem('leechSchedule');
+        if (savedSchedule) {
+            const schedule = JSON.parse(savedSchedule);
+            this.scheduledLeech = {
+                ...this.scheduledLeech,
+                ...schedule
+            };
+            
+            // Khởi động lại lịch nếu đang bật
+            if (this.scheduledLeech.isEnabled) {
+                this.startScheduleLeech();
+            }
+        }
     },
     methods: {
         convertDate(dateString) {
@@ -616,15 +659,22 @@ export default {
             
             this.isAutoLeeching = true;
             this.processedMovies = 0;
+            this.movieQueue = [];
             
             try {
-                // Lấy tổng số phim cần xử lý
-                const res = await axios.get('https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=1');
-                this.totalMovies = res.data.pagination.totalItems;
+                // Lấy danh sách phim từ trang hiện tại
+                const res = await axios.get(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=${this.pagination.currentPage}`);
                 
-                this.autoLeechInterval = setInterval(async () => {
-                    await this.processNextMovie();
-                }, 2000); // Delay 2 giây giữa mỗi lần xử lý
+                // Lấy danh sách slug đã tồn tại
+                const checkedSlugs = new Set(this.list_phim_check.map(item => item.slug_phim));
+                
+                // Thêm các phim chưa được thêm vào queue
+                const movies = res.data.items;
+                this.movieQueue = movies.filter(movie => !checkedSlugs.has(movie.slug));
+                this.totalMovies = this.movieQueue.length; // Cập nhật tổng số phim cần xử lý
+                
+                // Bắt đầu xử lý queue
+                this.processQueue();
                 
                 toaster.success("Bắt đầu thêm phim tự động");
             } catch (error) {
@@ -633,54 +683,129 @@ export default {
             }
         },
 
-        stopAutoLeech() {
-            if (this.autoLeechInterval) {
-                clearInterval(this.autoLeechInterval);
-                this.autoLeechInterval = null;
+        async processQueue() {
+            if (!this.isAutoLeeching || this.movieQueue.length === 0) {
+                this.stopAutoLeech();
+                toaster.success("Đã hoàn thành thêm tất cả phim ở trang hiện tại");
+                return;
             }
-            this.isAutoLeeching = false;
-            toaster.info("Đã dừng thêm phim tự động");
-        },
 
-        async processNextMovie() {
             try {
-                const res = await axios.get(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=${this.currentAutoLeechPage}`);
-                const movies = res.data.items;
+                const movie = this.movieQueue.shift();
+                
+                // Thêm phim
+                await this.leechStore(movie.slug, true);
+                
+                this.processedMovies++;
+                toaster.success(`Đã thêm phim: ${movie.name} (${this.processedMovies}/${this.totalMovies})`);
+                
+                // Cập nhật danh sách
+                await this.laydataPhimCheck();
+                await this.laydataPhim(this.pagination.currentPage);
 
-                if (movies.length === 0) {
-                    this.stopAutoLeech();
-                    toaster.success("Đã hoàn thành thêm tất cả phim");
-                    return;
-                }
-
-                const checkedSlugs = new Set(this.list_phim_check.map(item => item.slug_phim));
-                const movieToAdd = movies.find(movie => !checkedSlugs.has(movie.slug));
-
-                if (movieToAdd) {
-                    await this.leechStore(movieToAdd.slug, true);
-                    
-                    await this.leechTapStore(movieToAdd.slug, true);
-                    
-                    this.processedMovies++;
-                    toaster.success(`Đã thêm phim: ${movieToAdd.name} (${this.processedMovies}/${this.totalMovies})`);
-                    
-                    await this.laydataPhimCheck();
-                    await this.laydataPhim(this.pagination.currentPage);
-                } else {
-                    this.currentAutoLeechPage++;
-                }
-
-                if (this.processedMovies >= this.totalMovies) {
-                    this.stopAutoLeech();
-                    toaster.success("Đã hoàn thành thêm tất cả phim");
-                }
+                // Đợi 2 giây trước khi xử lý phim tiếp theo
+                setTimeout(() => {
+                    this.processQueue();
+                }, 2000);
 
             } catch (error) {
                 toaster.error(`Lỗi khi xử lý phim: ${error.message}`);
-                this.stopAutoLeech();
+                // Nếu có lỗi, vẫn tiếp tục với phim tiếp theo
+                setTimeout(() => {
+                    this.processQueue();
+                }, 2000);
             }
         },
 
+        stopAutoLeech() {
+            this.isAutoLeeching = false;
+            this.movieQueue = [];
+            toaster.info("Đã dừng thêm phim tự động");
+        },
+
+        toggleScheduleLeech() {
+            if (this.scheduledLeech.isEnabled) {
+                this.stopScheduleLeech();
+            } else {
+                this.startScheduleLeech();
+            }
+        },
+
+        startScheduleLeech() {
+            this.scheduledLeech.isEnabled = true;
+            this.scheduledLeech.timer = setInterval(() => {
+                this.checkSchedule();
+            }, 60000); // Kiểm tra mỗi phút
+            
+            // Lưu trạng thái vào localStorage
+            localStorage.setItem('leechSchedule', JSON.stringify({
+                isEnabled: true,
+                time: this.scheduledLeech.time,
+                lastRun: this.scheduledLeech.lastRun
+            }));
+            
+            toaster.success("Đã bật lịch tự động leech phim");
+        },
+
+        stopScheduleLeech() {
+            this.scheduledLeech.isEnabled = false;
+            if (this.scheduledLeech.timer) {
+                clearInterval(this.scheduledLeech.timer);
+                this.scheduledLeech.timer = null;
+            }
+            
+            // Cập nhật localStorage
+            localStorage.setItem('leechSchedule', JSON.stringify({
+                isEnabled: false,
+                time: this.scheduledLeech.time,
+                lastRun: this.scheduledLeech.lastRun
+            }));
+            
+            toaster.info("Đã tắt lịch tự động leech phim");
+        },
+
+        async checkSchedule() {
+            if (!this.scheduledLeech.isEnabled || this.isAutoLeeching) return;
+
+            const now = new Date();
+            const [scheduleHour, scheduleMinute] = this.scheduledLeech.time.split(':').map(Number);
+            
+            // Kiểm tra xem đã đến giờ chạy chưa
+            if (now.getHours() === scheduleHour && now.getMinutes() === scheduleMinute) {
+                // Kiểm tra xem đã chạy hôm nay chưa
+                const lastRun = this.scheduledLeech.lastRun ? new Date(this.scheduledLeech.lastRun) : null;
+                if (!lastRun || !this.isSameDay(lastRun, now)) {
+                    await this.runScheduledLeech();
+                }
+            }
+        },
+
+        async runScheduledLeech() {
+            try {
+                // Cập nhật thời gian chạy lần cuối
+                this.scheduledLeech.lastRun = new Date().toISOString();
+                localStorage.setItem('leechSchedule', JSON.stringify(this.scheduledLeech));
+                
+                // Chạy leech tự động
+                await this.autoLeechPhim();
+                
+                toaster.success(`Đã thực hiện leech phim theo lịch lúc ${this.scheduledLeech.time}`);
+            } catch (error) {
+                toaster.error("Lỗi khi thực hiện leech phim theo lịch");
+            }
+        },
+
+        // Helper function để kiểm tra cùng ngày
+        isSameDay(date1, date2) {
+            return date1.getFullYear() === date2.getFullYear() &&
+                   date1.getMonth() === date2.getMonth() &&
+                   date1.getDate() === date2.getDate();
+        },
+    },
+    beforeUnmount() {
+        if (this.scheduledLeech.timer) {
+            clearInterval(this.scheduledLeech.timer);
+        }
     },
 };
 </script>

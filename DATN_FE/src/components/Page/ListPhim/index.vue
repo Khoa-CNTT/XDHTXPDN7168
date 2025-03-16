@@ -187,8 +187,8 @@ export default {
             }
         },
         laydataPhim(page) {
-            axios
-                .get("http://127.0.0.1:8000/api/lay-tat-ca-phim?page=" + page)
+            baseRequest
+                .get("lay-tat-ca-phim?page=" + page)
                 .then((res) => {
                     this.list_phim = res.data.phim.dataPhim.data;
                     this.list_phim.forEach((value, index) => {
@@ -203,8 +203,8 @@ export default {
         },
         Sapxep(page) {
             this.check_page = 1;
-            axios
-                .get("http://127.0.0.1:8000/api/lay-tat-ca-phim/sap-xep/" + this.bien + '?page=' + page, {})
+            baseRequest
+                .get("lay-tat-ca-phim/sap-xep/" + this.bien + '?page=' + page, {})
                 .then((res) => {
                     this.list_phim = res.data.phim.dataPhim.data;
                     this.list_phim.forEach((value, index) => {

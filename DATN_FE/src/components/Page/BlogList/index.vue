@@ -156,6 +156,7 @@
 import axios from "axios";
 import { getPageNumbers } from "../../../core/paginationUtils.js";
 import { createToaster } from "@meforma/vue-toaster";
+import baseRequest from "../../../core/baseRequestUser";
 const toaster = createToaster({
     position: "top-right",
 });
@@ -197,8 +198,8 @@ export default {
             }
         },
         laydataLoaiBlog(page) {
-            axios
-                .get("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-show?page=" + page)
+            baseRequest
+                .get("bai-viet/lay-du-lieu-show?page=" + page)
                 .then((res) => {
                     this.list_blog = res.data.bai_viet.dataAdmin.data;
                     this.pagination = res.data.bai_viet.pagination;
@@ -209,8 +210,8 @@ export default {
                 });
         },
         loaddataChuyenMuc() {
-            axios
-                .get("http://127.0.0.1:8000/api/chuyen-muc/lay-du-lieu-show")
+            baseRequest
+                .get("chuyen-muc/lay-du-lieu-show")
                 .then((res) => {
                     this.list_chuyen_muc = res.data.chuyen_muc;
                 });
@@ -221,8 +222,8 @@ export default {
             var payload = {
                 'id_chuyen_muc': id_chuyen_muc
             };
-            axios
-                .post("http://127.0.0.1:8000/api/bai-viet/change-chuyen-muc?page=" + page, payload)
+            baseRequest
+                .post("bai-viet/change-chuyen-muc?page=" + page, payload)
                 .then((res) => {
                     this.list_blog = res.data.bai_viet.dataAdmin.data;
                     this.pagination = res.data.bai_viet.pagination;

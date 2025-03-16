@@ -113,7 +113,7 @@ export default {
     methods: {
         dangNhap() {
             axios
-                .post("http://127.0.0.1:8000/api/login", this.dang_nhap)
+                .post(import.meta.env.VITE_API_URL + 'login', this.dang_nhap)
                 .then((res) => {
                     if (res.data.status == true) {
                         toaster.success(res.data.message);
@@ -139,7 +139,7 @@ export default {
         checkToken() {
             axios
                 .post(
-                    "http://127.0.0.1:8000/api/check",
+                    import.meta.env.VITE_API_URL + 'check',
                     {},
                     {
                         headers: {
@@ -160,7 +160,7 @@ export default {
         removeToken() {
             axios
                 .delete(
-                    "http://127.0.0.1:8000/api/thong-tin-xoa/" + this.remove_token.id
+                    import.meta.env.VITE_API_URL + 'thong-tin-xoa/' + this.remove_token.id
                 )
                 .then((res) => {
                     if (res.data.status == true) {

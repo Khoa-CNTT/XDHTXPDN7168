@@ -62,7 +62,7 @@
                         <div class="login__social__links">
                             <span>hoặc</span>
                             <ul>
-                                <li><a href="http://127.0.0.1:8000/api/auth/google" class="google"><i class="fa fa-google"></i>
+                                <li><a @click="dangNhapGoogle()" class="google"><i class="fa fa-google"></i>
                                         Đăng nhập với Google</a></li>
                             </ul>
                         </div>
@@ -92,16 +92,13 @@ export default {
         this.checkToken();
     },
     methods: {
-        // dangKy() {
-        //     axios
-        //         .post('http://127.0.0.1:8000/api/khach-hang/register', this.dang_ky)
-        //         .then((res) => {
-        //             this.$store.dispatch('showSuccess', {description: res.data.message,});
-        //         });
-        // },
+    
+        dangNhapGoogle() {
+            window.location.href = import.meta.env.VITE_API_URL + 'auth/google';
+        },
         dangNhap() {
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/login', this.user)
+                .post(import.meta.env.VITE_API_URL + 'khach-hang/login', this.user)
                 .then((res) => {
                     if (res.data.status) {
                         var arr = res.data.token.split("|");
@@ -119,7 +116,7 @@ export default {
         },
         checkToken() {
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
+                .post(import.meta.env.VITE_API_URL + 'khach-hang/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token_user')
                     }
@@ -141,18 +138,7 @@ export default {
                     this.is_login = false;
                 });
         },
-        // removeToken() {
-        //     axios
-        //         .delete('http://127.0.0.1:8000/api/khach-hang/thong-tin-xoa/'+ this.remove_token.id)
-        //         .then((res) => {
-        //             if (res.data.status == true) {
-        //                 toaster.success( res.data.message);
-        //                 this.list_token = [],
-        //                     this.checkToken();
-        //             }
-        //         })
-        // },
-        /// file base 64
+     
         async imageToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();

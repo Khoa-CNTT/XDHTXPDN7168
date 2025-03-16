@@ -20,7 +20,7 @@ export default {
     },
     methods: {
         async checkHashLogin() {
-            const response = await axios.get("http://127.0.0.1:8000/api/kiem-tra-login-google", {
+            const response = await axios.get(import.meta.env.VITE_API_URL + 'kiem-tra-login-google', {
                 headers: {
                     Authorization: 'Bearer ' + this.$route.params.token
                 }

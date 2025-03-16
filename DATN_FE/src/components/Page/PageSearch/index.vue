@@ -87,7 +87,7 @@
 </template>
 <script>
 import axios from "axios"
-import baseRequest from '../../../core/baseRequest';
+import baseRequest from '../../../core/baseRequestUser';
 import { createToaster } from "@meforma/vue-toaster";
 import { getPageNumbers } from "../../../core/paginationUtils.js";
 const toaster = createToaster({
@@ -130,8 +130,8 @@ export default {
             }
         },
         searchPhim(page) {
-            axios
-                .post("http://127.0.0.1:8000/api/phim/load-thong-tin-tim/?page=" + page, this.key_tim)
+            baseRequest
+                .post("phim/load-thong-tin-tim/?page=" + page, this.key_tim)
                 .then((res) => {
                     // this.list_9_phim = res.data.phim_9_obj;
                     this.pagination = res.data.phim.pagination;

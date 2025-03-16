@@ -56,7 +56,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
-import axios from "axios";
+import baseRequest from '../../core/baseRequest';
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({ position: "top-right" });
 export default {
@@ -78,12 +78,8 @@ export default {
     },
     methods: {
         logout() {
-            axios
-                .post('http://127.0.0.1:8000/api/logout', {}, {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
-                    }
-                })
+            baseRequest
+                .post('logout', {})
                 .then((res) => {
                     if (res.data.status) {
                         toaster.success(res.data.message);
@@ -106,12 +102,8 @@ export default {
                 });
         },
         checkToken() {
-            axios
-                .post('http://127.0.0.1:8000/api/admin/check', {}, {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token')
-                    }
-                })
+            baseRequest
+                .post('admin/check', {})
                 .then((res) => {
                     console.log(res.data);
                     if (res.status === 200) {

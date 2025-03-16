@@ -69,7 +69,7 @@
                             <div class="col-lg-6">
                                 <div class="login__social__links">
                                     <ul>
-                                        <li><a href="http://127.0.0.1:8000/api/auth/google" type="button"
+                                        <li><a @click="dangNhapGoogle()" type="button"
                                                 class="google"><i class="fa fa-google"></i>
                                                 Đăng nhập với Google</a></li>
                                     </ul>
@@ -99,6 +99,9 @@ export default {
         this.checkToken();
     },
     methods: {
+        dangNhapGoogle() {
+            window.location.href = import.meta.env.VITE_API_URL + 'auth/google';
+        },
         kichHoatTK() {
             baseRequest
                 .post('gui-mail-kich-hoat', this.dang_ky)
@@ -125,7 +128,7 @@ export default {
         checkToken() {
             this.$store.dispatch('showLoader');
             axios
-                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
+                .post(import.meta.env.VITE_API_URL + 'khach-hang/check', {}, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token_user')
                     }

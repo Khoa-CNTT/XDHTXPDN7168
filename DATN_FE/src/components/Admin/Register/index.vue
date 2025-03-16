@@ -67,7 +67,7 @@ export default {
     methods: {
         dangKy() {
             axios
-                .post('http://127.0.0.1:8000/api/register', this.dang_ky)
+                .post(import.meta.env.VITE_API_URL + 'register', this.dang_ky)
                 .then((res) => {
                     toaster.success(res.data.message);
                     this.dang_ky = {};

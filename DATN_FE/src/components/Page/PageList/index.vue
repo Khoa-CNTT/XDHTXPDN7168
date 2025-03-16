@@ -138,7 +138,7 @@
 </template>
 <script>
 import axios from "axios"
-import baseRequest from '../../../core/baseRequest';
+import baseRequest from '../../../core/baseRequestUser';
 import { createToaster } from "@meforma/vue-toaster";
 import { getPageNumbers } from "../../../core/paginationUtils.js";
 const toaster = createToaster({
@@ -206,8 +206,8 @@ export default {
             });
         },
         loadataTheLoaiAndPhim(page) {
-            axios
-                .get('http://127.0.0.1:8000/api/the-loai/lay-du-lieu/' + this.slug + '?page=' + page, {})
+            baseRequest
+                .get('the-loai/lay-du-lieu/' + this.slug + '?page=' + page, {})
                 .then((res) => {
                     if (res.data.status == false) {
                         this.$router.push('/');
@@ -238,8 +238,8 @@ export default {
         },
         Sapxep(page) {
             this.check_page = 1;
-            axios
-                .get("http://127.0.0.1:8000/api/the-loai/sap-xep/" + this.the_loai.slug_the_loai + "/" + this.bien + '?page=' + page)
+            baseRequest
+                .get("the-loai/sap-xep/" + this.the_loai.slug_the_loai + "/" + this.bien + '?page=' + page)
                 .then((res) => {
                     this.list_phim = res.data.phim.dataPhim.data;
                     this.list_phim.forEach((value, index) => {

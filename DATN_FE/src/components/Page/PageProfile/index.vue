@@ -222,13 +222,10 @@ export default {
     },
     methods: {
         laydataUser() {
-            axios
-                .get("http://127.0.0.1:8000/api/khach-hang/lay-du-lieu-profile", {
+            baseRequest
+                .get("khach-hang/lay-du-lieu-profile", {
                     params: {
                         id_khach_hang: this.id_user,
-                    },
-                    headers: {
-                        Authorization: "Bearer " + localStorage.getItem("token_user"),
                     },
                 })
                 .then((res) => {

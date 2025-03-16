@@ -217,12 +217,8 @@ export default {
     },
     methods: {
         laydataAdmin() {
-            axios
-                .get("http://127.0.0.1:8000/api/admin/admin/lay-du-lieu-profile", {
-                    headers: {
-                        Authorization: "Bearer " + localStorage.getItem("token"),
-                    },
-                })
+            baseRequest
+                .get("admin/admin/lay-du-lieu-profile")
                 .then((res) => {
                     this.obj_doi_pass = res.data.obj_admin;
                     this.obj_admin = res.data.obj_admin;

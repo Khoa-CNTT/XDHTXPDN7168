@@ -145,10 +145,10 @@ export default {
             await new Promise(resolve => setTimeout(resolve, 10000)); // đợi 10 giây
 
             try {
-                const res = await axios.post("http://127.0.0.1:8000/api/transation/set-status" , this.obj_hoa_don);
+                const res = await axios.post(import.meta.env.VITE_API_URL + 'transation/set-status' , this.obj_hoa_don);
                 if (res.data.status == true) {
                     myModal.hide();
-                    this.$router.push('/platform/checkout/thanks-payment/' + this.obj_user.email);
+                    this.$router.push('/platform/checkout/thanks-payment' );
                 } else {
                     this.$store.dispatch('showError', { description: "Đã xảy ra lỗi", });
                     myModal.hide();

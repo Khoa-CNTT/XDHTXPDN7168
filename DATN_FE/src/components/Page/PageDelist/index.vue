@@ -572,8 +572,8 @@ export default {
             this.laydataCMT();
         },
         laydataCMT() {
-            axios
-                .get("http://127.0.0.1:8000/api/binh-luan-phim/lay-du-lieu-show", {
+            baseRequest
+                .get("binh-luan-phim/lay-du-lieu-show", {
                     params: {
                         limit: this.limit,
                         slug: this.slug,

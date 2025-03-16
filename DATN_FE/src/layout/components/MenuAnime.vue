@@ -727,8 +727,8 @@ export default {
                 });
         },
         loadDataMenu() {
-            axios
-                .get("http://127.0.0.1:8000/api/loai-phim/lay-du-lieu-show")
+            baseRequest
+                .get("loai-phim/lay-du-lieu-show")
                 .then((res) => {
                     this.list_danh_muc = res.data.danh_muc_webs;
 
@@ -766,11 +766,8 @@ export default {
             this.$store.dispatch('showSuccess', { description: 'Đăng xuất thành công', });
         },
         checkToken() {
-            axios
-                .post('http://127.0.0.1:8000/api/khach-hang/check', {}, {
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token_user')
-                    }
+            baseRequest
+                .post('khach-hang/check', {}, {
                 })
                 .then((res) => {
                     // localStorage.setItem('ho_ten', res.data.ho_ten);
@@ -807,8 +804,8 @@ export default {
                 });
         },
         searchPhim() {
-            axios
-                .post("http://127.0.0.1:8000/api/phim/thong-tin-tim", this.key_tim)
+            baseRequest
+                .post("phim/thong-tin-tim", this.key_tim)
                 .then((res) => {
                     this.list_phim_search = res.data.phim;
                     this.list_phim_search.forEach((value, index) => {
