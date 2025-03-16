@@ -62,7 +62,7 @@
                         <div class="login__social__links">
                             <span>hoặc</span>
                             <ul>
-                                <li><a @click="dangNhapGoogle()" class="google"><i class="fa fa-google"></i>
+                                <li><a href="#" @click="dangNhapGoogle()" class="google"><i class="fa fa-google"></i>
                                         Đăng nhập với Google</a></li>
                             </ul>
                         </div>

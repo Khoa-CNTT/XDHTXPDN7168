@@ -572,8 +572,8 @@ export default {
             this.laydataCMT();
         },
         laydataCMT() {
-            baseRequest
-                .get("binh-luan-phim/lay-du-lieu-show", {
+            axios
+                .get( import.meta.env.VITE_API_URL + "binh-luan-phim/lay-du-lieu-show", {
                     params: {
                         limit: this.limit,
                         slug: this.slug,
