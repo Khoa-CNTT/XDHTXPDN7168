@@ -1,7 +1,7 @@
 <template>
 
     <!-- Login Section Begin -->
-    <section class="login spad" style="background-image: url(https://wallpapers.com/images/hd/4098x2304-anime-universe-image-anime-characters-hd-wallpaper-and-background-6q0wwu9gf52hvl9h.jpg); height: 100%;  ">
+    <section class="login spad" >
         <div class="container forget-password-container">
             <div class="row">
                 <div class="col-lg-6">
