@@ -89,7 +89,7 @@
                                         <a v-show="is_login" class="dropdown-item text-center" type="button">
                                             <div class="d-flex align-items-center">
                                                 <div class="chat-user-online">
-                                                    <img v-bind:src="img" width="30" height="30" class="rounded-circle"
+                                                    <img v-bind:src='img' width="30" height="30" class="rounded-circle"
                                                         alt="">
                                                 </div>
                                                 <div class="flex-grow-1 ms-2">
@@ -258,19 +258,22 @@
                             </div>
                         </div>
                     </div>
-                     <!-- Modal Tìm Kiếm Mobile  -->
-                     <div class="modal fade" id="TimKiemMo" data-bs-keyboard="false" tabindex="-1"
+                    <!-- Modal Tìm Kiếm Mobile  -->
+                    <div class="modal fade" id="TimKiemMo" data-bs-keyboard="false" tabindex="-1"
                         aria-labelledby="DTimKiemLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                            <div class="modal-content" style="background-color: rgba(35, 33, 33, 0.9); border-radius: 10px;">
+                            <div class="modal-content"
+                                style="background-color: rgba(35, 33, 33, 0.9); border-radius: 10px;">
                                 <div class="modal-body p-4">
                                     <div class="product__sidebar__comment">
                                         <div class="section-title mb-4">
                                             <div class="input-group">
                                                 <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
-                                                    class="form-control" placeholder="Tìm kiếm phim.." style="border-radius: 5px;">
+                                                    class="form-control" placeholder="Tìm kiếm phim.."
+                                                    style="border-radius: 5px;">
                                                 <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
-                                                    class="input-group-text serch bg-primary text-white" style="border-radius: 5px;">
+                                                    class="input-group-text serch bg-primary text-white"
+                                                    style="border-radius: 5px;">
                                                     <i class="fa-solid fa-magnifying-glass"></i>
                                                 </a>
                                             </div>
@@ -279,21 +282,27 @@
                                             <template v-for="(v, k) in list_phim_search" :key="k">
                                                 <div class="row mb-3">
                                                     <div class="col-10">
-                                                        <div class="product__sidebar__comment__item d-flex align-items-center">
+                                                        <div
+                                                            class="product__sidebar__comment__item d-flex align-items-center">
                                                             <a v-bind:href="v.slug_phim">
                                                                 <div class="product__sidebar__comment__item__pic me-3">
-                                                                    <img v-bind:src="v.hinh_anh" style="width: 99px; border-radius: 5px;" alt="" />
+                                                                    <img v-bind:src="v.hinh_anh"
+                                                                        style="width: 99px; border-radius: 5px;"
+                                                                        alt="" />
                                                                 </div>
                                                             </a>
                                                             <div class="product__sidebar__comment__item__text">
                                                                 <ul class="list-inline mb-2">
-                                                                    <li class="list-inline-item">{{ v.ten_loai_phim }}</li>
-                                                                    <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                                                    <li class="list-inline-item">{{ v.ten_loai_phim }}
+                                                                    </li>
+                                                                    <template v-for="(value, key) in v.ten_the_loais"
+                                                                        :key="key">
                                                                         <li class="list-inline-item">{{ value }}</li>
                                                                     </template>
                                                                 </ul>
                                                                 <h5 class="mb-1">
-                                                                    <a v-bind:href="v.slug_phim" class="text-decoration-none text-white">
+                                                                    <a v-bind:href="v.slug_phim"
+                                                                        class="text-decoration-none text-white">
                                                                         {{ v.ten_phim }}
                                                                     </a>
                                                                 </h5>
@@ -551,8 +560,7 @@
         <nav class="mobile-menu">
             <ul>
                 <template v-for="(item, index) in list_danh_muc" :key="index">
-                    <li v-if="!item.id_danh_muc_cha" 
-                        :class="{ 'active': activeMenuItem === index }"
+                    <li v-if="!item.id_danh_muc_cha" :class="{ 'active': activeMenuItem === index }"
                         @click="toggleSubmenu(index)">
                         <template v-if="hasSubCategories(item)">
                             <a href="#" @click.prevent>
@@ -562,7 +570,7 @@
                             <ul class="dropdown">
                                 <template v-for="(subItem, subIndex) in getSubCategories(item.id)" :key="subIndex">
                                     <li>
-                                        <router-link 
+                                        <router-link
                                             :to="{ name: getRouteName(item.slug_danh_muc), params: { slug: subItem.slug_danh_muc } }"
                                             @click="closeMobileMenu">
                                             {{ subItem.ten_danh_muc }}
@@ -577,7 +585,7 @@
                     </li>
                 </template>
             </ul>
-            
+
             <!-- Add mobile menu icons -->
             <ul class="mobile-menu__actions">
                 <!-- VIP Button - luôn hiển thị -->
@@ -602,7 +610,7 @@
                             <span>Đăng Nhập</span>
                         </router-link>
                     </li>
-                    
+
                     <li>
                         <router-link to="/register" @click="closeMobileMenu">
                             <span>Đăng Ký</span>

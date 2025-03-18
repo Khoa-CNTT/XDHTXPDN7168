@@ -44,7 +44,7 @@ export default {
 }
 </script>
 <style>
-@import '../../assets/assets_Rocker/css/bootstrap.min.css';
+/* @import '../../assets/assets_Rocker/css/bootstrap.min.css'; */
 
 
 @import '../../assets/assets_Anime/css/bootstrap.min.css';

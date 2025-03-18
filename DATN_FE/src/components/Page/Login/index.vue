@@ -62,7 +62,7 @@
                         <div class="login__social__links">
                             <span>hoặc</span>
                             <ul>
-                                <li><a href="#" @click="dangNhapGoogle()" class="google"><i class="fa fa-google"></i>
+                                <li><a href="#" @click="signInWithGoogle" class="google"><i class="fa fa-google"></i>
                                         Đăng nhập với Google</a></li>
                             </ul>
                         </div>
@@ -75,6 +75,8 @@
 <script>
 import axios from 'axios';
 import { createToaster } from "@meforma/vue-toaster";
+import { auth } from '../../../firebase/config.js'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 const toaster = createToaster({ position: "top-right" });
 export default {
     data() {
@@ -92,9 +94,38 @@ export default {
         this.checkToken();
     },
     methods: {
-    
-        dangNhapGoogle() {
-            window.location.href = import.meta.env.VITE_API_URL + 'auth/google';
+
+        async signInWithGoogle() {
+            try {
+                const provider = new GoogleAuthProvider()
+                const result = await signInWithPopup(auth, provider)
+
+                // Lấy thông tin user từ Google
+                const userData = {
+                    id_token: await result.user.getIdToken(),
+                    email: result.user.email,
+                    name: result.user.displayName,
+                    avatar: result.user.photoURL,
+                    google_id: result.user.uid
+                }
+
+                // Gửi thông tin đến Laravel backend
+                const res = await axios.post(import.meta.env.VITE_API_URL + 'google/callback', userData)
+
+                if (res.data.status) {
+                    var arr = res.data.token.split("|");
+                    localStorage.setItem('token_user', arr[1]);
+                    this.checkToken();
+                    this.$store.dispatch('showSuccess', { description: res.data.message, });
+                } else {
+                    this.$store.dispatch('showError', { description: res.data.message, });
+                }
+            } catch (error) {
+                console.error('Lỗi đăng nhập Google:', error)
+                this.$store.dispatch('showError', {
+                    description: "Đăng nhập thất bại!"
+                });
+            }
         },
         dangNhap() {
             axios
@@ -104,14 +135,14 @@ export default {
                         var arr = res.data.token.split("|");
                         localStorage.setItem('token_user', arr[1]);
                         this.checkToken();
-                        this.$store.dispatch('showSuccess', {description: res.data.message,});
+                        this.$store.dispatch('showSuccess', { description: res.data.message, });
                     } else {
-                        this.$store.dispatch('showError', {description: res.data.message,});
+                        this.$store.dispatch('showError', { description: res.data.message, });
                     }
                 })
                 .catch((res) => {
                     var errors = Object.values(res.response.data.errors);
-                    this.$store.dispatch('showError', {description: errors[0],});
+                    this.$store.dispatch('showError', { description: errors[0], });
                 });
         },
         checkToken() {
@@ -138,7 +169,7 @@ export default {
                     this.is_login = false;
                 });
         },
-     
+
         async imageToBase64(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -168,173 +199,173 @@ export default {
 </script>
 <style>
 .login {
-	padding-top: 130px;
-	padding-bottom: 120px;
+    padding-top: 130px;
+    padding-bottom: 120px;
 }
 
 .login__form {
-	position: relative;
-	padding-left: 145px;
+    position: relative;
+    padding-left: 145px;
 }
 
 .login__form:after {
-	position: absolute;
-	right: -14px;
-	top: -40px;
-	height: 330px;
-	width: 1px;
-	background: rgba(255, 255, 255, 0.2);
-	content: "";
+    position: absolute;
+    right: -14px;
+    top: -40px;
+    height: 330px;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    content: "";
 }
 
 .login__form h3 {
-	color: #ffffff;
-	font-weight: 700;
-	font-family: "Oswald", sans-serif;
-	margin-bottom: 30px;
+    color: #ffffff;
+    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 30px;
 }
 
 .login__form form .input__item {
-	position: relative;
-	width: 370px;
-	margin-bottom: 20px;
+    position: relative;
+    width: 370px;
+    margin-bottom: 20px;
 }
 
 .login__form form .input__item:before {
-	position: absolute;
-	left: 50px;
-	top: 10px;
-	height: 30px;
-	width: 1px;
-	background: #b7b7b7;
-	content: "";
+    position: absolute;
+    left: 50px;
+    top: 10px;
+    height: 30px;
+    width: 1px;
+    background: #b7b7b7;
+    content: "";
 }
 
 .login__form form .input__item input {
-	height: 50px;
-	width: 100%;
-	font-size: 15px;
-	color: #b7b7b7;
-	background: #ffffff;
-	border: none;
-	padding-left: 76px;
+    height: 50px;
+    width: 100%;
+    font-size: 15px;
+    color: #b7b7b7;
+    background: #ffffff;
+    border: none;
+    padding-left: 76px;
 }
 
 .login__form form .input__item input::-webkit-input-placeholder {
-	color: #b7b7b7;
+    color: #b7b7b7;
 }
 
 .login__form form .input__item input::-moz-placeholder {
-	color: #b7b7b7;
+    color: #b7b7b7;
 }
 
 .login__form form .input__item input:-ms-input-placeholder {
-	color: #b7b7b7;
+    color: #b7b7b7;
 }
 
 .login__form form .input__item input::-ms-input-placeholder {
-	color: #b7b7b7;
+    color: #b7b7b7;
 }
 
 .login__form form .input__item input::placeholder {
-	color: #b7b7b7;
+    color: #b7b7b7;
 }
 
 .login__form form .input__item span {
-	color: #b7b7b7;
-	font-size: 20px;
-	position: absolute;
-	left: 15px;
-	top: 13px;
+    color: #b7b7b7;
+    font-size: 20px;
+    position: absolute;
+    left: 15px;
+    top: 13px;
 }
 
 .login__form form button {
-	border-radius: 0;
-	margin-top: 10px;
+    border-radius: 0;
+    margin-top: 10px;
 }
 
 .login__form .forget_pass {
-	font-size: 15px;
-	color: #ffffff;
-	display: inline-block;
-	position: absolute;
-	right: 60px;
-	bottom: 12px;
+    font-size: 15px;
+    color: #ffffff;
+    display: inline-block;
+    position: absolute;
+    right: 60px;
+    bottom: 12px;
 }
 
 .login__register {
-	padding-left: 30px;
+    padding-left: 30px;
 }
 
 .login__register h3 {
-	color: #ffffff;
-	font-weight: 700;
-	font-family: "Oswald", sans-serif;
-	margin-bottom: 30px;
+    color: #ffffff;
+    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 30px;
 }
 
 .login__register .primary-btn {
-	background: #e53637;
-	padding: 12px 42px;
+    background: #e53637;
+    padding: 12px 42px;
 }
 
 .login__social {
-	padding-top: 52px;
+    padding-top: 52px;
 }
 
 .login__social__links {
-	text-align: center;
+    text-align: center;
 }
 
 .login__social__links span {
-	color: #ffffff;
-	display: block;
-	font-size: 13px;
-	font-weight: 700;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	margin-bottom: 30px;
+    color: #ffffff;
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
 }
 
 .login__social__links ul li {
-	list-style: none;
-	margin-bottom: 15px;
+    list-style: none;
+    margin-bottom: 15px;
 }
 
 .login__social__links ul li:last-child {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .login__social__links ul li a {
-	color: #ffffff;
-	display: block;
-	font-size: 13px;
-	font-weight: 700;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	width: 460px;
-	padding: 14px 0;
-	position: relative;
-	margin: 0 auto;
+    color: #ffffff;
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    width: 460px;
+    padding: 14px 0;
+    position: relative;
+    margin: 0 auto;
 }
 
 .login__social__links ul li a.facebook {
-	background: #4267b2;
+    background: #4267b2;
 }
 
 .login__social__links ul li a.google {
-	background: #ff4343;
+    background: #ff4343;
 }
 
 .login__social__links ul li a.twitter {
-	background: #1da1f2;
+    background: #1da1f2;
 }
 
 .login__social__links ul li a i {
-	font-size: 20px;
-	position: absolute;
-	left: 32px;
-	top: 14px;
+    font-size: 20px;
+    position: absolute;
+    left: 32px;
+    top: 14px;
 }
 
 /*---------------------
@@ -342,40 +373,40 @@ export default {
 -----------------------*/
 
 .signup {
-	padding-top: 130px;
-	padding-bottom: 150px;
+    padding-top: 130px;
+    padding-bottom: 150px;
 }
 
 .signup .login__form:after {
-	height: 450px;
+    height: 450px;
 }
 
 .signup .login__form h5 {
-	font-size: 15px;
-	color: #ffffff;
-	margin-top: 36px;
+    font-size: 15px;
+    color: #ffffff;
+    margin-top: 36px;
 }
 
 .signup .login__form h5 a {
-	color: #e53637;
-	font-weight: 700;
+    color: #e53637;
+    font-weight: 700;
 }
 
 .signup .login__social__links {
-	text-align: left;
-	padding-left: 40px;
+    text-align: left;
+    padding-left: 40px;
 }
 
 .signup .login__social__links h3 {
-	color: #ffffff;
-	font-weight: 700;
-	font-family: "Oswald", sans-serif;
-	margin-bottom: 30px;
+    color: #ffffff;
+    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 30px;
 }
 
 .signup .login__social__links ul li a {
-	margin: 0;
-	text-align: center;
+    margin: 0;
+    text-align: center;
 }
 
 @media only screen and (max-width: 991px) {
