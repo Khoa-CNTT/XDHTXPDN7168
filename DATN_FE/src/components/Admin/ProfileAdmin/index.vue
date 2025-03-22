@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="col-lg-8">
-                <div class="card">
+            <div class="card">
                     <div class="card-body text-white">
                         <div class="trending__product" style="margin-bottom: 0px">
                             <div class="row">

@@ -247,6 +247,9 @@ export default {
         },
         messageEror() {
             this.$store.dispatch('showError', { description: 'Bạn đã có gói VIP đang hoạt động. Vui lòng chờ đến khi hết hạn để đăng ký gói mới!' });
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
         },
     }
 };

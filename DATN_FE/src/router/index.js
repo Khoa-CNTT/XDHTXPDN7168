@@ -113,6 +113,10 @@ const routes = [
         component: () => import("../components/User/LichSuXem/index.vue"),
         beforeEnter: checkLoginUser,
       },
+      {
+        path: "goi-vip",
+        component: () => import("../components/Page/GoiVip/index.vue"),
+      },
     ],
   },
 

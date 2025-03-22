@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <router-view></router-view>
     </div>
-    <!-- <FooterAnime></FooterAnime> -->
+    <FooterAnime></FooterAnime>
 </template>
 <script>
 import FooterAnime from '../components/FooterAnime.vue';

@@ -1,73 +1,76 @@
 <template>
     <div>
-        <!-- Hero Section Begin -->
-        <!-- <section class="hero" style="background-color: #0b0c2a">
-            <div class="container">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" data-interval="2000">
-                            <img src="https://s199.imacdn.com/vg/2023/10/15/db226b83e19a0db4_de40f7bcb1b25a83_38908116973670493118684.jpg"
-                                class="d-block w-100" alt="..." />
+        <!-- Hero Banner Section -->
+        <div class="hero-banner">
+            <div v-for="(slide, index) in list_slide" :key="index" 
+                 class="hero-banner-slide" 
+                 :class="{ active: index === activeSlide }">
+                <div class="hero-banner-backdrop" :style="{ backgroundImage: `url(${slide.poster_img})` }"></div>
+                <div class="hero-banner-overlay"></div>
+                <div class="container hero-banner-content">
+                    <div class="hero-banner-info">
+                        <h1 class="hero-banner-title">{{ slide.ten_phim }}</h1>
+                        <div class="hero-banner-meta">
+                            <div class="meta-item imdb">
+                                <span class="imdb-logo">IMDb</span> {{ generateRandomRating() }}
+                            </div>
+                            <div class="meta-item">{{ new Date().getFullYear() }}</div>
+                            <div class="meta-item">Phần {{ Math.floor(Math.random() * 3) + 1 }}</div>
+                            <div class="meta-item">Tập {{ Math.floor(Math.random() * 10) + 1 }}</div>
                         </div>
-                        <div class="carousel-item" data-interval="2000">
-                            <img src="https://s199.imacdn.com/vg/2023/12/28/f4e15980a7b1abbf_fdd63a20e3d8d9cf_1945637170376963341.jpg"
-                                class="d-block w-100" alt="..." />
+                        <p class="hero-banner-description">{{ slide.mo_ta }}</p>
+                        <div class="hero-banner-categories">
+                            <span class="category-tag">Chính Kịch</span>
+                            <span class="category-tag">Hành Động</span>
+                            <span class="category-tag">Kỳ Ảo</span>
+                            <span class="category-tag">Phiêu Lưu</span>
                         </div>
-                        <div class="carousel-item" data-interval="2000">
-                            <img src="https://s199.imacdn.com/vg/2023/10/25/3bf3b03a63b3cacc_996e45a57ccb35dd_30496816982129028118684.jpg"
-                                class="d-block w-100" alt="..." />
-                        </div>
-                        <div class="carousel-item" data-interval="2000">
-                            <img src="https://s199.imacdn.com/vg/2023/10/15/3fbae7beddcc5654_997100d400a26fe7_29875616973672775118684.jpg"
-                                class="d-block w-100" alt="..." />
-                        </div>
-                        <div class="carousel-item" data-interval="2000">
-                            <img src="https://s199.imacdn.com/vg/2023/10/15/a1e02d861cfd2757_b37b7dd1c0ade623_32888916973670718118684.jpg"
-                                class="d-block w-100" alt="..." />
+                        <div class="hero-banner-actions">
+                            <router-link :to="slide.slug_phim" class="btn-watch">
+                                <i class="fa fa-play-circle"></i> Xem ngay
+                            </router-link>
+                            <button class="btn-circle">
+                                <i class="fa fa-heart"></i>
+                            </button>
+                            <button class="btn-circle">
+                                <i class="fa fa-info-circle"></i>
+                            </button>
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                </div>
+                
+                <!-- Thumbnails at the bottom for navigation -->
+                <div class="hero-thumbnails">
+                    <div class="container">
+                        <div class="thumbnails-wrapper">
+                            <div v-for="(thumb, i) in Math.min(6, list_slide.length)" :key="i" 
+                                 class="hero-thumbnail" 
+                                 :class="{ active: i === activeSlide }"
+                                 @click="setActiveSlide(i)">
+                                <img :src="list_slide[i]?.poster_img || ''" alt="Thumbnail" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section> -->
-        <!-- Hero Section End -->
-        <div class="slide_container container mt-3">
-            <Carousel v-bind="config">
-                <Slide v-for="(slide, index) in list_slide" :key="index">
-                    <div class="carousel__item" :style="{ backgroundImage: `url(${slide.poster_img})` }">
-                        <div class="hero__text">
-                            <h2>{{ slide.ten_phim }}</h2>
-                            <p>{{ slide.mo_ta }}
-                            </p>
-                            <router-link :to="slide.slug_phim">
-                                Xem ngay
-                            </router-link>
-
-                        </div>
-                    </div>
-                </Slide>
-
-                <template #addons>
-                    <Navigation class="carousel__navigation">
-                        <button class="prev"><i class="fa fa-chevron-left"></i></button>
-                        <button class="next"><i class="fa fa-chevron-right"></i></button>
-                    </Navigation>
-                </template>
-            </Carousel>
+            
+            <!-- Navigation Controls -->
+            <div class="hero-controls">
+                <button @click="prevSlide" class="hero-control prev">
+                    <i class="fa fa-angle-left"></i>
+                </button>
+                <button @click="nextSlide" class="hero-control next">
+                    <i class="fa fa-angle-right"></i>
+                </button>
+            </div>
+            
+            <!-- Indicators -->
+            <div class="hero-indicators">
+                <button v-for="(slide, i) in list_slide" :key="i" 
+                       @click="setActiveSlide(i)"
+                       :class="{ active: i === activeSlide }"
+                       class="hero-indicator"></button>
+            </div>
         </div>
 
         <!-- Product Section Begin -->
@@ -75,19 +78,18 @@
             <div class="container">
                 <div class="row custom-row">
                     <div class="col-lg-8 col-md-12">
+                        <!-- Phim Mới Cập Nhật Section -->
                         <div class="trending__product">
                             <div class="row align-items-center">
-                                <!-- Cột 1 -->
                                 <div class="col-lg-8 col-md-8 col-sm-12">
                                     <div class="section-title">
                                         <h4>Phim Mới Cập Nhật</h4>
                                     </div>
                                 </div>
-                                <!-- Cột 2 -->
                                 <div class="col-lg-4 col-md-4 d-none d-md-block text-end">
                                     <div class="btn__all">
                                         <router-link to="/tat-ca-phim">
-                                            <a class="primary-btn">View All <span class="arrow_right"></span></a>
+                                            <a class="primary-btn">Xem tất cả <span class="arrow_right"></span></a>
                                         </router-link>
                                     </div>
                                 </div>
@@ -97,16 +99,14 @@
                                     <div v-show="v.tong_tap > 0 && k < 6" class="col-lg-4 col-md-4 col-sm-6 col-6">
                                         <router-link :to="v.slug_phim">
                                             <div class="product__item">
-                                                <div class="product__item__pic set-bg"
-                                                    style="background-image: url('undefined')">
-                                                    <a><img style="height: 100%; width: 230px" v-bind:src="v.hinh_anh"
-                                                            alt="" /></a>
+                                                <div class="product__item__pic set-bg">
+                                                    <img style="width: 100%; height: 100%; object-fit: cover;" v-bind:src="v.hinh_anh"
+                                                         loading="lazy" alt="" />
                                                     <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }}
                                                         <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                     </div>
                                                     <div class="comment b">{{ v.ten_loai_phim }}</div>
-                                                    <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luot_xem }}
-                                                    </div>
+                                                    <div class="view"><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }}</div>
                                                 </div>
                                                 <div class="product__item__text">
                                                     <ul>
@@ -114,11 +114,7 @@
                                                             <li v-show="key < 3">{{ item }}</li>
                                                         </template>
                                                     </ul>
-
-                                                    <h5>
-                                                        <a href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
-                                                            tenPhimLimited_1(v.ten_phim) }}</a>
-                                                    </h5>
+                                                    <h5><a style="color: #ffffff;" href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{ tenPhimLimited_1(v.ten_phim) }}</a></h5>
                                                 </div>
                                             </div>
                                         </router-link>
@@ -236,18 +232,14 @@
                                     <template v-for="(v, k) in phim_xem_nhieu_nhat" :key="k">
                                         <router-link :to="v.slug_phim">
                                             <div class="product__sidebar__view__item set-bg mix month week"
-                                                data-setbg="img/sidebar/tv-2.jpg" v-bind:style="{
+                                                v-bind:style="{
                                                     'background-image': 'url(' + v.poster_img + ')',
                                                 }">
                                                 <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }} <span
                                                         v-show="v.tong_tap == v.so_tap_phim">FULL</span></div>
 
-                                                <div class="view"><i class="fa fa-eye"></i> {{ v.tong_luot_xem }}</div>
-                                                <h5
-                                                    style="background-color: rgba(35, 33, 33, 0.7);padding-bottom: 0px;padding: -59px 8px;padding-top: 3px;">
-                                                    <a v-bind:href="v.slug_phim">
-                                                        {{ tenPhimLimited(v.ten_phim) }}</a>
-                                                </h5>
+                                                <div class="view"><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }}</div>
+                                                <h5><a v-bind:href="v.slug_phim">{{ tenPhimLimited(v.ten_phim) }}</a></h5>
                                             </div>
                                         </router-link>
                                     </template>
@@ -282,7 +274,7 @@
                                             <div style="color: #b7b7b7">
                                                 Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
                                             </div>
-                                            <span><i class="fa fa-eye"></i> {{ v.tong_luot_xem }} lượt
+                                            <span><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }} lượt
                                                 xem</span>
                                         </div>
                                     </div>
@@ -310,7 +302,9 @@ export default {
     },
     data() {
         return {
+            activeSlide: 0,
             list_slide: [],
+            slideTimer: null,
             config: {
                 autoplay: 2000,
                 wrapAround: true,
@@ -327,17 +321,55 @@ export default {
             so_luong_tap: [],
             list_phim: [],
             windowWidth: window.innerWidth,
-
         };
     },
     mounted() {
         this.$store.dispatch('showLoader');
-        //   this.laydataLoaiPhim();
-        //   this.loaddataTheLoai();
         this.laydataPhim();
         this.getdataSlide();
+        
+        // Auto slide rotation
+        this.startSlideTimer();
+    },
+    beforeUnmount() {
+        this.stopSlideTimer();
     },
     methods: {
+        startSlideTimer() {
+            this.stopSlideTimer(); // Clear any existing timer
+            this.slideTimer = setInterval(() => {
+                this.nextSlide();
+            }, 7000);
+        },
+        stopSlideTimer() {
+            if (this.slideTimer) {
+                clearInterval(this.slideTimer);
+                this.slideTimer = null;
+            }
+        },
+        nextSlide() {
+            this.activeSlide = (this.activeSlide + 1) % (this.list_slide.length || 1);
+            this.startSlideTimer(); // Reset the timer
+        },
+        prevSlide() {
+            this.activeSlide = (this.activeSlide - 1 + this.list_slide.length) % this.list_slide.length;
+            this.startSlideTimer(); // Reset the timer
+        },
+        setActiveSlide(index) {
+            this.activeSlide = index;
+            this.startSlideTimer(); // Reset the timer
+        },
+        generateRandomRating() {
+            return (Math.random() * 3 + 7).toFixed(1);
+        },
+        formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num;
+        },
         tenPhimLimited(tenphim) {
             return tenphim.length > 30 ? tenphim.substring(0, 30) + '...' : tenphim;
         },
@@ -350,8 +382,6 @@ export default {
                 slide.mo_ta = slide.mo_ta.length > 150 ? slide.mo_ta.substring(0, 150) + '...' : slide.mo_ta;
                 slide.ten_phim = slide.ten_phim.length > 25 ? slide.ten_phim.substring(0, 25) + '...' : slide.ten_phim;
                 return slide;
-
-
             });
             this.$store.dispatch('hideLoader');
         },
@@ -407,237 +437,352 @@ export default {
 };
 </script>
 <style scoped>
-button.carousel__prev.carousel__navigation {
-    background-color: red !important;
-}
-
-.carousel__item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 585px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
+/* Hero Banner Styles */
+.hero-banner {
     position: relative;
-    border-radius: 12px;
-    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.4);
+    height: 620px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.carousel__item:hover {
-    transform: scale(1.01);
-    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-}
-
-.carousel__item::before {
-    content: "";
+.hero-banner-slide {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4));
-    border-radius: 12px;
-    z-index: 1;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
-.hero__text {
+.hero-banner-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hero-banner-backdrop {
     position: absolute;
-    bottom: 0px;
+    top: 0;
     left: 0;
-    color: #fff;
-    z-index: 2;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-    /* text-align: left; */
-    font-family: 'Lobster', cursive;
-    max-width: 50%;
-}
-
-.hero__text h2 {
-    font-size: 42px;
-    font-weight: 700;
-    margin: 0 0 30px;
-    opacity: 0.9;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.hero__text p {
-    font-size: 18px;
-    /* Adjust font size for the paragraph */
-    line-height: 1.6;
-    /* margin: 5px 0 -60px; */
-    /* Less margin between title and paragraph */
-    opacity: 0.9;
-    padding: 0 50px;
-    /* Add padding to both sides to prevent long text from overflowing */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: justify;
-}
-
-.hero__text a {
-    opacity: 0.9;
-    background-color: #ff4757;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.4s, transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0px 5px 20px rgba(255, 71, 87, 0.5);
-    z-index: 3;
-}
-
-.hero__text a:hover {
-    background-color: #d32f39;
-    transform: scale(1.1);
-    box-shadow: 0px 8px 30px rgba(211, 47, 57, 0.7);
-}
-
-.hero__text a:active {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
     transform: scale(1.05);
-    box-shadow: 0px 5px 20px rgba(211, 47, 57, 0.6);
+    transition: transform 7s ease;
 }
 
-.carousel__navigation button {
-    background: rgba(0, 0, 0, 0.4);
-    /* Slightly transparent background */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    /* Larger button size */
-    height: 50px;
+.hero-banner-slide.active .hero-banner-backdrop {
+    transform: scale(1.15);
+}
+
+.hero-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(11, 12, 42, 0.95));
+}
+
+.hero-banner-content {
+    position: relative;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    padding-bottom: 80px;
+    z-index: 2;
 }
 
-.carousel__navigation button:hover {
-    background: rgba(255, 255, 255, 0.8);
-    color: #ff4757;
-    transform: scale(1.1);
+.hero-banner-info {
+    max-width: 620px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.custom-row {
+.hero-banner-slide.active .hero-banner-info {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero-banner-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.hero-banner-meta {
     display: flex;
     flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-.custom-row>div {
-    order: 0;
-    /* Thứ tự mặc định */
+.meta-item {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 6px 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 
-.carousel__navigation .prev {
+.meta-item.imdb {
+    color: #ffffff;
+}
+
+.imdb-logo {
+    background-color: #f5c518;
+    color: #000000;
+    font-weight: 700;
+    padding: 2px 4px;
+    border-radius: 2px;
+    margin-right: 6px;
+    font-size: 12px;
+}
+
+.hero-banner-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 25px;
+}
+
+.hero-banner-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.category-tag {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 6px 14px;
+    color: white;
+    font-size: 14px;
+}
+
+.hero-banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-watch {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #e53637;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-watch:hover {
+    background: #c81c1d;
+    transform: translateY(-2px);
+}
+
+.btn-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-circle:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Hero Controls */
+.hero-controls {
     position: absolute;
-    left: 20px;
-    /* Adjust to align with carousel edges */
     top: 50%;
+    left: 0;
+    right: 0;
     transform: translateY(-50%);
-    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 5;
 }
 
-.carousel__navigation .next {
+.hero-control {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-control:hover {
+    background: rgba(229, 54, 55, 0.8);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Hero Indicators */
+.hero-indicators {
     position: absolute;
-    right: 20px;
-    /* Adjust to align with carousel edges */
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 4;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 5;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.hero-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-@media only screen and (max-width: 768px) {
-    .carousel__item {
-        margin: 0 -15px;
-        border-radius: 0;
-    }
+.hero-indicator.active {
+    background: #e53637;
+    transform: scale(1.3);
+}
 
-    .product  {
-        margin-top: 45px;
-    }
+/* Hero Thumbnails */
+.hero-thumbnails {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+}
 
-    .custom-row>.col-lg-4 {
-        order: -1;
-        /* Đưa col-4 lên trước */
-    }
+.thumbnails-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
 
-    .slide_container {
+.hero-thumbnail {
+    width: 120px;
+    height: 68px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-thumbnail.active {
+    border-color: #e53637;
+    opacity: 1;
+}
+
+.hero-thumbnail:hover {
+    opacity: 0.9;
+    transform: translateY(-3px);
+}
+
+/* Responsive styles */
+@media (max-width: 991px) {
+    .hero-banner {
+        height: 540px;
+    }
+    
+    .hero-banner-title {
+        font-size: 38px;
+    }
+    
+    .hero-thumbnails {
         display: none;
     }
+}
 
-    .hero__text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+@media (max-width: 767px) {
+    .hero-banner {
+        height: 480px;
     }
-
-    .hero__text h2 {
-        font-size: 24px;
-        margin-bottom: 10px;
-        padding: 0 10px;
+    
+    .hero-banner-title {
+        font-size: 32px;
     }
+    
+    .hero-banner-description {
+        font-size: 14px;
+    }
+    
+    .hero-control {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
 
-    .hero__text p {
-        -webkit-line-clamp: 2;
+@media (max-width: 575px) {
+    .hero-banner {
+        height: 420px;
+    }
+    
+    .hero-banner-title {
+        font-size: 28px;
         margin-bottom: 15px;
     }
-
-    .product__item {
-        max-width: 300px;
-        margin: 0 auto 20px;
-    }
-
-    .section-title {
+    
+    .hero-banner-description {
         margin-bottom: 15px;
     }
-
-    .btn__all {
-        display: none;
+    
+    .hero-banner-categories {
+        margin-bottom: 20px;
     }
-}
-
-@media only screen and (max-width: 575px) {
-    .product__item:hover {
-        transform: translateY(-5px);
-        transition: transform 0.3s ease;
+    
+    .category-tag {
+        padding: 4px 10px;
+        font-size: 12px;
     }
-
-    .slide_container {
-        display: none;
+    
+    .btn-watch {
+        padding: 10px 20px;
+        font-size: 14px;
     }
-
-    .product__sidebar__view__item:hover {
-        transform: scale(1.02);
-        transition: transform 0.3s ease;
+    
+    .btn-circle {
+        width: 38px;
+        height: 38px;
     }
 }
 </style>

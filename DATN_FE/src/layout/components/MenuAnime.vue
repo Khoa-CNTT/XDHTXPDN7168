@@ -55,10 +55,9 @@
                 <div class="col-lg-2">
                     <div class="header__right">
                         <div class="dropdown-center">
-                            <a class="dropdown-toggle" type="button" data-bs-toggle="modal"
-                                data-bs-target="#modalBuyVip">
+                            <router-link to="/goi-vip" class="dropdown-toggle">
                                 <i class="fa-solid fa-gem fa-lg"></i>
-                            </a>
+                            </router-link>
 
                             <a class="dropdown-toggle" type="button" data-bs-toggle="modal" data-bs-target="#TimKiem">
                                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
@@ -206,7 +205,7 @@
                                     <div class="product__sidebar__comment">
                                         <div class="section-title mb-4">
                                             <div class="input-group">
-                                                <input v-on:keyup="debouncedSearch" v-model="key_tim.key"
+                                                <input v-on:keyup="debouncedSearch" @keyup.enter="handleEnter" v-model="key_tim.key"
                                                     class="form-control" placeholder="Tìm kiếm phim.."
                                                     style="border-radius: 5px;">
                                                 <a v-bind:href="'/tim-kiem/' + key_tim.key" type="button"
@@ -217,39 +216,69 @@
                                             </div>
                                         </div>
                                         <div class="row overflow-auto" style="max-height: 400px;" data-bs-spy="sctroll">
-                                            <template v-for="(v, k) in list_phim_search" :key="k">
-                                                <div class="row mb-3">
-                                                    <div class="col-10">
-                                                        <div
-                                                            class="product__sidebar__comment__item d-flex align-items-center">
-                                                            <a v-bind:href="v.slug_phim">
-                                                                <div class="product__sidebar__comment__item__pic me-3">
-                                                                    <img v-bind:src="v.hinh_anh"
-                                                                        style="width: 99px; border-radius: 5px;"
-                                                                        alt="" />
-                                                                </div>
-                                                            </a>
-                                                            <div class="product__sidebar__comment__item__text">
-                                                                <ul class="list-inline mb-2">
-                                                                    <li class="list-inline-item">{{ v.ten_loai_phim }}
-                                                                    </li>
-                                                                    <template v-for="(value, key) in v.ten_the_loais"
-                                                                        :key="key">
-                                                                        <li class="list-inline-item">{{ value }}</li>
-                                                                    </template>
-                                                                </ul>
-                                                                <h5 class="mb-1">
-                                                                    <a v-bind:href="v.slug_phim"
-                                                                        class="text-decoration-none text-white">
-                                                                        {{ v.ten_phim }}
-                                                                    </a>
-                                                                </h5>
-                                                                <div class="text-muted">
-                                                                    Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+                                            <template v-if="isSearching">
+                                                <div class="search-loading text-center py-5">
+                                                    <div class="spinner-border text-primary" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                    <p class="text-light mt-3">Đang tìm kiếm...</p>
+                                                </div>
+                                            </template>
+                                            <template v-else>
+                                                <div class="row overflow-auto" style="max-height: 400px;" data-bs-spy="scroll">
+                                                    <template v-if="list_phim_search.length > 0">
+                                                        <template v-for="(v, k) in list_phim_search" :key="k">
+                                                            <div class="row mb-3">
+                                                                <div class="col-10">
+                                                                    <div data-bs-dismiss="modal"
+                                                                        class="product__sidebar__comment__item d-flex align-items-center">
+                                                                        <router-link :to="'/' + v.slug_phim" class="search-result-link" >
+                                                                            <div class="product__sidebar__comment__item__pic me-3">
+                                                                                <img v-bind:src="v.hinh_anh"
+                                                                                    style="width: 99px; border-radius: 5px;"
+                                                                                    :alt="v.ten_phim" 
+                                                                                    loading="lazy" />
+                                                                            </div>
+                                                                        </router-link>
+                                                                        <div class="product__sidebar__comment__item__text">
+                                                                            <ul class="list-inline mb-2">
+                                                                                <li class="list-inline-item badge bg-primary me-1">
+                                                                                    {{ v.ten_loai_phim }}
+                                                                                </li>
+                                                                                <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                                                                    <li class="list-inline-item badge bg-secondary me-1">
+                                                                                        {{ value }}
+                                                                                    </li>
+                                                                                </template>
+                                                                            </ul>
+                                                                            <h5 class="mb-1">
+                                                                                <router-link :to="'/' + v.slug_phim"
+                                                                                    class="text-decoration-none text-white search-title">
+                                                                                    {{ v.ten_phim }}
+                                                                                </router-link>
+                                                                            </h5>
+                                                                            <div class="text-muted d-flex align-items-center">
+                                                                                <span class="me-3">
+                                                                                    <i class="fas fa-film me-1"></i>
+                                                                                    Tập: {{ v.tong_tap }}/{{ v.so_tap_phim }}
+                                                                                </span>
+                                                                                <span>
+                                                                                    <i class="fas fa-eye me-1"></i>
+                                                                                    {{ v.tong_luot_xem }}
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                        </template>
+                                                    </template>
+                                                    <template v-else>
+                                                        <div class="no-results text-center py-4">
+                                                            <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                                            <p class="text-light">Không tìm thấy kết quả nào</p>
                                                         </div>
-                                                    </div>
+                                                    </template>
                                                 </div>
                                             </template>
                                         </div>
@@ -598,7 +627,7 @@
 
                 <!-- Search Button - luôn hiển thị -->
                 <li>
-                    <a type="button" class="text-white" data-bs-toggle="modal" data-bs-target="#TimKiemMobile">
+                    <a type="button" class="text-white" href="/tim-kiem/a">
                         <span>Tìm kiếm</span>
                     </a>
                 </li>
@@ -682,6 +711,8 @@ export default {
             img: 'https://static.vecteezy.com/system/resources/thumbnails/007/407/996/small/user-icon-person-icon-client-symbol-login-head-sign-icon-design-vector.jpg',
             isMobileMenuOpen: false,
             activeMenuItem: null,
+            isSearching: false,
+            searchTimeout: null
         };
     },
     beforeRouteUpdate(to, from, next) {
@@ -703,6 +734,9 @@ export default {
         this.goiVipOpen();
     },
     methods: {
+        handleEnter() {
+            window.location.href = '/tim-kiem/' + this.key_tim.key; 
+        },
         convertVND(money) {
             money = money.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
             return money;
@@ -812,14 +846,34 @@ export default {
                 });
         },
         searchPhim() {
-            baseRequest
-                .post("phim/thong-tin-tim", this.key_tim)
-                .then((res) => {
-                    this.list_phim_search = res.data.phim;
-                    this.list_phim_search.forEach((value, index) => {
-                        value.ten_the_loais = value.ten_the_loais.split(",");
+            // Clear previous timeout
+            if (this.searchTimeout) {
+                clearTimeout(this.searchTimeout);
+            }
+
+            // Set loading state
+            this.isSearching = true;
+
+            // Debounce search
+            this.searchTimeout = setTimeout(() => {
+                baseRequest
+                    .post("phim/thong-tin-tim", this.key_tim)
+                    .then((res) => {
+                        this.list_phim_search = res.data.phim;
+                        this.list_phim_search.forEach((value, index) => {
+                            value.ten_the_loais = value.ten_the_loais.split(",");
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Error searching:', error);
+                        this.$store.dispatch('showError', {
+                            description: 'Có lỗi xảy ra khi tìm kiếm'
+                        });
+                    })
+                    .finally(() => {
+                        this.isSearching = false;
                     });
-                });
+            }, 300); // Delay 300ms
         },
 
         toggleMobileMenu() {
@@ -907,5 +961,80 @@ li:hover a.arrow_carrot-down {
 
 .with-100 {
     width: 100%;
+}
+
+.search-loading {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+.search-result-link {
+    transition: transform 0.2s;
+    display: block;
+}
+
+.search-result-link:hover {
+    transform: scale(1.05);
+}
+
+.product__sidebar__comment__item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.product__sidebar__comment__item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.search-title {
+    font-size: 1rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.2s;
+}
+
+.search-title:hover {
+    color: #e53637 !important;
+}
+
+.badge {
+    font-weight: normal;
+    font-size: 0.8rem;
+}
+
+.no-results {
+    color: #6c757d;
+}
+
+/* Custom scrollbar */
+.overflow-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overflow-auto::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.overflow-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 </style>
