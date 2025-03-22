@@ -8,10 +8,10 @@
                         <div class="search-header mb-4">
                             <h5 class="text-white mb-0">
                                 <i class="fa fa-search me-2"></i>
-                                Kết quả tìm kiếm: "{{ key_tim.key }}"
+                                Kết quả tìm kiếm: "{{ key_tim.key.substring(0, 30) }}..."
                             </h5>
                             <div class="results-count" v-if="pagination.total">
-                                <span>Tìm thấy <strong>{{ pagination.total }}</strong> kết quả</span>
+                                <span class="text-white">Tìm thấy <strong class="text-danger">{{ pagination.total }}</strong> kết quả</span>
                             </div>
                         </div>
 
@@ -146,7 +146,7 @@
                             </div>
                             <h4 class="text-white mb-3">Không tìm thấy kết quả</h4>
                             <p class="text-muted mb-4">
-                                Không tìm thấy kết quả nào cho từ khóa "{{ key_tim.key }}"
+                                Không tìm thấy kết quả nào cho từ khóa "{{ key_tim.key.substring(0, 30) }}..."
                             </p>
                             <div class="suggestions">
                                 <h6 class="text-white mb-3">Gợi ý:</h6>

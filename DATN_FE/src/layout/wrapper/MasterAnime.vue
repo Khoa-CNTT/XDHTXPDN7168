@@ -3,7 +3,7 @@
         <div class="loader"></div>
     </div>
     <MenuAnime></MenuAnime>
-    <div class="container-fluid">
+    <div :class="isMobile < 768 ? 'container-fluid' : ''" style="margin-top: 69px;">
         <router-view></router-view>
     </div>
     <FooterAnime></FooterAnime>
@@ -28,10 +28,17 @@ export default {
         MenuAnime,
         FooterAnime
     },
+    data() {
+        return {
+            isMobile: window.innerWidth,
+        }
+    },
     computed: {
         ...mapState(['isLoading']), // Lấy isLoading từ store
     },
     created() {
+        window.addEventListener('resize', this.handleResize);
+
         this.$router.beforeEach((to, from, next) => {
             this.$store.dispatch('showLoader'); // Hiển thị loader khi chuyển trang
             next();
@@ -40,7 +47,16 @@ export default {
         this.$router.afterEach(() => {
             this.$store.dispatch('hideLoader'); // Ẩn loader sau khi trang đã tải
         });
+
     },
+    methods: {
+        handleResize() {
+            this.isMobile = window.innerWidth;
+        },
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.handleResize);
+    }
 }
 </script>
 <style>

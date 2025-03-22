@@ -328,8 +328,20 @@ ol {
 -----------------------*/
 
 .header {
-	background: #070720;
+	background: rgba(7, 7, 32, 0.8); /* Semi-transparent background */
+	transition: all 0.3s ease;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	z-index: 999;
 }
+
+.header--fixed {
+	background: #070720; /* Solid black when fixed */
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 .header__logo {
 	padding: 15px 0;
 }
@@ -2792,4 +2804,30 @@ ol {
   .btn__all {
     display: none;
   }
+}
+
+/* Fix for modal backdrop and z-index issues */
+.modal-backdrop {
+  z-index: 998; /* Set below the modal but above other content */
+  opacity: 0.5 !important; /* Make backdrop semi-transparent */
+}
+
+.modal {
+  z-index: 1050; /* Ensure modal is above header */
+}
+
+.modal-dialog {
+  margin-top: 80px; /* Add space for fixed header */
+}
+
+.modal-content {
+  background-color: rgba(35, 33, 33, 0.95); /* Darker background for modal */
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* When modal is open, ensure header remains visible */
+body.modal-open .header {
+  padding-right: 0 !important; /* Prevent header shift when scrollbar disappears */
 }

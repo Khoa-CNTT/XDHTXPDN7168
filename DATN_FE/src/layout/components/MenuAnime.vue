@@ -1,6 +1,6 @@
 <template>
-    <header class="header">
-        <div class="container">
+    <header class="header" :class="{ 'header--fixed': isHeaderFixed }">
+        <div class="container text-white">
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
@@ -229,47 +229,48 @@
                                                     <template v-if="list_phim_search.length > 0">
                                                         <template v-for="(v, k) in list_phim_search" :key="k">
                                                             <div class="row mb-3">
-                                                                <div class="col-10">
-                                                                    <div data-bs-dismiss="modal"
+                                                                <div class="col-12">
+                                                                    <router-link :to="'/' + v.slug_phim" >
+                                                                    <div data-bs-dismiss="modal" type="button"
                                                                         class="product__sidebar__comment__item d-flex align-items-center">
-                                                                        <router-link :to="'/' + v.slug_phim" class="search-result-link" >
                                                                             <div class="product__sidebar__comment__item__pic me-3">
                                                                                 <img v-bind:src="v.hinh_anh"
                                                                                     style="width: 99px; border-radius: 5px;"
                                                                                     :alt="v.ten_phim" 
                                                                                     loading="lazy" />
                                                                             </div>
-                                                                        </router-link>
-                                                                        <div class="product__sidebar__comment__item__text">
-                                                                            <ul class="list-inline mb-2">
-                                                                                <li class="list-inline-item badge bg-primary me-1">
-                                                                                    {{ v.ten_loai_phim }}
-                                                                                </li>
-                                                                                <template v-for="(value, key) in v.ten_the_loais" :key="key">
-                                                                                    <li class="list-inline-item badge bg-secondary me-1">
-                                                                                        {{ value }}
+                                                                            <div class="product__sidebar__comment__item__text">
+                                                                                <ul class="list-inline mb-2">
+                                                                                    <li class="list-inline-item badge bg-primary me-1">
+                                                                                        {{ v.ten_loai_phim }}
                                                                                     </li>
-                                                                                </template>
-                                                                            </ul>
-                                                                            <h5 class="mb-1">
-                                                                                <router-link :to="'/' + v.slug_phim"
-                                                                                    class="text-decoration-none text-white search-title">
-                                                                                    {{ v.ten_phim }}
-                                                                                </router-link>
-                                                                            </h5>
-                                                                            <div class="text-muted d-flex align-items-center">
-                                                                                <span class="me-3">
-                                                                                    <i class="fas fa-film me-1"></i>
-                                                                                    Tập: {{ v.tong_tap }}/{{ v.so_tap_phim }}
-                                                                                </span>
-                                                                                <span>
-                                                                                    <i class="fas fa-eye me-1"></i>
-                                                                                    {{ v.tong_luot_xem }}
-                                                                                </span>
+                                                                                    <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                                                                        <li class="list-inline-item badge bg-secondary me-1">
+                                                                                            {{ value }}
+                                                                                        </li>
+                                                                                    </template>
+                                                                                </ul>
+                                                                                <h5 class="mb-1">
+                                                                                    <router-link :to="'/' + v.slug_phim"
+                                                                                        class="text-decoration-none text-white search-title">
+                                                                                        {{ v.ten_phim }}
+                                                                                    </router-link>
+                                                                                </h5>
+                                                                                <div class="text-muted d-flex align-items-center">
+                                                                                    <span class="me-3">
+                                                                                        <i class="fas fa-film me-1"></i>
+                                                                                        Tập: {{ v.tong_tap }}/{{ v.so_tap_phim }}
+                                                                                    </span>
+                                                                                    <span>
+                                                                                        <i class="fas fa-eye me-1"></i>
+                                                                                        {{ v.tong_luot_xem }}
+                                                                                    </span>
+                                                                                </div>
                                                                             </div>
+                                                                            
                                                                         </div>
+                                                                    </router-link>
                                                                     </div>
-                                                                </div>
                                                             </div>
                                                         </template>
                                                     </template>
@@ -712,7 +713,8 @@ export default {
             isMobileMenuOpen: false,
             activeMenuItem: null,
             isSearching: false,
-            searchTimeout: null
+            searchTimeout: null,
+            isHeaderFixed: false,
         };
     },
     beforeRouteUpdate(to, from, next) {
@@ -732,6 +734,13 @@ export default {
         this.checkToken();
         this.laydataYeuThich();
         this.goiVipOpen();
+        
+        // Add scroll event listener
+        window.addEventListener('scroll', this.handleScroll);
+    },
+    unmounted() {
+        // Remove scroll event listener
+        window.removeEventListener('scroll', this.handleScroll);
     },
     methods: {
         handleEnter() {
@@ -889,7 +898,19 @@ export default {
             this.isMobileMenuOpen = false;
             this.activeMenuItem = null;
             document.querySelector('.mobile-menu-toggle').classList.remove('active');
-        }
+        },
+        
+        handleScroll() {
+            // Get scroll position
+            const scrollPosition = window.scrollY;
+            
+            // Apply fixed header class when scrolled down more than 50px
+            if (scrollPosition > 50) {
+                document.querySelector('.header').classList.add('header--fixed');
+            } else {
+                document.querySelector('.header').classList.remove('header--fixed');
+            }
+        },
     },
 
     watch: {

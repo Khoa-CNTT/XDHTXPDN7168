@@ -380,7 +380,7 @@ export default {
             const res = await axios.get(import.meta.env.VITE_API_URL + 'lay-data-slide-homepage');
             this.list_slide = res.data.data.map(slide => {
                 slide.mo_ta = slide.mo_ta.length > 150 ? slide.mo_ta.substring(0, 150) + '...' : slide.mo_ta;
-                slide.ten_phim = slide.ten_phim.length > 25 ? slide.ten_phim.substring(0, 25) + '...' : slide.ten_phim;
+                slide.ten_phim = slide.ten_phim.length > 40 ? slide.ten_phim.substring(0, 40) + '...' : slide.ten_phim;
                 return slide;
             });
             this.$store.dispatch('hideLoader');
@@ -440,7 +440,7 @@ export default {
 /* Hero Banner Styles */
 .hero-banner {
     position: relative;
-    height: 620px;
+    height: 760px;
     overflow: hidden;
 }
 
