@@ -11,7 +11,8 @@
                                 Kết quả tìm kiếm: "{{ key_tim.key.substring(0, 30) }}..."
                             </h5>
                             <div class="results-count" v-if="pagination.total">
-                                <span class="text-white">Tìm thấy <strong class="text-danger">{{ pagination.total }}</strong> kết quả</span>
+                                <span class="text-white">Tìm thấy <strong class="text-danger">{{ pagination.total
+                                        }}</strong> kết quả</span>
                             </div>
                         </div>
 
@@ -20,17 +21,16 @@
                             <div class="filter-bar-inner">
                                 <!-- Thể Loại -->
                                 <div class="filter-dropdown">
-                                    <button class="filter-btn" type="button" id="genreDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="filter-btn" type="button" id="genreDropdown"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-tags me-2"></i>Thể Loại
                                         <i class="fa fa-chevron-down ms-2"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="genreDropdown">
                                         <div class="px-3 py-2 genre-container">
                                             <div v-for="genre in listTheLoai" :key="genre.id" class="form-check">
-                                                <input class="form-check-input" type="checkbox"
-                                                    :value="genre.id"
-                                                    v-model="selectedFilters.theLoai"
-                                                    @change="applyFilters"
+                                                <input class="form-check-input" type="checkbox" :value="genre.id"
+                                                    v-model="selectedFilters.the_loai" @change="applyFilters"
                                                     :id="'genre-' + genre.id">
                                                 <label class="form-check-label text-white" :for="'genre-' + genre.id">
                                                     {{ genre.ten_the_loai }}
@@ -40,20 +40,34 @@
                                     </ul>
                                 </div>
                                 <div class="filter-dropdown">
-                                    <button class="filter-btn" type="button" id="genreDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="filter-btn" type="button" id="movieTypeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-tags me-2"></i>Loại Phim
                                         <i class="fa fa-chevron-down ms-2"></i>
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="genreDropdown">
-                                        <div class="px-3 py-2 genre-container">
-                                            <div v-for="loaiPhim in listLoaiPhim" :key="loaiPhim.id" class="form-check">
-                                                <input class="form-check-input" type="checkbox"
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="movieTypeDropdown">
+                                        <div class="px-3 py-2">
+                                            <div class="form-check" v-for="loaiPhim in listLoaiPhim" :key="loaiPhim.id">
+                                                <input class="form-check-input" 
+                                                    type="radio"
                                                     :value="loaiPhim.id"
-                                                    v-model="selectedFilters.loaiPhim"
+                                                    v-model="selectedFilters.loai_phim"
                                                     @change="applyFilters"
-                                                    :id="'loaiPhim-' + loaiPhim.id">
+                                                    :id="'loaiPhim-' + loaiPhim.id"
+                                                    name="loaiPhim">
                                                 <label class="form-check-label text-white" :for="'loaiPhim-' + loaiPhim.id">
                                                     {{ loaiPhim.ten_loai_phim }}
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" 
+                                                    type="radio"
+                                                    :value="null"
+                                                    v-model="selectedFilters.loai_phim"
+                                                    @change="applyFilters"
+                                                    id="loaiPhim-none"
+                                                    name="loaiPhim">
+                                                <label class="form-check-label text-white" for="loaiPhim-none">
+                                                    Tất cả
                                                 </label>
                                             </div>
                                         </div>
@@ -62,42 +76,59 @@
 
                                 <!-- Trạng Thái -->
                                 <div class="filter-dropdown">
-                                    <button class="filter-btn" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="filter-btn" type="button" id="statusDropdown"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-clock me-2"></i>Trạng Thái
                                         <i class="fa fa-chevron-down ms-2"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="statusDropdown">
-                                        <li><a class="dropdown-item" @click="selectStatus('all')" :class="{ active: selectedFilters.trangThai === 'all' }">
-                                            <i class="fa" :class="selectedFilters.trangThai === 'all' ? 'fa-dot-circle' : 'fa-circle'"></i> Tất cả
-                                        </a></li>
-                                        <li><a class="dropdown-item" @click="selectStatus('full')" :class="{ active: selectedFilters.trangThai === 'full' }">
-                                            <i class="fa" :class="selectedFilters.trangThai === 'full' ? 'fa-dot-circle' : 'fa-circle'"></i> Hoàn thành
-                                        </a></li>
-                                        <li><a class="dropdown-item" @click="selectStatus('ongoing')" :class="{ active: selectedFilters.trangThai === 'ongoing' }">
-                                            <i class="fa" :class="selectedFilters.trangThai === 'ongoing' ? 'fa-dot-circle' : 'fa-circle'"></i> Đang chiếu
-                                        </a></li>
+                                        <li><a class="dropdown-item" @click="selectStatus('all')"
+                                                :class="{ active: selectedFilters.tinh_trang === 'all' }">
+                                                <i class="fa"
+                                                    :class="selectedFilters.tinh_trang === 'all' ? 'fa-dot-circle' : 'fa-circle'"></i>
+                                                Tất cả
+                                            </a></li>
+                                        <li><a class="dropdown-item" @click="selectStatus('full')"
+                                                :class="{ active: selectedFilters.tinh_trang === 'full' }">
+                                                <i class="fa"
+                                                    :class="selectedFilters.tinh_trang === 'full' ? 'fa-dot-circle' : 'fa-circle'"></i>
+                                                Hoàn thành
+                                            </a></li>
+                                        <li><a class="dropdown-item" @click="selectStatus('ongoing')"
+                                                :class="{ active: selectedFilters.tinh_trang === 'ongoing' }">
+                                                <i class="fa"
+                                                    :class="selectedFilters.tinh_trang === 'ongoing' ? 'fa-dot-circle' : 'fa-circle'"></i>
+                                                Đang chiếu
+                                            </a></li>
                                     </ul>
                                 </div>
 
                                 <!-- Sắp xếp -->
                                 <div class="filter-dropdown">
-                                    <button class="filter-btn" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="filter-btn" type="button" id="sortDropdown" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         <i class="fa fa-sort me-2"></i>Sắp xếp
                                         <i class="fa fa-chevron-down ms-2"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="sortDropdown">
-                                        <li><a class="dropdown-item" @click="selectSort('newest')" :class="{ active: selectedFilters.sortBy === 'newest' }">
-                                            <i class="fa fa-check me-2" v-if="selectedFilters.sortBy === 'newest'"></i><span v-else class="me-4"></span> Mới nhất
-                                        </a></li>
-                                        <li><a class="dropdown-item" @click="selectSort('most_viewed')" :class="{ active: selectedFilters.sortBy === 'most_viewed' }">
-                                            <i class="fa fa-check me-2" v-if="selectedFilters.sortBy === 'most_viewed'"></i><span v-else class="me-4"></span> Xem nhiều
-                                        </a></li>
-                                        <li><a class="dropdown-item" @click="selectSort('name_asc')" :class="{ active: selectedFilters.sortBy === 'name_asc' }">
-                                            <i class="fa fa-check me-2" v-if="selectedFilters.sortBy === 'name_asc'"></i><span v-else class="me-4"></span> A-Z
-                                        </a></li>
-                                        <li><a class="dropdown-item" @click="selectSort('name_desc')" :class="{ active: selectedFilters.sortBy === 'name_desc' }">
-                                            <i class="fa fa-check me-2" v-if="selectedFilters.sortBy === 'name_desc'"></i><span v-else class="me-4"></span> Z-A
-                                        </a></li>
+                                        <li><a class="dropdown-item" @click="selectSort('newest')"
+                                                :class="{ active: selectedFilters.sap_xep === 'moi-nhat' }">
+                                                <i class="fa fa-check me-2"
+                                                    v-if="selectedFilters.sap_xep === 'moi-nhat'"></i><span v-else
+                                                    class="me-4"></span> Mới nhất
+                                            </a></li>
+                                        <li><a class="dropdown-item" @click="selectSort('oldest')"
+                                                :class="{ active: selectedFilters.sap_xep === 'cu-nhat' }">
+                                                <i class="fa fa-check me-2"
+                                                    v-if="selectedFilters.sap_xep === 'cu-nhat'"></i><span v-else
+                                                    class="me-4"></span> Cũ nhất
+                                            </a></li>
+                                        <li><a class="dropdown-item" @click="selectSort('most_viewed')"
+                                                :class="{ active: selectedFilters.sap_xep === 'luot-xem' }">
+                                                <i class="fa fa-check me-2"
+                                                    v-if="selectedFilters.sap_xep === 'luot-xem'"></i><span v-else
+                                                    class="me-4"></span> Lượt xem nhiều
+                                            </a></li>
                                     </ul>
                                 </div>
 
@@ -117,9 +148,7 @@
                                 </button>
                             </div>
                             <div class="filter-tags">
-                                <span v-for="filter in activeFiltersDisplay" 
-                                    :key="filter.id" 
-                                    class="filter-tag">
+                                <span v-for="filter in activeFiltersDisplay" :key="filter.id" class="filter-tag">
                                     {{ filter.name }}
                                     <i class="fas fa-times" @click="removeFilter(filter.type, filter.id)"></i>
                                 </span>
@@ -139,7 +168,7 @@
                         </div>
 
                         <!-- No Results -->
-                        <div v-else-if="!isLoading && (!list_phim || list_phim.length === 0)" 
+                        <div v-else-if="!isLoading && (!list_phim || list_phim.length === 0)"
                             class="no-results text-center py-5">
                             <div class="no-results-icon mb-4">
                                 <i class="fas fa-search fa-4x text-muted"></i>
@@ -166,8 +195,8 @@
                                         <div class="product__item">
                                             <div class="product__item__pic set-bg"
                                                 style="background-image: url('undefined')">
-                                                <a><img style="height: 105%; width: 275px" v-bind:src="v.hinh_anh" loading="lazy"
-                                                        alt="" /></a>
+                                                <a><img style="height: 105%; width: 275px" v-bind:src="v.hinh_anh"
+                                                        loading="lazy" alt="" /></a>
                                                 <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }}
                                                     <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                 </div>
@@ -195,16 +224,16 @@
 
                         <!-- Phân trang -->
                         <div class="product__pagination text-center">
-                        <a @click="changPage(1)" type="button"><i class="fa fa-angle-double-left"></i></a>
+                            <a @click="changPage(1)" type="button"><i class="fa fa-angle-double-left"></i></a>
 
-                        <a type="button" :class="{ current_page: page === pagination.current_page }"
-                            v-for="page in pageNumbers" :key="page" @click="page !== '...' && changPage(page)">
-                            {{ page }}
-                        </a>
+                            <a type="button" :class="{ current_page: page === pagination.current_page }"
+                                v-for="page in pageNumbers" :key="page" @click="page !== '...' && changPage(page)">
+                                {{ page }}
+                            </a>
 
-                        <a @click="changPage(pagination.last_page)" type="button"><i
-                                class="fa fa-angle-double-right"></i></a>
-                    </div>
+                            <a @click="changPage(pagination.last_page)" type="button"><i
+                                    class="fa fa-angle-double-right"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -226,21 +255,22 @@ export default {
             key_tim: { key: this.$route.params.id },
             list_phim: [],
             pagination: {
+                current_page: 1,
+                from: null,
                 last_page: 1,
                 per_page: 20,
-                current_page: 1,
-                from: 0,
-                to: 0,
+                to: null,
                 total: 0
             },
             check_page: 0,
             listTheLoai: [],
             listLoaiPhim: [],
             selectedFilters: {
-                theLoai: [],
-                loaiPhim: [],
-                trangThai: 'all',
-                sortBy: 'newest'
+                search: this.$route.params.id || null,
+                the_loai: [],
+                loai_phim: null,
+                tinh_trang: 1,
+                sap_xep: 'moi-nhat'
             },
             isLoading: false,
             dropdowns: {
@@ -255,26 +285,26 @@ export default {
         this.loadInitialData();
         document.addEventListener('click', this.closeDropdowns);
     },
-    
+
     computed: {
         pageNumbers() {
             return getPageNumbers(this.pagination);
         },
         hasActiveFilters() {
-            return this.selectedFilters.theLoai.length > 0 || 
-                   this.selectedFilters.loaiPhim.length > 0 || 
-                   this.selectedFilters.trangThai !== 'all' ||
-                   this.selectedFilters.sortBy !== 'newest';
+            return this.selectedFilters.the_loai.length > 0 ||
+                this.selectedFilters.loai_phim !== null ||
+                this.selectedFilters.tinh_trang !== null ||
+                this.selectedFilters.sap_xep !== 'moi-nhat';
         },
         activeFiltersDisplay() {
             let filters = [];
-            
+
             // Thể loại
-            this.selectedFilters.theLoai.forEach(id => {
+            this.selectedFilters.the_loai.forEach(id => {
                 const theLoai = this.listTheLoai.find(tl => tl.id === id);
                 if (theLoai) {
                     filters.push({
-                        type: 'theLoai',
+                        type: 'the_loai',
                         id: id,
                         name: theLoai.ten_the_loai
                     });
@@ -282,53 +312,58 @@ export default {
             });
 
             // Loại phim
-            this.selectedFilters.loaiPhim.forEach(id => {
-                const loaiPhim = this.listLoaiPhim.find(lp => lp.id === id);
+            if (this.selectedFilters.loai_phim) {
+                const loaiPhim = this.listLoaiPhim.find(lp => lp.id === this.selectedFilters.loai_phim);
                 if (loaiPhim) {
                     filters.push({
-                        type: 'loaiPhim',
-                        id: id,
+                        type: 'loai_phim',
+                        id: this.selectedFilters.loai_phim,
                         name: loaiPhim.ten_loai_phim
                     });
                 }
-            });
+            }
 
             // Trạng thái
-            if (this.selectedFilters.trangThai !== 'all') {
+            if (this.selectedFilters.tinh_trang) {
+                const trangThaiMap = {
+                    1: 'Đang chiếu',
+                    2: 'Hoàn thành'
+                };
                 filters.push({
-                    type: 'trangThai',
-                    id: this.selectedFilters.trangThai,
-                    name: this.selectedFilters.trangThai === 'full' ? 'Hoàn thành' : 'Đang chiếu'
+                    type: 'tinh_trang',
+                    id: this.selectedFilters.tinh_trang,
+                    name: trangThaiMap[this.selectedFilters.tinh_trang]
                 });
             }
-            
+
             // Sắp xếp
-            if (this.selectedFilters.sortBy !== 'newest') {
-                let sortName = '';
-                switch(this.selectedFilters.sortBy) {
-                    case 'most_viewed': sortName = 'Xem nhiều'; break;
-                    case 'name_asc': sortName = 'A-Z'; break;
-                    case 'name_desc': sortName = 'Z-A'; break;
-                }
-                
-                if (sortName) {
-                    filters.push({
-                        type: 'sortBy',
-                        id: this.selectedFilters.sortBy,
-                        name: 'Sắp xếp: ' + sortName
-                    });
-                }
+            if (this.selectedFilters.sap_xep !== 'moi-nhat') {
+                const sapXepMap = {
+                    'cu-nhat': 'Cũ nhất',
+                    'luot-xem': 'Xem nhiều nhất'
+                };
+                filters.push({
+                    type: 'sap_xep',
+                    id: this.selectedFilters.sap_xep,
+                    name: 'Sắp xếp: ' + sapXepMap[this.selectedFilters.sap_xep]
+                });
             }
 
             return filters;
         }
     },
-    
+
     methods: {
         tenPhimLimited(tenphim) {
             return tenphim.length > 42 ? tenphim.substring(0, 42) + '...' : tenphim;
         },
-        
+        filterPhim() {
+            const response = baseRequest.get('lay-data-the-loai-home');
+            this.listTheLoai = response.data.the_loai;
+            this.list_phim = this.list_phim.filter(phim => {
+                return phim.ten_phim.toLowerCase().includes(this.key_tim.key.toLowerCase());
+            });
+        },
         changPage(page) {
             if (page !== this.pagination.current_page) {
                 this.searchPhim(page);
@@ -339,7 +374,7 @@ export default {
                 });
             }
         },
-        
+
         async loadInitialData() {
             try {
                 this.$store.dispatch('showLoader');
@@ -357,36 +392,51 @@ export default {
                 this.isLoading = false;
             }
         },
-        
+
         async loadTheLoai() {
             const response = await baseRequest.get('lay-data-the-loai-home');
             this.listTheLoai = response.data.the_loai;
         },
-        
+
         async loadLoaiPhim() {
             const response = await baseRequest.get('lay-data-loai-phim-home');
             this.listLoaiPhim = response.data.loai_phim_home;
         },
-        
+
         async searchPhim(page = 1) {
             try {
                 this.isLoading = true;
+                
                 const params = {
-                    ...this.key_tim,
-                    page,
-                    filters: this.selectedFilters
+                    search: this.selectedFilters.search,
+                    the_loai: this.selectedFilters.the_loai.length > 0 ? this.selectedFilters.the_loai : null,
+                    loai_phim: this.selectedFilters.loai_phim,
+                    tinh_trang: this.selectedFilters.tinh_trang,
+                    sap_xep: this.selectedFilters.sap_xep,
+                    page: page
                 };
 
-                const response = await baseRequest.post(
-                    "phim/load-thong-tin-tim",
-                    params
-                );
-
-                this.pagination = response.data.phim.pagination;
-                this.list_phim = response.data.phim.dataPhim.data;
-                this.list_phim.forEach(value => {
-                    value.ten_the_loais = value.ten_the_loais.split(',');
-                });
+                const response = await baseRequest.get("phim/loc-phim?page=" + page + "&search=" + params.search + "&loai_phim=" + params.loai_phim + "&tinh_trang=" + params.tinh_trang + "&sap_xep=" + params.sap_xep + "&the_loai[]=" + params.the_loai);
+                if (response.data.status) {
+                    // Cập nhật dữ liệu phim
+                    this.list_phim = response.data.data;
+                    
+                    // Cập nhật thông tin phân trang
+                    this.pagination = {
+                        current_page: response.data.meta.current_page,
+                        from: response.data.meta.from,
+                        last_page: response.data.meta.last_page,
+                        per_page: response.data.meta.per_page,
+                        to: response.data.meta.to,
+                        total: response.data.meta.total
+                    };
+                    // Xử lý thể loại cho mỗi phim
+                    this.list_phim.forEach(phim => {
+                        phim.ten_the_loais = phim.ten_the_loais ? phim.ten_the_loais.split(', ') : [];
+                    });
+                } else {
+                    toaster.error(response.data.message || 'Có lỗi xảy ra khi tìm kiếm phim');
+                }
             } catch (error) {
                 console.error('Error searching movies:', error);
                 toaster.error('Có lỗi xảy ra khi tìm kiếm phim');
@@ -394,43 +444,40 @@ export default {
                 this.isLoading = false;
             }
         },
-        
+
         applyFilters() {
-            this.isLoading = true;
-            try {
-                // Đóng tất cả dropdown khi áp dụng bộ lọc
-                Object.keys(this.dropdowns).forEach(key => {
-                    this.dropdowns[key] = false;
-                });
-                this.searchPhim(1); // Reset về trang 1 khi áp dụng bộ lọc
-            } finally {
-                this.isLoading = false;
-            }
+            this.searchPhim(1); // Reset về trang 1 khi áp dụng bộ lọc
         },
-        
+
         resetFilters() {
             this.selectedFilters = {
-                theLoai: [],
-                loaiPhim: [],
-                trangThai: 'all',
-                sortBy: 'newest'
+                search: this.$route.params.id || null,
+                the_loai: [],
+                loai_phim: null,
+                tinh_trang: 1,
+                sap_xep: 'moi-nhat'
             };
             this.applyFilters();
         },
-        
+
         removeFilter(type, id) {
-            if (type === 'theLoai') {
-                this.selectedFilters.theLoai = this.selectedFilters.theLoai.filter(x => x !== id);
-            } else if (type === 'loaiPhim') {
-                this.selectedFilters.loaiPhim = this.selectedFilters.loaiPhim.filter(x => x !== id);
-            } else if (type === 'trangThai') {
-                this.selectedFilters.trangThai = 'all';
-            } else if (type === 'sortBy') {
-                this.selectedFilters.sortBy = 'newest';
+            switch(type) {
+                case 'the_loai':
+                    this.selectedFilters.the_loai = this.selectedFilters.the_loai.filter(x => x !== id);
+                    break;
+                case 'loai_phim':
+                    this.selectedFilters.loai_phim = null;
+                    break;
+                case 'tinh_trang':
+                    this.selectedFilters.tinh_trang = null;
+                    break;
+                case 'sap_xep':
+                    this.selectedFilters.sap_xep = 'moi-nhat';
+                    break;
             }
             this.applyFilters();
         },
-        
+
         toggleDropdown(type) {
             // Đóng các dropdown khác
             Object.keys(this.dropdowns).forEach(key => {
@@ -439,7 +486,7 @@ export default {
             // Chuyển đổi trạng thái dropdown hiện tại
             this.dropdowns[type] = !this.dropdowns[type];
         },
-        
+
         // Đóng dropdown khi click bên ngoài
         closeDropdowns(event) {
             if (!event.target.closest('.filter-dropdown')) {
@@ -448,18 +495,35 @@ export default {
                 });
             }
         },
-        
+
         selectStatus(status) {
-            this.selectedFilters.trangThai = status;
+            // Cập nhật trạng thái phim
+            switch(status) {
+                case 'all':
+                    this.selectedFilters.tinh_trang = null;
+                    break;
+                case 'full':
+                    this.selectedFilters.tinh_trang = 2; // Giả sử 2 là trạng thái hoàn thành
+                    break;
+                case 'ongoing':
+                    this.selectedFilters.tinh_trang = 1; // Giả sử 1 là trạng thái đang chiếu
+                    break;
+            }
             this.applyFilters();
         },
-        
+
         selectSort(sort) {
-            this.selectedFilters.sortBy = sort;
+            // Mapping sort options
+            const sortMapping = {
+                'newest': 'moi-nhat',
+                'oldest': 'cu-nhat',
+                'most_viewed': 'luot-xem'
+            };
+            this.selectedFilters.sap_xep = sortMapping[sort] || 'moi-nhat';
             this.applyFilters();
         }
     },
-    
+
     beforeDestroy() {
         document.removeEventListener('click', this.closeDropdowns);
     }
@@ -606,7 +670,7 @@ export default {
 
 .active-filters-header {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
@@ -625,7 +689,7 @@ export default {
 }
 
 .filter-tag {
-    background-color: rgba(255, 255, 255, 0.1); 
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 5px 10px;
     border-radius: 4px;
     font-size: 14px;
@@ -649,7 +713,8 @@ export default {
     margin: 0 auto;
 }
 
-.double-bounce1, .double-bounce2 {
+.double-bounce1,
+.double-bounce2 {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -666,10 +731,13 @@ export default {
 }
 
 @keyframes sk-bounce {
-    0%, 100% { 
+
+    0%,
+    100% {
         transform: scale(0.0);
-    } 
-    50% { 
+    }
+
+    50% {
         transform: scale(1.0);
     }
 }
@@ -712,10 +780,12 @@ export default {
         transform: scale(1);
         opacity: 0.5;
     }
+
     50% {
         transform: scale(1.05);
         opacity: 0.7;
     }
+
     100% {
         transform: scale(1);
         opacity: 0.5;
@@ -726,15 +796,33 @@ export default {
     .no-results {
         padding: 2rem;
     }
-    
+
     .spinner {
         width: 50px;
         height: 50px;
     }
-    
+
     .no-results-icon i {
         font-size: 3em;
     }
 }
 
-</style>    
+/* Thêm style cho radio buttons */
+.form-check {
+    margin-bottom: 8px;
+}
+
+.form-check-input[type="radio"] {
+    cursor: pointer;
+}
+
+.form-check-input[type="radio"]:checked {
+    background-color: #e53637;
+    border-color: #e53637;
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
+}
+</style>
