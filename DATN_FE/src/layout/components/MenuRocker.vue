@@ -5,7 +5,10 @@
                 <!-- {{-- <img src="/assets_client_xem_phim/img/net-club1.png" class="logo-icon" alt="logo icon"> --}} -->
             </div>
             <div>
-                <h4 class="logo-text text-primary fw-bold" style="font-family: 'Oswald', sans-serif;"> ADMIN-WOPAI</h4>
+                <h4 class="logo-text">
+                    <span class="brand-name">WOPAI</span>
+                    <span class="brand-type">ADMIN</span>
+                </h4>
             </div>
             <div class="toggle-icon ms-auto"><i class="bx bx-arrow-to-left"></i></div>
         </div>
@@ -185,4 +188,28 @@
 <script>
 export default {};
 </script>
-<style></style>
+<style scoped>
+.logo-text {
+    font-family: 'Oswald', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+.brand-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #2196F3, #00BCD4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.brand-type {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    letter-spacing: 3px;
+}
+</style>
