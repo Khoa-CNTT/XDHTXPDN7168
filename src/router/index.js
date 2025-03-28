@@ -110,7 +110,7 @@ const routes = [
       {
         path: "lich-su-xem",
         name: "LichSuXem",
-        component: () => import("../components/User/LichSuXem/index.vue"),
+        component: () => import("../components/Page/LichSuXem/index.vue"),
         beforeEnter: checkLoginUser,
       },
       {
