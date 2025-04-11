@@ -1,102 +1,205 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🎬 Movie Streaming Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Banner](assets/images/movie-banner.png)
 
-## About MovieStreaming_Be
+> *"🎥 Trải nghiệm giải trí không giới hạn 🌟"*
 
-MovieStreaming_Be is a web application built on the Laravel framework, providing a robust and scalable backend for a movie streaming service. It leverages Laravel's powerful features to deliver a seamless and enjoyable user experience.
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/yourusername/movie-streaming-platform/blob/main/LICENSE)
+[![Open issues](https://img.shields.io/github/issues/yourusername/movie-streaming-platform.svg 'Open issues')](https://github.com/yourusername/movie-streaming-platform/issues)
+[![Open Pull Requests](https://img.shields.io/github/issues-pr/yourusername/movie-streaming-platform.svg 'Open Pull Requests')](https://github.com/yourusername/movie-streaming-platform/pulls)
+[![Commit activity](https://img.shields.io/github/commit-activity/m/yourusername/movie-streaming-platform.svg 'Commit activity')](https://github.com/yourusername/movie-streaming-platform/graphs/commit-activity)
+[![GitHub contributors](https://img.shields.io/github/contributors/yourusername/movie-streaming-platform.svg 'Github contributors')](https://github.com/yourusername/movie-streaming-platform/graphs/contributors)
 
-## Features
+## 📱 Giới thiệu
 
-- Simple, fast routing engine.
-- Powerful dependency injection container.
-- Multiple back-ends for session and cache storage.
-- Expressive, intuitive database ORM.
-- Database agnostic schema migrations.
-- Robust background job processing.
-- Real-time event broadcasting.
+Nền tảng xem phim đa nền tảng với trải nghiệm người dùng tối ưu, tích hợp công nghệ AI để đề xuất nội dung thông minh. Dự án bao gồm ứng dụng di động React Native, hệ thống đề xuất AI, và nền tảng web đầy đủ.
 
-## Learning Laravel
+### Cấu trúc dự án:
 
-Laravel has extensive and thorough [documentation](https://laravel.com/docs) and a video tutorial library, making it easy to get started with the framework.
+- **DATN_Mobile**: Ứng dụng di động được phát triển bằng React Native
+- **DATN_SERVER_AI**: Hệ thống đề xuất phim thông minh sử dụng Python
+- **DATN_BE**: Backend API được xây dựng trên Laravel
+- **DATN_FE**: Frontend web application
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 💫 Tính năng nổi bật
 
-If you prefer video tutorials, [Laracasts](https://laracasts.com) offers over 2000 videos on various topics including Laravel, modern PHP, unit testing, and JavaScript.
+### 📱 Ứng dụng di động (DATN_Mobile)
+- Giao diện người dùng trực quan, dễ sử dụng
+- Xem phim trực tuyến với chất lượng cao
+- Tải phim để xem offline
+- Đồng bộ hóa watchlist và tiến độ xem phim
+- Push notifications cho nội dung mới
+- Hỗ trợ cả iOS và Android
 
-## Laravel Sponsors
+### 🤖 Hệ thống đề xuất AI (DATN_SERVER_AI)
+- Phân tích hành vi người dùng
+- Đề xuất phim dựa trên lịch sử xem
+- Collaborative filtering cho đề xuất phim
+- Content-based filtering theo thể loại và đặc điểm phim
+- Real-time recommendation updates
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🖥️ Backend API (DATN_BE)
+- RESTful API endpoints
+- Xác thực và phân quyền người dùng
+- Quản lý metadata phim
+- Xử lý thanh toán an toàn
+- Quản lý người dùng và nội dung
+- Tích hợp với hệ thống AI
 
-### Premium Partners
+### 🌐 Frontend Web (DATN_FE)
+- Giao diện web responsive
+- Streaming video chất lượng cao
+- Quản lý profile người dùng
+- Tìm kiếm và lọc phim nâng cao
+- Tích hợp thanh toán đa nền tảng
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 🏗 Cấu trúc thư mục
 
-## Contributing
+```
+GIT_DATN/
+├── DATN_Mobile/           # Ứng dụng React Native
+│   ├── src/              # Mã nguồn
+│   ├── assets/           # Tài nguyên
+│   └── ...
+├── DATN_SERVER_AI/       # Server Python AI
+│   ├── models/           # ML models
+│   ├── api/              # API endpoints
+│   └── ...
+├── DATN_BE/             # Laravel Backend
+│   ├── app/             # Application code
+│   ├── database/        # Migrations
+│   └── ...
+└── DATN_FE/            # Frontend
+    ├── src/            # Source code
+    ├── public/         # Public assets
+    └── ...
+```
 
-Thank you for considering contributing to the MovieStreaming_Be project! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🚀 Hướng dẫn cài đặt
 
-## Code of Conduct
+### 1. DATN_Mobile (React Native)
+```bash
+# Clone repository
+git clone [repository-url]
+cd DATN_Mobile
 
-To ensure a welcoming community, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Cài đặt dependencies
+npm install
 
-## Security Vulnerabilities
+# Chạy ứng dụng trên iOS
+cd ios && pod install && cd ..
+npx react-native run-ios
 
-If you discover a security vulnerability within MovieStreaming_Be, please send an e-mail to the project maintainer. All security vulnerabilities will be promptly addressed.
+# Chạy ứng dụng trên Android
+npx react-native run-android
+```
 
-## License
+### 2. DATN_SERVER_AI (Python)
+```bash
+# Di chuyển vào thư mục AI server
+cd DATN_SERVER_AI
 
-The MovieStreaming_Be project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Tạo môi trường ảo
+python -m venv venv
 
-# 🎬 Movie Streaming Platform  
+# Kích hoạt môi trường ảo
+source venv/bin/activate  # Unix
+venv\Scripts\activate     # Windows
 
-A Netflix-like movie streaming platform built with **Vue 3** and **Vite**, featuring:  
-- **AI-powered movie recommendations** for personalized user experiences.  
-- **Secure MB Bank payment integration** for seamless transactions.  
-- Scalable and optimized architecture for modern web applications.  
+# Cài đặt dependencies
+pip install -r requirements.txt
 
-This project leverages the power of Vue 3's `<script setup>` for Single File Components (SFCs). Explore the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.  
+# Chạy server
+python main.py
+```
 
----
+### 3. DATN_BE (Laravel)
+```bash
+# Di chuyển vào thư mục backend
+cd DATN_BE
 
-## 🚀 Features  
+# Cài đặt dependencies
+composer install
 
-- **AI Integration**: Personalized movie suggestions tailored to user preferences.  
-- **Real-Time Transactions**: Fully secure payment system using MB Bank APIs.  
-- **Modern UI/UX**: Built with responsive design principles for an immersive experience.  
-- **Scalable Tech Stack**: Vue.js for the frontend and Laravel for the backend.  
+# Cấu hình môi trường
+cp .env.example .env
+php artisan key:generate
 
----
+# Chạy migrations
+php artisan migrate
 
-## 🛠 Recommended IDE Setup  
+# Khởi động server
+php artisan serve
+```
 
-To ensure a smooth development experience, we recommend:  
-- [Visual Studio Code (VS Code)](https://code.visualstudio.com/)  
-- [Volar Extension](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (disable Vetur)  
-- [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)  
+### 4. DATN_FE (Frontend)
+```bash
+# Di chuyển vào thư mục frontend
+cd DATN_FE
 
----
+# Cài đặt dependencies
+npm install
 
-## 📂 Project Setup  
+# Chạy ứng dụng trong môi trường development
+npm run dev
 
-Clone the repository and install dependencies:  
+# Build cho production
+npm run build
+```
+
+## 📚 Tài liệu API
+
+### Mobile API Endpoints
+- `GET /api/movies`: Lấy danh sách phim
+- `GET /api/movies/{id}`: Chi tiết phim
+- `POST /api/auth/login`: Đăng nhập
+- `POST /api/auth/register`: Đăng ký
+
+### AI Server Endpoints
+- `POST /api/recommend`: Lấy đề xuất phim
+- `GET /api/trending`: Phim thịnh hành
+- `GET /api/similar/{movie_id}`: Phim tương tự
+
+## 🔒 Bảo mật
+
+- Sử dụng JWT cho xác thực
+- HTTPS cho mọi request
+- Mã hóa dữ liệu nhạy cảm
+- Rate limiting cho API
+- Input validation
+
+## �� Liên hệ & Hỗ trợ
+
+### 👥 Thành viên nhóm
+- **Product Owner**: Võ Văn Việt
+  - Email: [vietvo371@gmail.com](mailto:vietvo371@gmail.com)
+  - SĐT: 0708585120
+
+### 👨‍💻 Các thành viên
+- **Trần Đức Cường**
+  - Email: [duccuong24122002@gmail.com](mailto:duccuong24122002@gmail.com)
+  - SĐT: 0914816238
+
+- **Bạch Đình Quý**
+  - Email: [dinhquy220403@gmail.com](mailto:dinhquy220403@gmail.com)
+  - SĐT: 0947068227
+
+- **Nguyễn Thị Quỳnh Như**
+  - Email: [ntqn293@gmail.com](mailto:ntqn293@gmail.com)
+  - SĐT: 0905249733
+
+- **Huỳnh Văn Trọng**
+  - Email: [huynhvantrong9909@gmail.com](mailto:huynhvantrong9909@gmail.com)
+  - SĐT: 0777054735
+
+### 🌐 Kênh hỗ trợ
+- GitHub Issues: Tạo issue trên GitHub repository
+- Project Management: Võ Văn Việt (Scrum Master)
+
+## 📄 License
+
+Dự án này được phát hành dưới giấy phép [MIT License](LICENSE)
+
 ```bash
 git clone https://github.com/yourusername/movie-streaming-platform.git
 cd movie-streaming-platform
