@@ -1,206 +1,445 @@
-# 🎬 Movie Streaming Platform
+# Hệ Thống Xem Phim Đa Nền Tảng Trả Phí và Ứng Dụng AI Đề Xuất Nội Dung
 
-![Banner](assets/images/movie-banner.png)
+<p>Dự án được phát triển và duy trì bởi nhóm sinh viên Đại học Duy Tân, nhằm xây dựng một nền tảng xem phim hiện đại với công nghệ AI đề xuất nội dung.</p>
+  
+<div>
+  <img src="https://img.shields.io/badge/branches-5-blue?style=for-the-badge" alt="Branches" />
+  <img src="https://img.shields.io/badge/commits-46-green?style=for-the-badge" alt="Commits" />
+  <img src="https://img.shields.io/badge/pull_requests-18-purple?style=for-the-badge" alt="Pull Requests" />
+  <img src="https://img.shields.io/badge/contributors-5-yellow?style=for-the-badge" alt="Contributors" />
+  <img src="https://img.shields.io/badge/stars-3-red?style=for-the-badge" alt="Stars" />
+  <img src="https://img.shields.io/badge/forks-1-orange?style=for-the-badge" alt="Forks" />
+</div>
 
-> *"🎥 Trải nghiệm giải trí không giới hạn 🌟"*
+# 🎬 Hệ Thống Xem Phim Đa Nền Tảng Trả Phí và Ứng Dụng AI Đề Xuất Nội Dung
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/yourusername/movie-streaming-platform/blob/main/LICENSE)
-[![Open issues](https://img.shields.io/github/issues/yourusername/movie-streaming-platform.svg 'Open issues')](https://github.com/yourusername/movie-streaming-platform/issues)
-[![Open Pull Requests](https://img.shields.io/github/issues-pr/yourusername/movie-streaming-platform.svg 'Open Pull Requests')](https://github.com/yourusername/movie-streaming-platform/pulls)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/yourusername/movie-streaming-platform.svg 'Commit activity')](https://github.com/yourusername/movie-streaming-platform/graphs/commit-activity)
-[![GitHub contributors](https://img.shields.io/github/contributors/yourusername/movie-streaming-platform.svg 'Github contributors')](https://github.com/yourusername/movie-streaming-platform/graphs/contributors)
+<div align="center">  
+  <p align="center">
+    <img src="https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge" alt="Version" />
+    <img src="https://img.shields.io/badge/status-in_development-yellow?style=for-the-badge" alt="Status" />
+    <img src="https://img.shields.io/badge/license-MIT-orange?style=for-the-badge" alt="License" />
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge" alt="PRs Welcome" />
+  </p>
+  
+  <br />
+  
+  <div align="center">
+    <table>
+    <tr>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP"/>
+        <br/>
+        <span style="font-size: 24px;">🐘</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel"/>
+        <br/>
+        <span style="font-size: 24px;">🔺</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-VueJS-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="VueJS"/>
+        <br/>
+        <span style="font-size: 24px;">⚡</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React Native"/>
+        <br/>
+        <span style="font-size: 24px;">📱</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+        <br/>
+        <span style="font-size: 24px;">🐍</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-COZE-5C2D91?style=for-the-badge&logo=ai&logoColor=white" alt="COZE AI"/>
+        <br/>
+        <span style="font-size: 24px;">🧠</span>
+      </td>
+    </tr>
+  </table>
+  </div>
+  
+  <br />
+  
+  <div align="center">
+    <kbd>
+      <p align="center" style="padding: 10px; background-color: #f8f9fa; border-radius: 5px; width: 80%; margin: 0 auto;">
+        <i>Nền tảng xem phim đa nền tảng hiện đại với hệ thống thanh toán trả phí, 
+        tích hợp AI đề xuất nội dung thông minh dựa trên sở thích người dùng.</i>
+      </p>
+    </kbd>
+  </div>
+  
+  <br />
+  
+  <div align="center">
+    <a href="#-tính-năng-nổi-bật">🚀 Tính Năng</a> •
+    <a href="#-hình-ảnh-demo">🖼️ Demo</a> •
+    <a href="#-các-chức-năng-chính">🧩 Chức Năng</a> •
+    <a href="#-triển-khai">🚧 Triển Khai</a> •
+    <a href="#-contributors">👨‍💻 Đóng Góp</a>
+  </div>
+</div>
 
-## 📱 Giới thiệu
+---
 
-Nền tảng xem phim đa nền tảng với trải nghiệm người dùng tối ưu, tích hợp công nghệ AI để đề xuất nội dung thông minh. Dự án bao gồm ứng dụng di động React Native, hệ thống đề xuất AI, và nền tảng web đầy đủ.
+## ✨ Giới Thiệu
 
-### Cấu trúc dự án:
+**Hệ Thống Xem Phim Đa Nền Tảng Trả Phí và Ứng Dụng AI Đề Xuất Nội Dung** là một nền tảng toàn diện được thiết kế để hiện đại hóa trải nghiệm xem phim trực tuyến. Dự án này kết hợp các công nghệ tiên tiến như AI, xử lý dữ liệu thời gian thực và giao diện người dùng trực quan để mang lại trải nghiệm xem phim cá nhân hóa và thông minh.
 
-- **DATN_Mobile**: Ứng dụng di động được phát triển bằng React Native
-- **DATN_SERVER_AI**: Hệ thống đề xuất phim thông minh sử dụng Python
-- **DATN_BE**: Backend API được xây dựng trên Laravel
-- **DATN_FE**: Frontend web application
+<table>
+  <tr>
+    <td width="50%">
+      <h3 align="center">🌟 Tầm Nhìn</h3>
+      <p align="center">Cá nhân hóa trải nghiệm xem phim thông qua công nghệ AI và trải nghiệm người dùng xuất sắc</p>
+    </td>
+    <td width="50%">
+      <h3 align="center">🎯 Mục Tiêu</h3>
+      <p align="center">Cung cấp nền tảng xem phim đa nền tảng với hệ thống đề xuất thông minh và giao diện thân thiện</p>
+    </td>
+  </tr>
+</table>
 
-## 💫 Tính năng nổi bật
+## ✨ Công Nghệ Sử Dụng
 
-### 📱 Ứng dụng di động (DATN_Mobile)
-- Giao diện người dùng trực quan, dễ sử dụng
-- Xem phim trực tuyến với chất lượng cao
-- Tải phim để xem offline
-- Đồng bộ hóa watchlist và tiến độ xem phim
-- Push notifications cho nội dung mới
-- Hỗ trợ cả iOS và Android
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP"/>
+        <br/>
+        <span style="font-size: 24px;">🐘</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel"/>
+        <br/>
+        <span style="font-size: 24px;">🔺</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-VueJS-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="VueJS"/>
+        <br/>
+        <span style="font-size: 24px;">⚡</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-React_Native-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React Native"/>
+        <br/>
+        <span style="font-size: 24px;">📱</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+        <br/>
+        <span style="font-size: 24px;">🐍</span>
+      </td>
+      <td align="center" width="16.6%">
+        <img src="https://img.shields.io/badge/-COZE-5C2D91?style=for-the-badge&logo=ai&logoColor=white" alt="COZE AI"/>
+        <br/>
+        <span style="font-size: 24px;">🧠</span>
+      </td>
+    </tr>
+  </table>
+</div>
 
-### 🤖 Hệ thống đề xuất AI (DATN_SERVER_AI)
-- Phân tích hành vi người dùng
-- Đề xuất phim dựa trên lịch sử xem
-- Collaborative filtering cho đề xuất phim
-- Content-based filtering theo thể loại và đặc điểm phim
-- Real-time recommendation updates
+## 🚀 Tính Năng Nổi Bật
 
-### 🖥️ Backend API (DATN_BE)
-- RESTful API endpoints
-- Xác thực và phân quyền người dùng
-- Quản lý metadata phim
-- Xử lý thanh toán an toàn
-- Quản lý người dùng và nội dung
-- Tích hợp với hệ thống AI
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🔹 Đa Nền Tảng</h3>
+      <p>Hệ thống được thiết kế để hoạt động trên nhiều nền tảng khác nhau, bao gồm web và thiết bị di động.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🔺 Laravel Backend</h3>
+      <p>API backend được xây dựng với Laravel, cung cấp các endpoint RESTful an toàn và hiệu quả.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>⚡ VueJS Frontend</h3>
+      <p>Giao diện người dùng web được xây dựng bằng VueJS, mang đến trải nghiệm mượt mà và hiện đại.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>📱 Ứng Dụng Di Động</h3>
+      <p>Ứng dụng di động được phát triển với React Native, cho phép xem phim trên nhiều thiết bị.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h3>🐍 Xử Lý AI</h3>
+      <p>Hệ thống sử dụng Python để xử lý dữ liệu và triển khai các thuật toán đề xuất nội dung.</p>
+    </td>
+    <td width="50%" valign="top">
+      <h3>🧠 Đề Xuất Thông Minh</h3>
+      <p>COZE AI được tích hợp để phân tích hành vi người dùng và đề xuất nội dung phù hợp.</p>
+    </td>
+  </tr>
+</table>
 
-### 🌐 Frontend Web (DATN_FE)
-- Giao diện web responsive
-- Streaming video chất lượng cao
-- Quản lý profile người dùng
-- Tìm kiếm và lọc phim nâng cao
-- Tích hợp thanh toán đa nền tảng
+## 🖼️ Hình Ảnh Demo
 
-## 🏗 Cấu trúc thư mục
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><strong>Trang chủ với đề xuất thông minh</strong></td>
+      <td align="center"><strong>Chi tiết phim</strong></td>
+    </tr>
+    <tr>
+      <td><img src="https://via.placeholder.com/450x250?text=Trang+Chu+Netflix" alt="Trang chủ" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+      <td><img src="https://via.placeholder.com/450x250?text=Chi+Tiet+Phim" alt="Chi tiết phim" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+    </tr>
+    <tr>
+      <td align="center"><strong>Trang quản trị</strong></td>
+      <td align="center"><strong>Ứng dụng di động</strong></td>
+    </tr>
+    <tr>
+      <td><img src="https://via.placeholder.com/450x250?text=Admin+Dashboard" alt="Admin Dashboard" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+      <td><img src="https://via.placeholder.com/450x250?text=Mobile+App" alt="Mobile App" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+    </tr>
+  </table>
+</div>
 
-```
-GIT_DATN/
-├── DATN_Mobile/           # Ứng dụng React Native
-│   ├── src/              # Mã nguồn
-│   ├── assets/           # Tài nguyên
-│   └── ...
-├── DATN_SERVER_AI/       # Server Python AI
-│   ├── models/           # ML models
-│   ├── api/              # API endpoints
-│   └── ...
-├── DATN_BE/             # Laravel Backend
-│   ├── app/             # Application code
-│   ├── database/        # Migrations
-│   └── ...
-└── DATN_FE/            # Frontend
-    ├── src/            # Source code
-    ├── public/         # Public assets
-    └── ...
-```
+## 🛠️ Cải Tiến & Sửa Lỗi
 
-## 🚀 Hướng dẫn cài đặt
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="25%">
+        <div style="font-size: 36px;">🔄</div>
+        <h3>Tối ưu streaming</h3>
+        <p>Cải thiện chất lượng phát video trên nhiều thiết bị</p>
+      </td>
+      <td align="center" width="25%">
+        <div style="font-size: 36px;">🚀</div>
+        <h3>Nâng cao AI đề xuất</h3>
+        <p>Cải thiện độ chính xác của thuật toán đề xuất nội dung</p>
+      </td>
+      <td align="center" width="25%">
+        <div style="font-size: 36px;">🐛</div>
+        <h3>Sửa lỗi thanh toán</h3>
+        <p>Khắc phục các vấn đề trong quy trình thanh toán</p>
+      </td>
+      <td align="center" width="25%">
+        <div style="font-size: 36px;">📦</div>
+        <h3>Cải thiện UX/UI</h3>
+        <p>Nâng cao trải nghiệm người dùng trên mọi nền tảng</p>
+      </td>
+    </tr>
+  </table>
+</div>
 
-### 1. DATN_Mobile (React Native)
+## 🧩 Các Chức Năng Chính
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <ul>
+        <li>✅ <b>Tìm kiếm phim thông qua AI</b> - Tìm kiếm thông minh dựa trên ngôn ngữ tự nhiên</li>
+        <li>✅ <b>Xem phim trực tuyến</b> - Trải nghiệm xem phim mượt mà</li>
+        <li>✅ <b>Đăng nhập/Đăng ký</b> - Hệ thống xác thực người dùng</li>
+        <li>✅ <b>Lọc nội dung</b> - Theo thể loại, năm, quốc gia</li>
+        <li>✅ <b>Bình luận và đánh giá</b> - Tương tác với nội dung phim</li>
+        <li>✅ <b>Quản lý tài khoản</b> - Cập nhật thông tin cá nhân</li>
+        <li>✅ <b>Quản lý gói đăng ký</b> - Lựa chọn và thanh toán gói phù hợp</li>
+        <li>✅ <b>Yêu thích phim</b> - Lưu phim yêu thích để xem sau</li>
+      </ul>
+    </td>
+    <td width="50%" valign="top">
+      <ul>
+        <li>✅ <b>Quản lý phim</b> - Thêm, sửa, xóa phim</li>
+        <li>✅ <b>Quản lý tập phim</b> - Thêm, sửa, xóa tập phim</li>
+        <li>✅ <b>Quản lý thể loại</b> - Thêm, sửa, xóa thể loại</li>
+        <li>✅ <b>Quản lý blog</b> - Thêm, sửa, xóa blog và chuyên mục</li>
+        <li>✅ <b>Quản lý diễn viên/đạo diễn</b> - Thêm, sửa, xóa thông tin</li>
+        <li>✅ <b>Quản lý khách hàng</b> - Theo dõi và quản lý người dùng</li>
+        <li>✅ <b>Quản lý thanh toán</b> - Xử lý giao dịch tài chính</li>
+        <li>✅ <b>Thống kê</b> - Phân tích lượt xem, đánh giá phim</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+
+
+## 🚧 Triển Khai
+
+<div align="center">
+  <h3>Yêu cầu:</h3>
+  <p>
+    <img src="https://img.shields.io/badge/-PHP_>=_7.4-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP" />
+    <img src="https://img.shields.io/badge/-MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+    <img src="https://img.shields.io/badge/-Composer-885630?style=for-the-badge&logo=composer&logoColor=white" alt="Composer" />
+  </p>
+</div>
+
+### Cách khởi chạy:
+
 ```bash
 # Clone repository
-git clone [repository-url]
-cd DATN_Mobile
+git clone https://github.com/dtu-team/movie-streaming-platform.git
 
-# Cài đặt dependencies
-npm install
-
-# Chạy ứng dụng trên iOS
-cd ios && pod install && cd ..
-npx react-native run-ios
-
-# Chạy ứng dụng trên Android
-npx react-native run-android
-```
-
-### 2. DATN_SERVER_AI (Python)
-```bash
-# Di chuyển vào thư mục AI server
-cd DATN_SERVER_AI
-
-# Tạo môi trường ảo
-python -m venv venv
-
-# Kích hoạt môi trường ảo
-source venv/bin/activate  # Unix
-venv\Scripts\activate     # Windows
-
-# Cài đặt dependencies
-pip install -r requirements.txt
-
-# Chạy server
-python main.py
-```
-
-### 3. DATN_BE (Laravel)
-```bash
-# Di chuyển vào thư mục backend
-cd DATN_BE
+# Di chuyển vào thư mục dự án
+cd movie-streaming-platform
 
 # Cài đặt dependencies
 composer install
+npm install
 
-# Cấu hình môi trường
+# Thiết lập môi trường
 cp .env.example .env
 php artisan key:generate
 
-# Chạy migrations
-php artisan migrate
+# Cấu hình cơ sở dữ liệu trong file .env
 
-# Khởi động server
+# Chạy migration và seeder
+php artisan migrate --seed
+
+# Khởi chạy server
 php artisan serve
 ```
 
-### 4. DATN_FE (Frontend)
-```bash
-# Di chuyển vào thư mục frontend
-cd DATN_FE
+## 👨‍💻 Contributors
 
-# Cài đặt dependencies
-npm install
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="20%">
+        <a href="https://github.com/vovanviet">
+          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Võ Văn Việt"/>
+          <br />
+          <b>Võ Văn Việt</b>
+        </a>
+        <br />
+        <sub>@vovanviet</sub>
+        <br />
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=vovanviet">
+          <img src="https://img.shields.io/badge/commits-12-blue?style=flat-square" alt="commits" />
+        </a>
+        <br />
+        <small>Scrum Master</small>
+      </td>
+      <td align="center" width="20%">
+        <a href="https://github.com/bachquy">
+          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Bạch Đình Quý"/>
+          <br />
+          <b>Bạch Đình Quý</b>
+        </a>
+        <br />
+        <sub>@bachquy</sub>
+        <br />
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=bachquy">
+          <img src="https://img.shields.io/badge/commits-9-blue?style=flat-square" alt="commits" />
+        </a>
+        <br />
+        <small>Product Owner</small>
+      </td>
+      <td align="center" width="20%">
+        <a href="https://github.com/trancuong">
+          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Trần Đức Cường"/>
+          <br />
+          <b>Trần Đức Cường</b>
+        </a>
+        <br />
+        <sub>@trancuong</sub>
+        <br />
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=trancuong">
+          <img src="https://img.shields.io/badge/commits-8-blue?style=flat-square" alt="commits" />
+        </a>
+        <br />
+        <small>Developer</small>
+      </td>
+      <td align="center" width="20%">
+        <a href="https://github.com/huynhtrong">
+          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Huỳnh Văn Trọng"/>
+          <br />
+          <b>Huỳnh Văn Trọng</b>
+        </a>
+        <br />
+        <sub>@huynhtrong</sub>
+        <br />
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=huynhtrong">
+          <img src="https://img.shields.io/badge/commits-7-blue?style=flat-square" alt="commits" />
+        </a>
+        <br />
+        <small>Developer</small>
+      </td>
+      <td align="center" width="20%">
+        <a href="https://github.com/quynhnhu">
+          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Nguyễn Thị Quỳnh Như"/>
+          <br />
+          <b>Nguyễn Thị Quỳnh Như</b>
+        </a>
+        <br />
+        <sub>@quynhnhu</sub>
+        <br />
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=quynhnhu">
+          <img src="https://img.shields.io/badge/commits-10-blue?style=flat-square" alt="commits" />
+        </a>
+        <br />
+        <small>Developer</small>
+      </td>
+    </tr>
+  </table>
+</div>
 
-# Chạy ứng dụng trong môi trường development
-npm run dev
+<div align="center">
+  <h3>🏆 Đóng Góp Theo Lĩnh Vực</h3>
+  <table>
+    <tr>
+      <th align="center">Backend</th>
+      <th align="center">Frontend</th>
+      <th align="center">AI/ML</th>
+      <th align="center">Mobile</th>
+      <th align="center">Documentation</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/vovanviet">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Võ Văn Việt"/>
+        </a>
+        <a href="https://github.com/huynhtrong">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Huỳnh Văn Trọng"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/trancuong">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Trần Đức Cường"/>
+        </a>
+        <a href="https://github.com/quynhnhu">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Nguyễn Thị Quỳnh Như"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/bachquy">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Bạch Đình Quý"/>
+        </a>
+        <a href="https://github.com/vovanviet">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Võ Văn Việt"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/trancuong">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Trần Đức Cường"/>
+        </a>
+        <a href="https://github.com/bachquy">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Bạch Đình Quý"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/huynhtrong">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Huỳnh Văn Trọng"/>
+        </a>
+        <a href="https://github.com/quynhnhu">
+          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Nguyễn Thị Quỳnh Như"/>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
-# Build cho production
-npm run build
-```
-
-## 📚 Tài liệu API
-
-### Mobile API Endpoints
-- `GET /api/movies`: Lấy danh sách phim
-- `GET /api/movies/{id}`: Chi tiết phim
-- `POST /api/auth/login`: Đăng nhập
-- `POST /api/auth/register`: Đăng ký
-
-### AI Server Endpoints
-- `POST /api/recommend`: Lấy đề xuất phim
-- `GET /api/trending`: Phim thịnh hành
-- `GET /api/similar/{movie_id}`: Phim tương tự
-
-## 🔒 Bảo mật
-
-- Sử dụng JWT cho xác thực
-- HTTPS cho mọi request
-- Mã hóa dữ liệu nhạy cảm
-- Rate limiting cho API
-- Input validation
-
-## �� Liên hệ & Hỗ trợ
-
-### 👥 Thành viên nhóm
-- **Product Owner**: Võ Văn Việt
-  - Email: [vietvo371@gmail.com](mailto:vietvo371@gmail.com)
-  - SĐT: 0708585120
-
-### 👨‍💻 Các thành viên
-- **Trần Đức Cường**
-  - Email: [duccuong24122002@gmail.com](mailto:duccuong24122002@gmail.com)
-  - SĐT: 0914816238
-
-- **Bạch Đình Quý**
-  - Email: [dinhquy220403@gmail.com](mailto:dinhquy220403@gmail.com)
-  - SĐT: 0947068227
-
-- **Nguyễn Thị Quỳnh Như**
-  - Email: [ntqn293@gmail.com](mailto:ntqn293@gmail.com)
-  - SĐT: 0905249733
-
-- **Huỳnh Văn Trọng**
-  - Email: [huynhvantrong9909@gmail.com](mailto:huynhvantrong9909@gmail.com)
-  - SĐT: 0777054735
-
-### 🌐 Kênh hỗ trợ
-- GitHub Issues: Tạo issue trên GitHub repository
-- Project Management: Võ Văn Việt (Scrum Master)
-
-## 📄 License
-
-Dự án này được phát hành dưới giấy phép [MIT License](LICENSE)
-
-```bash
-git clone https://github.com/yourusername/movie-streaming-platform.git
-cd movie-streaming-platform
-npm install
+<div align="center">
+  <h3>📊 Thống Kê Đóng Góp</h3>
+  <table>
+    <tr>
+      <th align="center">Thành viên</th>
+      <th align="center">Commits</th>
+      <th align="center">Pull Requests</th
