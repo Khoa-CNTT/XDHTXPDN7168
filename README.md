@@ -184,16 +184,16 @@
       <td align="center"><strong>Chi tiết phim</strong></td>
     </tr>
     <tr>
-      <td><img src="https://via.placeholder.com/450x250?text=Trang+Chu+Netflix" alt="Trang chủ" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
-      <td><img src="https://via.placeholder.com/450x250?text=Chi+Tiet+Phim" alt="Chi tiết phim" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+      <td><img src="Assets/img/homepage.jpeg" alt="Trang chủ" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+      <td><img src="Assets/img/detail.png" alt="Chi tiết phim" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
     </tr>
     <tr>
       <td align="center"><strong>Trang quản trị</strong></td>
       <td align="center"><strong>Ứng dụng di động</strong></td>
     </tr>
     <tr>
-      <td><img src="https://via.placeholder.com/450x250?text=Admin+Dashboard" alt="Admin Dashboard" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
-      <td><img src="https://via.placeholder.com/450x250?text=Mobile+App" alt="Mobile App" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+      <td><img src="Assets/img/dashbord.png" alt="Admin Dashboard" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
+      <td><img src="Assets/img/mobile.png" alt="Mobile App" width="100%" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/></td>
     </tr>
   </table>
 </div>
@@ -304,12 +304,12 @@ php artisan serve
     <tr>
       <td align="center" width="20%">
         <a href="https://github.com/vovanviet">
-          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Võ Văn Việt"/>
+          <img src="Assets/proflile/viet.jpg" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Võ Văn Việt"/>
           <br />
           <b>Võ Văn Việt</b>
         </a>
         <br />
-        <sub>@vovanviet</sub>
+        <sub>@vietvo371</sub>
         <br />
         <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=vovanviet">
           <img src="https://img.shields.io/badge/commits-12-blue?style=flat-square" alt="commits" />
@@ -319,7 +319,7 @@ php artisan serve
       </td>
       <td align="center" width="20%">
         <a href="https://github.com/bachquy">
-          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Bạch Đình Quý"/>
+          <img src="Assets/proflile/quy.jpg" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Bạch Đình Quý"/>
           <br />
           <b>Bạch Đình Quý</b>
         </a>
@@ -334,7 +334,7 @@ php artisan serve
       </td>
       <td align="center" width="20%">
         <a href="https://github.com/trancuong">
-          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Trần Đức Cường"/>
+          <img src="Assets/proflile/cuong.jpg" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Trần Đức Cường"/>
           <br />
           <b>Trần Đức Cường</b>
         </a>
@@ -349,7 +349,7 @@ php artisan serve
       </td>
       <td align="center" width="20%">
         <a href="https://github.com/huynhtrong">
-          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Huỳnh Văn Trọng"/>
+          <img src="Assets/proflile/trong.png" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Huỳnh Văn Trọng"/>
           <br />
           <b>Huỳnh Văn Trọng</b>
         </a>
@@ -364,7 +364,7 @@ php artisan serve
       </td>
       <td align="center" width="20%">
         <a href="https://github.com/quynhnhu">
-          <img src="https://via.placeholder.com/100x100" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Nguyễn Thị Quỳnh Như"/>
+          <img src="Assets/proflile/nhu.jpg" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Nguyễn Thị Quỳnh Như"/>
           <br />
           <b>Nguyễn Thị Quỳnh Như</b>
         </a>
@@ -381,65 +381,3 @@ php artisan serve
   </table>
 </div>
 
-<div align="center">
-  <h3>🏆 Đóng Góp Theo Lĩnh Vực</h3>
-  <table>
-    <tr>
-      <th align="center">Backend</th>
-      <th align="center">Frontend</th>
-      <th align="center">AI/ML</th>
-      <th align="center">Mobile</th>
-      <th align="center">Documentation</th>
-    </tr>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/vovanviet">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Võ Văn Việt"/>
-        </a>
-        <a href="https://github.com/huynhtrong">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Huỳnh Văn Trọng"/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/trancuong">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Trần Đức Cường"/>
-        </a>
-        <a href="https://github.com/quynhnhu">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Nguyễn Thị Quỳnh Như"/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/bachquy">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Bạch Đình Quý"/>
-        </a>
-        <a href="https://github.com/vovanviet">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Võ Văn Việt"/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/trancuong">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Trần Đức Cường"/>
-        </a>
-        <a href="https://github.com/bachquy">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Bạch Đình Quý"/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/huynhtrong">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Huỳnh Văn Trọng"/>
-        </a>
-        <a href="https://github.com/quynhnhu">
-          <img src="https://via.placeholder.com/40x40" width="40px" style="border-radius: 50%;" alt="Nguyễn Thị Quỳnh Như"/>
-        </a>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<div align="center">
-  <h3>📊 Thống Kê Đóng Góp</h3>
-  <table>
-    <tr>
-      <th align="center">Thành viên</th>
-      <th align="center">Commits</th>
-      <th align="center">Pull Requests</th
