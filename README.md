@@ -77,7 +77,7 @@
   
   <div align="center">
     <a href="#-tính-năng-nổi-bật">🚀 Tính Năng</a> •
-    <a href="#https://wopai.deloydz.com/">🖼️ Demo</a> •
+    <a href="https://wopai.deloydz.com">🖼️ Demo</a> •
     <a href="#-các-chức-năng-chính">🧩 Chức Năng</a> •
     <a href="#-triển-khai">🚧 Triển Khai</a> •
     <a href="#-contributors">👨‍💻 Đóng Góp</a>
