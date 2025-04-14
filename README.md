@@ -1,7 +1,9 @@
 # Hệ Thống Xem Phim Đa Nền Tảng Trả Phí và Ứng Dụng AI Đề Xuất Nội Dung
 
 <p>Dự án được phát triển và duy trì bởi nhóm sinh viên Đại học Duy Tân, nhằm xây dựng một nền tảng xem phim hiện đại với công nghệ AI đề xuất nội dung.</p>
-  
+
+![Banner](Assets/img/slide.jpg)
+
 <div>
   <img src="https://img.shields.io/badge/branches-5-blue?style=for-the-badge" alt="Branches" />
   <img src="https://img.shields.io/badge/commits-46-green?style=for-the-badge" alt="Commits" />
@@ -75,7 +77,7 @@
   
   <div align="center">
     <a href="#-tính-năng-nổi-bật">🚀 Tính Năng</a> •
-    <a href="#-hình-ảnh-demo">🖼️ Demo</a> •
+    <a href="#https://wopai.deloydz.com/">🖼️ Demo</a> •
     <a href="#-các-chức-năng-chính">🧩 Chức Năng</a> •
     <a href="#-triển-khai">🚧 Triển Khai</a> •
     <a href="#-contributors">👨‍💻 Đóng Góp</a>
