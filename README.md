@@ -320,60 +320,60 @@ php artisan serve
         <small>Scrum Master</small>
       </td>
       <td align="center" width="20%">
-        <a href="https://github.com/bachquy">
+        <a href="https://github.com/tranduccuong241222">
           <img src="Assets/proflile/quy.jpg" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Bạch Đình Quý"/>
           <br />
           <b>Bạch Đình Quý</b>
         </a>
         <br />
-        <sub>@bachquy</sub>
+        <sub>@tranduccuong241222</sub>
         <br />
-        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=bachquy">
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=tranduccuong241222">
           <img src="https://img.shields.io/badge/commits-9-blue?style=flat-square" alt="commits" />
         </a>
         <br />
         <small>Product Owner</small>
       </td>
       <td align="center" width="20%">
-        <a href="https://github.com/trancuong">
+        <a href="https://github.com/tranduccuong241222">
           <img src="Assets/proflile/cuong.jpg" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Trần Đức Cường"/>
           <br />
           <b>Trần Đức Cường</b>
         </a>
         <br />
-        <sub>@trancuong</sub>
+        <sub>@tranduccuong241222</sub>
         <br />
-        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=trancuong">
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=tranduccuong241222">
           <img src="https://img.shields.io/badge/commits-8-blue?style=flat-square" alt="commits" />
         </a>
         <br />
         <small>Developer</small>
       </td>
       <td align="center" width="20%">
-        <a href="https://github.com/huynhtrong">
+        <a href="https://github.com/vantrong1603">
           <img src="Assets/proflile/trong.png" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Huỳnh Văn Trọng"/>
           <br />
           <b>Huỳnh Văn Trọng</b>
         </a>
         <br />
-        <sub>@huynhtrong</sub>
+        <sub>@vantrong1603</sub>
         <br />
-        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=huynhtrong">
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=vantrong1603">
           <img src="https://img.shields.io/badge/commits-7-blue?style=flat-square" alt="commits" />
         </a>
         <br />
         <small>Developer</small>
       </td>
       <td align="center" width="20%">
-        <a href="https://github.com/quynhnhu">
+        <a href="https://github.com/tranduccuong241222">
           <img src="Assets/proflile/nhu.jpg" width="100px" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" alt="Nguyễn Thị Quỳnh Như"/>
           <br />
           <b>Nguyễn Thị Quỳnh Như</b>
         </a>
         <br />
-        <sub>@quynhnhu</sub>
+        <sub>@tranduccuong241222</sub>
         <br />
-        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=quynhnhu">
+        <a href="https://github.com/dtu-team/movie-streaming-platform/commits?author=tranduccuong241222">
           <img src="https://img.shields.io/badge/commits-10-blue?style=flat-square" alt="commits" />
         </a>
         <br />
