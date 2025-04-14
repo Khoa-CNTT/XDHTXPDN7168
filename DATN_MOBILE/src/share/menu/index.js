@@ -1,0 +1,31 @@
+const SCREEN_NAME = {
+    HOME                : 'Home',
+    LOGIN               : 'Login',
+    SEARCH              : 'Search', 
+    DETAIL_FILM        : 'DetailFilm',
+    BLOG                : 'Blog',
+    BLOG_DETAIL        : 'BlogDetail',
+    WISHLIST           : 'Wishlist',
+    REGISTER           : 'Register',
+    WATCH_PAGE         : 'WatchPage',
+    GOIVIP             : 'GoiVip',
+    LOADING            : 'Loading',
+    TYPE_FILM          : 'TypeFilm',
+    GENRE_FILM         : 'GenreFilm',
+    ALL_FILM           : 'AllFilm',
+    PAGE_PROFILE       : 'PageProfile',
+    PAGE_SETTING       : 'PageSetting',
+    BILLING_INFO       : 'BillingInfo',
+    WATCH_HISTORY      : 'WatchHistory',
+    PAYMENT_METHOD     : 'PaymentMethod',
+    PAYMENT_SUCCESS    : 'PaymentSuccess',
+    PAYMENT_ERROR      : 'PaymentError',
+    PAYMENT_BANK       : 'PaymentBank',
+    PAYMENT_WEBVIEW    : 'PaymentWebView',
+    STATUS_PAYMENT     : 'StatusPayment',
+    GOOGLE_LOGIN       : 'GoogleLogin',
+    FORGET_PASS        : 'ForgetPass',
+}
+
+export default SCREEN_NAME;
+
