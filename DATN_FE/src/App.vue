@@ -1,13 +1,13 @@
 <template>
       <router-view></router-view>
+      <Chatbot/>
 </template>
 
 <script>
+import Chatbot from "./components/Chatbot/Chatbot.vue"
 export default {
-  computed: {
-    // layout() {
-    //   return (this.$route.meta.layout || default_layout) + "-layout";
-    // },
+  components: {
+    Chatbot
   },
 };
 </script>
