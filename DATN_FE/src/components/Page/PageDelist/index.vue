@@ -200,36 +200,36 @@
                         <div class="section-title">
                             <h5>CÁC PHIM LIÊN QUAN</h5>
                         </div>
-                        <template v-for="(v, k) in list_5_phim" :key="k">
-                            <div class="product__sidebar__comment__item">
-                                <router-link :to="v.slug_phim">
-                                    <a v-bind:href="v.slug_phim">
-                                        <div class="product__sidebar__comment__item__pic">
-                                            <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
-                                        </div>
-                                    </a>
-                                </router-link>
-
-                                <div style="" class="product__sidebar__comment__item__text">
-                                    <ul>
-                                        <!-- <li >{{ v.ten_loai_phim }}</li> -->
-                                        <template v-for="(value, key) in v.ten_the_loais" :key="key">
-                                            <li>{{ value }}</li>
-                                        </template>
-                                    </ul>
-                                    <h5>
-                                        <router-link :to="v.slug_phim">
-                                            {{ v.ten_phim }}
+                        <template v-for="(v, k) in list_recomender" :key="k">
+                                    <div class="product__sidebar__comment__item">
+                                        <router-link :to="v.slug">
+                                            <a v-bind:href="v.slug">
+                                                <div class="product__sidebar__comment__item__pic">
+                                                    <img v-bind:src="v.poster_url" style="width: 99px" alt="" />
+                                                </div>
+                                            </a>
                                         </router-link>
-                                    </h5>
-                                    <div style="color: #b7b7b7">
-                                        Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+
+                                        <div style="" class="product__sidebar__comment__item__text">
+                                            <ul>
+                                                <!-- <li >{{ v.ten_loai_phim }}</li> -->
+                                                <template v-for="(value, key) in v.genres" :key="key">
+                                                    <li>{{ value }}</li>
+                                                </template>
+                                            </ul>
+                                            <h5>
+                                                <router-link :to="v.slug">
+                                                    {{ v.title }}
+                                                </router-link>
+                                            </h5>
+                                            <div style="color: #b7b7b7">
+                                                <!-- Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }} -->
+                                            </div>
+                                            <!-- <span><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }} lượt
+                                                xem</span> -->
+                                        </div>
                                     </div>
-                                    <span><i class="fa fa-eye"></i> {{ v.tong_luot_xem }} lượt
-                                        xem</span>
-                                </div>
-                            </div>
-                        </template>
+                                </template>
                     </div>
                 </div>
                 <!-- Modal xoa binh luan -->
@@ -425,6 +425,7 @@ export default {
             obj_phim: {},
             list_cmt: [],
             list_goi_vip: [],
+            list_recomender: [],
             isFollow: true,
         };
     },
@@ -434,6 +435,7 @@ export default {
         this.laydataCMT();
         this.laydataDelistPhim();
         this.goiVipOpen();
+        this.getdataRecomender();
         // Lắng nghe sự kiện khi modal đóng để dừng video
         const modalElement = document.getElementById('modalTrailer');
         modalElement.addEventListener('hidden.bs.modal', this.stopVideo);
@@ -570,6 +572,20 @@ export default {
         taiThemCMT() {
             this.limit += this.limit;
             this.laydataCMT();
+        },
+        async getdataRecomender() {
+            var payload = localStorage.getItem("chatPreferences");
+            const res = await axios.post(import.meta.env.VITE_CHATBOT_API + '/recommendations', payload ,{
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + localStorage.getItem("token_user"),
+                    },
+            });
+            this.list_recomender = res.data.recommendations;
+            this.list_recomender.forEach((value, index) => {
+                value.genres = value.genres.split('|');
+            });
+            this.$store.dispatch('hideLoader');
         },
         laydataCMT() {
             axios

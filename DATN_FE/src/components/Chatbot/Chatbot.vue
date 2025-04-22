@@ -207,7 +207,7 @@ export default {
       },
       isTyping: false,
       chatMode: 'movie', // 'movie' or 'vip'
-      apiEndpoint: 'http://127.0.0.1:5001',
+      apiEndpoint: import.meta.env.VITE_CHATBOT_API,
       movieGenres: [],
       sessionId: null,
       movieIdMap: {} // Map để lưu trữ ID phim
@@ -266,7 +266,7 @@ export default {
         });
       }
     },
-    preferences: {
+    movie_id: {
       deep: true,
       handler(newPreferences) {
         localStorage.setItem('chatPreferences', JSON.stringify(newPreferences));
@@ -314,7 +314,7 @@ export default {
         // Gọi bất kỳ endpoint nào để server tạo session
         const response = await fetch(`${this.apiEndpoint}/`, {
           method: 'GET',
-          credentials: 'include' // Quan trọng để nhận cookie từ server
+          // credentials: 'include' 
         });
         
         // Kiểm tra cookie sau khi gọi API
@@ -990,8 +990,9 @@ export default {
 
 /* Full chatbot panel when open */
 .chatbot-panel {
-  width: 480px; /* Increased width */
-  height: 720px; /* Increased height */
+  width: 600px; /* Set width to 50% of viewport width on large screens */
+  max-width: 720px; /* Add a max-width so it doesn't get too large */
+  height: 800px; /* Increased height */
   background-color: #fff;
   border-radius: 16px; /* More rounded corners */
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25); /* Deeper, more attractive shadow */
@@ -1753,130 +1754,143 @@ box-shadow: none;
 }
 
 /* Responsive styles - Enhanced */
+@media (max-width: 1200px) {
+  .chatbot-panel {
+    width: 65vw;
+  }
+}
+
+@media (max-width: 992px) {
+  .chatbot-panel {
+    width: 75vw;
+  }
+}
+
 @media (max-width: 768px) {
-.chatbot-panel {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  border-radius: 0;
-  animation: slideUpMobile 0.3s ease;
-}
-
-@keyframes slideUpMobile {
-  from {
-    transform: translateY(100%);
+  .chatbot-panel {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+    animation: slideUpMobile 0.3s ease;
+    max-width: 100%; /* Remove max-width limit for mobile */
   }
 
-  to {
-    transform: translateY(0);
+  @keyframes slideUpMobile {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
   }
-}
 
-.chatbot-messages {
-  padding: 18px;
-}
+  .chatbot-messages {
+    padding: 18px;
+  }
 
-.chatbot-input {
-  padding: 15px 18px;
-}
+  .chatbot-input {
+    padding: 15px 18px;
+  }
 
-.welcome-message {
-  padding: 22px;
-}
+  .welcome-message {
+    padding: 22px;
+  }
 
-.preference-tags {
-  padding: 10px 18px;
-}
+  .preference-tags {
+    padding: 10px 18px;
+  }
 
-.mode-toggle {
-  margin-left: 10px;
-  margin-right: 10px;
-}
+  .mode-toggle {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
 
 @media (max-width: 480px) {
-.message-bubble {
-  max-width: 90%;
-  padding: 14px 16px;
-  font-size: 15px;
-}
+  .message-bubble {
+    max-width: 90%;
+    padding: 14px 16px;
+    font-size: 15px;
+  }
 
-.bot-avatar {
-  width: 40px;
-  height: 40px;
-}
+  .bot-avatar {
+    width: 40px;
+    height: 40px;
+  }
 
-.input-field {
-  padding: 14px 16px;
-  font-size: 15px;
-}
+  .input-field {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
 
-.send-button {
-  width: 46px;
-  height: 46px;
-}
+  .send-button {
+    width: 46px;
+    height: 46px;
+  }
 
-.chatbot-header {
-  padding: 14px 16px;
-}
+  .chatbot-header {
+    padding: 14px 16px;
+  }
 
-.chatbot-title {
-  font-size: 18px;
-}
+  .chatbot-title {
+    font-size: 18px;
+  }
 
-.welcome-message h3 {
-  font-size: 20px;
-}
+  .welcome-message h3 {
+    font-size: 20px;
+  }
 
-.welcome-message p {
-  font-size: 15px;
-}
+  .welcome-message p {
+    font-size: 15px;
+  }
 
-.chatbot-button {
-  width: 60px;
-  height: 60px;
-  bottom: 15px;
-  right: 15px;
-}
+  .chatbot-button {
+    width: 60px;
+    height: 60px;
+    bottom: 15px;
+    right: 15px;
+  }
 
-.message-time {
-  margin-left: 50px;
-}
+  .message-time {
+    margin-left: 50px;
+  }
 
-.typing-indicator {
-  margin-left: 50px;
-}
+  .typing-indicator {
+    margin-left: 50px;
+  }
 
-.mode-button {
-  padding: 5px 10px;
-  font-size: 13px;
-}
+  .mode-button {
+    padding: 5px 10px;
+    font-size: 13px;
+  }
 
-.mode-button .icon-small {
-  margin-right: 4px;
-  width: 16px;
-  height: 16px;
-}
+  .mode-button .icon-small {
+    margin-right: 4px;
+    width: 16px;
+    height: 16px;
+  }
 
-.preference-tags {
-  padding: 8px 15px;
-}
+  .preference-tags {
+    padding: 8px 15px;
+  }
 
-.preference-tag {
-  font-size: 11px;
-  padding: 3px 8px;
-}
+  .preference-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
 
-.movie-actions {
-  flex-direction: column;
-  align-items: stretch;
-  gap: 8px;
-}
+  .movie-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
 
-.movie-action-btn {
-  align-self: flex-end;
+  .movie-action-btn {
+    align-self: flex-end;
+  }
 }
-}
-  </style>
+</style>

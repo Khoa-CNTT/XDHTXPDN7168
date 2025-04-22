@@ -2,9 +2,8 @@
     <div>
         <!-- Hero Banner Section -->
         <div class="hero-banner">
-            <div v-for="(slide, index) in list_slide" :key="index" 
-                 class="hero-banner-slide" 
-                 :class="{ active: index === activeSlide }">
+            <div v-for="(slide, index) in list_slide" :key="index" class="hero-banner-slide"
+                :class="{ active: index === activeSlide }">
                 <div class="hero-banner-backdrop" :style="{ backgroundImage: `url(${slide.poster_img})` }"></div>
                 <div class="hero-banner-overlay"></div>
                 <div class="container hero-banner-content">
@@ -38,22 +37,20 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Thumbnails at the bottom for navigation -->
                 <div class="hero-thumbnails">
                     <div class="container">
                         <div class="thumbnails-wrapper">
-                            <div v-for="(thumb, i) in Math.min(6, list_slide.length)" :key="i" 
-                                 class="hero-thumbnail" 
-                                 :class="{ active: i === activeSlide }"
-                                 @click="setActiveSlide(i)">
+                            <div v-for="(thumb, i) in Math.min(6, list_slide.length)" :key="i" class="hero-thumbnail"
+                                :class="{ active: i === activeSlide }" @click="setActiveSlide(i)">
                                 <img :src="list_slide[i]?.poster_img || ''" alt="Thumbnail" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Navigation Controls -->
             <div class="hero-controls">
                 <button @click="prevSlide" class="hero-control prev">
@@ -63,13 +60,11 @@
                     <i class="fa fa-angle-right"></i>
                 </button>
             </div>
-            
+
             <!-- Indicators -->
             <div class="hero-indicators">
-                <button v-for="(slide, i) in list_slide" :key="i" 
-                       @click="setActiveSlide(i)"
-                       :class="{ active: i === activeSlide }"
-                       class="hero-indicator"></button>
+                <button v-for="(slide, i) in list_slide" :key="i" @click="setActiveSlide(i)"
+                    :class="{ active: i === activeSlide }" class="hero-indicator"></button>
             </div>
         </div>
 
@@ -100,13 +95,14 @@
                                         <router-link :to="v.slug_phim">
                                             <div class="product__item">
                                                 <div class="product__item__pic set-bg">
-                                                    <img style="width: 100%; height: 100%; object-fit: cover;" v-bind:src="v.hinh_anh"
-                                                         loading="lazy" alt="" />
+                                                    <img style="width: 100%; height: 100%; object-fit: cover;"
+                                                        v-bind:src="v.hinh_anh" loading="lazy" alt="" />
                                                     <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }}
                                                         <span v-if="v.tong_tap == v.so_tap_phim">FULL</span>
                                                     </div>
                                                     <div class="comment b">{{ v.ten_loai_phim }}</div>
-                                                    <div class="view"><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }}</div>
+                                                    <div class="view"><i class="fa fa-eye"></i> {{
+                                                        formatNumber(v.tong_luot_xem) }}</div>
                                                 </div>
                                                 <div class="product__item__text">
                                                     <ul>
@@ -114,7 +110,9 @@
                                                             <li v-show="key < 3">{{ item }}</li>
                                                         </template>
                                                     </ul>
-                                                    <h5><a style="color: #ffffff;" href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{ tenPhimLimited_1(v.ten_phim) }}</a></h5>
+                                                    <h5><a style="color: #ffffff;"
+                                                            href="http://127.0.0.1:8002/dai-tieu-thu-vuot-qua-chong-gai">{{
+                                                            tenPhimLimited_1(v.ten_phim) }}</a></h5>
                                                 </div>
                                             </div>
                                         </router-link>
@@ -238,8 +236,10 @@
                                                 <div class="ep">{{ v.tong_tap }}/{{ v.so_tap_phim }} <span
                                                         v-show="v.tong_tap == v.so_tap_phim">FULL</span></div>
 
-                                                <div class="view"><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }}</div>
-                                                <h5><a v-bind:href="v.slug_phim">{{ tenPhimLimited(v.ten_phim) }}</a></h5>
+                                                <div class="view"><i class="fa fa-eye"></i> {{
+                                                    formatNumber(v.tong_luot_xem) }}</div>
+                                                <h5><a v-bind:href="v.slug_phim">{{ tenPhimLimited(v.ten_phim) }}</a>
+                                                </h5>
                                             </div>
                                         </router-link>
                                     </template>
@@ -249,12 +249,12 @@
                                 <div class="section-title">
                                     <h5>ĐỀ XUẤT CHO BẠN</h5>
                                 </div>
-                                <template v-for="(v, k) in phim_hot" :key="k">
+                                <template v-for="(v, k) in list_recomender" :key="k">
                                     <div class="product__sidebar__comment__item">
-                                        <router-link :to="v.slug_phim">
-                                            <a v-bind:href="v.slug_phim">
+                                        <router-link :to="v.slug">
+                                            <a v-bind:href="v.slug">
                                                 <div class="product__sidebar__comment__item__pic">
-                                                    <img v-bind:src="v.hinh_anh" style="width: 99px" alt="" />
+                                                    <img v-bind:src="v.poster_url" style="width: 99px" alt="" />
                                                 </div>
                                             </a>
                                         </router-link>
@@ -262,20 +262,20 @@
                                         <div style="" class="product__sidebar__comment__item__text">
                                             <ul>
                                                 <!-- <li >{{ v.ten_loai_phim }}</li> -->
-                                                <template v-for="(value, key) in v.ten_the_loais" :key="key">
+                                                <template v-for="(value, key) in v.genres" :key="key">
                                                     <li>{{ value }}</li>
                                                 </template>
                                             </ul>
                                             <h5>
-                                                <router-link :to="v.slug_phim">
-                                                    {{ v.ten_phim }}
+                                                <router-link :to="v.slug">
+                                                    {{ v.title }}
                                                 </router-link>
                                             </h5>
                                             <div style="color: #b7b7b7">
-                                                Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }}
+                                                <!-- Số Tập: {{ v.tong_tap }} / {{ v.so_tap_phim }} -->
                                             </div>
-                                            <span><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }} lượt
-                                                xem</span>
+                                            <!-- <span><i class="fa fa-eye"></i> {{ formatNumber(v.tong_luot_xem) }} lượt
+                                                xem</span> -->
                                         </div>
                                     </div>
                                 </template>
@@ -313,6 +313,7 @@ export default {
             list_loai_phim: [],
             list_the_loai: [],
             tat_ca_phim: [],
+            list_recomender: [],
             list_hot_trong_thang: [],
             tat_ca_phim_hoan_thanh: [],
             phim_xem_nhieu_nhat: [],
@@ -327,7 +328,7 @@ export default {
         this.$store.dispatch('showLoader');
         this.laydataPhim();
         this.getdataSlide();
-        
+        this.getdataRecomender();
         // Auto slide rotation
         this.startSlideTimer();
     },
@@ -382,6 +383,20 @@ export default {
                 slide.mo_ta = slide.mo_ta.length > 150 ? slide.mo_ta.substring(0, 150) + '...' : slide.mo_ta;
                 slide.ten_phim = slide.ten_phim.length > 40 ? slide.ten_phim.substring(0, 40) + '...' : slide.ten_phim;
                 return slide;
+            });
+            this.$store.dispatch('hideLoader');
+        },
+        async getdataRecomender() {
+            var payload = localStorage.getItem("chatPreferences");
+            const res = await axios.post(import.meta.env.VITE_CHATBOT_API + '/recommendations', payload ,{
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': "Bearer " + localStorage.getItem("token_user"),
+                    },
+            });
+            this.list_recomender = res.data.recommendations;
+            this.list_recomender.forEach((value, index) => {
+                value.genres = value.genres.split('|');
             });
             this.$store.dispatch('hideLoader');
         },
@@ -722,11 +737,11 @@ export default {
     .hero-banner {
         height: 540px;
     }
-    
+
     .hero-banner-title {
         font-size: 38px;
     }
-    
+
     .hero-thumbnails {
         display: none;
     }
@@ -736,15 +751,15 @@ export default {
     .hero-banner {
         height: 480px;
     }
-    
+
     .hero-banner-title {
         font-size: 32px;
     }
-    
+
     .hero-banner-description {
         font-size: 14px;
     }
-    
+
     .hero-control {
         width: 40px;
         height: 40px;
@@ -756,30 +771,30 @@ export default {
     .hero-banner {
         height: 420px;
     }
-    
+
     .hero-banner-title {
         font-size: 28px;
         margin-bottom: 15px;
     }
-    
+
     .hero-banner-description {
         margin-bottom: 15px;
     }
-    
+
     .hero-banner-categories {
         margin-bottom: 20px;
     }
-    
+
     .category-tag {
         padding: 4px 10px;
         font-size: 12px;
     }
-    
+
     .btn-watch {
         padding: 10px 20px;
         font-size: 14px;
     }
-    
+
     .btn-circle {
         width: 38px;
         height: 38px;
