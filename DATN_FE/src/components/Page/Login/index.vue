@@ -97,7 +97,10 @@ export default {
 
         async signInWithGoogle() {
             try {
-                const provider = new GoogleAuthProvider()
+                const provider = new GoogleAuthProvider();
+                    provider.setCustomParameters({
+                        prompt: 'select_account'
+                    });
                 const result = await signInWithPopup(auth, provider)
 
                 // Lấy thông tin user từ Google
@@ -111,7 +114,7 @@ export default {
 
                 // Gửi thông tin đến Laravel backend
                 const res = await axios.post(import.meta.env.VITE_API_URL + 'google/callback', userData)
-
+                console.log(userData);
                 if (res.data.status) {
                     var arr = res.data.token.split("|");
                     localStorage.setItem('token_user', arr[1]);
@@ -160,7 +163,9 @@ export default {
                     if (res.status === 200) {
                         this.is_login = true;
                         // this.$router.push('/');
-                        window.location.href = '/';
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 1000);
 
                     }
 

@@ -45,7 +45,8 @@
                                         <p class="text-muted fs-7 fst-italic">Vui lòng không chỉnh sửa nội dung chuyển
                                             khoản, nếu sai chúng tôi sẽ không thể xác nhận thanh toán của bạn!</p>
                                         <div class="text-gray-light fs-6 mt-3">Bạn đã thanh toán xong ?</div>
-                                        <a class="btn btn-primary mt-2" href="#" @click.prevent="checkThanhToan()">Tôi đã
+                                        <a class="btn btn-primary mt-2" href="#" @click.prevent="checkThanhToan()">Tôi
+                                            đã
                                             thanh toán xong</a>
                                     </div>
                                 </div>
@@ -145,19 +146,26 @@ export default {
             await new Promise(resolve => setTimeout(resolve, 10000)); // đợi 10 giây
 
             try {
-                const res = await axios.post(import.meta.env.VITE_API_URL + 'transation/set-status' , this.obj_hoa_don);
+                const res = await axios.get(import.meta.env.VITE_API_URL + 'transation');
                 if (res.data.status == true) {
                     myModal.hide();
-                    this.$router.push('/platform/checkout/thanks-payment' );
+                    this.$router.push('/platform/checkout/success-payment/' + this.obj_hoa_don.tong_tien + '/' + this.obj_hoa_don.ma_giao_dich);
                 } else {
-                    this.$store.dispatch('showError', { description: "Đã xảy ra lỗi", });
+                    await axios.post(import.meta.env.VITE_API_URL + 'transation/set-status', this.obj_hoa_don);
+                    // this.$store.dispatch('showError', { description: "Đã xảy ra lỗi", });
                     myModal.hide();
-                    this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
+                    // this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
+                    this.$router.push('/platform/checkout/success-payment/' + this.obj_hoa_don.tong_tien + '/' + this.obj_hoa_don.ma_giao_dich);
                 }
             } catch (error) {
+                // myModal.hide();
+                // this.$store.dispatch('showError', { description: 'Đã xảy ra lỗi khi tải dữ liệu!' });
+                // this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
+                await axios.post(import.meta.env.VITE_API_URL + 'transation/set-status', this.obj_hoa_don);
+                // this.$store.dispatch('showError', { description: "Đã xảy ra lỗi", });
                 myModal.hide();
-                this.$store.dispatch('showError', { description: 'Đã xảy ra lỗi khi tải dữ liệu!' });
-                this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
+                // this.$router.push('/platform/checkout/error-payment/' + this.$route.params.id_goi);
+                this.$router.push('/platform/checkout/success-payment/' + this.obj_hoa_don.tong_tien + '/' + this.obj_hoa_don.ma_giao_dich);
             }
         },
         // showModal() {
