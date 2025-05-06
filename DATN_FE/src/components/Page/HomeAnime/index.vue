@@ -387,7 +387,8 @@ export default {
             this.$store.dispatch('hideLoader');
         },
         async getdataRecomender() {
-            var payload = localStorage.getItem("chatPreferences");
+            var chatPreferences = localStorage.getItem("chatPreferences");
+            var payload = JSON.parse(chatPreferences);
             const res = await axios.post(import.meta.env.VITE_CHATBOT_API + '/recommendations', payload ,{
                 headers: {
                         'Content-Type': 'application/json',

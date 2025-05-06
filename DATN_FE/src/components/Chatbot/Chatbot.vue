@@ -266,10 +266,14 @@ export default {
         });
       }
     },
-    movie_id: {
+    preferences: {
       deep: true,
       handler(newPreferences) {
+        // Lưu vào localStorage
         localStorage.setItem('chatPreferences', JSON.stringify(newPreferences));
+        
+        // Gửi cập nhật lên server
+        this.updatePreferencesOnServer(newPreferences);
       }
     },
     chatMode(newMode) {
@@ -663,58 +667,81 @@ export default {
       }
     },
     
+    async updatePreferencesOnServer(preferences) {
+      try {
+        const response = await fetch(`${this.apiEndpoint}/update-preferences`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            preferences: preferences
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        if (!data.success) {
+          console.error('Failed to update preferences on server');
+        }
+      } catch (error) {
+        console.error('Error updating preferences:', error);
+      }
+    },
+
     async likeMovie(movieTitle, movieId) {
       try {
-        // Nếu không có ID, tạo ID từ tiêu đề
         if (!movieId) {
           movieId = this.hashCode(movieTitle);
         }
-        
+
         // Kiểm tra nếu đã thích
         if (this.preferences.liked_movies.includes(movieId)) {
-          console.log(`Phim "${movieTitle}" đã được thích trước đó`);
           return;
         }
-        
-        // Thêm vào danh sách phim đã thích
-        if (!this.preferences.liked_movies.includes(movieId)) {
-          this.preferences.liked_movies.push(movieId);
-        }
+
+        // Cập nhật preferences cục bộ
+        this.preferences = {
+          ...this.preferences,
+          liked_movies: [...this.preferences.liked_movies, movieId]
+        };
         
         // Lưu ID phim vào map
         this.movieIdMap[movieTitle] = movieId;
-        
+
         // Gửi tương tác lên server
         const response = await fetch(`${this.apiEndpoint}/movie-interaction`, {
           method: 'POST',
-          // credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             movie_id: movieId,
             interaction_type: 'like',
-            movie_title: movieTitle
+            movie_title: movieTitle,
+            preferences: this.preferences // Gửi toàn bộ preferences hiện tại
           })
         });
-        
+
         if (response.ok) {
           const data = await response.json();
-          
           if (data.success) {
-            // Thông báo nhỏ
+            // Thông báo
             this.messages.push({
               sender: "Bot",
               text: `Đã thêm "${movieTitle}" vào danh sách phim bạn thích.`,
               time: this.formatTime(),
               is_markdown: false
             });
-            
-            // Cập nhật sở thích nếu có
+
+            // Cập nhật preferences nếu server trả về
             if (data.preferences) {
               this.preferences = data.preferences;
             }
-            
+
             this.$nextTick(() => {
               this.scrollToBottom();
             });
@@ -727,31 +754,30 @@ export default {
     
     async removePreference(type, value) {
       try {
+        // Cập nhật preferences cục bộ trước
+        if (type === 'genre') {
+          this.preferences.genres = this.preferences.genres.filter(g => g !== value);
+        } else if (type === 'movie') {
+          this.preferences.liked_movies = this.preferences.liked_movies.filter(id => id !== value);
+        }
+
         // Gửi yêu cầu xóa sở thích
         const response = await fetch(`${this.apiEndpoint}/remove-preference`, {
           method: 'POST',
-          // credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
             preference_type: type,
-            preference_value: value
+            preference_value: value,
+            preferences: this.preferences // Gửi toàn bộ preferences hiện tại
           })
         });
-        
+
         if (response.ok) {
           const data = await response.json();
-          
           if (data.success) {
-            // Cập nhật sở thích cục bộ
-            if (type === 'genre') {
-              this.preferences.genres = this.preferences.genres.filter(g => g !== value);
-            } else if (type === 'movie') {
-              this.preferences.liked_movies = this.preferences.liked_movies.filter(id => id !== value);
-            }
-            
-            // Thông báo nhỏ
+            // Thông báo
             this.messages.push({
               sender: "Bot",
               text: type === 'genre' 
@@ -760,7 +786,12 @@ export default {
               time: this.formatTime(),
               is_markdown: false
             });
-            
+
+            // Cập nhật preferences nếu server trả về
+            if (data.preferences) {
+              this.preferences = data.preferences;
+            }
+
             this.$nextTick(() => {
               this.scrollToBottom();
             });
