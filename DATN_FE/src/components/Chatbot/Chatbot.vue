@@ -209,8 +209,9 @@ export default {
       chatMode: 'movie', // 'movie' or 'vip'
       apiEndpoint: import.meta.env.VITE_CHATBOT_API,
       movieGenres: [],
-      sessionId: null,
-      movieIdMap: {} // Map để lưu trữ ID phim
+      sessionId: localStorage.getItem('session_id') || null ,
+      movieIdMap: {},
+      userId: localStorage.getItem('id_user') || null,
     };
   },
   computed: {
@@ -284,11 +285,14 @@ export default {
     // Khởi tạo session
     initSession() {
       // Kiểm tra session ID từ cookie
-      this.sessionId = this.getCookie('session_id');
+      this.sessionId = localStorage.getItem('session_id');
       
       // Nếu không có, thực hiện request đầu tiên để khởi tạo session
       if (!this.sessionId) {
-        this.fetchInitialSession();
+        const sections = crypto.randomUUID();
+        localStorage.setItem('session_id', sections);
+        this.sessionId = sections;
+        this.fetchUserPreferences();
       } else {
         console.log("Đã tìm thấy session ID:", this.sessionId);
         // Tải sở thích người dùng từ server
@@ -313,31 +317,31 @@ export default {
     },
     
     // Khởi tạo session từ server
-    async fetchInitialSession() {
-      try {
-        // Gọi bất kỳ endpoint nào để server tạo session
-        const response = await fetch(`${this.apiEndpoint}/`, {
-          method: 'GET',
-          // credentials: 'include' 
-        });
+    // async fetchInitialSession() {
+    //   try {
+    //     // Gọi bất kỳ endpoint nào để server tạo session
+    //     const response = await fetch(`${this.apiEndpoint}/`, {
+    //       method: 'GET',
+    //       // credentials: 'include' 
+    //     });
         
-        // Kiểm tra cookie sau khi gọi API
-        this.sessionId = this.getCookie('session_id');
+    //     // Kiểm tra cookie sau khi gọi API
+    //     this.sessionId = this.getCookie('session_id');
         
-        if (this.sessionId) {
-          console.log("Đã nhận session ID mới:", this.sessionId);
-          // Tải sở thích người dùng
-          this.fetchUserPreferences();
-        }
-      } catch (error) {
-        console.error("Lỗi khi khởi tạo session:", error);
-      }
-    },
+    //     if (this.sessionId) {
+    //       console.log("Đã nhận session ID mới:", this.sessionId);
+    //       // Tải sở thích người dùng
+    //       this.fetchUserPreferences();
+    //     }
+    //   } catch (error) {
+    //     console.error("Lỗi khi khởi tạo session:", error);
+    //   }
+    // },
     
     // Tải sở thích người dùng từ server
     async fetchUserPreferences() {
       try {
-        const response = await fetch(`${this.apiEndpoint}/user-preferences`, {
+        const response = await fetch(`${this.apiEndpoint}/user-preferences?session_id=${this.sessionId}&user_id=${this.userId}`, {
           method: 'GET',
           // credentials: 'include',
           headers: {
@@ -471,14 +475,14 @@ export default {
       if (this.chatMode !== mode) {
         this.chatMode = mode;
         // Thêm tin nhắn thông báo khi chuyển mode
-        this.messages.push({
-          sender: "Bot",
-          text: mode === 'movie' 
-            ? "Bạn đã chuyển sang chế độ trợ lý phim. Tôi có thể giúp bạn tìm kiếm và đề xuất phim." 
-            : "Bạn đã chuyển sang chế độ trợ lý VIP. Tôi có thể tư vấn về các gói dịch vụ và thanh toán.",
-          time: this.formatTime(),
-          is_markdown: false
-        });
+        // this.messages.push({
+        //   sender: "Bot",
+        //   text: mode === 'movie' 
+        //     ? "Bạn đã chuyển sang chế độ trợ lý phim. Tôi có thể giúp bạn tìm kiếm và đề xuất phim." 
+        //     : "Bạn đã chuyển sang chế độ trợ lý VIP. Tôi có thể tư vấn về các gói dịch vụ và thanh toán.",
+        //   time: this.formatTime(),
+        //   is_markdown: false
+        // });
         this.$nextTick(() => {
           this.scrollToBottom();
         });
@@ -669,13 +673,16 @@ export default {
     
     async updatePreferencesOnServer(preferences) {
       try {
+        console.log(preferences);
         const response = await fetch(`${this.apiEndpoint}/update-preferences`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            preferences: preferences
+            preferences: preferences,
+            session_id: this.sessionId,
+            user_id: this.userId
           })
         });
 
@@ -684,8 +691,10 @@ export default {
         }
 
         const data = await response.json();
-        if (!data.success) {
-          console.error('Failed to update preferences on server');
+        if (data.success) {
+          if (data.session_id) {
+            localStorage.setItem('session_id', data.session_id);
+          }
         }
       } catch (error) {
         console.error('Error updating preferences:', error);
@@ -722,7 +731,10 @@ export default {
             movie_id: movieId,
             interaction_type: 'like',
             movie_title: movieTitle,
-            preferences: this.preferences // Gửi toàn bộ preferences hiện tại
+            preferences: this.preferences ,
+            session_id: this.sessionId,
+            user_id: this.userId
+            // Gửi toàn bộ preferences hiện tại
           })
         });
 
@@ -770,7 +782,9 @@ export default {
           body: JSON.stringify({
             preference_type: type,
             preference_value: value,
-            preferences: this.preferences // Gửi toàn bộ preferences hiện tại
+            preferences: this.preferences ,// Gửi toàn bộ preferences hiện tại
+            session_id: this.sessionId,
+            user_id: this.userId
           })
         });
 
@@ -812,7 +826,9 @@ export default {
           },
           body: JSON.stringify({
             message: message,
-            mode: this.chatMode
+            mode: this.chatMode,
+            session_id: this.sessionId,
+            user_id: this.userId,
           }),
         });
         // Xử lý phản hồi bằng cách cập nhật sở thích
@@ -852,7 +868,9 @@ export default {
           },
           body: JSON.stringify({
             message: message,
-            mode: this.chatMode
+            mode: this.chatMode,
+            session_id: this.sessionId,
+            user_id: this.userId
           }),
         });
 
@@ -954,12 +972,12 @@ export default {
           localStorage.removeItem('chatPreferences');
           
           // Thêm thông báo
-          this.messages.push({
-            sender: "Bot",
-            text: "Lịch sử trò chuyện và sở thích của bạn đã được xóa.",
-            time: this.formatTime(),
-            is_markdown: false
-          });
+          // this.messages.push({
+          //   sender: "Bot",
+          //   text: "Lịch sử trò chuyện và sở thích của bạn đã được xóa.",
+          //   time: this.formatTime(),
+          //   is_markdown: false
+          // });
         }
       } catch (error) {
         console.error("Lỗi khi xóa dữ liệu:", error);
