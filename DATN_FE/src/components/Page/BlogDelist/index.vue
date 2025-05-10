@@ -194,8 +194,8 @@ export default {
             var payload = {
                 'slug': this.$route.params.slug
             }
-            axios
-                .post("http://127.0.0.1:8000/api/bai-viet/lay-du-lieu-delist-blog", payload)
+            baseRequest
+                .post("bai-viet/lay-du-lieu-delist-blog", payload)
                 .then((res) => {
                     this.obj_blog = res.data.bai_viet;
                     let date = new Date(this.obj_blog.updated_at);
@@ -212,8 +212,8 @@ export default {
                 });
         },
         laydataCMT() {
-            axios
-                .get("http://127.0.0.1:8000/api/binh-luan-blog/lay-du-lieu-show")
+            baseRequest
+                .get("binh-luan-blog/lay-du-lieu-show")
                 .then((res) => {
                     this.list_cmt = res.data.binh_luan_bai_viet;
                 })

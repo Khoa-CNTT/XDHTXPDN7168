@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 // import 'bootstrap';
 
+// import $ from "jquery";
 import "ant-design-vue/dist/reset.css";
 import { Tree, notification,QRCode} from "ant-design-vue";
 notification.config({

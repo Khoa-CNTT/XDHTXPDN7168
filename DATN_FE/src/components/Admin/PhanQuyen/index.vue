@@ -1,211 +1,158 @@
 <template>
     <div class="row">
+        <!-- Card Danh Sách Chức Vụ -->
         <div class="col-lg-4">
             <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            Danh Sách Chức Vụ
-                        </div>
-                        <!-- <div class="col-lg-6 text-end">
-                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#themMoiModal">Thêm Quyền</button>
-                        </div> -->
-                        <div class="modal fade" id="themMoiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Quyền</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="col-12 mb-2">
-                                            <label class="form-label">Tên Quyền</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tạo Mới</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Danh Sách Chức Vụ</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead class="text-center align-middle">
-                                <tr>
-                                    <th>#</th>
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr class="text-center">
+                                    <th style="width: 60px">#</th>
                                     <th>Tên Chức Vụ</th>
-                                    <th>Action</th>
-                                    <!-- <th>Action</th> -->
+                                    <th style="width: 120px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(v, k) in listChucVu" class="align-middle" :key="k">
-                                    <th class="text-center">{{ k + 1 }}</th>
-                                    <td> {{ v.ten_chuc_vu }}</td>
+                                <tr v-for="(v, k) in listChucVu" 
+                                    :key="k" 
+                                    :class="{'table-active': chucVu.id === v.id}"
+                                    class="align-middle">
+                                    <td class="text-center">{{ k + 1 }}</td>
+                                    <td>{{ v.ten_chuc_vu }}</td>
                                     <td class="text-center">
-                                        <button v-on:click="chucVu = v; getChucNang()" class="btn btn-info text-white">Phân Quyền</button>
+                                        <button v-on:click="selectChucVu(v)" 
+                                                class="btn btn-info btn-sm text-white">
+                                            <i class='bx bx-key me-1'></i> Phân Quyền
+                                        </button>
                                     </td>
-                                    <!-- <td class="text-center">
-                                        <i class="fa-solid fa-square-pen fa-3x text-primary me-2" data-bs-toggle="modal"
-                                            data-bs-target="#updateModal"></i>
-                                        <i class="fa-solid fa-trash fa-3x text-danger" data-bs-toggle="modal"
-                                            data-bs-target="#xoaModal"></i>
-                                    </td> -->
+                                </tr>
+                                <tr v-if="listChucVu.length === 0">
+                                    <td colspan="3" class="text-center">Không có dữ liệu</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cập Nhật Quyền</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="col-12 mb-2">
-                                        <label class="form-label">Tên Quyền</label>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Xác Nhận</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="xoaModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa Quyền</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div
-                                        class="alert alert-warning border-0 bg-warning alert-dismissible fade show py-2">
-                                        <div class="d-flex align-items-center">
-                                            <div class="font-35 text-dark"><i class="bx bx-info-circle"></i>
-                                            </div>
-                                            <div class="ms-3">
-                                                <h6 class="mb-0 text-dark">Warning</h6>
-                                                <div class="text-dark">
-                                                    <p>Bạn có muốn xóa quyền <b>xxx</b> này không?
-                                                    </p>
-                                                    <p>
-                                                        <b>Lưu ý:</b> Điều này không thể hoàn tác!
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Xóa</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Card Danh Sách Chức Năng -->
         <div class="col-lg-5">
             <div class="card">
-                <div class="card-header">
-                    Danh Sách Chức Năng
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Danh Sách Chức Năng</h5>
+                    <span v-if="!chucVu.id" class="text-muted">
+                        <i class='bx bx-info-circle'></i> Vui lòng chọn chức vụ
+                    </span>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr class="text-center text-nowrap align-middle">
-                                        <th>#</th>
-                                        <th>Tên Chức Năng</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(v, k) in listChucNang" class="align-middle" :key="k">
-                                        <th class="text-center">{{ k + 1 }}</th>
-                                        <td> {{ v.ten_chuc_nang }}</td>
-                                        <td class="text-center">
-                                            <button v-on:click="createPhanQuyen(v.id)" class="btn btn-primary">Cấp Quyền</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr class="text-center">
+                                    <th style="width: 60px">#</th>
+                                    <th>Tên Chức Năng</th>
+                                    <th style="width: 120px">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(v, k) in availableChucNang" 
+                                    :key="k" 
+                                    class="align-middle">
+                                    <td class="text-center">{{ k + 1 }}</td>
+                                    <td>{{ v.ten_chuc_nang }}</td>
+                                    <td class="text-center">
+                                        <button v-on:click="createPhanQuyen(v.id)" 
+                                                class="btn btn-primary btn-sm"
+                                                :disabled="!chucVu.id">
+                                            <i class='bx bx-plus-circle me-1'></i> Cấp Quyền
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr v-if="listChucNang.length === 0">
+                                    <td colspan="3" class="text-center">Không có dữ liệu</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Card Quyền Đã Cấp -->
         <div class="col-lg-3">
             <div class="card">
                 <div class="card-header">
-                    Đang Phân Quyền Cho <b class="text-danger"> {{ chucVu.ten_chuc_vu }}</b>
+                    <h5 class="mb-0">
+                        Quyền Đã Cấp
+                        <small class="d-block text-danger mt-1">
+                            {{ chucVu.ten_chuc_vu || 'Chưa chọn chức vụ' }}
+                        </small>
+                    </h5>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr class="text-center text-nowrap align-middle">
-                                        <th>#</th>
-                                        <th>Tên Quyền</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(v, k) in phan_quyen" class="align-middle" :key="k">
-                                        <th class="text-center">{{ k + 1 }}</th>
-                                        <td>{{ v.ten_chuc_nang }}</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-danger" v-on:click="xoaPhanQuyen(v)">Xoá</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr class="text-center">
+                                    <th style="width: 60px">#</th>
+                                    <th>Tên Quyền</th>
+                                    <th style="width: 80px">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(v, k) in phan_quyen" 
+                                    :key="k" 
+                                    class="align-middle">
+                                    <td class="text-center">{{ k + 1 }}</td>
+                                    <td>{{ v.ten_chuc_nang }}</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-danger btn-sm" 
+                                                v-on:click="xoaPhanQuyen(v)">
+                                            <i class='bx bx-trash'></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr v-if="phan_quyen.length === 0">
+                                    <td colspan="3" class="text-center">
+                                        {{ chucVu.id ? 'Chưa có quyền nào được cấp' : 'Vui lòng chọn chức vụ' }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
 <script>
 import axios from 'axios';
 import baseRequest from '../../../core/baseRequest';
 import { createToaster } from "@meforma/vue-toaster";
-import functionBasic from "../../../core/functionBasic";
 const toaster = createToaster({ position: "top-right" });
+
 export default {
     data() {
         return {
-            listChucNang    :   [],
-            listChucVu      :   [],
-            chucVu          :   {},
-            phan_quyen      :   [],
+            listChucNang: [],
+            listChucVu: [],
+            chucVu: {},
+            phan_quyen: [],
+        }
+    },
+    computed: {
+        // Lọc ra các chức năng chưa được cấp quyền
+        availableChucNang() {
+            if (!this.chucVu.id) return this.listChucNang;
+            return this.listChucNang.filter(cn => 
+                !this.phan_quyen.some(pq => pq.id_chuc_nang === cn.id)
+            );
         }
     },
     mounted() {
@@ -213,66 +160,99 @@ export default {
     },
     methods: {
         getData() {
-            baseRequest
-                .get('admin/phan-quyen/lay-du-lieu')
+            baseRequest.get('admin/phan-quyen/lay-du-lieu')
                 .then((res) => {
-                    this.listChucNang   = res.data.listChucNang;
-                    this.listChucVu     = res.data.listChucVu;
+                    this.listChucNang = res.data.listChucNang;
+                    this.listChucVu = res.data.listChucVu;
+                })
+                .catch((error) => {
+                    toaster.error('Không thể tải dữ liệu');
                 });
         },
-        createPhanQuyen(id) {
-            const payload = {
-                'id_chuc_nang'  :   id,
-                'id_chuc_vu'    :   this.chucVu.id,
-            };
-            baseRequest
-                .post('admin/phan-quyen/create', payload)
-                .then((res) => {
-                    if(res.data.status) {
 
-                        toaster.success('Thông báo<br>' + res.data.message);
+        selectChucVu(chucVu) {
+            this.chucVu = chucVu;
+            this.getChucNang();
+        },
+
+        createPhanQuyen(id) {
+            if (!this.chucVu.id) {
+                toaster.error('Vui lòng chọn chức vụ trước');
+                return;
+            }
+
+            const payload = {
+                'id_chuc_nang': id,
+                'id_chuc_vu': this.chucVu.id,
+            };
+
+            baseRequest.post('admin/phan-quyen/create', payload)
+                .then((res) => {
+                    if (res.data.status) {
+                        toaster.success(res.data.message);
                         this.getChucNang();
                     } else {
-                        toaster.error('Có Lỗi<br>' + res.data.message);
+                        toaster.error(res.data.message);
                     }
                 })
-                .catch((res) => {
-                    var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                .catch((error) => {
+                    const message = error.response?.data?.errors 
+                        ? Object.values(error.response.data.errors)[0]
+                        : 'Có lỗi xảy ra';
+                    toaster.error(message);
                 });
         },
+
         getChucNang() {
-            baseRequest
-                .post('admin/phan-quyen/get-chuc-nang', this.chucVu)
+            if (!this.chucVu.id) return;
+
+            baseRequest.post('admin/phan-quyen/get-chuc-nang', this.chucVu)
                 .then((res) => {
                     this.phan_quyen = res.data.data;
                 })
-                .catch((res) => {
-                    var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                .catch((error) => {
+                    const message = error.response?.data?.errors 
+                        ? Object.values(error.response.data.errors)[0]
+                        : 'Có lỗi xảy ra';
+                    toaster.error(message);
                 });
         },
 
         xoaPhanQuyen(value) {
-            baseRequest
-                .delete('admin/phan-quyen/xoa-phan-quyen/' + value.id)
+            baseRequest.delete('admin/phan-quyen/xoa-phan-quyen/' + value.id)
                 .then((res) => {
-                    if(res.data.status) {
-                        toaster.success('Thông báo<br>' + res.data.message);
+                    if (res.data.status) {
+                        toaster.success(res.data.message);
                         this.getChucNang();
                     } else {
-                        toaster.error('Có Lỗi<br>' + res.data.message);
+                        toaster.error(res.data.message);
                     }
                 })
-                .catch((res) => {
-                    var errors = Object.values(res.response.data.errors);
-                    toaster.error(errors[0]);
+                .catch((error) => {
+                    const message = error.response?.data?.errors 
+                        ? Object.values(error.response.data.errors)[0]
+                        : 'Có lỗi xảy ra';
+                    toaster.error(message);
                 });
         },
-
     },
 }
 </script>
-<style>
 
+<style scoped>
+.table-active {
+    background-color: rgba(0,123,255,0.1) !important;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+}
+
+.table td, .table th {
+    padding: 0.75rem;
+}
 </style>

@@ -246,11 +246,11 @@
     </div>
 </template>
 <script setup>
-import DraggableTree from '../../DraggableTree.vue';
+import DraggableTree from '../../Page/DraggableTree/DraggableTree.vue';
 
 </script>
 <script>
-import DraggableTree from "../../DraggableTree.vue";
+import DraggableTree from "../../Page/DraggableTree/DraggableTree.vue";
 import axios from "axios";
 import functionBasic from "../../../core/functionBasic";
 import baseRequest from '../../../core/baseRequest';

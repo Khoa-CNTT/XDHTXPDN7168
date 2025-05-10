@@ -466,6 +466,55 @@ export default {
                     });
                 });
         },
+        // handleFile(event) {
+        //     const file = event.target.files[0];
+        //     const cloudName = 'dltbjoii4';
+        //     const uploadPreset = 'yvvll2k0';
+
+        //     const formData = new FormData();
+        //     formData.append('file', file);
+        //     formData.append('upload_preset', uploadPreset);
+
+        //     fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        //         method: 'POST',
+        //         body: formData,
+        //     })
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             // Set the imageUrl to the URL of the uploaded image.
+        //             this.imageUrl = data.secure_url;
+        //             // console.log(this.imageUrl);
+        //             this.obj_add_admin.hinh_anh = data.secure_url;
+        //             toaster.success('Thêm ảnh thành công!');
+        //         })
+        //         .catch((error) => {
+        //             toaster.error('Thêm ảnh không thành công!');
+        //             console.error('Error uploading image:', error);
+        //         });
+        // },
+        // handleFileUpload(event) {
+        //     const file = event.target.files[0];
+        //     const cloudName = 'dltbjoii4';
+        //     const uploadPreset = 'yvvll2k0';
+
+        //     const formData = new FormData();
+        //     formData.append('file', file);
+        //     formData.append('upload_preset', uploadPreset);
+
+        //     fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        //         method: 'POST',
+        //         body: formData,
+        //     })
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             this.obj_update_admin.hinh_anh = data.secure_url;
+        //             toaster.success('Thêm ảnh thành công!');
+        //         })
+        //         .catch((error) => {
+        //             console.error('Error uploading image:', error);
+        //             toaster.error('Thêm ảnh không thành công!');
+        //         });
+        // },
     },
 
 };

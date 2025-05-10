@@ -19,9 +19,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="    " style="margin-bottom: 30px;">
+                    <div class="video-container">
                         <!-- Sử dụng `v-bind` để thêm hình nền và URL video từ `obj_tap_phim` -->
-                        <iframe width="1140px" height="654px" :src="obj_tap_phim.url" frameborder="0" allow="autoplay"
+                        <iframe :src="obj_tap_phim.url" frameborder="0" allow="autoplay; fullscreen"
                             allowfullscreen>
                         </iframe>
                     </div>
@@ -308,10 +308,222 @@ export default {
 <style>
 .textwrap {
     word-wrap: break-word;
-    /* Tự động xuống dòng khi từ quá dài */
     word-break: break-word;
-    /* Cắt từ khi cần thiết để không tràn khỏi vùng chứa */
     white-space: normal;
-    /* Cho phép xuống hàng tự động */
+}
+
+/* Video container styles */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    margin-bottom: 20px;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Episode navigation */
+.anime__details__episodes {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.anime__details__episodes .section-title {
+    margin-bottom: 15px;
+}
+
+.anime__details__episodes .section-title h5 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.anime__details__episodes a {
+    display: inline-block;
+    padding: 6px 15px;
+    margin: 5px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.anime__details__episodes a:hover,
+.anime__details__episodes a.bg-secondary {
+    background: #e53637 !important;
+}
+
+/* Comments section */
+.anime__details__review {
+    margin-top: 25px;
+}
+
+.anime__review__item {
+    display: flex;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.anime__review__item__pic img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.anime__review__item__text {
+    flex: 1;
+}
+
+.anime__review__item__text h6 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+/* Comment form */
+.anime__details__form {
+    margin-top: 25px;
+}
+
+.anime__details__form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    color: #fff;
+    margin-bottom: 15px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.anime__details__form button {
+    background: #e53637;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+/* Responsive Styles */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1320px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .container {
+        max-width: 1140px;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .video-container {
+        padding-top: 60%;
+    }
+
+    .anime__details__episodes .section-title h5 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .video-container {
+        padding-top: 65%;
+        border-radius: 0;
+        margin: 0 -15px 15px;
+    }
+
+    .anime__details__episodes {
+        padding: 12px;
+    }
+
+    .anime__details__episodes a {
+        padding: 5px 12px;
+        margin: 3px;
+    }
+
+    .anime__review__item {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+
+    .breadcrumb-option {
+        padding: 10px 0;
+    }
+
+    .video-container {
+        padding-top: 70%;
+    }
+
+    .anime__details__episodes .section-title h5 {
+        font-size: 16px;
+    }
+
+    .anime__details__episodes a {
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+
+    .anime__review__item {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .anime__review__item__pic {
+        align-self: flex-start;
+    }
+
+    .anime__details__form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 375px) {
+    .anime__details__episodes a {
+        padding: 4px 8px;
+        font-size: 12px;
+        margin: 2px;
+    }
+
+    .anime__review__item__text h6 {
+        font-size: 14px;
+    }
 }
 </style>
+
+        font-size: 14px;

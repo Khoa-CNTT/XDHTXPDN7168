@@ -606,6 +606,33 @@ export default {
                     toaster.error(errors[0]);
                 });
         },
+        //
+        // handleFile(event) {
+        //     const file = event.target.files[0];
+        //     const cloudName = 'dltbjoii4';
+        //     const uploadPreset = 'yvvll2k0';
+
+        //     const formData = new FormData();
+        //     formData.append('file', file);
+        //     formData.append('upload_preset', uploadPreset);
+
+        //     fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+        //         method: 'POST',
+        //         body: formData,
+        //     })
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             this.imageUrl = data.secure_url;
+        //             this.obj_add_bai_viet.hinh_anh = data.secure_url;
+        //             toaster.success('Thêm ảnh thành công!');
+
+        //         })
+        //         .catch((error) => {
+        //             console.error('Error uploading image:', error);
+        //             toaster.error('Thêm không ảnh thành công!');
+
+        //         });
+        // },
         handleFileUpload(event) {
             const file = event.target.files[0];
             const cloudName = 'dltbjoii4';
