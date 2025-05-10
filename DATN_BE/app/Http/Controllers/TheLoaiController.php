@@ -4,16 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CapNhatTheLoaiRequest;
 use App\Http\Requests\TaoTheLoaiRequest;
+use App\Models\DanhMucWeb;
+use App\Models\PhanQuyen;
 use App\Models\Phim;
 use App\Models\TheLoai;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 
 class TheLoaiController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
+    public function getTheLoaiHome()
+    {
+        $data = TheLoai::where('tinh_trang', 1)
+            ->select('the_loais.*')
+            ->get();
+        return response()->json([
+            'the_loai' => $data
+        ]);
+    }
     public function getData()
     {
         $id_chuc_nang = 7;
@@ -417,5 +431,5 @@ class TheLoaiController extends Controller
                 'message'           =>   'Tên Thể Loại Đã Tồn Tại!',
             ]);
         }
-    }  
+    }
 }
